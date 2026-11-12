@@ -78,5 +78,22 @@ if key_path.exists():
             answers.append({"reader": reader, "pair": pair, "arm": entry["arm"], "reviewer": entry["reviewer"], "outcome": outcome})
     write_gz(OUT / "data" / "readers.jsonl.gz", answers)
     print("reader answers", len(answers))
+JUDGES = ("fable", "claude", "astra", "qwen")
+panel = []
+for comparison, study in (("first", "study"), ("trim", "study2"), ("product", "study3")):
+    key_file = ROOT / study / "key.json"
+    if not key_file.exists() or not (ROOT / study / "judges").exists():
+        continue
+    for pair, entry in sorted(json.loads(key_file.read_text()).items()):
+        votes = {}
+        for judge in JUDGES:
+            answer = ROOT / study / "judges" / judge / f"{pair}.json"
+            if answer.exists():
+                better = json.loads(answer.read_text())["better"]
+                votes[judge] = "same" if better == "same" else "revised" if better == entry["revised"] else "original"
+        panel.append({"comparison": comparison, "pair": pair, "arm": entry["arm"], "reviewer": entry["reviewer"], "judges": votes})
+if panel:
+    write_gz(OUT / "data" / "panel.jsonl.gz", panel)
+    print("panel answers", len(panel))
 print("documents", len(rows), collections.Counter((r["set"], r["split"]) for r in rows), "systems", systems,
       "triplets", len(writers), "expert pairs", len(pairs))

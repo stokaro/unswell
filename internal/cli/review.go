@@ -14,18 +14,24 @@ import (
 	"github.com/stokaro/unswell/review"
 )
 
-type reviewOptions struct {
+// modelRunOptions are shared by the commands that call a model: which
+// documents, how many at once, and how long and how often to ask.
+type modelRunOptions struct {
 	sources          checkOptions
-	reviewer         modelOptions
-	confirmer        modelOptions
 	insecureEndpoint bool
 	attempts         int
 	retryDelay       time.Duration
 	requestTimeout   time.Duration
 	maxDocuments     int
 	maxDocumentBytes int
-	showUnconfirmed  bool
 	quiet            bool
+}
+
+type reviewOptions struct {
+	modelRunOptions
+	reviewer        modelOptions
+	confirmer       modelOptions
+	showUnconfirmed bool
 }
 
 // reviewCommand reads documents with a model the user names. It is the only
@@ -49,9 +55,15 @@ func reviewCommand(environment Environment) *cobra.Command {
 }
 
 func reviewFlags(command *cobra.Command, options *reviewOptions) {
-	flags := command.Flags()
 	modelFlags(command, &options.reviewer, "", "reviewing")
 	modelFlags(command, &options.confirmer, "confirm-", "confirming")
+	modelRunFlags(command, &options.modelRunOptions)
+	command.Flags().BoolVar(&options.showUnconfirmed, "show-unconfirmed", false,
+		"Also list in the text report the flags the confirming model did not accept")
+}
+
+func modelRunFlags(command *cobra.Command, options *modelRunOptions) {
+	flags := command.Flags()
 	flags.BoolVar(&options.insecureEndpoint, "insecure-endpoint", false, "Permit an http endpoint outside this machine")
 	flags.StringVar(&options.sources.config, "config", "", "Use this exact YAML configuration file")
 	configurationFlags(command, &options.sources, false)
@@ -60,15 +72,13 @@ func reviewFlags(command *cobra.Command, options *reviewOptions) {
 	flags.StringVar(&options.sources.filename, "filename", "", "Logical filename for stdin")
 	flags.StringVar(&options.sources.format, "format", "", "Input syntax, as for check")
 	flags.StringArrayVar(&options.sources.reports, "report", nil, "Report format:path with format text or json; repeat for several")
-	flags.IntVar(&options.sources.jobs, "jobs", 2, "Documents reviewed at the same time (1–16)")
-	flags.DurationVar(&options.sources.timeout, "timeout", 2*time.Hour, "Timeout for the whole review")
+	flags.IntVar(&options.sources.jobs, "jobs", 2, "Documents sent at the same time (1–16)")
+	flags.DurationVar(&options.sources.timeout, "timeout", 2*time.Hour, "Timeout for the whole run")
 	flags.DurationVar(&options.requestTimeout, "request-timeout", 5*time.Minute, "Timeout for one model call")
 	flags.IntVar(&options.attempts, "attempts", 3, "Calls per question before a document fails (1–5)")
 	flags.DurationVar(&options.retryDelay, "retry-delay", 2*time.Second, "Delay before a repeated call; it grows with each attempt")
-	flags.IntVar(&options.maxDocuments, "max-documents", 50, "Refuse to review more documents than this in one run")
+	flags.IntVar(&options.maxDocuments, "max-documents", 50, "Refuse to send more documents than this in one run")
 	flags.IntVar(&options.maxDocumentBytes, "max-document-bytes", 200_000, "A larger document fails instead of being sent")
-	flags.BoolVar(&options.showUnconfirmed, "show-unconfirmed", false,
-		"Also list in the text report the flags the confirming model did not accept")
 	flags.BoolVar(&options.quiet, "quiet", false, "Do not print progress to standard error")
 }
 
@@ -83,7 +93,7 @@ func modelFlags(command *cobra.Command, options *modelOptions, prefix, role stri
 	flags.StringArrayVar(&options.commandArgs, prefix+"command-arg", nil, "Argument for the "+role+" program; repeat in order")
 }
 
-func validateReviewOptions(options reviewOptions) error {
+func validateModelRun(options modelRunOptions) error {
 	switch {
 	case options.sources.jobs < 1 || options.sources.jobs > 16:
 		return fmt.Errorf("--jobs must be between 1 and 16")
@@ -116,11 +126,10 @@ type reviewRun struct {
 	prepare   *review.Reviewer
 	reviewer  modelClient
 	confirmer modelClient
-	progress  func(reviewedDocument)
 }
 
 func newReviewRun(environment Environment, options reviewOptions) (*reviewRun, error) {
-	if err := validateReviewOptions(options); err != nil {
+	if err := validateModelRun(options.modelRunOptions); err != nil {
 		return nil, err
 	}
 	reviewer, err := newModelClient(environment, options.reviewer, "", options.insecureEndpoint)
@@ -143,16 +152,21 @@ func runReview(ctx context.Context, environment Environment, options reviewOptio
 	}
 	ctx, cancel := context.WithTimeout(ctx, options.sources.timeout)
 	defer cancel()
-	sources, inputs, err := run.sources(ctx, environment, args)
+	sources, inputs, _, prepare, err := modelSources(ctx, environment, options.modelRunOptions, args)
 	if err != nil {
 		return err
 	}
+	run.prepare = prepare
 	targets, err := reviewTargets(environment.Dir, options.sources.reports, inputs)
 	if err != nil {
 		return err
 	}
-	run.progress = progressWriter(environment, options.quiet)
-	documents := run.all(ctx, sources)
+	progress := progressWriter(environment, options.quiet)
+	documents := eachSource(options.sources.jobs, sources, func(source document.Source) reviewedDocument {
+		result := run.one(ctx, source)
+		progress("review", result.Path, result.outcome())
+		return result
+	})
 	// An interrupted run reports nothing. A run that reached its time limit
 	// still reports the documents it finished; the rest count as failed.
 	if err := ctx.Err(); errors.Is(err, context.Canceled) {
@@ -165,42 +179,45 @@ func runReview(ctx context.Context, environment Environment, options reviewOptio
 	return result.Summary.incomplete()
 }
 
-// sources loads the policy, discovers the sources as check does, and prepares
-// the reviewer under the same policy.
-func (r *reviewRun) sources(ctx context.Context, environment Environment, args []string) ([]document.Source, []string, error) {
-	loaded, err := configuration(ctx, environment, r.options.sources)
+// modelSources loads the policy, discovers the sources as check does, and
+// prepares a reviewer under the same policy. It also returns the paths that a
+// report must not overwrite and the root that source names are relative to.
+func modelSources(
+	ctx context.Context, environment Environment, options modelRunOptions, args []string,
+) ([]document.Source, []string, string, *review.Reviewer, error) {
+	loaded, err := configuration(ctx, environment, options.sources)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, "", nil, err
 	}
 	engine, err := unswell.New(unswell.Options{ConfigBundle: &loaded.Bundle})
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, "", nil, err
 	}
-	sources, paths, _, err := selectSources(ctx, environment, r.options.sources, engine, loaded.Root, args)
+	sources, paths, _, err := selectSources(ctx, environment, options.sources, engine, loaded.Root, args)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, "", nil, err
 	}
 	if len(sources) == 0 {
-		return nil, nil, fmt.Errorf("the selection holds no documents")
+		return nil, nil, "", nil, fmt.Errorf("the selection holds no documents")
 	}
-	if len(sources) > r.options.maxDocuments {
-		return nil, nil, fmt.Errorf("the selection holds %d documents and --max-documents is %d; "+
-			"name fewer paths or raise the limit", len(sources), r.options.maxDocuments)
+	if len(sources) > options.maxDocuments {
+		return nil, nil, "", nil, fmt.Errorf("the selection holds %d documents and --max-documents is %d; "+
+			"name fewer paths or raise the limit", len(sources), options.maxDocuments)
 	}
-	r.prepare, err = review.New(review.Options{ConfigBundle: &loaded.Bundle})
-	return sources, append(paths, loaded.Paths...), err
+	prepare, err := review.New(review.Options{ConfigBundle: &loaded.Bundle})
+	return sources, append(paths, loaded.Paths...), loaded.Root, prepare, err
 }
 
-// all reviews the sources with a fixed number of workers and keeps their order.
-func (r *reviewRun) all(ctx context.Context, sources []document.Source) []reviewedDocument {
-	documents := make([]reviewedDocument, len(sources))
+// eachSource calls work for every source with a fixed number of workers and
+// returns the results in the order of the sources.
+func eachSource[T any](jobs int, sources []document.Source, work func(document.Source) T) []T {
+	results := make([]T, len(sources))
 	indexes := make(chan int)
 	var workers sync.WaitGroup
-	for range min(r.options.sources.jobs, len(sources)) {
+	for range min(jobs, len(sources)) {
 		workers.Go(func() {
 			for index := range indexes {
-				documents[index] = r.one(ctx, sources[index])
-				r.progress(documents[index])
+				results[index] = work(sources[index])
 			}
 		})
 	}
@@ -209,7 +226,7 @@ func (r *reviewRun) all(ctx context.Context, sources []document.Source) []review
 	}
 	close(indexes)
 	workers.Wait()
-	return documents
+	return results
 }
 
 // one reviews one document. A failure is recorded on the document, so the
@@ -241,7 +258,7 @@ func (r *reviewRun) one(ctx context.Context, source document.Source) reviewedDoc
 // kept as unconfirmed and the document counts as failed.
 func (r *reviewRun) judge(ctx context.Context, prepared *review.Document, result *reviewedDocument) error {
 	var flags []review.Flag
-	err := r.ask(ctx, r.reviewer, prepared.Prompt(), func(answer string) (parseErr error) {
+	err := askModel(ctx, r.reviewer, prepared.Prompt(), r.options.modelRunOptions, func(answer string) (parseErr error) {
 		flags, parseErr = review.ParseFlags(answer)
 		return parseErr
 	})
@@ -261,7 +278,7 @@ func (r *reviewRun) judge(ctx context.Context, prepared *review.Document, result
 		return nil
 	}
 	var verdicts []review.Verdict
-	err = r.ask(ctx, r.confirmer, prepared.ConfirmationPrompt(bound), func(answer string) (parseErr error) {
+	err = askModel(ctx, r.confirmer, prepared.ConfirmationPrompt(bound), r.options.modelRunOptions, func(answer string) (parseErr error) {
 		verdicts, parseErr = review.ParseVerdicts(answer, len(bound))
 		return parseErr
 	})
@@ -282,19 +299,20 @@ func (r *reviewRun) judge(ctx context.Context, prepared *review.Document, result
 	return nil
 }
 
-// ask calls a model until its answer parses, at most the configured number of
-// times. A permanent failure or a canceled run ends the attempts at once.
-func (r *reviewRun) ask(ctx context.Context, client modelClient, prompt string, parse func(string) error) error {
+// askModel calls a model until its answer parses, at most the configured
+// number of times. A permanent failure or a canceled run ends the attempts at
+// once.
+func askModel(ctx context.Context, client modelClient, prompt string, options modelRunOptions, parse func(string) error) error {
 	var last error
-	for attempt := range r.options.attempts {
+	for attempt := range options.attempts {
 		if attempt > 0 {
 			select {
 			case <-ctx.Done():
 				return ctx.Err()
-			case <-time.After(time.Duration(attempt) * r.options.retryDelay):
+			case <-time.After(time.Duration(attempt) * options.retryDelay):
 			}
 		}
-		call, cancel := context.WithTimeout(ctx, r.options.requestTimeout)
+		call, cancel := context.WithTimeout(ctx, options.requestTimeout)
 		answer, err := client.ask(call, prompt)
 		cancel()
 		if err == nil {
@@ -311,15 +329,15 @@ func (r *reviewRun) ask(ctx context.Context, client modelClient, prompt string, 
 }
 
 // progressWriter prints one line per finished document to standard error.
-func progressWriter(environment Environment, quiet bool) func(reviewedDocument) {
+func progressWriter(environment Environment, quiet bool) func(command, path, outcome string) {
 	if quiet {
-		return func(reviewedDocument) {}
+		return func(string, string, string) {}
 	}
 	var lock sync.Mutex
-	return func(result reviewedDocument) {
+	return func(command, path, outcome string) {
 		lock.Lock()
 		defer lock.Unlock()
 		// The stream records a failed write itself and the run then exits 2.
-		_, _ = fmt.Fprintln(environment.Err, "review:", result.Path+":", result.outcome())
+		_, _ = fmt.Fprintln(environment.Err, command+":", path+":", outcome)
 	}
 }

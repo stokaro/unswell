@@ -10,9 +10,9 @@ reaches a commit or a published document.
 
 The checks apply to text regardless of its author. They enforce a chosen editorial
 policy through concrete findings and explainable scores. The checker runs locally as
-a Go library and CLI and sends source text nowhere. A separate command,
-`unswell review`, reads a document with a model you name; see
-[Review with a model](#review-with-a-model).
+a Go library and CLI and sends source text nowhere. Two further commands,
+`unswell review` and `unswell trim`, read a document with a model you name; see
+[Review and trim with a model](#review-and-trim-with-a-model).
 
 Unswell is not an authorship detector. A clean scan of a generated text is a
 correct result, and a finding on a human-written text is a finding about the
@@ -30,37 +30,24 @@ evidence, and work still open.
 Revision probability is unavailable until a labeled corpus and compatible
 calibration model meet the later acceptance criteria.
 
-## What the evidence says
+## What it does
 
-Unswell has two parts. Both were measured against what people edited; the
-[record](research/reviews/2026-11-12-human-reference/README.md) has the method
-and every number.
+`unswell check` applies fixed rules offline: announcements, stock phrases,
+wordy constructions, long sentences, repetition. It explains each finding, gives
+the same result on every run, and can fail a build on wording your project has
+decided to refuse.
 
-`unswell check` applies fixed rules offline. It is fast and reproducible, and
-it can fail a build on wording a project has decided to refuse. It is a narrow
-check. On documentation pages that maintainers reworded, its findings fall on
-4.0% of the reworded sentences and on 4.2% of the others.
+`unswell review` gives a document to a model you name. The model reads it in
+context and flags sentences to tighten. Unswell binds each flag to the exact
+place in the source and drops a flag that does not quote its sentence.
 
-`unswell review` gives a document to a model you name. On the same pages its
-findings fall on 18.8% of the reworded sentences and on 11.6% of the others
-(19.3% and 14.6% with a second reviewer model). They are suggestions.
+`unswell trim` asks a model for sentences with empty words removed and keeps a
+proposal only if it deletes words and nothing else. It changes a file only when
+you ask.
 
-Three limits apply to both:
-
-- Editors do not agree on which places to change. Three professional writers
-  who edited the same paragraphs agree word by word with a kappa of 0.11. No
-  tool finds what an editor would mark, and a second editor does not either.
-- Revising what the review flags did not make documentation read better in a
-  first blind comparison. One reader preferred the revised paragraph in 8 of 15
-  decisive answers, and in 6 of 13 when a model rewrote random other sentences.
-  Unswell therefore reports findings and does not rewrite. Models are not used
-  as judges here: the ones tried disagreed with professional writers.
-- Every acceptance rate in the
-  [qualification record](docs/research/rule-qualification.md) is agreement
-  between models.
-
-[ADR 0052](docs/adr/0052-claims-follow-human-references.md) records what the
-project may claim on this evidence.
+How each part was measured is in the documentation of
+[review](docs/review.md#measured-behavior) and
+[trim](docs/trim.md#measured-behavior).
 
 ## Quick start
 
@@ -102,7 +89,7 @@ printf '%s\n' 'It is important to note that the client may retry.' |
   bin/unswell check --stdin --filename draft.md --profile strict
 ```
 
-## Review with a model
+## Review and trim with a model
 
 Fixed rules name constructions. `unswell review` asks a model you name to read
 each document in context, binds its flags to source bytes, and drops a flag
@@ -115,13 +102,24 @@ bin/unswell review README.md docs \
 ```
 
 A local program that reads a prompt on standard input works as well, and a
-second model can shorten the list. On model answers that experts edited, the
-findings fall on 30.7% of the edited sentences and on 13.4% of the others.
+second model can shorten the list.
 
-The command sends the selected documents to the model you name and to nothing
-else. Its findings are advisory and never fail a build. See
-[review in context](docs/review.md) and
-[ADR 0051](docs/adr/0051-review-command.md).
+`unswell trim` proposes sentences with words removed:
+
+```text
+docs/guide.md:3:1: trim
+    - These features significantly improve the ability to type-check your code.
+    + These features improve the ability to type-check your code.
+```
+
+A proposal is shown only if a deterministic check passes: no word is added,
+replaced, or moved, at least half of the sentence remains, and no negation,
+number, modal word, code, or link is removed. `--write` applies the trims to the
+files.
+
+Both commands send the selected documents to the model you name and to nothing
+else. Their output is advisory and never fails a build. See
+[review in context](docs/review.md) and [trim](docs/trim.md).
 
 ## Reports and gate
 

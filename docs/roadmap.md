@@ -77,14 +77,15 @@ section that names the model.
 what was measured against people: the default rules do not separate sentences
 that maintainers reworded from the others (4.0% against 4.2%), the review
 separates them a little (18.8% against 11.6%), editors do not agree with each
-other on which places to change, and no model is a valid judge of writing.
-A first blind comparison found no preference for paragraphs revised after the
-review's findings (8 of 15 decisive answers, against 6 of 13 for random rewrites),
-so no revision step is planned on this evidence.
-Open after it, in order: more readers for that comparison and a second one in
-which a revision may only trim; a human reference of documentation that models
-wrote and people edited; the open-source linters that were registered as a
-comparison and not run.
+other on which places to change, and the models tried as judges did not share
+professional writers' preferences.
+[ADR 0053](adr/0053-trim-admitted-by-model-consensus.md) accepts a weighted
+consensus of models as the judge of revisions and admits `unswell trim`: a
+model proposes sentences with words removed, and a deterministic check keeps
+the proposals that only delete. Open after it: a second model that confirms
+each trim, free revision under the same rule, trims for sentences with inline
+code, a human reference of documentation that models wrote and people edited,
+and the open-source linters that were registered as a comparison and not run.
 
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on

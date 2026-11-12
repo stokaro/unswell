@@ -129,11 +129,13 @@ def render(results):
     readers = results.get("readers")
     if readers:
         add("")
-        add("## Readers")
+        add("## Reader answers, withdrawn as a measure")
         add("")
-        add(f"The blind comparison of paragraphs before and after revision, {readers['readers']} reader"
-            f"{'' if readers['readers'] == 1 else 's'}. In the reviewed arm the revision follows the")
-        add("findings of `unswell review`; in the control arm the same model rewrote as many random other sentences.")
+        add(f"The blind comparison of paragraphs before and after revision was first answered by {readers['readers']} reader"
+            f"{'' if readers['readers'] == 1 else 's'}. The maintainer")
+        add("withdrew these answers as a measure, and no decision rests on them. They are kept as recorded. In the reviewed")
+        add("arm the revision follows the findings of `unswell review`; in the control arm the same model rewrote as many")
+        add("random other sentences.")
         add("")
         add("| Arm | Revised preferred | Original preferred | No real difference | Revised among decisive answers | 95% interval |")
         add("| --- | ---: | ---: | ---: | ---: | --- |")
@@ -142,12 +144,63 @@ def render(results):
             low, high = entry["interval"]
             add(f"| {arm} | {entry['revised']} | {entry['original']} | {entry['same']} | {pct(entry['revised'], entry['decisive'])} "
                 f"of {entry['decisive']} | {100 * low:.1f}% to {100 * high:.1f}% |")
-        decision = readers["decision"]
+    panel = results.get("panel")
+    if panel:
         add("")
-        add("The registered rule asks for at least 15 decisive answers in the reviewed arm, the revision preferred in at")
-        add("least 70% of them with the lower end of the interval above 50%, and a lead of 15 points over the control arm.")
-        add(f"Enough answers: {'yes' if decision['enough_answers'] else 'no'}. Revision preferred: "
-            f"{'yes' if decision['revision_preferred'] else 'no'}. Ahead of the control: {'yes' if decision['ahead_of_control'] else 'no'}.")
+        add("## The two comparisons, judged by a consensus of models")
+        add("")
+        add("Four models answered every pair by a rule about information: a version is worse if it lacks a fact, condition,")
+        add("qualification, or instruction that the other has; otherwise the shorter one is better when the extra words carry")
+        add("no information. `claude-fable-5-2` has three votes, `gpt-6-astra` two, and the other two one each; a tie goes to")
+        add("`claude-fable-5-2`. The maintainer set these weights after the answers were read. The weights first registered")
+        add("(two votes for `claude-fable-5-2`, one for each other model) give the same consensus on every pair.")
+        titles = {"first": "Free revision", "trim": "Revision that may only delete words",
+                  "product": "The command `unswell trim` as built, on documents outside both comparisons"}
+        for comparison in ("first", "trim", "product"):
+            entry = panel.get(comparison)
+            if not entry:
+                continue
+            add("")
+            add(f"{titles[comparison]}: {entry['pairs']} pairs. All four models agree on {entry['unanimous']}; on {entry['opposed']} at least one")
+            add("model prefers the revision and another the original.")
+            add("")
+            add("| Arm | Revised preferred | Original preferred | No real difference | Revised among decisive answers | 95% interval |")
+            add("| --- | ---: | ---: | ---: | ---: | --- |")
+            order = [arm for arm in ("reviewed", "control", "product") if arm in entry["arms"]]
+            for arm in order:
+                row = entry["arms"][arm]
+                low, high = row["interval"]
+                add(f"| {arm} | {row['revised']} | {row['original']} | {row['same']} | {pct(row['revised'], row['decisive'])} "
+                    f"of {row['decisive']} | {100 * low:.1f}% to {100 * high:.1f}% |")
+            add("")
+            add("Single models, revised preferred / original preferred: " + "; ".join(
+                f"{MODELS.get(judge, '`claude-fable-5-2`' if judge == 'fable' else judge)} "
+                + ", ".join(f"{entry['arms'][arm]['judges'][judge]['revised']}/{entry['arms'][arm]['judges'][judge]['original']}"
+                            for arm in order)
+                for judge in ("fable", "claude", "astra", "qwen")) + "."
+                + (" Two numbers per model are the reviewed and the control arm." if len(entry["arms"]) == 2 else ""))
+            family = entry["one_vote_per_family"]
+            add("")
+            add("With one equal vote per model family (`claude-fable-5-2`, `gpt-6-astra`, `private-host/Qwen3.8-27B`), revised "
+                "among decisive answers: " + "; ".join(
+                    f"{arm} {pct(family[arm]['revised'], family[arm]['decisive'])} of {family[arm]['decisive']}" for arm in order)
+                + ". " + ("That meets the rule." if all(family[arm]["meets_rule"] for arm in order) else
+                          "That does not meet the rule in every arm."))
+            add("")
+            if comparison == "product":
+                add("The command meets the registered rule." if entry["product_meets_rule"] else
+                    "The command does not meet the registered rule.")
+                continue
+            reached = [arm for arm in ("reviewed", "control") if entry[f"{arm}_meets_rule"]]
+            if len(reached) == 2:
+                floor = "Both arms reach the registered 70% of decisive answers."
+            elif reached:
+                floor = f"Only the {reached[0]} arm reaches the registered 70% of decisive answers."
+            else:
+                floor = "Neither arm reaches the registered 70% of decisive answers."
+            lead = "The reviewed arm leads the control arm by the registered 15 points." if entry["ahead_of_control"] else \
+                "The reviewed arm is not 15 points ahead of the control arm."
+            add(f"{floor} {lead}")
     return "\n".join(lines) + "\n"
 
 

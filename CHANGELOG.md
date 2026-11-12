@@ -1,26 +1,18 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-alpha.8
 
-The tool is now measured against what people edited, and the documentation
-states what follows. On documentation that maintainers reworded, the default
-rules flag 4.0% of the reworded sentences and 4.2% of the others;
-`unswell review` flags 18.8% and 11.6%. Three professional writers who edited
-the same paragraphs agree word by word with a kappa of 0.11, so no tool can
-find what an editor would mark. Models tried as judges of writing disagreed
-with professional writers and are not used as judges. In a first blind
-comparison a reader preferred paragraphs revised after the review's findings
-in 8 of 15 decisive answers and paragraphs with random sentences rewritten in
-6 of 13, so the tool reports findings and does not rewrite. The README, the review
-documentation, and
-[ADR 0052](docs/adr/0052-claims-follow-human-references.md) now say this:
-the rules are a narrow check, review findings are suggestions, confirmation by
-a second model shortens the list without bringing it closer to what people
-edit, and every acceptance rate in the qualification record is agreement
-between models. The
-[record](research/reviews/2026-11-12-human-reference/README.md) holds the
-method, the data without any source text, and a check that recounts every
-number.
+This release adds two commands that work with a model you name, `unswell
+review` and `unswell trim`. The rules and their defaults are those of alpha.7
+with one phrase restored.
+
+`unswell trim` asks a model for sentences with empty words removed and keeps a
+proposal only if a deterministic check passes: no word added, replaced, or
+moved, at least half of the sentence left, and no negation, number, modal
+word, code, link, quotation mark, or emphasis marker removed. Only sentences
+that lie in one piece of source are offered. Files change only with `--write`.
+See [trim](docs/trim.md) and
+[ADR 0053](docs/adr/0053-trim-admitted-by-model-consensus.md).
 
 `unswell review` reads documents with a model you name: an endpoint that
 implements the OpenAI chat completions API, or a local program that takes a
@@ -33,17 +25,20 @@ A document that cannot be reviewed makes the run exit 2. See
 [review in context](docs/review.md) and
 [ADR 0051](docs/adr/0051-review-command.md).
 
-This is the first Unswell command that sends text off the machine, and it does
-so only to the model its user names. `unswell check`, the Go library, the
-GitHub Action, and the MCP server still send nothing anywhere.
+Both commands send the selected documents to the model their user names and
+to nothing else. `unswell check`, the Go library, the GitHub Action, and the
+MCP server still send nothing anywhere.
 
-On 60 generated documents the default rules reach 7.3% of the items that a
-reviewing model had marked. The review reaches 57.0%, and 45.3% after a second
-model confirmed the flags. These numbers compare models; no human reviewed
-the flags.
+Both commands were measured, against what people edited and by a consensus of
+models. The numbers, with their limits, are in the documentation of
+[review](docs/review.md#measured-behavior) and
+[trim](docs/trim.md#measured-behavior), in
+[ADR 0052](docs/adr/0052-claims-follow-human-references.md), and in the
+[record](research/reviews/2026-11-12-human-reference/README.md), whose check
+recounts every number.
 
 The new public package `github.com/stokaro/unswell/review` holds the items, the
-rubric, the prompts, and the binding. It makes no model call. The MCP review
+rubric, the prompts, the binding, and the trim check. It makes no model call. The MCP review
 tools now use it. `unswell_review_request` returns an empty item list for a
 document without prose; it returned an error before.
 
