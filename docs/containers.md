@@ -94,7 +94,7 @@ and any tool image it had to pull.
 Skopeo is pinned by image digest. Its registry rebuilds the version tag and
 later removes the old image, which has stopped two releases. The release
 workflow now resolves the pin in a `preflight` job before it publishes
-anything, and the `Pinned tools` workflow resolves it every week. Run
+anything, and the `Release prerequisites` workflow resolves it every week. Run
 `bash scripts/mirror-containers.sh --check-tool` to do the same by hand. When
 the pin no longer resolves, read the new digest of the version tag, pull it,
 confirm the reported Skopeo version, and update the script.
@@ -102,7 +102,15 @@ confirm the reported Skopeo version, and update the script.
 The mirror gate fetches both registries anonymously, requires identical index
 bytes, and checks that both Linux architectures and attestations are present.
 Missing, differing, malformed or incomplete indexes fail. The fetched indexes are
-retained as workflow artifacts. Archive publication waits for this gate.
+retained as workflow artifacts.
+
+The mirror does not gate a release. When Docker Hub rejects the credential, the
+mirror job and the run fail, and the archives, the MCP registry entry, and the
+distribution updates are published without the mirror. The weekly
+`Release prerequisites` workflow logs in with the same credential, so an expired
+token shows before a release. Releases `v0.1.0-alpha.6` and later have no
+Docker Hub images until the credential is renewed and the mirror workflow is
+run for them.
 
 Retry the `Mirror containers to Docker Hub` workflow on `main` with an existing
 image version. Its input accepts the version with or without a leading `v`.

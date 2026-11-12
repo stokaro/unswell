@@ -1,6 +1,18 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-alpha.7
+
+This release publishes what alpha.6 could not. The Go module and the container
+images of `v0.1.0-alpha.6` exist and work, but its release run stopped when
+Docker Hub rejected the mirror credential, so alpha.6 has no archives and no
+MCP registry entry.
+
+The Docker Hub mirror no longer gates a release. A rejected credential still
+fails the mirror job and the run, and the archives, the registry entry, and the
+distribution updates are published without it. Run the
+`Mirror containers to Docker Hub` workflow for the version once the credential
+works again. The weekly `Release prerequisites` workflow now logs in to Docker
+Hub with that credential, so an expired token shows before a release.
 
 `unswell check` now uses the available processors, at most eight, when `--jobs`
 is not given. It used one worker, so a large repository could exceed the
