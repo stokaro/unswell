@@ -3,8 +3,17 @@ set +x
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# Skopeo 1.22.2 copies every manifest without rebuilding the release. Its
+# registry rebuilds the tag and later removes the old index, so the release
+# resolves this digest before it publishes anything.
+mirror_tool=quay.io/skopeo/stable@sha256:2b7d76dde38c5924e1945348840c58786fc192201f2fd545832e58b53d26f7b8
+if [[ $# == 1 && "$1" == --check-tool ]]; then
+  docker manifest inspect "$mirror_tool" >/dev/null
+  printf 'Mirror tool resolves: %s\n' "$mirror_tool"
+  exit 0
+fi
 if [[ $# != 3 ]]; then
-  printf 'Usage: %s DOCKER_CONTEXT VERSION NAMESPACE <token\n' "$0" >&2
+  printf 'Usage: %s DOCKER_CONTEXT VERSION NAMESPACE <token\n       %s --check-tool\n' "$0" "$0" >&2
   exit 2
 fi
 mirror_context=$1
@@ -16,8 +25,6 @@ bash scripts/check-image-mirrors.sh --validate "$version" "$namespace"
   exit 2
 }
 
-# Skopeo 1.22.2 copies every manifest without rebuilding the release.
-mirror_tool=quay.io/skopeo/stable@sha256:545723edab7793112a5c8fc36963f5cad43c6f27c0bda63c5fbc8b5d4d336036
 mirror_temporary=$(mktemp -d)
 mirror_container="unswell-mirror-$(basename "$mirror_temporary")"
 mirror_tool_created=false

@@ -7,7 +7,7 @@ qtlint=$(cd tools && go tool -n qtlint)
 nolintguard=$(cd tools && go tool -n nolintguard)
 "$golangci" config verify --config "$root/.golangci.yml"
 while read -r directory role; do
-  if [[ "$role" == tools ]]; then continue; fi
+  if [[ "$role" == tools || "$role" == records ]]; then continue; fi
   (
     cd "$directory"
     "$golangci" run --allow-serial-runners --config "$root/.golangci.yml"

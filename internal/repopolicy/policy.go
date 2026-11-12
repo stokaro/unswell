@@ -21,7 +21,7 @@ func Check(tree fs.FS) error {
 	if _, err := fs.Stat(tree, ".github/workflows/ci.yml"); err != nil {
 		return err
 	}
-	modules, err := inventory(tree)
+	modules, records, err := inventory(tree)
 	if err != nil {
 		return err
 	}
@@ -33,6 +33,11 @@ func Check(tree fs.FS) error {
 		return err
 	}
 	err = fs.WalkDir(tree, ".", func(name string, entry fs.DirEntry, walkErr error) error {
+		if walkErr == nil && !entry.IsDir() {
+			if err := checkRecords(name, modules, records); err != nil {
+				return err
+			}
+		}
 		return checkEntry(tree, modules, string(ledger), name, entry, walkErr)
 	})
 	return err
@@ -101,37 +106,79 @@ func checkAdapterSource(tree fs.FS, name, ledger string) error {
 	return nil
 }
 
-func inventory(tree fs.FS) ([]string, error) {
+// inventory reads the classified modules. It also returns the records
+// modules among them.
+func inventory(tree fs.FS) ([]string, []string, error) {
 	data, err := fs.ReadFile(tree, ".gomodules")
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	var modules []string
+	var modules, records []string
 	for line := range strings.SplitSeq(strings.TrimSpace(string(data)), "\n") {
-		fields := strings.Fields(line)
-		if len(fields) != 2 || !slices.Contains([]string{"runtime", "consumer", "tools"}, fields[1]) {
-			return nil, fmt.Errorf("invalid module inventory row: %q", line)
+		directory, role, err := inventoryRow(tree, line, modules)
+		if err != nil {
+			return nil, nil, err
 		}
-		if !fs.ValidPath(fields[0]) || slices.Contains(modules, fields[0]) {
-			return nil, fmt.Errorf("invalid or duplicate module: %q", fields[0])
+		modules = append(modules, directory)
+		if role == "records" {
+			records = append(records, directory)
 		}
-		if err := moduleRole(fields[0], fields[1]); err != nil {
-			return nil, err
-		}
-		if _, err := fs.Stat(tree, path.Join(fields[0], "go.mod")); err != nil {
-			return nil, err
-		}
-		modules = append(modules, fields[0])
 	}
 	if !slices.Contains(modules, ".") {
-		return nil, fmt.Errorf("root module is missing")
+		return nil, nil, fmt.Errorf("root module is missing")
 	}
-	return modules, nil
+	return modules, records, nil
+}
+
+// inventoryRow validates one row of the module inventory.
+func inventoryRow(tree fs.FS, line string, modules []string) (directory, role string, err error) {
+	fields := strings.Fields(line)
+	if len(fields) != 2 || !slices.Contains([]string{"runtime", "consumer", "tools", "records"}, fields[1]) {
+		return "", "", fmt.Errorf("invalid module inventory row: %q", line)
+	}
+	if !fs.ValidPath(fields[0]) || slices.Contains(modules, fields[0]) {
+		return "", "", fmt.Errorf("invalid or duplicate module: %q", fields[0])
+	}
+	if err := moduleRole(fields[0], fields[1]); err != nil {
+		return "", "", err
+	}
+	if _, err := fs.Stat(tree, path.Join(fields[0], "go.mod")); err != nil {
+		return "", "", err
+	}
+	return fields[0], fields[1], nil
+}
+
+// checkRecords keeps Go source out of a records module. Such a module exists
+// to bound the root module: the Go module proxy refuses a source tree above
+// 500 MB, and research records alone exceed that. A module nested inside a
+// records module is separate and may hold source.
+func checkRecords(name string, modules, records []string) error {
+	if !strings.HasSuffix(name, ".go") || !slices.Contains(records, owningModule(name, modules)) {
+		return nil
+	}
+	return fmt.Errorf("records module must not hold Go source: %s", name)
+}
+
+// owningModule returns the deepest classified module that contains name.
+func owningModule(name string, modules []string) string {
+	owner := "."
+	for _, module := range modules {
+		if module == "." || !strings.HasPrefix(name, module+"/") {
+			continue
+		}
+		if owner == "." || len(module) > len(owner) {
+			owner = module
+		}
+	}
+	return owner
 }
 
 func moduleRole(directory, role string) error {
 	if directory == "." && role != "runtime" {
 		return fmt.Errorf("root module must be runtime")
+	}
+	if (directory == "research") != (role == "records") {
+		return fmt.Errorf("only the research directory can have the records role")
 	}
 	if (directory == "tools") != (role == "tools") {
 		return fmt.Errorf("only the tools directory can have the tools role")

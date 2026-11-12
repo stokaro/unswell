@@ -5,10 +5,16 @@ on:
 permissions:
   contents: read
 jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Resolve the pinned mirror tool before anything is published
+        run: bash scripts/mirror-containers.sh --check-tool
   checks:
     uses: ./.github/workflows/ci.yml
   containers:
-    needs: checks
+    needs: [checks, preflight]
     permissions:
       contents: read
       packages: write
@@ -75,6 +81,12 @@ jobs:
         with:
           version: ${{ github.ref_name }}
           config: .unswell.yaml
+          # The action runs the CLI with its default analysis timeout of 30
+          # seconds. The whole repository needs longer on a hosted runner, so
+          # this job checks the user documentation.
+          paths: |
+            README.md
+            docs
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:

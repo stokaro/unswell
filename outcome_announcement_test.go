@@ -1,8 +1,8 @@
 package unswell_test
 
 import (
-	_ "embed"
 	"encoding/json"
+	"os"
 	"testing"
 
 	qt "github.com/frankban/quicktest"
@@ -11,23 +11,20 @@ import (
 	"github.com/stokaro/unswell/document"
 )
 
-//go:embed research/reviews/2026-09-26-outcome-announcements/cases.json
-var outcomeCases []byte
-
-//go:embed research/reviews/2026-09-26-outcome-announcements/additional-cases.json
-var additionalOutcomeCases []byte
+// The cases are read at run time: research records are a separate module, and
+// embedding does not cross a module boundary.
+const outcomeCasesDirectory = "research/reviews/2026-09-26-outcome-announcements/"
 
 func TestOutcomeAnnouncementConstructions(t *testing.T) {
 	engine := singleRuleEngine(t, "filler.document-justification", "", "")
-	for _, row := range []struct {
-		name string
-		data []byte
-	}{
-		{"recovered", outcomeCases},
-		{"additional", additionalOutcomeCases},
+	for _, row := range []struct{ name, file string }{
+		{"recovered", "cases.json"},
+		{"additional", "additional-cases.json"},
 	} {
 		t.Run(row.name, func(t *testing.T) {
-			checkOutcomeFixture(t, engine, row.data)
+			data, err := os.ReadFile(outcomeCasesDirectory + row.file)
+			qt.New(t).Assert(err, qt.IsNil)
+			checkOutcomeFixture(t, engine, data)
 		})
 	}
 }
