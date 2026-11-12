@@ -9,9 +9,9 @@ package builtin
 // qualifiedPraise lists general praise that names no property or measurement.
 func qualifiedPraise() []string {
 	return []string{
-		"beautiful", "beautifully", "comprehensive documentation", "easy to use", "excellent",
-		"exceptional", "exceptionally", "intuitive", "powerful", "seamless", "seamless integration",
-		"seamlessly", "sophisticated", "unprecedented",
+		"beautiful", "beautifully", "comprehensive documentation", "comprehensive guide", "easy to use",
+		"excellent", "exceptional", "exceptionally", "intuitive", "powerful", "seamless",
+		"seamless integration", "seamlessly", "sophisticated", "unprecedented",
 	}
 }
 

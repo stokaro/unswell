@@ -5,8 +5,13 @@ usage: relist.py <workspace> <assignment json> <out relisting json> <out assignm
 
 ADR 0047 lists a phrase when both reviewers accept at least 80% of at least
 five reviewed findings of its word family. A test set becomes development data
-once it is opened, so the same criterion is read again over all pages opened so
-far. A family that now falls below it leaves its list.
+once it is opened, so the share is read again over all pages opened so far.
+
+ADR 0050 says when a listed family leaves: its share is below 80% and the upper
+end of the 95% Wilson interval is below 80% too. A family at 76% of twenty
+findings is one finding away from passing, and a family that leaves cannot come
+back, because it produces no more findings. Without the interval the lists
+would only shrink with every set.
 """
 import collections, json, sys
 from pathlib import Path
@@ -14,13 +19,23 @@ from pathlib import Path
 W = Path(sys.argv[1])
 assignment = json.loads(Path(sys.argv[2]).read_text())
 REPORTS = ["report-broad-dev.json", "report-broad-dev2.json", "report-final-new.json", "report-real3-r2.json",
-           "report-real4-r3.json"]
-ROUNDS = ["rev", "rev-final", "rev-real3", "rev-real4"]
+           "report-real4-r3.json", "report-real5-r4.json"]
+ROUNDS = ["rev", "rev-final", "rev-real3", "rev-real4", "rev-real5"]
 RULES = {"hype.vague-praise", "filler.wordy-phrase"}
 # Phrases that shipped before the corpus and were never candidates.
 BUILTIN = {"due to the fact that": "filler.wordy-phrase", "in order to": "filler.wordy-phrase",
            "at this point in time": "filler.wordy-phrase"}
 SUFFIXES = ("ing", "ed", "es", "s", "ly")
+
+
+def wilson_upper(accepted, reviewed, z=1.96):
+    """Return the upper end of the Wilson score interval for a share."""
+    if not reviewed:
+        return 1.0
+    share = accepted / reviewed
+    centre = (share + z * z / (2 * reviewed)) / (1 + z * z / reviewed)
+    half = z * ((share * (1 - share) / reviewed + z * z / (4 * reviewed * reviewed)) ** 0.5) / (1 + z * z / reviewed)
+    return centre + half
 
 
 def family(phrase, known):
@@ -72,18 +87,20 @@ rows = []
 for name in sorted(set(families.values())):
     counts = table[name]
     members = sorted(p for p, f in families.items() if f == name)
-    decided = counts["reviewed"] >= 5
-    keep = not decided or counts["both_accept"] / counts["reviewed"] >= 0.8
+    upper = wilson_upper(counts["both_accept"], counts["reviewed"])
+    below = counts["reviewed"] >= 5 and counts["both_accept"] / counts["reviewed"] < 0.8
     rows.append({"family": name, "rule": listed[name], "phrases": members, **{k: counts[k] for k in (
         "reviewed", "both_accept", "real_reviewed", "real_both_accept", "generated_reviewed", "generated_both_accept")},
-        "decision": "keep" if keep else "drop"})
+        "upper_bound": round(upper, 3), "below_criterion": below,
+        "decision": "drop" if below and upper < 0.8 else "keep"})
 dropped = {p for row in rows if row["decision"] == "drop" for p in row["phrases"]}
 for phrase in dropped & set(assignment):
     assignment[phrase] = {**assignment[phrase], "rule": "unassigned", "relisted": "dropped"}
-Path(sys.argv[3]).write_text(json.dumps({"criterion": {"minimum_findings": 5, "minimum_both_accept": 0.8}, "families": rows},
+Path(sys.argv[3]).write_text(json.dumps({"criterion": {"minimum_findings": 5, "minimum_both_accept": 0.8,
+                                                      "leave_when_upper_bound_below": 0.8}, "families": rows},
                                         indent=1, sort_keys=True) + "\n")
 Path(sys.argv[4]).write_text(json.dumps(assignment, indent=1, sort_keys=True) + "\n")
 for row in sorted(rows, key=lambda r: (r["rule"], -r["reviewed"])):
     rate = f"{row['both_accept'] / row['reviewed']:.1%}" if row["reviewed"] else "-"
-    print(f"{row['rule']:22} {row['family']:28} {row['reviewed']:>4} {rate:>7} {row['decision']}")
+    print(f"{row['rule']:22} {row['family']:28} {row['reviewed']:>4} {rate:>7} upper {row['upper_bound']:.2f} {row['decision']}")
 print("dropped phrases:", sorted(dropped))

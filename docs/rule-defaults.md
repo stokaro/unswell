@@ -64,10 +64,11 @@ threshold sits at the lowest five-word step from which they accepted at least
 - `filler.document-metadiscourse` and `filler.unscoped-assurance` are opt-in.
   Both reviewers accepted 45% of 133 and 29% of 48 of their findings.
 
-The listing criterion of ADR 0047 is read again whenever new pages are reviewed.
-Over all reviewed pages three word families fell below 80% and left their lists:
-`state-of-the-art` and `comprehensive guide` in `hype.vague-praise`, and `foster`
-with its forms in `filler.wordy-phrase`.
+The share of ADR 0047 is read again whenever new pages are reviewed.
+[ADR 0050](adr/0050-listed-phrases-leave-on-strong-evidence.md) says when a
+listed family leaves: its share is below 80%, and the upper end of the 95%
+interval is below 80% as well. Two families have left: `state-of-the-art` in
+`hype.vague-praise`, and `foster` with its forms in `filler.wordy-phrase`.
 
 ## The decision rule
 

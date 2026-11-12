@@ -508,28 +508,34 @@ if (W / "engine/relisting.json").exists():
     add("## Phrase lists read again on all opened pages")
     add("")
     add("ADR 0047 lists a phrase when both reviewers accept at least 80% of five or more reviewed findings of")
-    add("its word family. A test set becomes development data once it is opened, so the criterion was read again")
+    add("its word family. A test set becomes development data once it is opened, so the share is read again")
     add("over every reviewed finding of a listed phrase, on generated documents and on real pages.")
+    add("[ADR 0050](../adr/0050-listed-phrases-leave-on-strong-evidence.md) says when a listed family leaves:")
+    add("its share is below 80%, and the upper end of the 95% interval is below 80% as well.")
     add("")
-    add("| Rule | Word family | Reviewed | Both accept | On real pages | Decision |")
-    add("| --- | --- | ---: | ---: | ---: | --- |")
+    add("| Rule | Word family | Reviewed | Both accept | Upper end of the interval | On real pages | Decision |")
+    add("| --- | --- | ---: | ---: | ---: | ---: | --- |")
     for row in sorted(relisting["families"], key=lambda r: (r["rule"], -r["reviewed"])):
         if not row["reviewed"]:
             continue
         real = f"{pct(row['real_both_accept'], row['real_reviewed'])} of {row['real_reviewed']:,}" if row["real_reviewed"] else "none"
-        add(f"| `{row['rule']}` | `{row['family']}` | {row['reviewed']:,} | {pct(row['both_accept'], row['reviewed'])} | {real} | {row['decision']} |")
+        add(f"| `{row['rule']}` | `{row['family']}` | {row['reviewed']:,} | {pct(row['both_accept'], row['reviewed'])} | "
+            f"{100 * row['upper_bound']:.0f}% | {real} | {row['decision']} |")
     add("")
     dropped = [row for row in relisting["families"] if row["decision"] == "drop"]
     names = ", ".join(f"`{phrase}`" for row in dropped for phrase in row["phrases"])
-    praise = [row for row in relisting["families"] if row["rule"] == "hype.vague-praise"]
-    before = (sum(r["real_both_accept"] for r in praise), sum(r["real_reviewed"] for r in praise))
-    kept = [r for r in praise if r["decision"] == "keep"]
-    after = (sum(r["real_both_accept"] for r in kept), sum(r["real_reviewed"] for r in kept))
-    add(f"The lists lose {names}. On real pages both reviewers accepted {pct(*before)} of {before[1]:,}")
-    add(f"`hype.vague-praise` findings; without the dropped families the share is {pct(*after)} of {after[1]:,}.")
-    add("The same pages chose what to drop, so that share is optimistic, and the rule keeps its note until")
-    add("new pages confirm it. Findings on generated documents are accepted more often than on real pages,")
-    add("which is why a family can pass on all pages and sit below 80% on real ones.")
+    borderline = [row for row in relisting["families"] if row["below_criterion"] and row["decision"] == "keep"]
+    waiting = ", ".join(f"`{row['family']}`" for row in sorted(borderline, key=lambda r: -r["reviewed"]))
+    words = {1: "One family sits", 2: "Two families sit", 3: "Three families sit", 4: "Four families sit",
+             5: "Five families sit", 6: "Six families sit", 7: "Seven families sit", 8: "Eight families sit"}
+    count = words.get(len(borderline), f"A group of {len(borderline)} families sits")
+    short = max(-(-4 * row["reviewed"] // 5) - row["both_accept"] for row in borderline) if borderline else 0
+    distance = "one finding" if short == 1 else f"at most {short} findings"
+    add(f"The lists lose {names}. {count} below 80% without strong evidence and stay:")
+    add(f"{waiting}. Each is {distance} away from the criterion. A family that leaves produces no more")
+    add("findings and cannot come back, so removal on the share alone would shrink the lists with every new set.")
+    add("Findings on generated documents are accepted more often than on real pages, which is why a family can")
+    add("pass on all pages and sit below 80% on real ones.")
     add("")
 if (W / "engine/round4-test.json").exists() and (W / "engine/round4-evidence.json").exists() and (W / "docs-real5.jsonl").exists():
     fourth = json.loads((W / "engine/round4-test.json").read_text())["new"]
