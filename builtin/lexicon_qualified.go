@@ -9,9 +9,9 @@ package builtin
 // qualifiedPraise lists general praise that names no property or measurement.
 func qualifiedPraise() []string {
 	return []string{
-		"beautiful", "beautifully", "comprehensive documentation", "comprehensive guide", "easy to use",
-		"excellent", "exceptional", "exceptionally", "intuitive", "powerful", "seamless",
-		"seamless integration", "seamlessly", "sophisticated", "state-of-the-art", "unprecedented",
+		"beautiful", "beautifully", "comprehensive documentation", "easy to use", "excellent",
+		"exceptional", "exceptionally", "intuitive", "powerful", "seamless", "seamless integration",
+		"seamlessly", "sophisticated", "unprecedented",
 	}
 }
 
@@ -30,7 +30,7 @@ func qualifiedClusterWords() []string {
 func qualifiedWordyPhrases() []string {
 	return []string{
 		"by adhering to", "empower", "empowering", "empowers", "facilitate", "facilitates",
-		"facilitating", "first and foremost", "foster", "fostering", "fosters", "leverage", "leveraged",
-		"leverages", "leveraging", "the bottom line", "utilize", "utilizes", "utilizing",
+		"facilitating", "first and foremost", "leverage", "leveraged", "leverages", "leveraging",
+		"the bottom line", "utilize", "utilizes", "utilizing",
 	}
 }

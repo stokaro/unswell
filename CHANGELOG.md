@@ -8,6 +8,11 @@ default analysis timeout of 30 seconds and end with an operational error. On
 this repository the check takes 4 seconds in place of 12. The result does not
 depend on the number of workers.
 
+`hype.vague-praise` no longer reports `state-of-the-art` and
+`comprehensive guide`, and `filler.wordy-phrase` no longer reports `foster` and
+its forms. Over all reviewed pages two reviewers accepted fewer than 80% of
+their findings, which is the listing criterion. Configuration hashes change.
+
 ## 0.1.0-alpha.6
 
 This release publishes the content of alpha.5. The `v0.1.0-alpha.5` tag exists,

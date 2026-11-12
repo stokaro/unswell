@@ -177,6 +177,8 @@ for name in ("broad.yaml", "release.yaml"):
 for name, prefix in MANIFESTS.items():
     failures = json.loads((W / f"{prefix}-parse-failures.json").read_text())
     (OUT / "manifests" / f"{name}-parse-failures.json").write_text(json.dumps(failures, indent=1) + "\n")
+if (W / "engine/relisting.json").exists():
+    shutil.copy(W / "engine/relisting.json", OUT / "phrases" / "relisting.json")
 (OUT / "summary.json").write_text(json.dumps(summary, indent=1, sort_keys=True) + "\n")
 size = sum(p.stat().st_size for p in OUT.rglob("*") if p.is_file())
 print(f"exported {sum(1 for p in OUT.rglob('*') if p.is_file())} files, {size / 1e6:.1f} MB")

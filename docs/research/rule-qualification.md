@@ -317,6 +317,43 @@ the calling assistant. They carry its label, stay advisory, and reach neither sc
 assistants were also the annotators of these pages, under a rubric with the same categories, so the
 coverage figure measures agreement between two models and not recall against an editor.
 
+## Phrase lists read again on all opened pages
+
+ADR 0047 lists a phrase when both reviewers accept at least 80% of five or more reviewed findings of
+its word family. A test set becomes development data once it is opened, so the criterion was read again
+over every reviewed finding of a listed phrase, on generated documents and on real pages.
+
+| Rule | Word family | Reviewed | Both accept | On real pages | Decision |
+| --- | --- | ---: | ---: | ---: | --- |
+| `filler.wordy-phrase` | `in order to` | 269 | 99.6% | 99.5% of 218 | keep |
+| `filler.wordy-phrase` | `leverage` | 155 | 87.1% | 82.9% of 117 | keep |
+| `filler.wordy-phrase` | `utilize` | 108 | 98.1% | 98.0% of 50 | keep |
+| `filler.wordy-phrase` | `facilitate` | 62 | 91.9% | 86.5% of 37 | keep |
+| `filler.wordy-phrase` | `empower` | 18 | 100.0% | 100.0% of 11 | keep |
+| `filler.wordy-phrase` | `foster` | 10 | 50.0% | 44.4% of 9 | drop |
+| `filler.wordy-phrase` | `first and foremost` | 7 | 85.7% | 50.0% of 2 | keep |
+| `filler.wordy-phrase` | `by adhering to` | 5 | 80.0% | none | keep |
+| `filler.wordy-phrase` | `the bottom line` | 5 | 80.0% | none | keep |
+| `filler.wordy-phrase` | `due to the fact that` | 3 | 100.0% | 100.0% of 1 | keep |
+| `hype.vague-praise` | `powerful` | 108 | 86.1% | 83.0% of 88 | keep |
+| `hype.vague-praise` | `seamless` | 47 | 97.9% | 96.7% of 30 | keep |
+| `hype.vague-praise` | `excellent` | 38 | 81.6% | 74.1% of 27 | keep |
+| `hype.vague-praise` | `intuitive` | 32 | 93.8% | 92.6% of 27 | keep |
+| `hype.vague-praise` | `state-of-the-art` | 26 | 57.7% | 57.7% of 26 | drop |
+| `hype.vague-praise` | `beautiful` | 20 | 95.0% | 94.4% of 18 | keep |
+| `hype.vague-praise` | `easy to use` | 17 | 82.4% | 82.4% of 17 | keep |
+| `hype.vague-praise` | `comprehensive documentation` | 15 | 86.7% | 90.0% of 10 | keep |
+| `hype.vague-praise` | `sophisticated` | 14 | 92.9% | 90.0% of 10 | keep |
+| `hype.vague-praise` | `exceptional` | 9 | 88.9% | 87.5% of 8 | keep |
+| `hype.vague-praise` | `unprecedented` | 7 | 100.0% | 100.0% of 2 | keep |
+| `hype.vague-praise` | `comprehensive guide` | 6 | 66.7% | 33.3% of 3 | drop |
+
+The lists lose `comprehensive guide`, `foster`, `fostering`, `fosters`, `state-of-the-art`. On real pages both reviewers accepted 83.1% of 266
+`hype.vague-praise` findings; without the dropped families the share is 86.5% of 237.
+The same pages chose what to drop, so that share is optimistic, and the rule keeps its note until
+new pages confirm it. Findings on generated documents are accepted more often than on real pages,
+which is why a family can pass on all pages and sit below 80% on real ones.
+
 ## Limits
 
 - Reviewers and auditor are assistants. Models can share a preference that readers do not have.
