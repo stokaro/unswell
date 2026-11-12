@@ -18,7 +18,7 @@ wording. No score is a probability that a tool wrote the text; see
 [ADR 0037](docs/adr/0037-diagnostics-not-authorship.md) for the goal and its
 non-goals.
 
-**Development alpha.** The published release is `v0.1.0-alpha.3`. Stage 2 features
+**Development alpha.** The published release is `v0.1.0-alpha.7`. Stage 2 features
 include custom rules, baselines, and checks of changed code. Go tools can train,
 calibrate, and load models.
 
@@ -138,7 +138,8 @@ Its tools check supplied drafts and expose the fixed policy. `make dogfood-mcp`
 verifies repository checks through a real MCP client and subprocess.
 Separate [CLI and MCP containers](docs/containers.md) support Linux AMD64 and ARM64,
 including repository checks through both interfaces in CI. Both images are public
-in GHCR and mirrored to Docker Hub with matching digests and attestations.
+in GHCR. Docker Hub mirrors releases up to alpha.4 with matching digests and
+attestations.
 
 ```yaml
 version: 1

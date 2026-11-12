@@ -14,7 +14,7 @@ import Terminal from '../../components/Terminal.astro';
 
 ## Install
 
-The published release is `v0.1.0-alpha.3`. Pin it: the public API, the rule
+The published release is `v0.1.0-alpha.7`. Pin it: the public API, the rule
 defaults and the artifact formats all change during the alpha.
 
 ### Homebrew
@@ -26,12 +26,13 @@ defaults and the artifact formats all change during the alpha.
 The tap is [stokaro/homebrew-unswell](https://github.com/stokaro/homebrew-unswell).
 Its formula picks a checked release archive for macOS or Linux on ARM64 or AMD64.
 `brew install --HEAD stokaro/unswell/unswell` builds the default branch with Go
-instead.
+instead. The formula moves to a new release through a pull request in the tap, so
+`brew info stokaro/unswell/unswell` shows the version it installs.
 
 ### Go
 
 ```sh
-go install github.com/stokaro/unswell/cmd/unswell@v0.1.0-alpha.3
+go install github.com/stokaro/unswell/cmd/unswell@v0.1.0-alpha.7
 ```
 
 From a checkout, `go build -o bin/unswell ./cmd/unswell` uses the minimum Go
@@ -40,8 +41,8 @@ version declared in `go.mod`. The runtime needs neither cgo nor a network.
 ### Container
 
 Two images exist: one for the CLI, one for the MCP server. Both are public in
-GHCR, mirrored to Docker Hub with matching digests, and built for Linux AMD64 and
-ARM64. Mount your sources read-only; a scan makes no network request.
+GHCR and built for Linux AMD64 and ARM64. Docker Hub mirrors releases up to
+alpha.4 with matching digests. Mount your sources read-only; a scan makes no network request.
 
 ### GitHub Action
 
@@ -49,7 +50,7 @@ ARM64. Mount your sources read-only; a scan makes no network request.
 - uses: stokaro/unswell-action@b7e5d5ce69d69ca458879c938726ec0870457b35
   id: unswell
   with:
-    version: 0.1.0-alpha.3
+    version: 0.1.0-alpha.7
     config: .unswell.yaml
     paths: |
       README.md
