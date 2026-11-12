@@ -1,11 +1,13 @@
 {
  "criterion": {
+  "leave_when_upper_bound_below": 0.8,
   "minimum_both_accept": 0.8,
   "minimum_findings": 5
  },
  "families": [
   {
-   "both_accept": 0,
+   "below_criterion": false,
+   "both_accept": 1,
    "decision": "keep",
    "family": "at this point in time",
    "generated_both_accept": 0,
@@ -13,13 +15,15 @@
    "phrases": [
     "at this point in time"
    ],
-   "real_both_accept": 0,
-   "real_reviewed": 0,
-   "reviewed": 0,
-   "rule": "filler.wordy-phrase"
+   "real_both_accept": 1,
+   "real_reviewed": 1,
+   "reviewed": 1,
+   "rule": "filler.wordy-phrase",
+   "upper_bound": 1.0
   },
   {
-   "both_accept": 19,
+   "below_criterion": false,
+   "both_accept": 22,
    "decision": "keep",
    "family": "beautiful",
    "generated_both_accept": 2,
@@ -28,12 +32,14 @@
     "beautiful",
     "beautifully"
    ],
-   "real_both_accept": 17,
-   "real_reviewed": 18,
-   "reviewed": 20,
-   "rule": "hype.vague-praise"
+   "real_both_accept": 20,
+   "real_reviewed": 22,
+   "reviewed": 24,
+   "rule": "hype.vague-praise",
+   "upper_bound": 0.977
   },
   {
+   "below_criterion": false,
    "both_accept": 4,
    "decision": "keep",
    "family": "by adhering to",
@@ -45,9 +51,11 @@
    "real_both_accept": 0,
    "real_reviewed": 0,
    "reviewed": 5,
-   "rule": "filler.wordy-phrase"
+   "rule": "filler.wordy-phrase",
+   "upper_bound": 0.964
   },
   {
+   "below_criterion": true,
    "both_accept": 13,
    "decision": "keep",
    "family": "comprehensive documentation",
@@ -57,13 +65,15 @@
     "comprehensive documentation"
    ],
    "real_both_accept": 9,
-   "real_reviewed": 10,
-   "reviewed": 15,
-   "rule": "hype.vague-praise"
+   "real_reviewed": 12,
+   "reviewed": 17,
+   "rule": "hype.vague-praise",
+   "upper_bound": 0.904
   },
   {
+   "below_criterion": true,
    "both_accept": 4,
-   "decision": "drop",
+   "decision": "keep",
    "family": "comprehensive guide",
    "generated_both_accept": 3,
    "generated_reviewed": 3,
@@ -73,9 +83,11 @@
    "real_both_accept": 1,
    "real_reviewed": 3,
    "reviewed": 6,
-   "rule": "hype.vague-praise"
+   "rule": "hype.vague-praise",
+   "upper_bound": 0.903
   },
   {
+   "below_criterion": false,
    "both_accept": 3,
    "decision": "keep",
    "family": "due to the fact that",
@@ -87,10 +99,12 @@
    "real_both_accept": 1,
    "real_reviewed": 1,
    "reviewed": 3,
-   "rule": "filler.wordy-phrase"
+   "rule": "filler.wordy-phrase",
+   "upper_bound": 1.0
   },
   {
-   "both_accept": 14,
+   "below_criterion": true,
+   "both_accept": 16,
    "decision": "keep",
    "family": "easy to use",
    "generated_both_accept": 0,
@@ -98,13 +112,15 @@
    "phrases": [
     "easy to use"
    ],
-   "real_both_accept": 14,
-   "real_reviewed": 17,
-   "reviewed": 17,
-   "rule": "hype.vague-praise"
+   "real_both_accept": 16,
+   "real_reviewed": 21,
+   "reviewed": 21,
+   "rule": "hype.vague-praise",
+   "upper_bound": 0.894
   },
   {
-   "both_accept": 18,
+   "below_criterion": false,
+   "both_accept": 23,
    "decision": "keep",
    "family": "empower",
    "generated_both_accept": 7,
@@ -114,13 +130,15 @@
     "empowering",
     "empowers"
    ],
-   "real_both_accept": 11,
-   "real_reviewed": 11,
-   "reviewed": 18,
-   "rule": "filler.wordy-phrase"
+   "real_both_accept": 16,
+   "real_reviewed": 16,
+   "reviewed": 23,
+   "rule": "filler.wordy-phrase",
+   "upper_bound": 1.0
   },
   {
-   "both_accept": 31,
+   "below_criterion": false,
+   "both_accept": 37,
    "decision": "keep",
    "family": "excellent",
    "generated_both_accept": 11,
@@ -128,13 +146,15 @@
    "phrases": [
     "excellent"
    ],
-   "real_both_accept": 20,
-   "real_reviewed": 27,
-   "reviewed": 38,
-   "rule": "hype.vague-praise"
+   "real_both_accept": 26,
+   "real_reviewed": 33,
+   "reviewed": 44,
+   "rule": "hype.vague-praise",
+   "upper_bound": 0.921
   },
   {
-   "both_accept": 8,
+   "below_criterion": true,
+   "both_accept": 9,
    "decision": "keep",
    "family": "exceptional",
    "generated_both_accept": 1,
@@ -143,13 +163,15 @@
     "exceptional",
     "exceptionally"
    ],
-   "real_both_accept": 7,
-   "real_reviewed": 8,
-   "reviewed": 9,
-   "rule": "hype.vague-praise"
+   "real_both_accept": 8,
+   "real_reviewed": 11,
+   "reviewed": 12,
+   "rule": "hype.vague-praise",
+   "upper_bound": 0.911
   },
   {
-   "both_accept": 57,
+   "below_criterion": false,
+   "both_accept": 63,
    "decision": "keep",
    "family": "facilitate",
    "generated_both_accept": 25,
@@ -159,13 +181,15 @@
     "facilitates",
     "facilitating"
    ],
-   "real_both_accept": 32,
-   "real_reviewed": 37,
-   "reviewed": 62,
-   "rule": "filler.wordy-phrase"
+   "real_both_accept": 38,
+   "real_reviewed": 43,
+   "reviewed": 68,
+   "rule": "filler.wordy-phrase",
+   "upper_bound": 0.968
   },
   {
-   "both_accept": 6,
+   "below_criterion": false,
+   "both_accept": 7,
    "decision": "keep",
    "family": "first and foremost",
    "generated_both_accept": 5,
@@ -173,12 +197,14 @@
    "phrases": [
     "first and foremost"
    ],
-   "real_both_accept": 1,
-   "real_reviewed": 2,
-   "reviewed": 7,
-   "rule": "filler.wordy-phrase"
+   "real_both_accept": 2,
+   "real_reviewed": 3,
+   "reviewed": 8,
+   "rule": "filler.wordy-phrase",
+   "upper_bound": 0.978
   },
   {
+   "below_criterion": true,
    "both_accept": 5,
    "decision": "drop",
    "family": "foster",
@@ -192,10 +218,12 @@
    "real_both_accept": 4,
    "real_reviewed": 9,
    "reviewed": 10,
-   "rule": "filler.wordy-phrase"
+   "rule": "filler.wordy-phrase",
+   "upper_bound": 0.763
   },
   {
-   "both_accept": 268,
+   "below_criterion": false,
+   "both_accept": 317,
    "decision": "keep",
    "family": "in order to",
    "generated_both_accept": 51,
@@ -203,12 +231,14 @@
    "phrases": [
     "in order to"
    ],
-   "real_both_accept": 217,
-   "real_reviewed": 218,
-   "reviewed": 269,
-   "rule": "filler.wordy-phrase"
+   "real_both_accept": 266,
+   "real_reviewed": 267,
+   "reviewed": 318,
+   "rule": "filler.wordy-phrase",
+   "upper_bound": 0.999
   },
   {
+   "below_criterion": false,
    "both_accept": 30,
    "decision": "keep",
    "family": "intuitive",
@@ -220,10 +250,12 @@
    "real_both_accept": 25,
    "real_reviewed": 27,
    "reviewed": 32,
-   "rule": "hype.vague-praise"
+   "rule": "hype.vague-praise",
+   "upper_bound": 0.983
   },
   {
-   "both_accept": 135,
+   "below_criterion": false,
+   "both_accept": 163,
    "decision": "keep",
    "family": "leverage",
    "generated_both_accept": 38,
@@ -234,13 +266,15 @@
     "leverages",
     "leveraging"
    ],
-   "real_both_accept": 97,
-   "real_reviewed": 117,
-   "reviewed": 155,
-   "rule": "filler.wordy-phrase"
+   "real_both_accept": 125,
+   "real_reviewed": 149,
+   "reviewed": 187,
+   "rule": "filler.wordy-phrase",
+   "upper_bound": 0.912
   },
   {
-   "both_accept": 93,
+   "below_criterion": false,
+   "both_accept": 108,
    "decision": "keep",
    "family": "powerful",
    "generated_both_accept": 20,
@@ -248,13 +282,15 @@
    "phrases": [
     "powerful"
    ],
-   "real_both_accept": 73,
-   "real_reviewed": 88,
-   "reviewed": 108,
-   "rule": "hype.vague-praise"
+   "real_both_accept": 88,
+   "real_reviewed": 107,
+   "reviewed": 127,
+   "rule": "hype.vague-praise",
+   "upper_bound": 0.902
   },
   {
-   "both_accept": 46,
+   "below_criterion": false,
+   "both_accept": 55,
    "decision": "keep",
    "family": "seamless",
    "generated_both_accept": 17,
@@ -264,13 +300,15 @@
     "seamless integration",
     "seamlessly"
    ],
-   "real_both_accept": 29,
-   "real_reviewed": 30,
-   "reviewed": 47,
-   "rule": "hype.vague-praise"
+   "real_both_accept": 38,
+   "real_reviewed": 42,
+   "reviewed": 59,
+   "rule": "hype.vague-praise",
+   "upper_bound": 0.973
   },
   {
-   "both_accept": 13,
+   "below_criterion": true,
+   "both_accept": 15,
    "decision": "keep",
    "family": "sophisticated",
    "generated_both_accept": 4,
@@ -278,12 +316,14 @@
    "phrases": [
     "sophisticated"
    ],
-   "real_both_accept": 9,
-   "real_reviewed": 10,
-   "reviewed": 14,
-   "rule": "hype.vague-praise"
+   "real_both_accept": 11,
+   "real_reviewed": 16,
+   "reviewed": 20,
+   "rule": "hype.vague-praise",
+   "upper_bound": 0.888
   },
   {
+   "below_criterion": true,
    "both_accept": 15,
    "decision": "drop",
    "family": "state-of-the-art",
@@ -295,9 +335,11 @@
    "real_both_accept": 15,
    "real_reviewed": 26,
    "reviewed": 26,
-   "rule": "hype.vague-praise"
+   "rule": "hype.vague-praise",
+   "upper_bound": 0.745
   },
   {
+   "below_criterion": true,
    "both_accept": 4,
    "decision": "keep",
    "family": "the bottom line",
@@ -307,11 +349,13 @@
     "the bottom line"
    ],
    "real_both_accept": 0,
-   "real_reviewed": 0,
-   "reviewed": 5,
-   "rule": "filler.wordy-phrase"
+   "real_reviewed": 1,
+   "reviewed": 6,
+   "rule": "filler.wordy-phrase",
+   "upper_bound": 0.903
   },
   {
+   "below_criterion": false,
    "both_accept": 7,
    "decision": "keep",
    "family": "unprecedented",
@@ -323,10 +367,12 @@
    "real_both_accept": 2,
    "real_reviewed": 2,
    "reviewed": 7,
-   "rule": "hype.vague-praise"
+   "rule": "hype.vague-praise",
+   "upper_bound": 1.0
   },
   {
-   "both_accept": 106,
+   "below_criterion": false,
+   "both_accept": 120,
    "decision": "keep",
    "family": "utilize",
    "generated_both_accept": 57,
@@ -336,10 +382,11 @@
     "utilizes",
     "utilizing"
    ],
-   "real_both_accept": 49,
-   "real_reviewed": 50,
-   "reviewed": 108,
-   "rule": "filler.wordy-phrase"
+   "real_both_accept": 63,
+   "real_reviewed": 64,
+   "reviewed": 122,
+   "rule": "filler.wordy-phrase",
+   "upper_bound": 0.995
   }
  ]
 }

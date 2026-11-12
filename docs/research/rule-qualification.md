@@ -320,39 +320,42 @@ coverage figure measures agreement between two models and not recall against an 
 ## Phrase lists read again on all opened pages
 
 ADR 0047 lists a phrase when both reviewers accept at least 80% of five or more reviewed findings of
-its word family. A test set becomes development data once it is opened, so the criterion was read again
+its word family. A test set becomes development data once it is opened, so the share is read again
 over every reviewed finding of a listed phrase, on generated documents and on real pages.
+[ADR 0050](../adr/0050-listed-phrases-leave-on-strong-evidence.md) says when a listed family leaves:
+its share is below 80%, and the upper end of the 95% interval is below 80% as well.
 
-| Rule | Word family | Reviewed | Both accept | On real pages | Decision |
-| --- | --- | ---: | ---: | ---: | --- |
-| `filler.wordy-phrase` | `in order to` | 269 | 99.6% | 99.5% of 218 | keep |
-| `filler.wordy-phrase` | `leverage` | 155 | 87.1% | 82.9% of 117 | keep |
-| `filler.wordy-phrase` | `utilize` | 108 | 98.1% | 98.0% of 50 | keep |
-| `filler.wordy-phrase` | `facilitate` | 62 | 91.9% | 86.5% of 37 | keep |
-| `filler.wordy-phrase` | `empower` | 18 | 100.0% | 100.0% of 11 | keep |
-| `filler.wordy-phrase` | `foster` | 10 | 50.0% | 44.4% of 9 | drop |
-| `filler.wordy-phrase` | `first and foremost` | 7 | 85.7% | 50.0% of 2 | keep |
-| `filler.wordy-phrase` | `by adhering to` | 5 | 80.0% | none | keep |
-| `filler.wordy-phrase` | `the bottom line` | 5 | 80.0% | none | keep |
-| `filler.wordy-phrase` | `due to the fact that` | 3 | 100.0% | 100.0% of 1 | keep |
-| `hype.vague-praise` | `powerful` | 108 | 86.1% | 83.0% of 88 | keep |
-| `hype.vague-praise` | `seamless` | 47 | 97.9% | 96.7% of 30 | keep |
-| `hype.vague-praise` | `excellent` | 38 | 81.6% | 74.1% of 27 | keep |
-| `hype.vague-praise` | `intuitive` | 32 | 93.8% | 92.6% of 27 | keep |
-| `hype.vague-praise` | `state-of-the-art` | 26 | 57.7% | 57.7% of 26 | drop |
-| `hype.vague-praise` | `beautiful` | 20 | 95.0% | 94.4% of 18 | keep |
-| `hype.vague-praise` | `easy to use` | 17 | 82.4% | 82.4% of 17 | keep |
-| `hype.vague-praise` | `comprehensive documentation` | 15 | 86.7% | 90.0% of 10 | keep |
-| `hype.vague-praise` | `sophisticated` | 14 | 92.9% | 90.0% of 10 | keep |
-| `hype.vague-praise` | `exceptional` | 9 | 88.9% | 87.5% of 8 | keep |
-| `hype.vague-praise` | `unprecedented` | 7 | 100.0% | 100.0% of 2 | keep |
-| `hype.vague-praise` | `comprehensive guide` | 6 | 66.7% | 33.3% of 3 | drop |
+| Rule | Word family | Reviewed | Both accept | Upper end of the interval | On real pages | Decision |
+| --- | --- | ---: | ---: | ---: | ---: | --- |
+| `filler.wordy-phrase` | `in order to` | 318 | 99.7% | 100% | 99.6% of 267 | keep |
+| `filler.wordy-phrase` | `leverage` | 187 | 87.2% | 91% | 83.9% of 149 | keep |
+| `filler.wordy-phrase` | `utilize` | 122 | 98.4% | 100% | 98.4% of 64 | keep |
+| `filler.wordy-phrase` | `facilitate` | 68 | 92.6% | 97% | 88.4% of 43 | keep |
+| `filler.wordy-phrase` | `empower` | 23 | 100.0% | 100% | 100.0% of 16 | keep |
+| `filler.wordy-phrase` | `foster` | 10 | 50.0% | 76% | 44.4% of 9 | drop |
+| `filler.wordy-phrase` | `first and foremost` | 8 | 87.5% | 98% | 66.7% of 3 | keep |
+| `filler.wordy-phrase` | `the bottom line` | 6 | 66.7% | 90% | 0.0% of 1 | keep |
+| `filler.wordy-phrase` | `by adhering to` | 5 | 80.0% | 96% | none | keep |
+| `filler.wordy-phrase` | `due to the fact that` | 3 | 100.0% | 100% | 100.0% of 1 | keep |
+| `filler.wordy-phrase` | `at this point in time` | 1 | 100.0% | 100% | 100.0% of 1 | keep |
+| `hype.vague-praise` | `powerful` | 127 | 85.0% | 90% | 82.2% of 107 | keep |
+| `hype.vague-praise` | `seamless` | 59 | 93.2% | 97% | 90.5% of 42 | keep |
+| `hype.vague-praise` | `excellent` | 44 | 84.1% | 92% | 78.8% of 33 | keep |
+| `hype.vague-praise` | `intuitive` | 32 | 93.8% | 98% | 92.6% of 27 | keep |
+| `hype.vague-praise` | `state-of-the-art` | 26 | 57.7% | 74% | 57.7% of 26 | drop |
+| `hype.vague-praise` | `beautiful` | 24 | 91.7% | 98% | 90.9% of 22 | keep |
+| `hype.vague-praise` | `easy to use` | 21 | 76.2% | 89% | 76.2% of 21 | keep |
+| `hype.vague-praise` | `sophisticated` | 20 | 75.0% | 89% | 68.8% of 16 | keep |
+| `hype.vague-praise` | `comprehensive documentation` | 17 | 76.5% | 90% | 75.0% of 12 | keep |
+| `hype.vague-praise` | `exceptional` | 12 | 75.0% | 91% | 72.7% of 11 | keep |
+| `hype.vague-praise` | `unprecedented` | 7 | 100.0% | 100% | 100.0% of 2 | keep |
+| `hype.vague-praise` | `comprehensive guide` | 6 | 66.7% | 90% | 33.3% of 3 | keep |
 
-The lists lose `comprehensive guide`, `foster`, `fostering`, `fosters`, `state-of-the-art`. On real pages both reviewers accepted 83.1% of 266
-`hype.vague-praise` findings; without the dropped families the share is 86.5% of 237.
-The same pages chose what to drop, so that share is optimistic, and the rule keeps its note until
-new pages confirm it. Findings on generated documents are accepted more often than on real pages,
-which is why a family can pass on all pages and sit below 80% on real ones.
+The lists lose `foster`, `fostering`, `fosters`, `state-of-the-art`. Six families sit below 80% without strong evidence and stay:
+`easy to use`, `sophisticated`, `comprehensive documentation`, `exceptional`, `comprehensive guide`, `the bottom line`. Each is one finding away from the criterion. A family that leaves produces no more
+findings and cannot come back, so removal on the share alone would shrink the lists with every new set.
+Findings on generated documents are accepted more often than on real pages, which is why a family can
+pass on all pages and sit below 80% on real ones.
 
 ## Fourth test: the same defaults on new pages
 

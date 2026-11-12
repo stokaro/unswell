@@ -64,7 +64,8 @@ adds review by the calling assistant through the MCP server. The
 evidence: a warning needs 85% acceptance by both reviewers on real pages.
 [ADR 0049](adr/0049-defaults-follow-reviewed-forms.md) reads the reviews inside a
 rule: a rule, a matcher form, or a length band that reviewers reject leaves the
-default.
+default. [ADR 0050](adr/0050-listed-phrases-leave-on-strong-evidence.md) lets a
+listed phrase leave only on strong evidence.
 
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on

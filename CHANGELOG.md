@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+`hype.vague-praise` reports `comprehensive guide` again. It had left the list
+on four accepted findings of six, which is not strong evidence.
+[ADR 0050](docs/adr/0050-listed-phrases-leave-on-strong-evidence.md) now asks
+for the upper end of the 95% interval to be below 80% before a listed phrase
+leaves. Without that condition the lists would lose a few phrases with every
+new test set and never regain one. Configuration hashes change.
+
 ## 0.1.0-alpha.7
 
 This release publishes what alpha.6 could not. The Go module and the container
