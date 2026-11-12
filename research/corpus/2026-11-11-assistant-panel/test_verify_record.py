@@ -42,6 +42,29 @@ def flag(identifier, caller, verdicts):
             "categories": ["vague_claims"], "span": [11, 22], "reviews": verdicts}
 
 
+def generated(name):
+    return {**document(name, "owner/dev"), "origin": "generated", "family": "family", "operation": "generate"}
+
+
+def command_flag(identifier, span, verdicts):
+    return {"id": identifier, "set": "dev", "doc": "gen-1", "caller": "claude",
+            "categories": ["wordiness"], "span": span, "reviews": verdicts}
+
+
+def command_round(root, reference="astra", independent=True):
+    """Publish a round for one run whose counts match the record at root."""
+    sets = verify_record.load_items(root)
+    marks = verify_record.load_labels(root, sets, PANEL)
+    run = {"reviewer": "claude", "confirmer": "qwen", "reference": reference,
+           "independent_reference": independent, "documents": 1}
+    counts = verify_record.command_counts(root, sets, marks, "dev", run)
+    pooled = counts if independent else {}
+    separates, keeps = verify_record.command_decision(verify_record.collections.Counter(pooled))
+    return {"set": "dev", "runs": [{**run, **{field: counts[field] for field in verify_record.COMMAND_COUNTS}}],
+            "pooled_independent": {**{field: pooled.get(field, 0) for field in verify_record.COMMAND_COUNTS},
+                                   "separates": separates, "keeps_two_thirds_of_coverage": keeps}}
+
+
 def write_rows(path, rows):
     path.parent.mkdir(parents=True, exist_ok=True)
     with gzip.GzipFile(path, "wb", mtime=0) as handle:
@@ -58,10 +81,17 @@ class RecordCase(unittest.TestCase):
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)
         self.root = Path(self.directory.name)
-        write_rows(self.root / "items/dev.jsonl.gz", [document("dev-1", "owner/dev")])
+        write_rows(self.root / "items/dev.jsonl.gz", [document("dev-1", "owner/dev"), generated("gen-1")])
         write_rows(self.root / "items/test.jsonl.gz", [document("test-1", "owner/test")])
         write_rows(self.root / "labels/dev.jsonl.gz",
-                   [label("dev-1", "astra", ["i001", "i002"]), label("dev-1", "claude", ["i002"])])
+                   [label("dev-1", "astra", ["i001", "i002"]), label("dev-1", "claude", ["i002"]),
+                    label("gen-1", "astra", ["i001"]), label("gen-1", "claude", [])])
+        # The reviewer flags both items of the generated document. The confirming
+        # model keeps the flag on the item that the reference annotator marked.
+        write_rows(self.root / "contextual/command-claude.jsonl.gz",
+                   [command_flag("k1", [2, 8], {"qwen": "yes"}), command_flag("k2", [12, 20], {"qwen": "no"})])
+        (self.root / "rounds").mkdir()
+        (self.root / "rounds/review-command.json").write_text(json.dumps(command_round(self.root)))
         write_rows(self.root / "reviews/round.jsonl.gz",
                    [review("f1", "dev", "dev-1", {"astra": "yes", "claude": "yes"}),
                     review("f2", "test", "test-1", {"claude": "no", "qwen": "no"})])
@@ -92,6 +122,35 @@ class RecordCase(unittest.TestCase):
         summary = verify_record.verify(self.root)
         self.assertEqual(summary["sets"][0]["annotated"]["both"], 1)
         self.assertEqual(summary["rounds"][0]["rules"]["filler.wordy-phrase"]["both_accept"], 1)
+        published = json.loads((self.root / "rounds/review-command.json").read_text())
+        run = published["runs"][0]
+        self.assertEqual([run[field] for field in verify_record.COMMAND_COUNTS], [2, 1, 1, 1, 1, 1, 1, 1, 0])
+        self.assertTrue(published["pooled_independent"]["separates"])
+
+    def test_wrong_command_count_is_rejected(self):
+        published = json.loads((self.root / "rounds/review-command.json").read_text())
+        published["runs"][0]["marked_touched_after"] = 0
+        (self.root / "rounds/review-command.json").write_text(json.dumps(published))
+        verify_record.write_digests(self.root)
+        self.rejects("review command round differs from the data files: claude with qwen, marked_touched_after")
+
+    def test_wrong_command_decision_is_rejected(self):
+        published = json.loads((self.root / "rounds/review-command.json").read_text())
+        published["pooled_independent"]["separates"] = False
+        (self.root / "rounds/review-command.json").write_text(json.dumps(published))
+        verify_record.write_digests(self.root)
+        self.rejects("review command decision differs")
+
+    def test_reference_that_reviews_is_not_independent(self):
+        published = command_round(self.root, reference="claude")
+        (self.root / "rounds/review-command.json").write_text(json.dumps(published))
+        verify_record.write_digests(self.root)
+        self.rejects("the reference takes part in it")
+
+    def test_command_flag_outside_the_selection_is_rejected(self):
+        self.rewrite("contextual/command-claude.jsonl.gz", lambda rows: rows[0].update(doc="dev-1"))
+        verify_record.write_digests(self.root)
+        self.rejects("lie outside the selected documents")
 
     def test_changed_file_is_rejected(self):
         write_rows(self.root / "items/dev.jsonl.gz", [document("dev-1", "owner/other")])

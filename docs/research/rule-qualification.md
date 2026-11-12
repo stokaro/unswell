@@ -317,6 +317,57 @@ the calling assistant. They carry its label, stay advisory, and reach neither sc
 assistants were also the annotators of these pages, under a rubric with the same categories, so the
 coverage figure measures agreement between two models and not recall against an editor.
 
+## The review command on generated documents
+
+[ADR 0051](../adr/0051-review-command.md) adds `unswell review`. A model that the user names reads each
+document under the rubric of the MCP tools, the command binds its flags to source bytes, and a second
+model can judge the bound flags. The measurement above used real pages and counted every bound flag.
+This one ran the command itself on 60 of the 455 generated documents of the first corpus,
+one process per document and without project configuration, and it counts what remains after
+confirmation. The sample is the first 60 documents by the SHA-256 of the document identifier. The
+decision rule was registered on issue 525 before the confirmed runs were read.
+
+A marked item is one that the run's reference annotator had labeled for revision earlier, under a rubric
+with the same categories. Coverage is the share of marked items that a flag touches. In the first two
+runs the reference annotator is neither the reviewer nor the confirming model. In the last two the
+confirming model is also the reference annotator, so they show what two strong models do together and
+do not enter the decision.
+
+| Reviewer | Confirming model | Reference marks | Bound flags | Kept | Marked items | Coverage before | Coverage after | Default rules |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `claude-sonnet-5-5` | `private-host/Qwen3.8-27B` | `gpt-6-astra` | 385 | 231 | 336 | 49.1% | 38.7% | 6.8% |
+| `gpt-6-astra` | `private-host/Qwen3.8-27B` | `claude-sonnet-5-5` | 393 | 262 | 185 | 71.4% | 57.3% | 8.1% |
+| `claude-sonnet-5-5` | `gpt-6-astra` | `gpt-6-astra` (also confirms) | 385 | 252 | 336 | 49.1% | 44.3% | 6.8% |
+| `gpt-6-astra` | `claude-sonnet-5-5` | `claude-sonnet-5-5` (also confirms) | 393 | 323 | 185 | 71.4% | 65.4% | 8.1% |
+
+The second table asks whether confirmation separates flags: how often a flag lies on a marked item, for
+all bound flags, for the flags the confirming model kept, and for the ones it dropped.
+
+| Reviewer | Confirming model | All bound flags | Kept | Dropped | Rule findings | Bound per 1,000 words | Kept per 1,000 words |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `claude-sonnet-5-5` | `private-host/Qwen3.8-27B` | 42.9% | 56.3% | 22.7% | 51.1% | 4.00 | 2.40 |
+| `gpt-6-astra` | `private-host/Qwen3.8-27B` | 33.6% | 40.5% | 19.8% | 34.0% | 4.08 | 2.72 |
+| `claude-sonnet-5-5` | `gpt-6-astra` | 42.9% | 59.1% | 12.0% | 51.1% | 4.00 | 2.62 |
+| `gpt-6-astra` | `claude-sonnet-5-5` | 33.6% | 37.5% | 15.7% | 34.0% | 4.08 | 3.36 |
+
+Pooled over the two independent runs, the reviewers' flags touch 297 of
+521 marked items (57.0%) before confirmation and
+236 (45.3%) after it; the default rules touch
+38 (7.3%). Confirmation keeps
+63.4% of the flags and 79.5% of the coverage.
+A kept flag lies on a marked item 47.9% of the time and a dropped flag
+21.4%, a difference of 26.5 points.
+
+The registered rule asked for a difference of 10 points and for two thirds of the coverage. Both hold,
+so with a confirming model the text report shows confirmed flags only. The JSON report keeps the rest
+with the verdict, and `--show-unconfirmed` lists them in the text report.
+
+What these numbers do not show. The reference is another model's annotation under the same rubric, so
+coverage measures agreement between models and not recall against an editor. A flag on an item that
+the reference annotator did not mark is not shown to be wrong: on real pages a second model accepted
+70.1% of the flags it was asked about directly. Each configuration ran once on 60 documents, and a
+model's answers differ between runs.
+
 ## Phrase lists read again on all opened pages
 
 ADR 0047 lists a phrase when both reviewers accept at least 80% of five or more reviewed findings of
@@ -394,6 +445,6 @@ The decisions fixed in advance:
 
 - Reviewers and auditor are assistants. Models can share a preference that readers do not have.
 - The phrase lists cover prose in paragraphs, comments, and strings. List items, headings, and table cells are not checked by the praise rule.
-- Coverage of the annotators' agreement stays low. Most items they mark are contextual: a claim without scope, a sentence that repeats an earlier one, a frame that adds nothing. Fixed rules name a small part of that. The MCP review tools let the calling assistant judge the rest.
+- Coverage of the annotators' agreement stays low. Most items they mark are contextual: a claim without scope, a sentence that repeats an earlier one, a frame that adds nothing. Fixed rules name a small part of that. The MCP review tools let the calling assistant judge the rest, and `unswell review` gives the same review to a model the user names.
 - The corpus tool left out 17 of 2,713 real pages that it could not parse; issue 522 tracks them. The engine now analyzes such a page and excludes the rejected block.
 - The third round matches findings between defaults by page, rule, and byte span. Review stays capped at eight findings per rule and page.

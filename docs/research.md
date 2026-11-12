@@ -214,7 +214,8 @@ See the [LLMDet paper](https://aclanthology.org/2023.findings-emnlp.139/) and
 
 Primary editorial training and calibration run on Go. Python may support isolated
 reference experiments and port comparison data. The shipping Go library, CLI,
-and MCP server remain offline and pure Go. Their feature ordering,
+and MCP server remain pure Go, and every check runs offline; only
+[`unswell review`](review.md) contacts a model, the one its user names. Their feature ordering,
 normalization, tokenization, and model outputs need golden parity with the reference
 implementation before an exported model can be accepted.
 

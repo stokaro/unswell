@@ -44,7 +44,7 @@ start restriction and remains required for final validation.
 | --- | --- | --- |
 | Public repository and project setup | Met | [GitHub settings](repository-settings.md), `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, pinned actions and tool modules |
 | Standalone public Go API | Met | `examples/consumer` in CI, the [API policy](public_api.md), and [`scripts/verify-published-module.sh`](../scripts/verify-published-module.sh) with its [recorded check](release/v0.1.0-alpha.3-module-check.json) |
-| Pure Go offline runtime | Met | Native Linux, macOS and Windows jobs; `CGO_ENABLED=0` release builds; [SBOM and notices](sbom.md) |
+| Pure Go offline runtime | Met | Native Linux, macOS and Windows jobs; `CGO_ENABLED=0` release builds; [SBOM and notices](sbom.md). The library, `unswell check`, and the MCP server use no network. [`unswell review`](review.md) contacts only the model its user names |
 | Source mapping | Met | `extract` tests and annotated `e2e/testdata` fixtures cover source ranges. [Alpha.4 reruns](performance/alpha4/README.md) process the original FastAPI and date-fns failures after #230/#231, with unchanged source identities and recorded extraction exclusions |
 | NLP baseline | Met | `nlp` tests and [ADR 0001](adr/0001-source-mapping-and-nlp.md); capability failures are explicit |
 | Required rule catalog | Met | `builtin` rules with positive, negative and boundary examples; [scoring](scoring.md) documents what a finding does and does not claim |

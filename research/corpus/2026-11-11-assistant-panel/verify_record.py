@@ -4,9 +4,9 @@
 usage: verify_record.py [--write-digests] [record directory]
 
 The check covers file digests, the record schema, the binding of labels and
-reviews to items, repository separation between development and test sets, and
-the published summary. The schema admits coordinates and decisions only, so a
-record that carries page text fails.
+reviews to items, repository separation between development and test sets, the
+published summary, and the counts of the review command round. The schema
+admits coordinates and decisions only, so a record that carries page text fails.
 """
 import collections
 import gzip
@@ -28,6 +28,10 @@ LABELS = {"needs_revision", "uncertain"}
 VERDICTS = {"yes", "no", "uncertain", None}
 SEVERITIES = {"note", "warning", "error"}
 MAX_PHRASE_WORDS = 6
+COMMAND_ROUND = "rounds/review-command.json"
+COMMAND_COUNTS = ("bound", "kept", "dropped", "marked", "marked_touched_before", "marked_touched_after",
+                  "bound_on_marked", "kept_on_marked", "dropped_on_marked")
+SEPARATION = 0.10
 
 
 def fail(message):
@@ -187,6 +191,75 @@ def check_contextual(root, sets, panel):
             check_span(row["span"], f"flag {row['id']}")
 
 
+def overlaps(span, segments):
+    return any(span[0] < end and start < span[1] for start, end in segments)
+
+
+def command_counts(root, sets, marks, source_set, run):
+    """Count what the record shows about one run of the review command.
+
+    The run covers the first generated documents of the set by the SHA-256 of
+    the document name. A flag is kept when the confirming model answered yes.
+    A marked item is one the reference annotator labeled for revision.
+    """
+    generated = [name for name, row in sets[source_set].items() if row["origin"] == "generated"]
+    documents = sorted(generated, key=lambda name: hashlib.sha256(name.encode()).hexdigest())[:run["documents"]]
+    flags = collections.defaultdict(list)
+    for row in rows(root / "contextual" / f"command-{run['reviewer']}.jsonl.gz"):
+        flags[row["doc"]].append((row["span"], row["reviews"].get(run["confirmer"]) == "yes"))
+    if not set(flags) <= set(documents):
+        fail(f"review command flags of {run['reviewer']} lie outside the selected documents")
+    counts = collections.Counter()
+    for name in documents:
+        marked = marks[source_set][name][run["reference"]]
+        segments = [item["segments"] for item in sets[source_set][name]["items"] if item["id"] in marked]
+        flat = [segment for parts in segments for segment in parts]
+        kept = [span for span, yes in flags[name] if yes]
+        dropped = [span for span, yes in flags[name] if not yes]
+        counts["bound"] += len(kept) + len(dropped)
+        counts["kept"] += len(kept)
+        counts["dropped"] += len(dropped)
+        counts["marked"] += len(segments)
+        counts["marked_touched_before"] += sum(any(overlaps(s, parts) for s in kept + dropped) for parts in segments)
+        counts["marked_touched_after"] += sum(any(overlaps(s, parts) for s in kept) for parts in segments)
+        counts["bound_on_marked"] += sum(overlaps(s, flat) for s in kept + dropped)
+        counts["kept_on_marked"] += sum(overlaps(s, flat) for s in kept)
+        counts["dropped_on_marked"] += sum(overlaps(s, flat) for s in dropped)
+    return counts
+
+
+def command_decision(pooled):
+    """Return whether confirmation separates flags and keeps two thirds of the coverage."""
+    kept = pooled["kept_on_marked"] / pooled["kept"] if pooled["kept"] else 0
+    dropped = pooled["dropped_on_marked"] / pooled["dropped"] if pooled["dropped"] else 0
+    return kept - dropped >= SEPARATION, 3 * pooled["marked_touched_after"] >= 2 * pooled["marked_touched_before"]
+
+
+def check_command_round(root, sets, marks):
+    """Recount the review command round and the decision it records."""
+    path = root / COMMAND_ROUND
+    if not path.exists():
+        return
+    published = json.loads(path.read_text())
+    pooled = collections.Counter()
+    for run in published["runs"]:
+        label = f"{run['reviewer']} with {run['confirmer']}"
+        if run["independent_reference"] and run["reference"] in (run["reviewer"], run["confirmer"]):
+            fail(f"review command run {label} calls its reference independent, and the reference takes part in it")
+        counts = command_counts(root, sets, marks, published["set"], run)
+        for field in COMMAND_COUNTS:
+            if counts[field] != run[field]:
+                fail(f"review command round differs from the data files: {label}, {field}")
+        if run["independent_reference"]:
+            pooled.update(counts)
+    decision = published["pooled_independent"]
+    if (decision["separates"], decision["keeps_two_thirds_of_coverage"]) != command_decision(pooled):
+        fail("review command decision differs from the data files")
+    for field in COMMAND_COUNTS:
+        if pooled[field] != decision[field]:
+            fail(f"review command round differs from the data files: pooled, {field}")
+
+
 def check_panel(panel):
     models = [member["model"] for member in panel.values()]
     if len(set(models)) != len(models):
@@ -265,6 +338,7 @@ def verify(root=HERE):
     marks = load_labels(root, sets, panel)
     rounds = load_reviews(root, sets, panel)
     check_contextual(root, sets, panel)
+    check_command_round(root, sets, marks)
     check_separation(sets, roles)
     if normalized(summarize(sets, marks, rounds, roles, panel)) != normalized(published):
         fail("summary differs from the data files")

@@ -28,7 +28,8 @@ reference, and SHA-256 digest, so it can be fetched again and checked.
 | `phrases/*.json` | Phrase candidates, their statistics, the selection decisions, and the rule statements shown to reviewers. |
 | `configs/*.yaml` | Engine configurations: every rule enabled with all candidates, and the selected lists. |
 | `contextual/<caller>.jsonl.gz` | Flags that a calling assistant raised through the MCP server: categories, byte span, and the verdicts of the other assistants. |
-| `rounds/*.json` | Acceptance by sentence length, the comparison of defaults before and after round three, and the measurement of review in context. |
+| `contextual/command-<reviewer>.jsonl.gz` | Flags that a reviewer raised through `unswell review` on generated documents, with the verdict of each confirming model. |
+| `rounds/*.json` | Acceptance by sentence length, the comparison of defaults before and after round three, the measurement of review in context, and the measurement of the review command. |
 | `summary.json` | Panel, document counts, annotator agreement counts, and per-rule review counts. |
 | `files.sha256` | Digest of every data file. |
 | `scripts/` | The scripts that built the corpus, as they ran. |
@@ -85,7 +86,11 @@ make check-assistant-panel-corpus
 The check runs offline. It compares file digests, rejects any field outside the
 schema, binds labels and reviews to existing items, checks repository
 separation between roles, and recomputes `summary.json` from the data files.
-Its tests break one property at a time and expect a rejection.
+It also recounts `rounds/review-command.json` from the stored flags and labels:
+the bound, kept, and dropped flags, the marked items they touch, and the
+decision that follows. A run that calls its reference annotator independent is
+rejected when that annotator reviews or confirms in it. Its tests break one
+property at a time and expect a rejection.
 
 ## Rebuild
 
@@ -113,7 +118,12 @@ environment and are not part of this record.
 8. Review in context through the MCP server: `mcp_review.py` once per calling
    assistant, then `ctx_report.py`, `review_findings.py` with the other
    assistant, and `ctx_eval.py`.
-9. Report and export: `gen_docs.py`, `export_record.py`.
+9. Review with the command: `review_product.py` runs `unswell review` once per
+   document, first with a reviewer alone and then with each confirming model.
+   `ask_model.py` is the local program that the command starts; it stores each
+   answer by prompt, so every confirming model judges the same flags.
+   `review_command_evidence.py` computes the round and the registered decision.
+10. Report and export: `gen_docs.py`, `export_record.py`.
 
 `study.py`, `study2.py`, `study3.py`, `embed.py`, `mine.py`, `qualify.py`, and
 `excess.py` produced the negative results on fitted models and mined phrases

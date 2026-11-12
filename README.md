@@ -9,8 +9,10 @@ Unswell finds these patterns in prose and explains what to revise before the tex
 reaches a commit or a published document.
 
 The checks apply to text regardless of its author. They enforce a chosen editorial
-policy through concrete findings and explainable scores. Unswell runs locally as
-a Go library and CLI, without sending source text to an AI service.
+policy through concrete findings and explainable scores. The checker runs locally as
+a Go library and CLI and sends source text nowhere. A separate command,
+`unswell review`, reads a document with a model you name; see
+[Review with a model](#review-with-a-model).
 
 Unswell is not an authorship detector. A clean scan of a generated text is a
 correct result, and a finding on a human-written text is a finding about the
@@ -67,6 +69,29 @@ Use the strict profile to make the introductory phrase a hard policy violation:
 printf '%s\n' 'It is important to note that the client may retry.' |
   bin/unswell check --stdin --filename draft.md --profile strict
 ```
+
+## Review with a model
+
+Fixed rules name constructions. On documents that models wrote, the default
+rules reach 7.3% of the items a reviewing model had marked for revision.
+`unswell review` asks a model you name to read each document in context, binds
+its flags to source bytes, and drops a flag that does not quote its item:
+
+```sh
+bin/unswell review README.md docs \
+  --endpoint https://api.example.com/v1/chat/completions \
+  --model example-model --api-key-env REVIEW_API_KEY
+```
+
+A local program that reads a prompt on standard input works as well, and a
+second model can confirm the flags. On the same documents the review reaches
+57.0% of the marked items, and 45.3% after a second model confirmed the flags.
+These numbers compare models with each other; no human reviewed the flags.
+
+The command sends the selected documents to the model you name and to nothing
+else. Its findings are advisory and never fail a build. See
+[review in context](docs/review.md) and
+[ADR 0051](docs/adr/0051-review-command.md).
 
 ## Reports and gate
 

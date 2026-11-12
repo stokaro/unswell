@@ -97,7 +97,7 @@ source. It returns the editorial rubric as `instructions`, the seven defect
 separate sentences, and each fragment of six or more words. Every item has an
 `id`, its `kind`, its first `line`, and its original `text`. Items come from the
 same extraction as `unswell_check`, so protected code and excluded regions are
-not listed.
+not listed. A document without prose returns an empty `items` list.
 
 The assistant reads the items in the context of the whole document and decides
 which ones need revision under the rubric. It sends those to
@@ -128,6 +128,10 @@ compare equal, so a quote copied across a wrapped line still binds.
 These findings are the calling assistant's judgments, reported with
 `"reviewer": "calling assistant"`. They are advisory. They do not enter
 `unswell_check`, its scores, or its gate, and no rule is qualified by them.
+
+The items, the rubric, and the binding come from the public Go package
+`github.com/stokaro/unswell/review`. Outside an assistant session,
+[`unswell review`](review.md) runs the same review with a model you name.
 
 The [rule qualification record](research/rule-qualification.md) measures these
 tools on 120 real documentation pages with two calling assistants. The server

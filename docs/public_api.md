@@ -20,6 +20,7 @@ changes against the preceding release and document intentional differences.
 | `github.com/stokaro/unswell/nlp` | Neutral providers, capabilities, and shared target preparation | alpha |
 | `github.com/stokaro/unswell/nlp/english` | Default pure-Go English backend | alpha |
 | `github.com/stokaro/unswell/report` | Writers and saved-result decoding | alpha |
+| `github.com/stokaro/unswell/review` | Items, rubric, and prompts for review in context; binding of a reviewer's flags to source bytes | alpha |
 | `github.com/stokaro/unswell/goanalysis` | Go analysis adapter in a separate module | alpha |
 
 Research records live in `github.com/stokaro/unswell/research`, a module without
