@@ -40,6 +40,8 @@ Documentation pull requests:
 | `unswell review`, `gpt-6-astra`, confirmed by `claude-sonnet-5-5` | 61 | 12.2% | 17.3% | 11.5% | +5.8 | 296 |
 | `unswell review`, `claude-sonnet-5-5` | 61 | 12.4% | 18.8% | 11.6% | +7.2 | 288 |
 | `unswell review`, `claude-sonnet-5-5`, confirmed by `gpt-6-astra` | 61 | 8.7% | 15.3% | 7.8% | +7.6 | 196 |
+| `unswell trim`, `gpt-6-astra` | 61 | 23.7% | 26.7% | 23.3% | +3.5 | 413 |
+| `unswell trim`, `claude-sonnet-5-5` | 61 | 10.6% | 16.3% | 9.9% | +6.5 | 185 |
 
 Expert-edited answers (Beemo):
 
@@ -51,6 +53,8 @@ Expert-edited answers (Beemo):
 | `unswell review`, `gpt-6-astra`, confirmed by `claude-sonnet-5-5` | 300 | 17.8% | 20.3% | 7.1% | +13.2 | 672 |
 | `unswell review`, `claude-sonnet-5-5` | 300 | 27.3% | 30.7% | 13.4% | +17.3 | 1,035 |
 | `unswell review`, `claude-sonnet-5-5`, confirmed by `gpt-6-astra` | 300 | 20.0% | 22.9% | 8.1% | +14.8 | 756 |
+| `unswell trim`, `gpt-6-astra` | 300 | 25.1% | 26.3% | 20.4% | +5.9 | 810 |
+| `unswell trim`, `claude-sonnet-5-5` | 300 | 17.9% | 20.2% | 8.3% | +11.8 | 639 |
 
 Writer-edited fiction (LAMP):
 
@@ -62,6 +66,8 @@ Writer-edited fiction (LAMP):
 | `unswell review`, `gpt-6-astra`, confirmed by `claude-sonnet-5-5` | 215 | 6.2% | 6.3% | 6.0% | +0.3 | 139 |
 | `unswell review`, `claude-sonnet-5-5` | 215 | 27.9% | 30.1% | 22.8% | +7.4 | 625 |
 | `unswell review`, `claude-sonnet-5-5`, confirmed by `gpt-6-astra` | 215 | 11.5% | 12.5% | 9.2% | +3.3 | 255 |
+| `unswell trim`, `gpt-6-astra` | 215 | 22.1% | 22.5% | 21.3% | +1.1 | 487 |
+| `unswell trim`, `claude-sonnet-5-5` | 215 | 24.1% | 24.3% | 23.8% | +0.5 | 533 |
 
 ### Development
 
@@ -73,6 +79,8 @@ Documentation pull requests:
 | `unswell check`, default rules | 60 | 3.8% | 2.5% | 4.1% | -1.6 | 90 |
 | `unswell review`, `gpt-6-astra` | 60 | 15.6% | 23.0% | 14.1% | +8.9 | 346 |
 | `unswell review`, `claude-sonnet-5-5` | 60 | 12.9% | 22.1% | 11.1% | +11.0 | 253 |
+| `unswell trim`, `gpt-6-astra` | 60 | 22.6% | 27.5% | 21.7% | +5.8 | 333 |
+| `unswell trim`, `claude-sonnet-5-5` | 60 | 11.6% | 14.3% | 11.0% | +3.3 | 170 |
 
 Expert-edited answers (Beemo):
 
@@ -84,6 +92,8 @@ Expert-edited answers (Beemo):
 | `unswell review`, `gpt-6-astra`, confirmed by `claude-sonnet-5-5` | 150 | 17.0% | 20.1% | 6.3% | +13.9 | 294 |
 | `unswell review`, `claude-sonnet-5-5` | 150 | 27.4% | 31.9% | 11.8% | +20.1 | 488 |
 | `unswell review`, `claude-sonnet-5-5`, confirmed by `gpt-6-astra` | 150 | 18.2% | 21.9% | 5.8% | +16.1 | 325 |
+| `unswell trim`, `gpt-6-astra` | 150 | 24.1% | 26.5% | 16.0% | +10.4 | 389 |
+| `unswell trim`, `claude-sonnet-5-5` | 150 | 17.4% | 19.4% | 10.5% | +8.9 | 307 |
 | Published span prompt, `gpt-6-astra` | 150 | 56.8% | 60.8% | 43.1% | +17.7 | 1,088 |
 | Published span prompt, `claude-sonnet-5-5` | 150 | 64.0% | 68.4% | 48.6% | +19.8 | 1,158 |
 
@@ -97,6 +107,8 @@ Writer-edited fiction (LAMP):
 | `unswell review`, `gpt-6-astra`, confirmed by `claude-sonnet-5-5` | 67 | 14.8% | 14.3% | 15.6% | -1.3 | 104 |
 | `unswell review`, `claude-sonnet-5-5` | 67 | 29.1% | 32.6% | 23.8% | +8.9 | 204 |
 | `unswell review`, `claude-sonnet-5-5`, confirmed by `gpt-6-astra` | 67 | 18.8% | 19.5% | 17.7% | +1.8 | 132 |
+| `unswell trim`, `gpt-6-astra` | 67 | 21.7% | 21.7% | 21.6% | +0.0 | 151 |
+| `unswell trim`, `claude-sonnet-5-5` | 67 | 27.1% | 28.3% | 25.2% | +3.2 | 188 |
 | Published span prompt, `gpt-6-astra` | 67 | 72.6% | 78.1% | 64.5% | +13.6 | 589 |
 | Published span prompt, `claude-sonnet-5-5` | 67 | 82.9% | 87.9% | 75.5% | +12.3 | 609 |
 
@@ -183,3 +195,85 @@ Single models, revised preferred / original preferred: `claude-fable-5-2` 31/9; 
 With one equal vote per model family (`claude-fable-5-2`, `gpt-6-astra`, `private-host/Qwen3.8-27B`), revised among decisive answers: product 52.5% of 40. That does not meet the rule in every arm.
 
 The command meets the registered rule.
+
+## Trims against the words an editor changed
+
+`unswell trim` ran on every development and test document with two models. A removed word is a hit when the
+editor of the reference removed or replaced it. Chance in the sentences is what random removal of the same number
+of words from the same sentences gives, among the words the check allows to remove. Chance in the document is the
+same for random words of the same documents. Net movement is the change of the word-level edit distance to the
+editor's text per removed word: below zero, the trimmed text is closer to the editor's text than the original was.
+The control removes random words of the same sentences. Brackets hold 95% bootstrap intervals over documents,
+2,000 draws.
+
+### Test parts
+
+| Set | Model | Documents with a trim | Trims | Removed words | Precision | Chance in the sentences | Chance in the document | Over sentence chance, points | Over document chance, points |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |
+| Documentation pull requests | `claude-sonnet-5-5` | 57 of 61 | 185 | 375 | 8.5% | 6.6% | 5.7% | +2.0 (-0.7 to +5.7) | +2.8 (-1.0 to +7.5) |
+| Documentation pull requests | `gpt-6-astra` | 59 of 61 | 413 | 942 | 6.6% | 4.4% | 4.6% | +2.2 (+0.6 to +4.4) | +2.0 (-0.8 to +5.5) |
+| Expert-edited answers (Beemo) | `claude-sonnet-5-5` | 230 of 300 | 639 | 1,617 | 71.2% | 62.7% | 58.9% | +8.5 (+6.3 to +10.6) | +12.4 (+9.4 to +15.3) |
+| Expert-edited answers (Beemo) | `gpt-6-astra` | 243 of 300 | 810 | 2,110 | 68.0% | 59.3% | 57.0% | +8.7 (+6.7 to +10.7) | +11.0 (+8.1 to +13.7) |
+| Writer-edited fiction (LAMP) | `claude-sonnet-5-5` | 205 of 215 | 533 | 1,037 | 51.9% | 49.3% | 49.0% | +2.6 (+0.0 to +5.2) | +2.9 (-1.2 to +6.8) |
+| Writer-edited fiction (LAMP) | `gpt-6-astra` | 199 of 215 | 487 | 853 | 49.6% | 46.5% | 45.0% | +3.1 (-0.1 to +6.4) | +4.6 (+0.5 to +8.4) |
+
+| Set | Model | Net movement per removed word | Control | Net movement minus control |
+| --- | --- | --- | ---: | --- |
+| Expert-edited answers (Beemo) | `claude-sonnet-5-5` | -0.284 (-0.369 to -0.189) | -0.154 | -0.129 (-0.165 to -0.091) |
+| Expert-edited answers (Beemo) | `gpt-6-astra` | -0.232 (-0.324 to -0.131) | -0.086 | -0.146 (-0.178 to -0.114) |
+| Writer-edited fiction (LAMP) | `claude-sonnet-5-5` | +0.054 (-0.021 to +0.131) | +0.137 | -0.083 (-0.128 to -0.042) |
+| Writer-edited fiction (LAMP) | `gpt-6-astra` | +0.097 (+0.002 to +0.193) | +0.206 | -0.109 (-0.166 to -0.048) |
+
+Words under the findings of the other commands, against the same chance in the document:
+
+| Set | System | Words under findings | Editor changed them | Chance in the document | Difference, points |
+| --- | --- | ---: | ---: | ---: | --- |
+| Documentation pull requests | `unswell check`, default rules | 2,580 | 3.9% | 1.9% | +2.1 (-0.4 to +7.8) |
+| Documentation pull requests | `unswell review`, `gpt-6-astra` | 3,666 | 7.9% | 4.6% | +3.3 (+1.2 to +5.7) |
+| Documentation pull requests | `unswell review`, `claude-sonnet-5-5` | 3,403 | 9.8% | 5.7% | +4.1 (+0.9 to +8.1) |
+| Expert-edited answers (Beemo) | `unswell check`, default rules | 1,349 | 45.0% | 45.9% | -0.9 (-6.8 to +5.0) |
+| Expert-edited answers (Beemo) | `unswell review`, `gpt-6-astra` | 6,628 | 67.5% | 59.8% | +7.7 (+5.3 to +10.3) |
+| Expert-edited answers (Beemo) | `unswell review`, `claude-sonnet-5-5` | 12,133 | 61.8% | 56.4% | +5.4 (+3.6 to +7.0) |
+| Writer-edited fiction (LAMP) | `unswell check`, default rules | 231 | 8.7% | 23.4% | -14.7 (-23.5 to +3.6) |
+| Writer-edited fiction (LAMP) | `unswell review`, `gpt-6-astra` | 1,498 | 61.4% | 48.0% | +13.4 (+6.6 to +20.9) |
+| Writer-edited fiction (LAMP) | `unswell review`, `claude-sonnet-5-5` | 7,891 | 62.0% | 48.7% | +13.3 (+10.4 to +16.2) |
+
+The registered rule, set by set:
+
+- Documentation pull requests: trimming does not agree with the editors above chance by the rule.
+- Expert-edited answers (Beemo): trimming agrees with the editors above chance, and it moves the text toward the editor's version.
+- Writer-edited fiction (LAMP): trimming does not agree with the editors above chance by the rule, and it does not move the text toward the editor's version.
+
+### Development parts
+
+These were read before the test parts were run. They decide nothing.
+
+| Set | Model | Documents with a trim | Trims | Removed words | Precision | Chance in the sentences | Chance in the document | Over sentence chance, points | Over document chance, points |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |
+| Documentation pull requests | `claude-sonnet-5-5` | 53 of 60 | 170 | 383 | 11.7% | 9.0% | 8.1% | +2.8 (+0.4 to +5.9) | +3.6 (+0.3 to +7.8) |
+| Documentation pull requests | `gpt-6-astra` | 56 of 60 | 333 | 754 | 9.8% | 8.6% | 7.5% | +1.2 (-0.3 to +2.8) | +2.3 (-0.2 to +5.2) |
+| Expert-edited answers (Beemo) | `claude-sonnet-5-5` | 116 of 150 | 307 | 757 | 65.4% | 56.1% | 51.7% | +9.3 (+5.8 to +13.0) | +13.7 (+9.6 to +17.8) |
+| Expert-edited answers (Beemo) | `gpt-6-astra` | 125 of 150 | 389 | 875 | 65.0% | 55.8% | 51.9% | +9.2 (+6.0 to +12.5) | +13.2 (+9.1 to +17.3) |
+| Writer-edited fiction (LAMP) | `claude-sonnet-5-5` | 64 of 67 | 188 | 391 | 40.4% | 34.8% | 30.9% | +5.6 (+1.8 to +9.3) | +9.5 (+1.6 to +16.6) |
+| Writer-edited fiction (LAMP) | `gpt-6-astra` | 58 of 67 | 151 | 314 | 45.5% | 35.9% | 29.6% | +9.6 (+5.0 to +14.3) | +15.9 (+5.1 to +24.8) |
+
+| Set | Model | Net movement per removed word | Control | Net movement minus control |
+| --- | --- | --- | ---: | --- |
+| Expert-edited answers (Beemo) | `claude-sonnet-5-5` | -0.156 (-0.288 to -0.029) | -0.024 | -0.132 (-0.186 to -0.082) |
+| Expert-edited answers (Beemo) | `gpt-6-astra` | -0.218 (-0.342 to -0.104) | -0.042 | -0.176 (-0.231 to -0.125) |
+| Writer-edited fiction (LAMP) | `claude-sonnet-5-5` | +0.251 (+0.072 to +0.425) | +0.393 | -0.143 (-0.212 to -0.070) |
+| Writer-edited fiction (LAMP) | `gpt-6-astra` | +0.242 (+0.089 to +0.399) | +0.417 | -0.175 (-0.264 to -0.085) |
+
+The other commands on these parts:
+
+| Set | System | Words under findings | Editor changed them | Chance in the document | Difference, points |
+| --- | --- | ---: | ---: | ---: | --- |
+| Documentation pull requests | `unswell check`, default rules | 1,973 | 2.8% | 3.3% | -0.5 (-2.9 to +2.6) |
+| Documentation pull requests | `unswell review`, `gpt-6-astra` | 3,355 | 9.8% | 5.8% | +4.0 (+0.6 to +8.1) |
+| Documentation pull requests | `unswell review`, `claude-sonnet-5-5` | 3,043 | 10.6% | 7.9% | +2.6 (-0.3 to +5.7) |
+| Expert-edited answers (Beemo) | `unswell check`, default rules | 452 | 77.7% | 72.5% | +5.1 (-0.5 to +16.1) |
+| Expert-edited answers (Beemo) | `unswell review`, `gpt-6-astra` | 2,802 | 65.1% | 53.8% | +11.3 (+7.6 to +14.8) |
+| Expert-edited answers (Beemo) | `unswell review`, `claude-sonnet-5-5` | 5,597 | 60.9% | 51.7% | +9.2 (+6.3 to +12.2) |
+| Writer-edited fiction (LAMP) | `unswell check`, default rules | 4 | 0.0% | 12.0% | -12.0 (-15.8 to -9.4) |
+| Writer-edited fiction (LAMP) | `unswell review`, `gpt-6-astra` | 1,221 | 34.6% | 24.9% | +9.7 (+3.5 to +17.8) |
+| Writer-edited fiction (LAMP) | `unswell review`, `claude-sonnet-5-5` | 2,645 | 40.3% | 29.8% | +10.5 (+5.2 to +16.7) |

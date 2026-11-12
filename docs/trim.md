@@ -1,7 +1,8 @@
 # Trim
 
-Experimental. The judges that admitted this command do not agree with each
-other; see [Measured behavior](#measured-behavior).
+Experimental. Against human editors the command was measured on three kinds
+of text and meets its rule on one of them; see
+[Measured behavior](#measured-behavior).
 
 `unswell trim` asks a model you name for sentences with empty words removed:
 announcements, stock phrases, intensifiers, repeated qualifiers. The model
@@ -94,7 +95,43 @@ review: the last object counts.
 
 ## Measured behavior
 
-No person judged these trims. Four models did, by a rule about information: a
+### Against what editors removed
+
+The [human-reference record](../research/reviews/2026-11-12-human-reference/README.md)
+has texts that people edited. The command ran on the versions before the edit,
+with two models. A removed word is a hit when the editor removed or replaced
+that word. Chance is what random removal of the same number of words from the
+same sentences gives. The numbers are from the test parts, and the rule was
+registered before the run. Brackets hold 95% intervals.
+
+| Text | Trimming model | Removed words | Editor changed them | By chance in the same sentences | Difference, points |
+| --- | --- | ---: | ---: | ---: | --- |
+| Model answers that experts edited | `claude-sonnet-5-5` | 1,617 | 71.2% | 62.7% | +8.5 (+6.3 to +10.6) |
+| Model answers that experts edited | `gpt-6-astra` | 2,110 | 68.0% | 59.3% | +8.7 (+6.7 to +10.7) |
+| Model fiction that writers edited | `claude-sonnet-5-5` | 1,037 | 51.9% | 49.3% | +2.6 (+0.0 to +5.2) |
+| Model fiction that writers edited | `gpt-6-astra` | 853 | 49.6% | 46.5% | +3.1 (-0.1 to +6.4) |
+| Documentation that maintainers reworded | `claude-sonnet-5-5` | 375 | 8.5% | 6.6% | +2.0 (-0.7 to +5.7) |
+| Documentation that maintainers reworded | `gpt-6-astra` | 942 | 6.6% | 4.4% | +2.2 (+0.6 to +4.4) |
+
+On model answers that experts edited, the trimmed text is also closer to the expert's text than the
+original was. The word-level edit distance to the expert's text falls by 0.28 and 0.23 words per
+removed word with the two models. Random removal from the same sentences gives 0.15 and 0.09,
+because the experts removed or replaced more than half of the words. On fiction the distance does not fall
+(+0.05 and +0.10), though it rises less than under random removal (+0.14 and +0.21).
+
+By the registered rule the command agrees with editors above chance on model
+answers that experts edited, and there it moves the text toward the editor's
+version. On fiction and on documentation the differences are positive and the
+rule is not met: an interval reaches zero. The documentation set is pages that
+people wrote, where a maintainer changed about 4% of the words.
+
+No public set has documentation that models wrote and people then edited, so
+that case is not measured. Editors also disagree with each other about which
+words to change, so a word an editor kept is not shown to be needed.
+
+### By a consensus of models
+
+No reader judged the trimmed text. Four models did, by a rule about information: a
 version is worse if it lacks a fact, condition, qualification, or instruction
 that the other has; otherwise the shorter version is better when the extra
 words carry no information. `claude-fable-5-2` has three votes, `gpt-6-astra`

@@ -211,5 +211,107 @@ class RecordCase(unittest.TestCase):
         self.rejects("edited one paragraph twice")
 
 
+def trim_row(model, removed, distance):
+    """One trim of the first sentence of d1: four words, the last one fixed, the second one changed by the editor."""
+    return {"id": "d1", "model": model, "sentences": 3, "proposed": 2, "rejected": 1, "distance": distance,
+            "trims": [{"span": [0, 10], "words": [[0, 1], [2, 5], [6, 8], [9, 10]], "fixed": [3], "removed": removed}]}
+
+
+class TrimCase(RecordCase):
+    def setUp(self):
+        super().setUp()
+
+        def with_trims(rows):
+            rows[0]["systems"].update({"trim-claude": [[0, 10]], "trim-astra": [[0, 10]]})
+
+        self.rewrite("data/sentences.jsonl.gz", with_trims)
+        write_rows(self.root / "data/word-counts.jsonl.gz",
+                   [{"id": "d1", "words": 9, "changed": 1, "systems": {"review-claude": [4, 1]}}])
+        # The first model removes the word the editor changed; the second removes a word the editor kept.
+        write_rows(self.root / "data/trims.jsonl.gz",
+                   [trim_row("astra", [2], {"before": 3, "after": 4, "control": 3.4}),
+                    trim_row("claude", [1], {"before": 3, "after": 2, "control": 3.4})])
+        self.seal()
+
+    def trims(self):
+        return verify.verify(self.root)["trims"]["sets"]["lamp/test"]
+
+    def test_trims_are_recounted_from_coordinates(self):
+        entry = self.trims()
+        claude, astra = entry["models"]["claude"], entry["models"]["astra"]
+        self.assertEqual((claude["removed_words"], claude["precision"], astra["precision"]), (1, 1.0, 0.0))
+        # Three words may be removed and the editor changed one of them; the document has nine words and one changed.
+        self.assertAlmostEqual(claude["chance_sentences"], 1 / 3)
+        self.assertAlmostEqual(claude["chance_document"], 1 / 9)
+        self.assertEqual((claude["net"], astra["net"]), (-1.0, 1.0))
+        self.assertAlmostEqual(claude["differences"]["net_minus_control"], -1.4)
+        review = entry["comparisons"]["review-claude"]
+        self.assertEqual((review["removed_words"], review["precision"]), (4, 0.25))
+
+    def test_rule_needs_both_models(self):
+        self.assertEqual(self.trims()["rule"], {"agrees_above_chance": False, "moves_toward_editor": False})
+        self.rewrite("data/trims.jsonl.gz",
+                     lambda rows: rows[0].update(trim_row("astra", [1], {"before": 3, "after": 2, "control": 3.4})))
+        self.seal()
+        self.assertEqual(self.trims()["rule"], {"agrees_above_chance": True, "moves_toward_editor": True})
+
+    def test_rule_outcome_cannot_be_declared(self):
+        results = json.loads((self.root / "results.json").read_text())
+        results["trims"]["sets"]["lamp/test"]["rule"]["agrees_above_chance"] = True
+        (self.root / "results.json").write_text(json.dumps(results))
+        verify.write_digests(self.root)
+        self.rejects("results differ from the data files")
+
+    def test_changed_removed_word_is_rejected(self):
+        self.rewrite("data/trims.jsonl.gz", lambda rows: rows[0]["trims"][0].update(removed=[1]))
+        self.seal_digests_only()
+        self.rejects("results differ from the data files")
+
+    def test_trim_cannot_remove_a_fixed_word(self):
+        self.rewrite("data/trims.jsonl.gz", lambda rows: rows[0]["trims"][0].update(removed=[3]))
+        self.seal_digests_only()
+        self.rejects("removes a word that the check never removes")
+
+    def test_trim_must_be_a_finding_of_its_model(self):
+        self.rewrite("data/trims.jsonl.gz", lambda rows: rows[0]["trims"][0].update(span=[0, 12]))
+        self.seal_digests_only()
+        self.rejects("is not a finding of trim-astra")
+
+    def test_trim_words_stay_inside_the_sentence(self):
+        self.rewrite("data/trims.jsonl.gz", lambda rows: rows[0]["trims"][0]["words"].__setitem__(3, [9, 14]))
+        self.seal_digests_only()
+        self.rejects("out of order or outside the sentence")
+
+    def test_trim_needs_a_removed_word(self):
+        self.rewrite("data/trims.jsonl.gz", lambda rows: rows[0]["trims"][0].update(removed=[]))
+        self.seal_digests_only()
+        self.rejects("invalid word indexes")
+
+    def test_distance_is_required_where_the_editors_text_exists(self):
+        self.rewrite("data/trims.jsonl.gz", lambda rows: rows[0].pop("distance"))
+        self.seal_digests_only()
+        self.rejects("must carry a distance exactly when")
+
+    def test_distance_cannot_move_further_than_the_removed_words(self):
+        self.rewrite("data/trims.jsonl.gz", lambda rows: rows[1]["distance"].update(after=0))
+        self.seal_digests_only()
+        self.rejects("moves further than the removed words allow")
+
+    def test_every_document_needs_a_row_of_every_model(self):
+        self.rewrite("data/trims.jsonl.gz", lambda rows: rows.pop())
+        self.seal_digests_only()
+        self.rejects("do not cover every development and test document with every model")
+
+    def test_word_counts_cover_the_documents(self):
+        self.rewrite("data/word-counts.jsonl.gz", lambda rows: rows.pop())
+        self.seal_digests_only()
+        self.rejects("word counts do not cover")
+
+    def test_word_counts_must_be_consistent(self):
+        self.rewrite("data/word-counts.jsonl.gz", lambda rows: rows[0].update(changed=12))
+        self.seal_digests_only()
+        self.rejects("invalid word counts")
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -9,6 +9,7 @@ systems:
   review-<reviewer>      unswell review with one reviewer (claude or astra)
   review-<reviewer>-<confirmer>   the same with a confirming model
   lamp5-<reviewer>       the span-detection prompt of the LAMP authors, five examples (needs LAMP_PROMPT)
+  trim-<model>           unswell trim with one model (claude or astra); only accepted trims are stored
 
 Each document is sent on standard input from an empty directory. Model answers
 are stored by prompt under cache/, so a confirmed run judges the flags of the
@@ -76,6 +77,19 @@ def review(doc, reviewer, confirmer):
             "flags": document["flags"], "unbound": len(document["unbound"])}
 
 
+def trim(doc, model):
+    done = run([options.binary, "trim", *source(doc), "--quiet", "--report", "json:-", "--request-timeout", "15m",
+                *program("", model)], doc["text"])
+    if done.returncode != 0 and b"no selected document has a sentence to trim" not in done.stderr:
+        raise ValueError(done.stderr.decode("utf-8", "replace")[-300:])
+    document = json.loads(done.stdout)["documents"][0]
+    return {"spans": [[t["span"]["start"], t["span"]["end"]] for t in document["trims"]],
+            "trims": [{"span": [t["span"]["start"], t["span"]["end"]], "original": t["original"], "trimmed": t["trimmed"],
+                       "removed": t["removed"]} for t in document["trims"]],
+            "rejected": [r["problem"] for r in document["rejected"]],
+            "sentences": document["sentences"], "proposed": document["proposed"]}
+
+
 def lamp_prompt(doc, reviewer):
     prompt = Path(os.environ["LAMP_PROMPT"]).read_text().replace("[[PARAGRAPH]]", doc["text"])
     last = None
@@ -120,6 +134,8 @@ def one(doc):
         elif name.startswith("review-"):
             parts = name.split("-")[1:]
             result = review(doc, parts[0], parts[1] if len(parts) > 1 else None)
+        elif name.startswith("trim-"):
+            result = trim(doc, name.split("-")[1])
         elif name.startswith("lamp5-"):
             result = lamp_prompt(doc, name.split("-")[1])
         else:

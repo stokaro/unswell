@@ -7,6 +7,14 @@ corrects itself. A model sometimes writes its JSON object, notices a mistake,
 and writes the object again. Such an answer failed the document; the last
 object is now the answer. A correction that is cut off is still an error.
 
+`unswell trim` was measured against human editors
+([ADR 0054](docs/adr/0054-trim-measured-against-editors.md)). On model answers
+that experts edited, the words it removes are words the expert also removed or
+replaced in 71.2% and 68.0% of cases with two models, against 62.7% and 59.3%
+by chance in the same sentences, and the trimmed text is closer to the
+expert's version. On fiction and on documentation written by people the
+registered rule is not met. See [trim](docs/trim.md#measured-behavior).
+
 ## 0.1.0-alpha.8
 
 This release adds two commands that work with a model you name, `unswell

@@ -45,6 +45,11 @@ place in the source and drops a flag that does not quote its sentence.
 proposal only if it deletes words and nothing else. It changes a file only when
 you ask.
 
+On model answers that experts had edited, the words that `unswell trim`
+removes are words the expert also removed or replaced in 71.2% and 68.0% of
+cases with two models, against 62.7% and 59.3% for random words of the same
+sentences, and the trimmed text is closer to the expert's version.
+
 How each part was measured is in the documentation of
 [review](docs/review.md#measured-behavior) and
 [trim](docs/trim.md#measured-behavior).

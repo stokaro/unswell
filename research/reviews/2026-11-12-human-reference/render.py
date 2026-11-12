@@ -22,6 +22,95 @@ def points(value):
     return f"{100 * value:+.1f}"
 
 
+def share(value):
+    return f"{100 * value:.1f}%" if value is not None else "n/a"
+
+
+def difference(report, key, scale=100, digits=1):
+    """A difference with its interval, in points or, for a movement, in words per removed word."""
+    if key not in report["differences"]:
+        return "n/a"
+    low, high = report["intervals"][key]
+    return (f"{scale * report['differences'][key]:+.{digits}f} "
+            f"({scale * low:+.{digits}f} to {scale * high:+.{digits}f})")
+
+
+def ordered(models):
+    """The trimming models in the order of MODELS."""
+    return [(model, models[model]) for model in MODELS if model in models]
+
+
+def trim_tables(add, trims, split):
+    """Add the tables of one part: the trims of each model, their distances, and the other commands."""
+    add("| Set | Model | Documents with a trim | Trims | Removed words | Precision | Chance in the sentences | Chance in the document "
+        "| Over sentence chance, points | Over document chance, points |")
+    add("| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |")
+    for key, label in SETS:
+        entry = trims["sets"].get(f"{key}/{split}")
+        for model, report in ordered(entry["models"] if entry else {}):
+            add(f"| {label} | {MODELS[model]} | {report['documents_with_output']} of {report['documents']} | {report['trims']:,} "
+                f"| {report['removed_words']:,} | {share(report['precision'])} | {share(report['chance_sentences'])} "
+                f"| {share(report['chance_document'])} | {difference(report, 'precision_minus_sentences')} "
+                f"| {difference(report, 'precision_minus_document')} |")
+    add("")
+    add("| Set | Model | Net movement per removed word | Control | Net movement minus control |")
+    add("| --- | --- | --- | ---: | --- |")
+    for key, label in SETS:
+        entry = trims["sets"].get(f"{key}/{split}")
+        for model, report in ordered(entry["models"] if entry else {}):
+            if report.get("net") is not None:
+                add(f"| {label} | {MODELS[model]} | {difference(report, 'net', 1, 3)} | {report['control_net']:+.3f} "
+                    f"| {difference(report, 'net_minus_control', 1, 3)} |")
+    add("")
+    add("Words under the findings of the other commands, against the same chance in the document:" if split == "test" else
+        "The other commands on these parts:")
+    add("")
+    add("| Set | System | Words under findings | Editor changed them | Chance in the document | Difference, points |")
+    add("| --- | --- | ---: | ---: | ---: | --- |")
+    for key, label in SETS:
+        entry = trims["sets"].get(f"{key}/{split}")
+        for system, report in sorted(entry["comparisons"].items() if entry else (), key=lambda item: system_order(item[0])):
+            add(f"| {label} | {system_name(system)} | {report['removed_words']:,} | {share(report['precision'])} "
+                f"| {share(report['chance_document'])} | {difference(report, 'precision_minus_document')} |")
+
+
+def trim_section(add, trims):
+    add("")
+    add("## Trims against the words an editor changed")
+    add("")
+    add("`unswell trim` ran on every development and test document with two models. A removed word is a hit when the")
+    add("editor of the reference removed or replaced it. Chance in the sentences is what random removal of the same number")
+    add("of words from the same sentences gives, among the words the check allows to remove. Chance in the document is the")
+    add("same for random words of the same documents. Net movement is the change of the word-level edit distance to the")
+    add("editor's text per removed word: below zero, the trimmed text is closer to the editor's text than the original was.")
+    add("The control removes random words of the same sentences. Brackets hold 95% bootstrap intervals over documents,")
+    add(f"{trims['bootstrap_draws']:,} draws.")
+    add("")
+    add("### Test parts")
+    add("")
+    trim_tables(add, trims, "test")
+    add("")
+    add("The registered rule, set by set:")
+    add("")
+    for key, label in SETS:
+        entry = trims["sets"].get(f"{key}/test")
+        if not entry:
+            continue
+        rule = entry["rule"]
+        line = f"- {label}: trimming " + ("agrees with the editors above chance" if rule["agrees_above_chance"] else
+                                         "does not agree with the editors above chance by the rule")
+        if "moves_toward_editor" in rule:
+            line += (", and it moves the text toward the editor's version" if rule["moves_toward_editor"] else
+                     ", and it does not move the text toward the editor's version")
+        add(line + ".")
+    add("")
+    add("### Development parts")
+    add("")
+    add("These were read before the test parts were run. They decide nothing.")
+    add("")
+    trim_tables(add, trims, "dev")
+
+
 def system_name(name):
     parts = name.split("-")
     if parts[0] == "rules":
@@ -29,13 +118,15 @@ def system_name(name):
     if parts[0] == "review":
         text = f"`unswell review`, {MODELS[parts[1]]}"
         return text + (f", confirmed by {MODELS[parts[2]]}" if len(parts) > 2 else "")
+    if parts[0] == "trim":
+        return f"`unswell trim`, {MODELS[parts[1]]}"
     if parts[0] == "lamp5":
         return f"Published span prompt, {MODELS[parts[1]]}"
     return name
 
 
 def system_order(name):
-    kinds = ["rules", "review", "lamp5"]
+    kinds = ["rules", "review", "trim", "lamp5"]
     kind = name.split("-")[0]
     return (kinds.index(kind) if kind in kinds else len(kinds), name)
 
@@ -201,6 +292,8 @@ def render(results):
             lead = "The reviewed arm leads the control arm by the registered 15 points." if entry["ahead_of_control"] else \
                 "The reviewed arm is not 15 points ahead of the control arm."
             add(f"{floor} {lead}")
+    if results.get("trims"):
+        trim_section(add, results["trims"])
     return "\n".join(lines) + "\n"
 
 
