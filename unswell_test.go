@@ -62,6 +62,44 @@ func TestGateAndProbability(t *testing.T) {
 	c.Assert(err, qt.ErrorMatches, "scan contains no applicable English prose")
 }
 
+func TestChatPreambleListsTheOpenerThatExpertsRemove(t *testing.T) {
+	engine, err := unswell.New(unswell.Options{})
+	qt.New(t).Assert(err, qt.IsNil)
+	cases := []struct {
+		name, text string
+		found      bool
+	}{
+		{"comma", "Sure, here is a summary of the text.\n\nThe client retries a request after a timeout.", true},
+		{"exclamation", "Sure! Here's a summary.\n\nThe client retries a request after a timeout.", true},
+		{"lower case", "sure, the client retries a request after a timeout.", true},
+		{"heading first", "# Summary\n\nSure, here is a summary of the text.", false},
+		{"later sentence", "The client retries a request. Sure, it waits for a timeout first.", false},
+		{"another word", "Surely, the client retries a request after a timeout.", false},
+		{"inside a sentence", "Make sure, before a release, that the client retries a request.", false},
+		{"no punctuation", "Sure signs of a timeout are listed in the client log.", false},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			c := qt.New(t)
+			result, err := engine.Analyze(t.Context(),
+				document.Source{Name: "draft.md", Format: document.Markdown, Bytes: []byte(tc.text)})
+			c.Assert(err, qt.IsNil)
+			found := false
+			for _, finding := range result.Findings {
+				if finding.RuleID == "scaffold.chat-preamble" {
+					found = true
+					c.Assert(strings.ToLower(tc.text[finding.Primary.Span.Start:finding.Primary.Span.End]),
+						qt.Matches, `sure[,!]`)
+				}
+			}
+			c.Assert(found, qt.Equals, tc.found)
+			if tc.found {
+				c.Assert(result.Gate.Passed, qt.IsFalse)
+			}
+		})
+	}
+}
+
 func TestSourceAndScoringInvariants(t *testing.T) {
 	c := qt.New(t)
 	engine, err := unswell.New(unswell.Options{})

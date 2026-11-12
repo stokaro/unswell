@@ -6,8 +6,9 @@ auditor. This record measures the tool against what people did. It uses three
 public sources of human edits and one public study of human preferences, and
 it keeps coordinates and choices only. No text of any source is stored here.
 
-[RESULTS.md](RESULTS.md) holds every number. It is generated from
-`results.json`, and `verify.py` recounts `results.json` from the data files.
+[RESULTS.md](RESULTS.md) and [RESULTS-words.md](RESULTS-words.md) hold every
+number. They are generated from `results.json`, and `verify.py` recounts
+`results.json` from the data files.
 
 ## Sources
 
@@ -145,6 +146,21 @@ to were posted on issue 525 before any test document ran.
     default rules are not, on any of them. No rule was registered for this
     comparison.
 
+11. **One opener is a phrase that experts always removed.** 27 of 150
+    development answers open with `Sure,` or `Sure!`, and the experts removed
+    or replaced that word in every one. The rule for chat openers did not list
+    it. With the two phrases listed, the rule reports 39 of the 300 test
+    answers, and the expert changed the flagged word in 39 of 39. The phrases
+    report nothing on the documentation pages and the fiction paragraphs.
+
+12. **Rule by rule, little else stands out.** `results.json` has every rule
+    against the words editors changed on the test parts, and
+    `RESULTS-words.md` lists those with findings in at least ten documents of
+    a set. A wide list of words that models favor, enabled in the run
+    with every rule, falls on words the experts changed more often than
+    chance on the answers, and not on the other two sets. No rule was
+    registered for that table.
+
 ## Decisions
 
 Each rule was registered on issue 525 before its result was read.
@@ -197,6 +213,14 @@ Each rule was registered on issue 525 before its result was read.
     both parts of the rule. Not met on fiction and on documentation pull
     requests. [ADR 0054](../../../docs/adr/0054-trim-measured-against-editors.md)
     records what the documentation states.
+
+12. *List `Sure,` and `Sure!` in `scaffold.chat-preamble` if, on the test
+    answers, the expert removed or replaced the flagged opener in at least 85%
+    of the findings, with the lower end of the interval above 70%, and the
+    phrases report at most one finding on the other two sets.* 39 of 39
+    (91.0% to 100.0%), and no finding elsewhere. The phrases are listed;
+    [ADR 0055](../../../docs/adr/0055-phrase-listed-on-editor-reference.md)
+    makes this a route into a default list.
 
 ## Limits
 
@@ -251,7 +275,9 @@ Each rule was registered on issue 525 before its result was read.
 | `data/panel.jsonl.gz` | Per pair of the two comparisons and of the check of the command: the arm, the model that revised, and each judge model's answer under the information rule |
 | `data/trims.jsonl.gz` | Per document and trimming model: each accepted trim with the byte spans of the words of its sentence, the words the check never removes, the words the trim removed, and the edit distances to the editor's text before, after, and under random removal |
 | `data/word-counts.jsonl.gz` | Per document: its words, the words an editor changed, and both counts under the findings of the default rules and of the review |
-| `results.json`, `RESULTS.md` | Every published number, recounted and rendered |
+| `data/openers.jsonl.gz` | Every finding of the listed chat opener, with the byte spans of its words |
+| `data/rule-words.jsonl.gz` | Per document and rule of the run with every rule: the words under the rule's findings and how many the editor changed |
+| `results.json`, `RESULTS.md`, `RESULTS-words.md` | Every published number, recounted and rendered; the second page holds the comparisons at the level of words |
 | `verify.py`, `test_verify.py`, `render.py` | The check, its negative tests, and the renderer |
 | `scripts/` | The scripts that fetched, prepared, ran, and measured, as they ran |
 

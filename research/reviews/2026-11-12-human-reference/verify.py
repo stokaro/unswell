@@ -25,8 +25,15 @@ HERE = Path(__file__).resolve().parent
 DIGESTS = "files.sha256"
 RESULTS = "results.json"
 DATA = ("data/sentences.jsonl.gz", "data/preferences.jsonl.gz", "data/expert-pairs.jsonl.gz", "data/readers.jsonl.gz",
-        "data/panel.jsonl.gz", "data/trims.jsonl.gz", "data/word-counts.jsonl.gz")
+        "data/panel.jsonl.gz", "data/trims.jsonl.gz", "data/word-counts.jsonl.gz", "data/openers.jsonl.gz",
+        "data/rule-words.jsonl.gz")
 TRIMS, WORD_COUNTS = "data/trims.jsonl.gz", "data/word-counts.jsonl.gz"
+OPENERS, RULE_WORDS = "data/openers.jsonl.gz", "data/rule-words.jsonl.gz"
+# The run of the default rules with the build whose chat-preamble rule lists the opener.
+OPENER_SYSTEM = "rules-opener"
+# The set on which the opener was registered, and the sets on which it must stay silent.
+OPENER_SET, OPENER_ELSEWHERE = "beemo", ("prs", "lamp")
+OPENER_SHARE, OPENER_FLOOR, OPENER_LOAD = 0.85, 0.70, 1
 TRIM_MODELS = ("claude", "astra")
 TRIM_KEYS = {"id", "model", "sentences", "proposed", "rejected", "trims"}
 TRIM_FIELDS = {"span", "words", "fixed", "removed"}
@@ -587,13 +594,77 @@ def trim_results(root, documents):
     return result
 
 
+def opener_results(root, documents):
+    """Count the findings of the listed opener and how often the editor changed every flagged word."""
+    if not (root / OPENERS).exists():
+        return {}
+    by_id = {row["id"]: row for row in documents if row["split"] in TRIM_SPLITS}
+    found, seen = collections.defaultdict(collections.Counter), set()
+    for row in rows(root / OPENERS):
+        document = by_id.get(row.get("id"))
+        if set(row) != {"id", "span", "words"} or document is None:
+            fail(f"invalid opener row: {row.get('id')}")
+        check_spans([row["span"], *row["words"]], row["id"])
+        key = (row["id"], *row["span"])
+        if key in seen or row["span"] not in document["systems"].get(OPENER_SYSTEM, []):
+            fail(f"an opener of {row['id']} is repeated or is not a finding of {OPENER_SYSTEM}")
+        seen.add(key)
+        if not row["words"] or not all(within(word, [row["span"]]) for word in row["words"]):
+            fail(f"an opener of {row['id']} needs words inside its span")
+        counter = found[(document["set"], document["split"])]
+        counter["findings"] += 1
+        counter["changed"] += all(within(word, document["reference"]) for word in row["words"])
+    result = {"sets": {}}
+    for name, split in sorted({(row["set"], row["split"]) for row in by_id.values()}):
+        counter = found[(name, split)]
+        result["sets"][f"{name}/{split}"] = {
+            "documents": sum(1 for row in by_id.values() if (row["set"], row["split"]) == (name, split)),
+            "findings": counter["findings"], "changed": counter["changed"],
+            "interval": wilson(counter["changed"], counter["findings"])}
+    test = result["sets"].get(f"{OPENER_SET}/test", {"findings": 0, "changed": 0, "interval": [0.0, 0.0]})
+    elsewhere = sum(entry["findings"] for key, entry in result["sets"].items() if key.split("/")[0] in OPENER_ELSEWHERE)
+    result["elsewhere"] = elsewhere
+    result["listed"] = bool(test["findings"]) and test["changed"] >= OPENER_SHARE * test["findings"] \
+        and test["interval"][0] > OPENER_FLOOR and elsewhere <= OPENER_LOAD
+    return result
+
+
+def rule_word_results(root, documents):
+    """Return, for every rule on the test parts, the words under its findings against the words an editor changed."""
+    if not (root / RULE_WORDS).exists():
+        return {}
+    counts = load_word_counts(root, documents)
+    by_id = {row["id"]: row for row in documents if row["split"] in TRIM_SPLITS}
+    groups, seen = collections.defaultdict(lambda: collections.defaultdict(list)), set()
+    for row in rows(root / RULE_WORDS):
+        document = by_id.get(row.get("id"))
+        if set(row) != {"id", "rules"} or document is None or row["id"] in seen:
+            fail(f"invalid or repeated rule word row: {row.get('id')}")
+        seen.add(row["id"])
+        total = counts[row["id"]]
+        for name, pair in row["rules"].items():
+            valid = isinstance(pair, list) and len(pair) == 2 and all(isinstance(v, int) for v in pair)
+            if not valid or not 0 <= pair[1] <= pair[0] <= total["words"] or not pair[0]:
+                fail(f"invalid counts of {name} for {row['id']}")
+            if document["split"] == "test":
+                share = total["changed"] / total["words"]
+                groups[document["set"]][name].append({"removed": pair[0], "hits": pair[1], "document": pair[0] * share,
+                                                      "words": total["words"], "changed": total["changed"]})
+    if seen != set(by_id):
+        fail("rule word rows do not cover the development and test documents")
+    return {f"{name}/test": {rule: trim_report(entries, False, False, f"{name}|test|{rule}")
+                             for rule, entries in sorted(rules.items())}
+            for name, rules in sorted(groups.items())}
+
+
 def summarize(root):
     documents = load_documents(root)
     preferences = preference_results(root)
     experts = expert_results(root)
     return {"sentences": sentence_results(documents), "preferences": preferences, "expert_pairs": experts,
             "judges": admissions(preferences, experts), "readers": reader_results(root), "panel": panel_results(root),
-            "trims": trim_results(root, documents)}
+            "trims": trim_results(root, documents), "openers": opener_results(root, documents),
+            "rule_words": rule_word_results(root, documents)}
 
 
 def normalized(value):
@@ -607,11 +678,13 @@ def verify(root=HERE):
     published = json.loads((root / RESULTS).read_text())
     if normalized(summarize(root)) != normalized(published):
         fail("results differ from the data files")
-    rendered = root / "RESULTS.md"
-    if rendered.exists():
-        import render
-        if rendered.read_text() != render.render(published):
-            fail("RESULTS.md differs from the rendering of the results")
+    import render
+    for page, function in render.PAGES.items():
+        rendered = root / page
+        if rendered.exists() and rendered.read_text() != function(published):
+            fail(f"{page} differs from the rendering of the results")
+        if page == render.WORDS_PAGE and render.has_words(published) and (root / "RESULTS.md").exists() and not rendered.exists():
+            fail(f"{page} is missing")
     return published
 
 
@@ -623,7 +696,9 @@ def main(arguments):
         import render
         results = summarize(root)
         (root / RESULTS).write_text(json.dumps(results, indent=1, sort_keys=True) + "\n")
-        (root / "RESULTS.md").write_text(render.render(normalized(results)))
+        for page, function in render.PAGES.items():
+            if page == "RESULTS.md" or render.has_words(results):
+                (root / page).write_text(function(normalized(results)))
         write_digests(root)
     results = verify(root)
     documents = sum(entry["documents"] for entry in results["sentences"]["sets"].values())

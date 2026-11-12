@@ -103,10 +103,16 @@ class RecordCase(unittest.TestCase):
         verify.write_digests(self.root)
         self.rejects("results differ from the data files")
 
-    def test_edited_results_page_is_rejected(self):
+    def write_pages(self):
+        """Write every generated page that the results call for."""
         import render
         results = json.loads((self.root / "results.json").read_text())
-        (self.root / "RESULTS.md").write_text(render.render(results))
+        for page, function in render.PAGES.items():
+            if page == "RESULTS.md" or render.has_words(results):
+                (self.root / page).write_text(function(results))
+
+    def test_edited_results_page_is_rejected(self):
+        self.write_pages()
         verify.verify(self.root)
         page = (self.root / "RESULTS.md").read_text().replace("+50.0", "+90.0")
         (self.root / "RESULTS.md").write_text(page)
@@ -311,6 +317,114 @@ class TrimCase(RecordCase):
         self.rewrite("data/word-counts.jsonl.gz", lambda rows: rows[0].update(changed=12))
         self.seal_digests_only()
         self.rejects("invalid word counts")
+
+
+class OpenerCase(TrimCase):
+    """A second document, an expert-edited answer, opens with a flagged word that the editor changed."""
+
+    def setUp(self):
+        super().setUp()
+        answer = document("b1", systems={"rules-opener": [[2, 6]], "trim-claude": [], "trim-astra": []})
+        answer["set"] = "beemo"
+        self.rewrite("data/sentences.jsonl.gz", lambda rows: rows.append(answer))
+        self.rewrite("data/word-counts.jsonl.gz", lambda rows: rows.append({"id": "b1", "words": 9, "changed": 1, "systems": {}}))
+        self.rewrite("data/trims.jsonl.gz", lambda rows: rows.extend(
+            {"id": "b1", "model": model, "sentences": 3, "proposed": 0, "rejected": 0, "trims": []}
+            for model in ("astra", "claude")))
+        write_rows(self.root / "data/openers.jsonl.gz", [{"id": "b1", "span": [2, 6], "words": [[2, 5]]}])
+        write_rows(self.root / "data/rule-words.jsonl.gz",
+                   [{"id": "b1", "rules": {"some.rule": [4, 1]}}, {"id": "d1", "rules": {}}])
+        self.seal()
+
+    def openers(self):
+        return verify.verify(self.root)["openers"]
+
+    def test_opener_is_counted_from_its_words(self):
+        entry = self.openers()["sets"]["beemo/test"]
+        self.assertEqual((entry["findings"], entry["changed"]), (1, 1))
+        rule = verify.verify(self.root)["rule_words"]["beemo/test"]["some.rule"]
+        self.assertEqual((rule["removed_words"], rule["precision"]), (4, 0.25))
+
+    def test_one_finding_does_not_list_the_opener(self):
+        # One finding of one cannot put the lower end of the interval above the floor.
+        self.assertFalse(self.openers()["listed"])
+
+    def test_listing_cannot_be_declared(self):
+        results = json.loads((self.root / "results.json").read_text())
+        results["openers"]["listed"] = True
+        (self.root / "results.json").write_text(json.dumps(results))
+        verify.write_digests(self.root)
+        self.rejects("results differ from the data files")
+
+    def test_opener_must_be_a_finding_of_the_changed_rule(self):
+        self.rewrite("data/openers.jsonl.gz", lambda rows: rows[0].update(span=[2, 7]))
+        self.seal_digests_only()
+        self.rejects("is repeated or is not a finding of rules-opener")
+
+    def test_opener_cannot_repeat(self):
+        self.rewrite("data/openers.jsonl.gz", lambda rows: rows.append(dict(rows[0])))
+        self.seal_digests_only()
+        self.rejects("is repeated or is not a finding of rules-opener")
+
+    def test_opener_words_stay_inside_the_finding(self):
+        self.rewrite("data/openers.jsonl.gz", lambda rows: rows[0].update(words=[[2, 9]]))
+        self.seal_digests_only()
+        self.rejects("needs words inside its span")
+
+    def test_changed_opener_word_is_rejected(self):
+        # The word [3, 6] is not inside the editor's span [2, 5], so the count changes.
+        self.rewrite("data/openers.jsonl.gz", lambda rows: rows[0].update(words=[[3, 6]]))
+        self.seal_digests_only()
+        self.rejects("results differ from the data files")
+
+    def test_rule_words_cover_the_documents(self):
+        self.rewrite("data/rule-words.jsonl.gz", lambda rows: rows.pop())
+        self.seal_digests_only()
+        self.rejects("rule word rows do not cover")
+
+    def test_rule_words_must_be_consistent(self):
+        self.rewrite("data/rule-words.jsonl.gz", lambda rows: rows[0]["rules"].update({"some.rule": [4, 6]}))
+        self.seal_digests_only()
+        self.rejects("invalid counts of some.rule")
+
+
+class WordsPageTest(OpenerCase):
+    """The page of the word-level results is checked like the first page."""
+
+    def seal(self):
+        super().seal()
+        self.write_pages()
+
+    def test_pages_match_the_results(self):
+        verify.verify(self.root)
+
+    def test_edited_words_page_is_rejected(self):
+        page = self.root / "RESULTS-words.md"
+        page.write_text(page.read_text().replace("1 of 1", "2 of 2"))
+        self.rejects("RESULTS-words.md differs from the rendering of the results")
+
+    def test_missing_words_page_is_rejected(self):
+        (self.root / "RESULTS-words.md").unlink()
+        self.rejects("RESULTS-words.md is missing")
+
+
+class OpenerRuleTest(unittest.TestCase):
+    """The listing rule, on counts."""
+
+    def listed(self, findings, changed, elsewhere=0):
+        test = {"findings": findings, "changed": changed, "interval": verify.wilson(changed, findings)}
+        return (bool(findings) and changed >= verify.OPENER_SHARE * findings
+                and test["interval"][0] > verify.OPENER_FLOOR and elsewhere <= verify.OPENER_LOAD)
+
+    def test_thresholds(self):
+        self.assertTrue(self.listed(39, 39))
+        self.assertTrue(self.listed(39, 36))
+        # 33 of 39 is 84.6%, below the share.
+        self.assertFalse(self.listed(39, 33))
+        # Ten of ten leaves the lower end of the interval at 72%; eight of eight leaves it below the floor.
+        self.assertTrue(self.listed(10, 10))
+        self.assertFalse(self.listed(8, 8))
+        self.assertFalse(self.listed(39, 39, elsewhere=2))
 
 
 if __name__ == "__main__":

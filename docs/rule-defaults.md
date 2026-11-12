@@ -70,6 +70,17 @@ listed family leaves: its share is below 80%, and the upper end of the 95%
 interval is below 80% as well. Two families have left: `state-of-the-art` in
 `hype.vague-praise`, and `foster` with its forms in `filler.wordy-phrase`.
 
+## Listing on what editors removed
+
+[ADR 0055](adr/0055-phrase-listed-on-editor-reference.md) adds a second route
+into a default list: what human editors did. `scaffold.chat-preamble` lists
+`Sure,` and `Sure!` at the start of a document on that route. On model answers
+that experts edited, the experts removed or replaced the flagged opener in
+39 of 39 test answers, and the phrases produce no finding on 121
+documentation pages. The
+[human-reference record](../research/reviews/2026-11-12-human-reference/RESULTS-words.md)
+holds the counts and a table of every rule against the words editors changed.
+
 ## The decision rule
 
 A rule ships enabled when it names a construction a reader can act on and its

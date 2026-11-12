@@ -21,7 +21,9 @@ func phraseRules() []rule.Rule {
 			"scaffold.chat-preamble",
 			"Start with the subject instead of a conversational acknowledgment.",
 			"document-start",
-			[]string{"Certainly!", "Great question!", "Absolutely!"},
+			// "Sure," and "Sure!" come from what experts removed from model answers;
+			// see ADR 0055.
+			[]string{"Certainly!", "Great question!", "Absolutely!", "Sure,", "Sure!"},
 			true,
 		},
 		{
