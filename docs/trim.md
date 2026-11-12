@@ -1,5 +1,8 @@
 # Trim
 
+Experimental. The judges that admitted this command do not agree with each
+other; see [Measured behavior](#measured-behavior).
+
 `unswell trim` asks a model you name for sentences with empty words removed:
 announcements, stock phrases, intensifiers, repeated qualifiers. The model
 proposes. A deterministic check decides which proposals you see.
@@ -93,9 +96,9 @@ model call.
 No person judged these trims. Four models did, by a rule about information: a
 version is worse if it lacks a fact, condition, qualification, or instruction
 that the other has; otherwise the shorter version is better when the extra
-words carry no information. `claude-fable-5-2` has two votes,
-`claude-sonnet-5-5`, `gpt-6-astra`, and `private-host/Qwen3.8-27B` one each,
-and a tie goes to the first. [ADR 0053](adr/0053-trim-admitted-by-model-consensus.md)
+words carry no information. `claude-fable-5-2` has three votes, `gpt-6-astra`
+two, `claude-sonnet-5-5` and `private-host/Qwen3.8-27B` one each, and a tie
+goes to the first. [ADR 0053](adr/0053-trim-admitted-by-model-consensus.md)
 records why the project accepts this judge.
 
 | Trimmed paragraphs of generated documentation | Trimmed preferred | Original preferred | Trimmed among decisive answers |
@@ -108,8 +111,11 @@ Where the original is preferred, the consensus found that the trim lost
 information. That is why the command proposes and does not decide.
 
 The judges do not agree with each other. On the first row the single models
-prefer the trimmed paragraph in 16, 18, 9, and 6 of 20 pairs, in the order above.
-The numbers in the table depend on the two votes of the first model. The
+prefer the trimmed paragraph in 16, 9, 18, and 6 of 20 pairs, in the order above.
+The two models of one family approve and hold four of the seven votes.
+With one equal vote per model family, for `claude-fable-5-2`, `gpt-6-astra`, and
+`private-host/Qwen3.8-27B`, the rule is not met: the trimmed paragraph is preferred in
+11 of 20, 13 of 20, and 21 of 40 decisive answers on the three rows. The
 [record](../research/reviews/2026-11-12-human-reference/RESULTS.md) keeps every
 single answer.
 

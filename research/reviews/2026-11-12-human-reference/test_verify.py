@@ -47,7 +47,7 @@ class RecordCase(unittest.TestCase):
         write_rows(self.root / "data/readers.jsonl.gz",
                    [{"reader": "r1", "pair": "a", "arm": "reviewed", "reviewer": "m", "outcome": "revised"},
                     {"reader": "r1", "pair": "b", "arm": "control", "reviewer": "m", "outcome": "original"}])
-        # The top model against two others, with one abstaining: two votes each, and the tie goes to the top model.
+        # The top model against the second and one more, with one abstaining: three votes each, and the tie goes to the top model.
         tie = {"fable": "revised", "claude": "original", "astra": "original", "qwen": "same"}
         # Three one-vote models together outweigh the top model.
         outvoted = {"fable": "revised", "claude": "original", "astra": "original", "qwen": "original"}
@@ -167,6 +167,13 @@ class RecordCase(unittest.TestCase):
         self.assertEqual(results["panel"]["first"]["opposed"], 1)
         # One pair cannot meet a rule that needs fifteen decisive answers.
         self.assertFalse(results["panel"]["first"]["reviewed_meets_rule"])
+
+    def test_one_vote_per_family_is_counted_apart(self):
+        results = verify.verify(self.root)
+        # In the tie row the three families give three different answers; in the other two families prefer the original.
+        self.assertEqual(results["panel"]["first"]["one_vote_per_family"]["reviewed"]["same"], 1)
+        self.assertEqual(results["panel"]["trim"]["one_vote_per_family"]["reviewed"]["original"], 1)
+        self.assertFalse(results["panel"]["trim"]["one_vote_per_family"]["reviewed"]["meets_rule"])
 
     def test_product_pairs_have_one_arm(self):
         results = verify.verify(self.root)

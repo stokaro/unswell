@@ -151,7 +151,9 @@ def render(results):
         add("")
         add("Four models answered every pair by a rule about information: a version is worse if it lacks a fact, condition,")
         add("qualification, or instruction that the other has; otherwise the shorter one is better when the extra words carry")
-        add("no information. `claude-fable-5-2` has two votes and the other three one each; a tie goes to `claude-fable-5-2`.")
+        add("no information. `claude-fable-5-2` has three votes, `gpt-6-astra` two, and the other two one each; a tie goes to")
+        add("`claude-fable-5-2`. The maintainer set these weights after the answers were read. The weights first registered")
+        add("(two votes for `claude-fable-5-2`, one for each other model) give the same consensus on every pair.")
         titles = {"first": "Free revision", "trim": "Revision that may only delete words",
                   "product": "The command `unswell trim` as built, on documents outside both comparisons"}
         for comparison in ("first", "trim", "product"):
@@ -177,6 +179,13 @@ def render(results):
                             for arm in order)
                 for judge in ("fable", "claude", "astra", "qwen")) + "."
                 + (" Two numbers per model are the reviewed and the control arm." if len(entry["arms"]) == 2 else ""))
+            family = entry["one_vote_per_family"]
+            add("")
+            add("With one equal vote per model family (`claude-fable-5-2`, `gpt-6-astra`, `private-host/Qwen3.8-27B`), revised "
+                "among decisive answers: " + "; ".join(
+                    f"{arm} {pct(family[arm]['revised'], family[arm]['decisive'])} of {family[arm]['decisive']}" for arm in order)
+                + ". " + ("That meets the rule." if all(family[arm]["meets_rule"] for arm in order) else
+                          "That does not meet the rule in every arm."))
             add("")
             if comparison == "product":
                 add("The command meets the registered rule." if entry["product_meets_rule"] else

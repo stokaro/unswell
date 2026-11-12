@@ -99,7 +99,8 @@ writing only if it agreed with the writers' majority.
    pairs after review findings the single models prefer the trimmed paragraph
    in 16, 18, 9, 6 of 20 pairs: the two models of one family approve, and the
    other two find that about half of the trims lose information. The outcome
-   rests on the two votes of the strongest model. `RESULTS.md` lists every
+   rests on counting both models of that family: with one equal vote per
+   family the rule is not met. `RESULTS.md` lists every
    count, and `data/panel.jsonl.gz` every answer.
 
 7. **Review by a model does a little.** It flags edited sentences more often
@@ -175,8 +176,9 @@ Each rule was registered on issue 525 before its result was read.
   writers' preferences on fiction. The judging rule here asks about lost
   information and not about taste, which is a narrower question, and it was
   not validated against people.
-- Two of the four judges belong to one model family and hold three of the five
-  votes together.
+- Two of the four judges belong to one model family and hold four of the seven
+  votes together. The maintainer set the weights after the answers were read;
+  the weights registered first give the same consensus on every pair.
 - In the free-revision comparison a model rewrote the flagged sentences and
   deleted some of them. The trim-only comparison and the command never delete
   a sentence.

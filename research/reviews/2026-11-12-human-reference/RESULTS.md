@@ -139,7 +139,9 @@ random other sentences.
 
 Four models answered every pair by a rule about information: a version is worse if it lacks a fact, condition,
 qualification, or instruction that the other has; otherwise the shorter one is better when the extra words carry
-no information. `claude-fable-5-2` has two votes and the other three one each; a tie goes to `claude-fable-5-2`.
+no information. `claude-fable-5-2` has three votes, `gpt-6-astra` two, and the other two one each; a tie goes to
+`claude-fable-5-2`. The maintainer set these weights after the answers were read. The weights first registered
+(two votes for `claude-fable-5-2`, one for each other model) give the same consensus on every pair.
 
 Free revision: 40 pairs. All four models agree on 17; on 14 at least one
 model prefers the revision and another the original.
@@ -150,6 +152,8 @@ model prefers the revision and another the original.
 | control | 6 | 3 | 11 | 66.7% of 9 | 35.4% to 87.9% |
 
 Single models, revised preferred / original preferred: `claude-fable-5-2` 15/5, 6/3; `claude-sonnet-5-5` 16/4, 4/5; `gpt-6-astra` 8/12, 9/8; `private-host/Qwen3.8-27B` 9/11, 9/6. Two numbers per model are the reviewed and the control arm.
+
+With one equal vote per model family (`claude-fable-5-2`, `gpt-6-astra`, `private-host/Qwen3.8-27B`), revised among decisive answers: reviewed 50.0% of 20; control 61.5% of 13. That does not meet the rule in every arm.
 
 Only the reviewed arm reaches the registered 70% of decisive answers. The reviewed arm is not 15 points ahead of the control arm.
 
@@ -163,6 +167,8 @@ model prefers the revision and another the original.
 
 Single models, revised preferred / original preferred: `claude-fable-5-2` 16/4, 19/1; `claude-sonnet-5-5` 18/2, 15/2; `gpt-6-astra` 9/11, 13/7; `private-host/Qwen3.8-27B` 6/14, 10/10. Two numbers per model are the reviewed and the control arm.
 
+With one equal vote per model family (`claude-fable-5-2`, `gpt-6-astra`, `private-host/Qwen3.8-27B`), revised among decisive answers: reviewed 55.0% of 20; control 65.0% of 20. That does not meet the rule in every arm.
+
 Both arms reach the registered 70% of decisive answers. The reviewed arm is not 15 points ahead of the control arm.
 
 The command `unswell trim` as built, on documents outside both comparisons: 40 pairs. All four models agree on 16; on 23 at least one
@@ -173,5 +179,7 @@ model prefers the revision and another the original.
 | product | 33 | 7 | 0 | 82.5% of 40 | 68.0% to 91.3% |
 
 Single models, revised preferred / original preferred: `claude-fable-5-2` 31/9; `claude-sonnet-5-5` 34/5; `gpt-6-astra` 21/19; `private-host/Qwen3.8-27B` 16/24.
+
+With one equal vote per model family (`claude-fable-5-2`, `gpt-6-astra`, `private-host/Qwen3.8-27B`), revised among decisive answers: product 52.5% of 40. That does not meet the rule in every arm.
 
 The command meets the registered rule.

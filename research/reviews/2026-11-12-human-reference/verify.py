@@ -40,7 +40,8 @@ OUTCOMES = ("revised", "original", "same")
 JUDGE_MODELS = ("fable", "claude", "astra", "qwen")
 COMPARISONS = {"first": ("reviewed", "control"), "trim": ("reviewed", "control"), "product": ("product",)}
 TOP_JUDGE = "fable"
-WEIGHTS = {TOP_JUDGE: 2}
+WEIGHTS = {TOP_JUDGE: 3, "astra": 2}
+FAMILIES = ("fable", "astra", "qwen")
 COUNTS = ("documents", "sentences", "edited", "flagged", "edited_flagged", "unedited_flagged", "findings",
           "findings_on_edit", "edits", "edits_touched")
 
@@ -296,13 +297,19 @@ def reader_results(root):
 
 
 def consensus(votes):
-    """The answer with the most votes; the top model has two votes and decides a tie."""
+    """The answer with the most votes. The top model has three votes, the second two, and the top model decides a tie."""
     tally = collections.Counter()
     for judge, vote in votes.items():
         tally[vote] += WEIGHTS.get(judge, 1)
     best = max(tally.values())
     leaders = [vote for vote, count in tally.items() if count == best]
     return leaders[0] if len(leaders) == 1 else votes[TOP_JUDGE]
+
+
+def family_answer(votes):
+    """One equal vote per model family: the answer two of the three give, else no real difference."""
+    answer, count = collections.Counter(votes[judge] for judge in FAMILIES).most_common(1)[0]
+    return answer if count >= 2 else "same"
 
 
 def arm_summary(counter):
@@ -322,6 +329,7 @@ def panel_results(root):
     if not path.exists():
         return {}
     arms = {comparison: collections.defaultdict(collections.Counter) for comparison in COMPARISONS}
+    families = {comparison: collections.defaultdict(collections.Counter) for comparison in COMPARISONS}
     single = collections.defaultdict(lambda: collections.defaultdict(collections.Counter))
     counts, seen = collections.defaultdict(collections.Counter), set()
     for row in rows(path):
@@ -335,6 +343,7 @@ def panel_results(root):
             fail(f"pair {row['pair']} appears twice in the panel answers")
         seen.add((row["comparison"], row["pair"]))
         arms[row["comparison"]][row["arm"]][consensus(row["judges"])] += 1
+        families[row["comparison"]][row["arm"]][family_answer(row["judges"])] += 1
         for judge, vote in row["judges"].items():
             single[(row["comparison"], row["arm"])][judge][vote] += 1
         counts[row["comparison"]]["pairs"] += 1
@@ -349,8 +358,10 @@ def panel_results(root):
             summaries[name]["judges"] = {judge: {vote: single[(comparison, name)][judge][vote] for vote in OUTCOMES}
                                          for judge in JUDGE_MODELS}
         entry = {**dict(counts[comparison]), "arms": summaries}
+        entry["one_vote_per_family"] = {name: arm_summary(families[comparison][name]) for name in names}
         for name in names:
             entry[f"{name}_meets_rule"] = meets(summaries[name])
+            entry["one_vote_per_family"][name]["meets_rule"] = meets(entry["one_vote_per_family"][name])
         if names == ("reviewed", "control"):
             reviewed, control = summaries["reviewed"], summaries["control"]
             share = reviewed["revised"] / reviewed["decisive"] if reviewed["decisive"] else 0.0
