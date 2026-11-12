@@ -1,0 +1,24 @@
+name: Release prerequisites
+on:
+  schedule:
+    - cron: '17 5 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mirror-tool:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Resolve the pinned mirror tool
+        run: bash scripts/mirror-containers.sh --check-tool
+  mirror-credential:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log in to Docker Hub with the mirror credential
+        env:
+          DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
+          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+        run: |
+          printf '%s' "$DOCKER_HUB_TOKEN" | docker login --username "$DOCKER_HUB_USER" --password-stdin
+          docker logout
