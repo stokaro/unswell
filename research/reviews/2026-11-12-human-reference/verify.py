@@ -35,8 +35,10 @@ REVIEW_REPEAT_KEYS = {"document", "reviewer", "protocol", "words", "changed", "f
                       "both", "after_words", "after_findings", "edit"}
 REVIEW_EDIT_KEYS = ("sentences", "sentences_changed", "flagged_before", "changed_by_commit", "flagged_after", "on_new_text",
                     "flagged_both_times")
-# The seed that the registered comparison of the two answer protocols was run with.
+# The seed that the registered comparison of the answer protocols was run with.
 REVIEW_REPEAT_SEED = 20261113
+# A verdict for every item; the same with "revise" only when the defect is clear; only the items that need revision.
+REVIEW_PROTOCOLS = ("verdicts", "strict", "list")
 EMOJI_LOAD, FREQUENCY_LOAD = "data/emoji-load.jsonl.gz", "data/frequency-load.jsonl.gz"
 DESLOP = "data/deslop-pairs.jsonl.gz"
 DESLOP_KEYS = {"id", "repository", "commit", "path", "part", "web_edit", "english", "words_before", "words_after", "before",
@@ -949,6 +951,7 @@ def review_protocol(sample):
     precision, chance = over_chance(sample) or (0.0, 0.0)
     draws = draws_of(sample, lambda drawn: None if over_chance(drawn) is None else over_chance(drawn)[0] - over_chance(drawn)[1])
     return {"documents": len(sample), "sentences": [sum(row["sentences"][run] for row in sample) for run in (0, 1)],
+            "changed_words_flagged": sum(row["flagged_changed"][0] for row in sample),
             "both": sum(row["both"] for row in sample), "repeat_rate": repeat_rate(sample),
             "findings": [sum(row["findings"][run] for row in sample) for run in (0, 1)],
             "flagged_words": sum(row["flagged"][0] for row in sample), "precision": precision, "chance": chance,
@@ -979,7 +982,7 @@ def review_repeat_results(root):
     table, seen = {}, set()
     for row in rows(root / REVIEW_REPEAT):
         key = (row.get("reviewer"), row.get("protocol"), row.get("document"))
-        if set(row) != REVIEW_REPEAT_KEYS or row["protocol"] not in ("verdicts", "list") or key in seen:
+        if set(row) != REVIEW_REPEAT_KEYS or row["protocol"] not in REVIEW_PROTOCOLS or key in seen:
             fail(f"invalid or repeated review row: {row.get('document')}")
         seen.add(key)
         if not review_row_valid(row):
@@ -987,15 +990,21 @@ def review_repeat_results(root):
         table.setdefault(row["reviewer"], {}).setdefault(row["protocol"], {})[row["document"]] = row
     result = {}
     for reviewer, protocols in sorted(table.items()):
-        if set(protocols) != {"verdicts", "list"} or set(protocols["verdicts"]) != set(protocols["list"]):
-            fail(f"review rows of {reviewer} do not pair the two protocols")
-        documents = sorted(protocols["verdicts"])
-        paired = [(protocols["verdicts"][name], protocols["list"][name]) for name in documents]
-        new, old = [pair[0] for pair in paired], [pair[1] for pair in paired]
-        draws = draws_of(paired, lambda drawn: repeat_rate([p[0] for p in drawn]) - repeat_rate([p[1] for p in drawn]))
-        entry = {"verdicts": review_protocol(new), "list": review_protocol(old), "movement": review_movement(new),
-                 "difference": repeat_rate(new) - repeat_rate(old), "difference_interval": [draws[49], draws[BOOTSTRAP - 51]]}
-        entry["rule"] = {"repeats_more": entry["difference_interval"][0] > 0, "on_changed_words": entry["verdicts"]["interval"][0] > 0}
+        if set(protocols) != set(REVIEW_PROTOCOLS) or any(set(protocols[name]) != set(protocols["list"]) for name in REVIEW_PROTOCOLS):
+            fail(f"review rows of {reviewer} do not pair the protocols")
+        documents = sorted(protocols["list"])
+        old = [protocols["list"][name] for name in documents]
+        entry = {"list": review_protocol(old)}
+        for protocol in ("verdicts", "strict"):
+            new = [protocols[protocol][name] for name in documents]
+            draws = draws_of(list(zip(new, old)), lambda drawn: repeat_rate([p[0] for p in drawn]) - repeat_rate([p[1] for p in drawn]))
+            entry[protocol] = review_protocol(new)
+            entry[protocol].update(movement=review_movement(new), difference=repeat_rate(new) - repeat_rate(old),
+                                   difference_interval=[draws[49], draws[BOOTSTRAP - 51]])
+        chosen = entry["verdicts"]
+        # The verdict form replaces the list form when it repeats more, still points at changed words, and finds no less.
+        entry["rule"] = {"repeats_more": chosen["difference_interval"][0] > 0, "on_changed_words": chosen["interval"][0] > 0,
+                         "finds_no_less": chosen["changed_words_flagged"] >= entry["list"]["changed_words_flagged"]}
         entry["rule"]["ships"] = all(entry["rule"].values())
         result[reviewer] = entry
     return result

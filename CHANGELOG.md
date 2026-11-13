@@ -5,7 +5,8 @@
 `unswell review` now asks the reviewer for a verdict on every item, not only
 for the items to revise. A reviewer that lists only what it wants changed
 picks differently on each run: two runs on the same 40 files repeated 77.4%
-of each other's flagged sentences, and 84.6% with the verdict form
+of each other's flagged sentences, and 83.9% with the verdict form, which
+also flags more of the words that a de-slop commit then changed
 ([ADR 0057](docs/adr/0057-reviewer-judges-every-item.md)). An answer that
 judges fewer than four in five items fails and is asked again. The answer is
 longer, about a line per sentence. In Go, `Document.ParseFlags` replaces

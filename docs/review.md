@@ -180,41 +180,45 @@ holds Markdown files before and after commits whose message says that they
 remove AI-sounding wording
 ([ADR 0056](adr/0056-rules-tested-on-de-slop-commits.md)). On 40 of them
 `claude-sonnet-5-5` reviewed the text before the commit twice, with no
-confirming model, under each of two answer forms: the verdict for every item
-that the command asks for now, and the list of items to revise that it asked
-for before.
+confirming model, under two answer forms: the verdict for every item that the
+command asks for now, and the list of items to revise that it asked for
+before.
 
-| Answer asked for | Sentences flagged, two runs | In both | Repeat rate | Flagged words that the commit changed | Same share of all words | Difference |
-| --- | ---: | ---: | ---: | ---: | ---: | --- |
-| A verdict for every item | 99 and 102 | 85 | 84.6% | 42.0% | 26.9% | +15.1 points (+4.7 to +24.9) |
-| Only the items that need revision | 121 and 122 | 94 | 77.4% | 39.3% | 27.6% | +11.7 points (+2.3 to +21.0) |
+| Answer asked for | Sentences flagged, two runs | In both | Repeat rate | Changed words flagged | Their share of the flagged words | Same share of all words | Difference |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| A verdict for every item | 181 and 179 | 151 | 83.9% | 636 | 40.4% | 27.6% | +12.8 points (+3.4 to +21.9) |
+| Only the items that need revision | 121 and 122 | 94 | 77.4% | 439 | 39.3% | 27.6% | +11.7 points (+2.3 to +21.0) |
 
 The repeat rate is the share of the sentences flagged in one run that the
-other run of the same text flags too. The last three columns are from the
-first run.
+other run of the same text flags too. The other columns are from the first
+run.
 
-The review points at wording that the commit then changed: 42.0% of the
-flagged words, where the commit changed 26.9% of all words of those files.
+The review points at wording that the commit then changed: 40.4% of the
+flagged words, where the commit changed 27.6% of all words of those files.
+By sentence, the commit changed or removed 100 of the 174 flagged sentences
+(57.5%) and 33.0% of all sentences.
 
-A second run does not give the same list. It repeats 84.6% of the flagged
-sentences. The earlier form repeated 77.4%; the verdict form is +7.2 points (+0.7 to +16.1)
-better, and that is why the command uses it
+It does not find most of the edit. The commits changed or removed 644
+sentences in those files, and the review had flagged 100 of them (15.5%).
+
+A second run does not give the same list. It repeats 83.9% of the flagged
+sentences. The earlier form repeated 77.4% and flagged fewer of the changed
+words, which is why the command asks for a verdict on every item
 ([ADR 0057](adr/0057-reviewer-judges-every-item.md)).
 
-The findings are not shown to fall after the commit. The review reports 99
-findings on the texts before and 73 on the texts after, and per 1,000 words
-they are lower after the commit in 17 pairs and higher in 15: 53.1% (36.4% to 69.1%).
-Do not use the number of findings to tell whether a revision helped.
+That gain was measured with one model. A second, weaker model,
+`private-host/Qwen3.8-27B`, got nothing from the verdict form on the same
+files: it repeats 67.0% of its flagged sentences where it repeated 67.4%
+with the list form, and flags 285 changed words where it flagged 319. How well a
+review repeats depends on the model more than on the answer form.
 
-The commit changed or removed 57 of the 95 sentences flagged before it
-(60.0%), where it changed 33.1% of all sentences of those files. Of the 72
-sentences flagged after it, 37 are new or changed text. So the review points at
-sentences that people go on to change, and it flags what they write in their
-place about as often.
-
-It does not find most of the edit. The commits changed or removed 642
-sentences in those files, and the review had flagged 57 of them (8.9%).
-The default rules of `unswell check` do fall on such commits; see
+The findings are not shown to fall after the commit. The review reports 185
+findings on the texts before and 143 on the texts after, and per 1,000 words
+they are lower after the commit in 21 pairs and higher in 15: 58.3% (42.2% to 72.9%).
+Of the 139 sentences flagged after the commit, 64 are new or changed text: the
+review flags what people write in place of a flagged sentence about as often.
+Do not use the number of findings to tell whether a revision helped. The
+default rules of `unswell check` do fall on such commits; see
 [rule defaults](rule-defaults.md#tested-on-what-people-remove-from-ai-sounding-documentation).
 
 The two sections below were measured with the earlier answer form.

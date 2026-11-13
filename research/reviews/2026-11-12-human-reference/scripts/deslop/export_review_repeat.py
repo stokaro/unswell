@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 """Export per-document counts of the two answer protocols of the review, for the record.
 
-usage: export_review_repeat.py <workspace> <system> <reviewer name> <out jsonl.gz>
+usage: export_review_repeat.py <workspace> <system> <reviewer name> <out jsonl.gz> [--append]
 
-Reads confirm-new-1 and confirm-new-2 (a verdict for every item; the first also
-holds the texts after the commit) and confirm-old-1 and confirm-old-2 (only
-the items that need revision). A row is one text before a commit under one
+Reads three answer forms, each run twice on the texts before a commit:
+confirm-b-1 and confirm-b-2 (a verdict for every item), confirm-new-1 and
+confirm-new-2 (the same with "revise" only when the defect is clear), and
+confirm-old-1 and confirm-old-2 (only the items that need revision). The
+first run directory of the two verdict forms also holds the texts after the
+commit. A row is one text before a commit under one
 protocol: words, words the commit changed, and for each of the two runs the
 findings, the flagged words, the flagged words that the commit changed, and
 the flagged sentences; then the sentences flagged in both runs. Rows of the
-verdict form also say what the commit did to the flagged sentences of the
+verdict forms also say what the commit did to the flagged sentences of the
 first run: how many of them it changed or removed, against the same count
 for all sentences of six or more words, and how many of the sentences flagged
 on the text after the commit are new or changed, or stood unchanged and were
@@ -66,7 +69,8 @@ for doc in docs:
     words = [(len(text[:m.start()].encode()), len(text[:m.end()].encode())) for m in WORD.finditer(text)]
     reference = [tuple(r["span"]) for r in doc["reference"]]
     changed = [overlaps(b, e, reference) for b, e in words]
-    for protocol, names in (("verdicts", ("confirm-new-1", "confirm-new-2")), ("list", ("confirm-old-1", "confirm-old-2"))):
+    for protocol, names in (("verdicts", ("confirm-b-1", "confirm-b-2")), ("strict", ("confirm-new-1", "confirm-new-2")),
+                            ("list", ("confirm-old-1", "confirm-old-2"))):
         runs = [run(name, doc) for name in names]
         marks = [[overlaps(b, e, spans) for b, e in words] for spans in runs]
         sets = [flagged_sentences(doc, spans) for spans in runs]
@@ -75,9 +79,9 @@ for doc in docs:
                "flagged_changed": [sum(f and c for f, c in zip(m, changed)) for m in marks],
                "sentences": [len(s) for s in sets], "both": len(sets[0] & sets[1]), "after_words": None, "after_findings": None,
                "edit": None}
-        if protocol == "verdicts":
+        if protocol != "list":
             later = after[doc["pair"]]
-            later_spans = [tuple(s) for s in json.load(open(f"{W}confirm-new-1/runs/{system}/{later['id']}.json"))["spans"]]
+            later_spans = [tuple(s) for s in json.load(open(f"{W}{names[0]}/runs/{system}/{later['id']}.json"))["spans"]]
             row["after_words"] = len(WORD.findall(later["text"]))
             row["after_findings"] = len(later_spans)
             first, second = flagged_texts(doc, runs[0]), flagged_texts(later, later_spans)
@@ -90,6 +94,11 @@ for doc in docs:
                            "flagged_after": len(second), "on_new_text": sum(q not in old_text for q in second),
                            "flagged_both_times": sum(q in old_text and q in first for q in second)}
         rows.append(row)
+existing = []
+if "--append" in sys.argv:
+    existing = [json.loads(line) for line in gzip.open(out, "rt")]
+    existing = [row for row in existing if row["reviewer"] != reviewer]
+rows = existing + rows
 with gzip.GzipFile(out, "wb", mtime=0) as handle:
     for row in rows:
         handle.write((json.dumps(row, sort_keys=True) + "\n").encode())

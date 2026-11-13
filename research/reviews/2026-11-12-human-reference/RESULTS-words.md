@@ -262,23 +262,51 @@ On English files alone the bar for a default rule is met by both new rules.
 ## Whether a reviewer repeats itself
 
 `unswell review` used to ask the reviewer only for the items that need revision. It now asks for a verdict on every
-item, with "revise" only when the defect is clear. Each form was run twice on the same texts: 40 files before a
-commit that removes AI-sounding wording, pairs 41 to 80 of the review sample, which no earlier run of either form
-with this reviewer had touched. The repeat rate is the share of the sentences flagged in one run that the other run
-flags too. The last columns are from the first run: the share of flagged words that the commit changed, the same
-share for all words of those documents, and the difference with a 95% interval.
+item. A stricter verdict form, with "revise" only when the defect is clear, was tried as well. Each form was run
+twice on the same texts: 40 files before a commit that removes AI-sounding wording, pairs 41 to 80 of the review
+sample, which no earlier run of these forms with the first reviewer had touched. The repeat rate is the share of the
+sentences flagged in one run that the other run flags too. The other columns are from the first run: the flagged
+words that the commit changed, their share of the flagged words, the same share for all words of those documents,
+and the difference with a 95% interval.
 
 Reviewer `claude-sonnet-5-5`, no confirming model:
 
-| Answer asked for | Sentences flagged, two runs | In both | Repeat rate | Flagged words changed | Chance | Difference |
-| --- | ---: | ---: | ---: | ---: | ---: | --- |
-| A verdict for every item | 99 and 102 | 85 | 84.6% | 42.0% | 26.9% | +15.1 points (+4.7 to +24.9) |
-| Only the items that need revision | 121 and 122 | 94 | 77.4% | 39.3% | 27.6% | +11.7 points (+2.3 to +21.0) |
+| Answer asked for | Sentences flagged, two runs | In both | Repeat rate | Changed words flagged | Share of flagged words | Chance | Difference |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| A verdict for every item | 181 and 179 | 151 | 83.9% | 636 | 40.4% | 27.6% | +12.8 points (+3.4 to +21.9) |
+| The same, "revise" only when clear | 99 and 102 | 85 | 84.6% | 349 | 42.0% | 26.9% | +15.1 points (+4.7 to +24.9) |
+| Only the items that need revision | 121 and 122 | 94 | 77.4% | 439 | 39.3% | 27.6% | +11.7 points (+2.3 to +21.0) |
 
-The verdict form repeats +7.2 points more (+0.7 to +16.1). It was to replace the other form if that interval and the interval of its own difference both exclude zero: they do.
+A verdict for every item: repeats +6.5 points against the list form (+1.4 to +13.3).
 
-Its findings number 99 on the texts before the commit and 73 on the texts after. Per 1,000 words they are lower after the commit in 17 pairs and higher in 15: 53.1% (36.4% to 69.1%). The review is not shown to report fewer findings after such a commit.
+The same, "revise" only when clear: repeats +7.2 points against the list form (+0.7 to +16.1).
 
-What the commit did to the flagged sentences says why. Of the 95 sentences flagged before the commit, it changed or removed 57 (60.0%); of all 1,942 sentences of six or more words in those files it changed or removed 33.1%. Of the 72 sentences flagged after the commit, 37 are new or changed text, 27 stood unchanged and were flagged before, and 8 stood unchanged and were not. So the count stays up mainly because the rewritten text is flagged again, not because the reviewer fails to repeat itself.
+The verdict form was to replace the list form if it repeats more with an interval that excludes zero, its flags fall
+on changed words above chance with an interval that excludes zero, and it flags no fewer changed words: all three hold.
 
-The review does not find most of the edit: of the 642 sentences that the commits changed or removed, it had flagged 57 (8.9%).
+Its findings number 185 on the texts before the commit and 143 on the texts after. Per 1,000 words they are lower after the commit in 21 pairs and higher in 15: 58.3% (42.2% to 72.9%). The review is not shown to report fewer findings after such a commit.
+
+What the commit did to the flagged sentences says why. Of the 174 sentences flagged before the commit, it changed or removed 100 (57.5%); of all 1,950 sentences of six or more words in those files it changed or removed 33.0%. Of the 139 sentences flagged after the commit, 64 are new or changed text, 56 stood unchanged and were flagged before, and 19 stood unchanged and were not. So the count stays up mainly because the rewritten text is flagged again, not because the reviewer fails to repeat itself.
+
+The review does not find most of the edit: of the 644 sentences that the commits changed or removed, it had flagged 100 (15.5%).
+
+Reviewer `private-host/Qwen3.8-27B`, no confirming model:
+
+| Answer asked for | Sentences flagged, two runs | In both | Repeat rate | Changed words flagged | Share of flagged words | Chance | Difference |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| A verdict for every item | 98 and 99 | 66 | 67.0% | 285 | 38.4% | 25.0% | +13.4 points (+1.2 to +26.8) |
+| The same, "revise" only when clear | 59 and 62 | 38 | 62.8% | 209 | 37.5% | 27.1% | +10.4 points (-5.0 to +26.5) |
+| Only the items that need revision | 78 and 97 | 59 | 67.4% | 319 | 40.7% | 27.3% | +13.5 points (-0.8 to +27.0) |
+
+A verdict for every item: repeats -0.4 points against the list form (-15.2 to +11.6).
+
+The same, "revise" only when clear: repeats -4.6 points against the list form (-16.7 to +7.1).
+
+The verdict form was to replace the list form if it repeats more with an interval that excludes zero, its flags fall
+on changed words above chance with an interval that excludes zero, and it flags no fewer changed words: they do not all hold: finds no less fails, on changed words holds, repeats more fails.
+
+Its findings number 98 on the texts before the commit and 81 on the texts after. Per 1,000 words they are lower after the commit in 20 pairs and higher in 17: 54.1% (38.4% to 69.0%). The review is not shown to report fewer findings after such a commit.
+
+What the commit did to the flagged sentences says why. Of the 98 sentences flagged before the commit, it changed or removed 48 (49.0%); of all 1,939 sentences of six or more words in those files it changed or removed 33.0%. Of the 80 sentences flagged after the commit, 33 are new or changed text, 31 stood unchanged and were flagged before, and 16 stood unchanged and were not. So the count stays up mainly because the rewritten text is flagged again, not because the reviewer fails to repeat itself.
+
+The review does not find most of the edit: of the 639 sentences that the commits changed or removed, it had flagged 48 (7.5%).

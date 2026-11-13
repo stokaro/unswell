@@ -32,8 +32,7 @@ Answer with JSON only: {"items": [{"item": "<id>", "verdict": "ok"}, {"item": "<
 	`"categories": ["<category>"], "quote": "<text copied from the item>", "reason": "<one sentence>"}]}.
 Give one entry for every numbered item, in the order of the list. An acceptable item is "ok".
 An item that needs revision is "revise", with at least one category, a quote copied character for character
-from that item, and a one-sentence reason. Use "revise" only when the defect is clear; an item you hesitate
-about is "ok".
+from that item, and a one-sentence reason.
 `
 
 const confirmationInstructions = `You review flags that another reviewer raised on one technical document.
