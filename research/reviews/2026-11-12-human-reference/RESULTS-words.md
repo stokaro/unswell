@@ -150,3 +150,23 @@ Writer-edited fiction (LAMP):
 | `readability.grade-metric` | 66 | 1,458 | 53.4% | 50.4% | +3.0 (-5.5 to +11.7) |
 | `readability.long-paragraph` | 115 | 2,409 | 54.8% | 49.3% | +5.5 (-1.1 to +12.3) |
 | `syntax.passive-candidate-density` | 36 | 74 | 56.8% | 47.5% | +9.3 (-4.4 to +24.3) |
+
+## A wide list of phrases that chat models favor, on answers the other results did not use
+
+The list has 160 words and phrases and is not in the product. It ran on expert-edited answers that no
+other result of this record had used. On the selection part a phrase left the list when it had at least four
+findings and the expert removed or replaced every flagged word in fewer than half of them: 10 left,
+150 stayed. The confirmation part ran once with those. The second row is high by construction: the list
+was pruned on the answers it counts.
+
+| Part | Answers | With a finding | Findings | Words under findings that the editor changed | Chance in the document | Difference, points | Findings with every flagged word changed | 95% interval |
+| --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | --- |
+| Selection, all 160 phrases | 850 | 241 | 412 | 65.3% | 56.5% | +8.7 (+4.4 to +13.2) | 260 of 412, 63.1% | 58.3% to 67.6% |
+| Selection, the 150 that stayed | 850 | 215 | 347 | 72.3% | 59.4% | +12.9 (+8.9 to +17.4) | 240 of 347, 69.2% | 64.1% to 73.8% |
+| Confirmation | 883 | 212 | 343 | 69.2% | 56.3% | +12.9 (+8.7 to +17.4) | 227 of 343, 66.2% | 61.0% to 71.0% |
+
+The phrases that left: `aims to`, `empower`, `ensuring`, `ensuring that`, `in the world of`, `more than just`, `navigate the`, `on the other hand`, `showcase`, `when it comes to`.
+
+The rule for the confirmation part asked for two things. Words under findings above the chance of the same answers, with an interval above zero: met. At least 70% of findings with every flagged word changed, with the lower end of the interval above 60%: not met. The list does not ship.
+
+On 3,302 pages of public repositories from the assistant-panel corpus the kept phrases produce 3,922 findings in 5,547,105 words, 0.71 per 1,000 words, on 1,509 of the pages.

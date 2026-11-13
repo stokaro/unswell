@@ -27,7 +27,16 @@ DIGESTS = "files.sha256"
 RESULTS = "results.json"
 DATA = ("data/sentences.jsonl.gz", "data/preferences.jsonl.gz", "data/expert-pairs.jsonl.gz", "data/readers.jsonl.gz",
         "data/panel.jsonl.gz", "data/trims.jsonl.gz", "data/word-counts.jsonl.gz", "data/openers.jsonl.gz",
-        "data/rule-words.jsonl.gz", "data/opener-load.jsonl.gz")
+        "data/rule-words.jsonl.gz", "data/opener-load.jsonl.gz", "data/vocabulary.jsonl.gz",
+        "data/vocabulary-phrases.jsonl.gz", "data/vocabulary-load.jsonl.gz")
+VOCABULARY, VOCABULARY_PHRASES = "data/vocabulary.jsonl.gz", "data/vocabulary-phrases.jsonl.gz"
+VOCABULARY_LOAD = "data/vocabulary-load.jsonl.gz"
+VOCABULARY_PARTS = ("selection", "confirmation")
+VOCABULARY_KEYS = {"id", "part", "text_sha256", "words", "changed", "reference", "findings"}
+# The confirmation rule: findings with every flagged word changed, and the lower end of their interval.
+VOCABULARY_SHARE, VOCABULARY_FLOOR = 0.70, 0.60
+# The selection rule: a phrase with this many findings leaves when fewer than this share of them are fully changed.
+VOCABULARY_MIN_FINDINGS, VOCABULARY_KEEP = 4, 0.5
 TRIMS, WORD_COUNTS = "data/trims.jsonl.gz", "data/word-counts.jsonl.gz"
 OPENERS, RULE_WORDS = "data/openers.jsonl.gz", "data/rule-words.jsonl.gz"
 # Counts of the rule's findings on documentation pages outside this record's sets.
@@ -679,6 +688,101 @@ def rule_word_results(root, documents):
             for name, rules in sorted(groups.items())}
 
 
+def vocabulary_phrases(root):
+    """Return the list and the phrases that the selection part dropped."""
+    listed = list(rows(root / VOCABULARY_PHRASES))
+    if len(listed) != 1 or set(listed[0]) != {"phrases", "dropped"}:
+        fail("the phrase list of the vocabulary test needs one row with phrases and dropped")
+    phrases, dropped = listed[0]["phrases"], listed[0]["dropped"]
+    if len(set(phrases)) != len(phrases) or not set(dropped) <= set(phrases) or len(set(dropped)) != len(dropped):
+        fail("the dropped phrases of the vocabulary test are not distinct phrases of the list")
+    return phrases, dropped
+
+
+def vocabulary_document(row, phrases, gone, tallies):
+    """Recount one answer: its findings by part, and the words under them that the editor changed."""
+    counts, by_phrase, whole = tallies
+    names = [name for name in counts if name.split("_")[0] == row["part"]]
+    under, last = {name: {} for name in names}, -1
+    for finding in row["findings"]:
+        number = finding.get("phrase")
+        if set(finding) != {"span", "phrase", "words"} or not finding["words"] or number not in range(len(phrases)):
+            fail(f"invalid finding in vocabulary document {row['id']}")
+        check_spans([finding["span"], *finding["words"]], row["id"])
+        if finding["span"][0] < last or not all(within(word, [finding["span"]]) for word in finding["words"]):
+            fail(f"findings of vocabulary document {row['id']} are out of order or hold words outside their span")
+        last = finding["span"][0]
+        changed = [within(word, row["reference"]) for word in finding["words"]]
+        if row["part"] == "confirmation" and number in gone:
+            fail(f"vocabulary document {row['id']} of the confirmation part has a finding of a dropped phrase")
+        if row["part"] == "selection":
+            by_phrase[number] += 1
+            whole[number] += all(changed)
+        # The selection part counts twice: with every phrase, and with the phrases that stayed.
+        for name in names:
+            if name == "selection_all" or number not in gone:
+                counts[name]["findings"] += 1
+                counts[name]["changed"] += all(changed)
+                under[name].update({tuple(word): flag for word, flag in zip(finding["words"], changed)})
+    share = row["changed"] / row["words"]
+    return {name: {"removed": len(under[name]), "hits": sum(under[name].values()), "document": len(under[name]) * share,
+                   "words": row["words"], "changed": row["changed"]} for name in names}
+
+
+def vocabulary_load(root):
+    loaded = list(rows(root / VOCABULARY_LOAD))
+    keys = {"pages", "failed", "pages_with_finding", "findings", "words"}
+    if len(loaded) != 1 or set(loaded[0]) != keys or not all(isinstance(v, int) and v >= 0 for v in loaded[0].values()):
+        fail("the load of the vocabulary test needs one row of counts")
+    if loaded[0]["pages_with_finding"] > loaded[0]["pages"] or not loaded[0]["words"]:
+        fail("the load of the vocabulary test is inconsistent")
+    return loaded[0]
+
+
+def vocabulary_results(root, documents):
+    """Recount the findings of a wide phrase list on answers that the other results did not use."""
+    if not (root / VOCABULARY).exists():
+        return {}
+    phrases, dropped = vocabulary_phrases(root)
+    gone = {phrases.index(phrase) for phrase in dropped}
+    used = {row["text_sha256"] for row in documents}
+    names = (*VOCABULARY_PARTS, "selection_all")
+    entries = {name: [] for name in names}
+    tallies = ({name: collections.Counter() for name in names}, collections.Counter(), collections.Counter())
+    seen = set()
+    for row in rows(root / VOCABULARY):
+        if set(row) != VOCABULARY_KEYS or row["part"] not in VOCABULARY_PARTS or row["id"] in seen:
+            fail(f"invalid or repeated vocabulary row: {row.get('id')}")
+        seen.add(row["id"])
+        if row["text_sha256"] in used:
+            fail(f"vocabulary document {row['id']} is a text of the other results")
+        valid = isinstance(row["words"], int) and isinstance(row["changed"], int) and 0 <= row["changed"] <= row["words"]
+        if not valid or not row["words"]:
+            fail(f"invalid word counts for vocabulary document {row['id']}")
+        check_spans(row["reference"], row["id"])
+        for name, entry in vocabulary_document(row, phrases, gone, tallies).items():
+            entries[name].append(entry)
+    counts, by_phrase, whole = tallies
+    expected = {number for number in by_phrase
+                if by_phrase[number] >= VOCABULARY_MIN_FINDINGS and whole[number] < VOCABULARY_KEEP * by_phrase[number]}
+    if expected != gone:
+        fail("the dropped phrases do not follow from the selection part")
+    result = {"list": {"phrases": len(phrases), "dropped": sorted(dropped), "kept": len(phrases) - len(dropped)}, "parts": {}}
+    for name in names:
+        report = trim_report(entries[name], False, False, f"vocabulary|{name}")
+        report.update(findings=counts[name]["findings"], findings_changed=counts[name]["changed"],
+                      findings_interval=wilson(counts[name]["changed"], counts[name]["findings"]))
+        result["parts"][name] = report
+    confirmed = result["parts"]["confirmation"]
+    words = confirmed["intervals"].get("precision_minus_document", [float("-inf")])[0] > 0
+    enough = bool(confirmed["findings"]) and confirmed["findings_changed"] >= VOCABULARY_SHARE * confirmed["findings"] \
+        and confirmed["findings_interval"][0] > VOCABULARY_FLOOR
+    result["rule"] = {"words_above_chance": words, "findings_changed_enough": enough, "ships": words and enough}
+    if (root / VOCABULARY_LOAD).exists():
+        result["load"] = vocabulary_load(root)
+    return result
+
+
 def summarize(root):
     documents = load_documents(root)
     preferences = preference_results(root)
@@ -686,7 +790,7 @@ def summarize(root):
     return {"sentences": sentence_results(documents), "preferences": preferences, "expert_pairs": experts,
             "judges": admissions(preferences, experts), "readers": reader_results(root), "panel": panel_results(root),
             "trims": trim_results(root, documents), "openers": opener_results(root, documents),
-            "rule_words": rule_word_results(root, documents)}
+            "rule_words": rule_word_results(root, documents), "vocabulary": vocabulary_results(root, documents)}
 
 
 def normalized(value):

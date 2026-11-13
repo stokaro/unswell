@@ -165,6 +165,17 @@ to were posted on issue 525 before any test document ran.
     chance on the answers, and not on the other two sets. No rule was
     registered for that table.
 
+13. **A wide list of phrases that chat models favor beats chance and falls
+    short of a rule.** The list of result 12 ran on expert-edited answers that
+    no other result had used: 850 to prune it and 883 to confirm it.
+    10 of its 160 phrases left on the first part. On the second, the words
+    under its findings are words the expert changed in 69.2% of cases,
+    against 56.3% for random words of the same answers
+    (+12.9 points, +8.7 to +17.4). The expert removed or replaced the
+    whole flagged phrase in 227 of 343 (66.2%) findings, below the
+    70% that was registered. The figure on the part that had been read before
+    was 75.8%; the fresh answers put it at 69.2%.
+
 ## Decisions
 
 Each rule was registered on issue 525 before its result was read.
@@ -226,6 +237,13 @@ Each rule was registered on issue 525 before its result was read.
     [ADR 0055](../../../docs/adr/0055-phrase-listed-on-editor-reference.md)
     makes this a route into a default list.
 
+13. *Ship the pruned list as a rule that is off by default if, on the
+    confirmation part, the words under its findings are changed by the expert
+    more often than random words of the same answers, with an interval above
+    zero, and the expert changed every flagged word in at least 70% of the
+    findings, with the lower end of the interval above 60%.* The first holds.
+    The second does not: 227 of 343 (66.2%). The list does not ship.
+
 ## Limits
 
 - An unedited sentence is not a clean sentence. A person changed what they
@@ -253,6 +271,9 @@ Each rule was registered on issue 525 before its result was read.
   changed more than half of the words. Being closer to their text by edit
   distance is not the same as reading better; no reader judged the trimmed
   text.
+- Every expert-edited answer of Beemo has now been read by some result of
+  this record. A later phrase list, or a change to this one, needs other
+  texts.
 - The test parts were read for the review before, and now for trimming. A
   later change to the command can be checked on them for a loss, not credited
   with a gain.
@@ -281,6 +302,7 @@ Each rule was registered on issue 525 before its result was read.
 | `data/word-counts.jsonl.gz` | Per document: its words, the words an editor changed, and both counts under the findings of the default rules and of the review |
 | `data/openers.jsonl.gz` | Every finding of the listed chat opener, with the byte spans of its words |
 | `data/opener-load.jsonl.gz` | The number of pages and of findings of the chat opener rule on documentation pages outside this record |
+| `data/vocabulary.jsonl.gz`, `data/vocabulary-phrases.jsonl.gz`, `data/vocabulary-load.jsonl.gz` | The wide phrase list, the phrases that the selection part dropped, per unused answer the findings of the list with the index of the phrase and the byte spans of the flagged words, and the count of findings of the kept phrases on pages of public repositories |
 | `data/rule-words.jsonl.gz` | Per document and rule of the run with every rule: the words under the rule's findings and how many the editor changed |
 | `results.json`, `RESULTS.md`, `RESULTS-words.md` | Every published number, recounted and rendered; the second page holds the comparisons at the level of words |
 | `verify.py`, `test_verify.py`, `render.py` | The check, its negative tests, and the renderer |

@@ -431,6 +431,94 @@ class SummationTest(unittest.TestCase):
         # Ten times 0.1 is 1.0 when rounded once; adding one by one gives 0.9999999999999999 before Python 3.12.
         table = [(0.1,) * len(verify.SUMS)] * 10
         self.assertEqual(verify.totals(table), [1.0] * len(verify.SUMS))
+def vocabulary_row(name, part, findings, text):
+    """An answer of ten words; the editor changed the first two."""
+    return {"id": name, "part": part, "text_sha256": text * 64, "words": 10, "changed": 2, "reference": [[0, 9]],
+            "findings": findings}
+
+
+def vocabulary_finding(start, phrase, words=1):
+    """A finding of one or two words; only a finding at the start of the answer lies in the editor's span."""
+    spans = [[start, start + 4]] if words == 1 else [[start, start + 4], [start + 5, start + 8]]
+    return {"span": [start, spans[-1][1]], "phrase": phrase, "words": spans}
+
+
+class VocabularyCase(RecordCase):
+    def setUp(self):
+        super().setUp()
+        # On the selection part the second phrase has four findings and the editor changed none, so it leaves.
+        selection = [vocabulary_finding(0, 0), *(vocabulary_finding(start, 1, 2) for start in (20, 30, 40, 50))]
+        confirmation = [vocabulary_finding(0, 0), vocabulary_finding(20, 0)]
+        write_rows(self.root / "data/vocabulary.jsonl.gz",
+                   [vocabulary_row("v1", "selection", selection, "c"), vocabulary_row("v2", "confirmation", confirmation, "d")])
+        write_rows(self.root / "data/vocabulary-phrases.jsonl.gz", [{"phrases": ["alpha", "beta gamma"], "dropped": ["beta gamma"]}])
+        self.seal()
+
+    def vocabulary(self):
+        return verify.verify(self.root)["vocabulary"]
+
+    def test_findings_are_recounted_from_coordinates(self):
+        result = self.vocabulary()
+        parts = result["parts"]
+        self.assertEqual((parts["selection_all"]["findings"], parts["selection"]["findings"]), (5, 1))
+        confirmed = parts["confirmation"]
+        # Two words under two findings; the editor changed the one inside the reference span.
+        self.assertEqual((confirmed["findings"], confirmed["findings_changed"], confirmed["removed_words"]), (2, 1, 2))
+        self.assertAlmostEqual(confirmed["precision"], 0.5)
+        self.assertAlmostEqual(confirmed["chance_document"], 0.2)
+        self.assertEqual(result["list"], {"phrases": 2, "dropped": ["beta gamma"], "kept": 1})
+        self.assertEqual(result["rule"], {"words_above_chance": True, "findings_changed_enough": False, "ships": False})
+
+    def test_shipping_cannot_be_declared(self):
+        results = json.loads((self.root / "results.json").read_text())
+        results["vocabulary"]["rule"]["ships"] = True
+        (self.root / "results.json").write_text(json.dumps(results))
+        verify.write_digests(self.root)
+        self.rejects("results differ from the data files")
+
+    def test_dropped_phrases_follow_from_the_selection_part(self):
+        self.rewrite("data/vocabulary-phrases.jsonl.gz", lambda rows: rows[0].update(dropped=[]))
+        self.seal_digests_only()
+        self.rejects("do not follow from the selection part")
+
+    def test_confirmation_has_no_dropped_phrase(self):
+        self.rewrite("data/vocabulary.jsonl.gz", lambda rows: rows[1]["findings"][1].update(phrase=1))
+        self.seal_digests_only()
+        self.rejects("has a finding of a dropped phrase")
+
+    def test_vocabulary_answers_are_not_those_of_the_other_results(self):
+        self.rewrite("data/vocabulary.jsonl.gz", lambda rows: rows[0].update(text_sha256="a" * 64))
+        self.seal_digests_only()
+        self.rejects("is a text of the other results")
+
+    def test_finding_words_stay_inside_the_finding(self):
+        self.rewrite("data/vocabulary.jsonl.gz", lambda rows: rows[1]["findings"][0].update(words=[[0, 6]]))
+        self.seal_digests_only()
+        self.rejects("out of order or hold words outside their span")
+
+    def test_changed_finding_word_is_rejected(self):
+        self.rewrite("data/vocabulary.jsonl.gz", lambda rows: rows[1]["findings"][0].update(span=[10, 14], words=[[10, 14]]))
+        self.seal_digests_only()
+        self.rejects("results differ from the data files")
+
+    def test_dropped_phrases_belong_to_the_list(self):
+        self.rewrite("data/vocabulary-phrases.jsonl.gz", lambda rows: rows[0].update(dropped=["delta"]))
+        self.seal_digests_only()
+        self.rejects("are not distinct phrases of the list")
+
+    def test_vocabulary_part_must_be_known(self):
+        self.rewrite("data/vocabulary.jsonl.gz", lambda rows: rows[0].update(part="test"))
+        self.seal_digests_only()
+        self.rejects("invalid or repeated vocabulary row")
+
+    def test_vocabulary_load_is_reported(self):
+        write_rows(self.root / "data/vocabulary-load.jsonl.gz",
+                   [{"pages": 4, "failed": 0, "pages_with_finding": 2, "findings": 3, "words": 1000}])
+        self.seal()
+        self.assertEqual(self.vocabulary()["load"]["findings"], 3)
+        self.rewrite("data/vocabulary-load.jsonl.gz", lambda rows: rows[0].update(pages_with_finding=9))
+        self.seal_digests_only()
+        self.rejects("load of the vocabulary test is inconsistent")
 
 
 class OpenerRuleTest(unittest.TestCase):
