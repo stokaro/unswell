@@ -1,6 +1,6 @@
 {
   "schema": "unswell-docs-rules-catalog-v1",
-  "rule_count": 58,
+  "rule_count": 60,
   "families": [
     {
       "name": "density",
@@ -380,6 +380,25 @@
       "name": "format",
       "rules": [
         {
+          "id": "format.decorative-emoji",
+          "version": "1",
+          "status": "experimental",
+          "group": "readability",
+          "scope": "paragraph",
+          "contexts": [
+            "heading",
+            "list-item"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 0,
+          "cap": 0,
+          "summary": "Remove the decorative emoji from this heading or list item.",
+          "description": "Reports emoji and pictographic symbols in Markdown headings and list items, with mapped source ranges.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Emoji in paragraphs, tables, code, comments, and strings are not reported. Check marks, crosses, and ballot boxes are not reported either: people use them in checklists."
+        },
+        {
           "id": "format.em-dash-density",
           "version": "1",
           "status": "experimental",
@@ -399,6 +418,26 @@
           "description": "Counts U+2014 in selected prose per 100 prose words, with mapped source ranges including encoded Markdown entities.",
           "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship.",
           "opt_in_reason": "Surface measurement. It is the one measure elevated in generated prose, 0.070 per thousand words against 0.001 in human prose, so the strict profile turns it on. Elsewhere it stays opt-in: it reports density, not an error."
+        },
+        {
+          "id": "format.em-dash-frequency",
+          "version": "1",
+          "status": "experimental",
+          "group": "readability",
+          "scope": "document",
+          "contexts": [
+            "heading",
+            "list-item",
+            "paragraph"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 0,
+          "cap": 0,
+          "summary": "This document leans on em dashes; replace most of them with commas, periods, or parentheses.",
+          "description": "Counts U+2014 in the paragraphs, headings, and list items of one document per 1,000 prose words and reports the document once when both the count and the rate pass their limits.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. One em dash is ordinary punctuation; the rule reports a habit, not a mark. Comments and strings in code are not counted."
         },
         {
           "id": "format.list-fragmentation",

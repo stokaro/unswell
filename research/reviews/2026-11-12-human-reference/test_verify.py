@@ -531,6 +531,94 @@ class VocabularyCase(RecordCase):
         self.rejects("load of the vocabulary test is inconsistent")
 
 
+def deslop_pair(name, part, before, after):
+    return {"id": name, "repository": "owner/" + name, "commit": "c" * 40, "path": "README.md", "part": part, "web_edit": False,
+            "words_before": 100, "words_after": 100, "before": before, "after": after}
+
+
+class DeslopCase(RecordCase):
+    def setUp(self):
+        super().setUp()
+        emoji = "format.decorative-emoji"
+        write_rows(self.root / "data/deslop-pairs.jsonl.gz",
+                   [deslop_pair("p1", "test", {emoji: 4, "hype.vague-praise": 1}, {"hype.vague-praise": 1}),
+                    deslop_pair("p2", "test", {emoji: 2}, {emoji: 3}),
+                    deslop_pair("p3", "development", {"hype.vague-praise": 2}, {})])
+        self.seal()
+
+    def deslop(self):
+        return verify.verify(self.root)["deslop"]
+
+    def test_findings_are_compared_per_thousand_words(self):
+        test = self.deslop()["parts"]["test"]
+        emoji = test["format.decorative-emoji"]
+        self.assertEqual((emoji["fires"], emoji["lower"], emoji["higher"], emoji["findings_before"], emoji["findings_after"]),
+                         (2, 1, 1, 6, 3))
+        # Without the new rules the first pair does not differ and the second is silent.
+        self.assertEqual((test["alpha9_defaults"]["fires"], test["alpha9_defaults"]["same"]), (1, 1))
+        self.assertFalse(self.deslop()["rule"]["format.decorative-emoji"])
+
+    def test_shorter_text_is_compared_by_rate(self):
+        # Three findings in fifty words are more per word than four in a hundred.
+        self.rewrite("data/deslop-pairs.jsonl.gz", lambda rows: rows[0].update(words_after=50, after={"format.decorative-emoji": 3}))
+        self.seal()
+        self.assertEqual(self.deslop()["parts"]["test"]["format.decorative-emoji"]["higher"], 2)
+
+    def test_default_cannot_be_declared(self):
+        results = json.loads((self.root / "results.json").read_text())
+        results["deslop"]["rule"]["format.decorative-emoji"] = True
+        (self.root / "results.json").write_text(json.dumps(results))
+        verify.write_digests(self.root)
+        self.rejects("results differ from the data files")
+
+    def frequency_pairs(self, flagged_human_pages):
+        dash = "format.em-dash-frequency"
+        pairs = [deslop_pair(f"d{n}", "test", {dash: 9}, {dash: 4} if n < 3 else {}) for n in range(40)]
+        pairs.append(deslop_pair("d40", "test", {dash: 3, "hype.vague-praise": 1}, {dash: 8, "hype.vague-praise": 1}))
+        write_rows(self.root / "data/deslop-pairs.jsonl.gz", pairs)
+        write_rows(self.root / "data/frequency-load.jsonl.gz",
+                   [{"corpus": "people", "pages": 100, "pages_with_finding": flagged_human_pages, "findings": 9, "words": 50_000}])
+        self.seal()
+        return self.deslop()
+
+    def test_document_rule_is_measured_by_the_em_dashes_it_lists(self):
+        deslop = self.frequency_pairs(5)
+        own = deslop["parts"]["test"]["format.em-dash-frequency"]
+        self.assertEqual((own["lower"], own["higher"], own["findings_before"], own["findings_after"]), (40, 1, 363, 20))
+        # In a set it is one finding per document: the last pair keeps one finding of each rule, so the set is unchanged there.
+        defaults = deslop["parts"]["test"]["current_defaults"]
+        self.assertEqual((defaults["lower"], defaults["higher"], defaults["same"]), (37, 0, 4))
+        self.assertEqual(deslop["parts"]["test"]["with_decorative_emoji"]["fires"], 1)
+        self.assertTrue(deslop["rule"]["format.em-dash-frequency"])
+
+    def test_document_rule_fails_above_the_limit_on_human_pages(self):
+        deslop = self.frequency_pairs(6)
+        self.assertFalse(deslop["rule"]["frequency_within_human_limit"])
+        self.assertFalse(deslop["rule"]["format.em-dash-frequency"])
+
+    def test_document_rule_fails_without_the_human_pages(self):
+        self.frequency_pairs(5)
+        (self.root / "data/frequency-load.jsonl.gz").unlink()
+        self.seal()
+        self.assertFalse(self.deslop()["rule"]["format.em-dash-frequency"])
+
+    def test_load_row_must_be_consistent(self):
+        self.frequency_pairs(5)
+        self.rewrite("data/frequency-load.jsonl.gz", lambda rows: rows[0].update(pages_with_finding=101))
+        self.seal_digests_only()
+        self.rejects("invalid em dash load row")
+
+    def test_pair_needs_a_known_part(self):
+        self.rewrite("data/deslop-pairs.jsonl.gz", lambda rows: rows[0].update(part="extra"))
+        self.seal_digests_only()
+        self.rejects("invalid or repeated de-slop pair")
+
+    def test_pair_counts_must_be_positive(self):
+        self.rewrite("data/deslop-pairs.jsonl.gz", lambda rows: rows[0].update(words_after=0))
+        self.seal_digests_only()
+        self.rejects("invalid counts in de-slop pair")
+
+
 class OpenerRuleTest(unittest.TestCase):
     """The listing rule, on counts."""
 

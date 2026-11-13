@@ -4,6 +4,7 @@ import (
 	"context"
 	"slices"
 	"strings"
+	"unicode/utf8"
 
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/rule"
@@ -61,6 +62,94 @@ func emDashes(m *editorialMatcher, block document.Block) (int, []rule.Occurrence
 		}
 	}
 	return count, occurrences, nil
+}
+
+// emDashFrequency reports a document once when its prose has more em dashes
+// than allowed and more of them per 1,000 words than the onset. Texts that
+// people call AI-sounding pass that limit often and older documentation
+// rarely does; see ADR 0056.
+func emDashFrequency(ctx context.Context, view rule.View, emit rule.Emitter) error {
+	m := newEditorialMatcher(ctx, view)
+	var occurrences []rule.Occurrence
+	count, words := 0, 0
+	for _, block := range view.Document.Blocks {
+		if block.Excluded || (block.Kind != "paragraph" && block.Kind != "heading" && block.Kind != "list-item") {
+			continue
+		}
+		found, where, err := emDashes(m, block)
+		if err != nil {
+			return err
+		}
+		count += found
+		words += block.Words
+		occurrences = append(occurrences, where...)
+	}
+	p := view.Parameters
+	if words == 0 || count <= p.AllowedOccurrences || count*1000 < p.Onset*words {
+		return ctx.Err()
+	}
+	rate := float64(count) * 1000 / float64(words)
+	return emit.Emit(rule.Evidence{Kind: "heuristic", Activation: 1000, Occurrences: occurrences, Metrics: []rule.Metric{
+		{Name: "em-dash-frequency", Value: rate, Unit: "em-dashes/1000-prose-words", Onset: float64(p.Onset), Saturation: float64(p.Onset) * 4},
+		{Name: "em-dash-count", Value: float64(count), Unit: "em-dashes"},
+		{Name: "prose-denominator", Value: float64(words), Unit: "words"},
+	}})
+}
+
+// decorativeEmoji reports the emoji of each heading and list item. People who
+// remove AI-sounding wording from documentation take emoji out of these two
+// places and leave them in paragraphs; see ADR 0056.
+func decorativeEmoji(ctx context.Context, view rule.View, emit rule.Emitter) error {
+	m := newEditorialMatcher(ctx, view)
+	for _, block := range view.Document.Blocks {
+		if block.Excluded || (block.Kind != "heading" && block.Kind != "list-item") {
+			continue
+		}
+		occurrences, err := pictographs(m, block)
+		if err != nil {
+			return err
+		}
+		if len(occurrences) == 0 {
+			continue
+		}
+		evidence := rule.Evidence{Kind: "exact", Activation: 1000, Occurrences: occurrences,
+			Metrics: []rule.Metric{{Name: "emoji-count", Value: float64(len(occurrences)), Unit: "emoji", Onset: 0, Saturation: 1}}}
+		if err := emit.Emit(evidence); err != nil {
+			return err
+		}
+	}
+	return ctx.Err()
+}
+
+// pictographs returns the source ranges of the decorative emoji in one block.
+func pictographs(m *editorialMatcher, block document.Block) ([]rule.Occurrence, error) {
+	mapping := newMappedRangeIndex(block)
+	var occurrences []rule.Occurrence
+	for at, r := range block.Text {
+		if err := m.spend(); err != nil {
+			return nil, err
+		}
+		if pictograph(r) {
+			occurrences = append(occurrences, mapping.occurrences(at, at+utf8.RuneLen(r))...)
+		}
+	}
+	return occurrences, nil
+}
+
+// pictograph reports whether a rune is a decorative emoji or pictographic
+// symbol: the emoji blocks, the miscellaneous symbols and dingbats, the
+// regional indicators, and a few stars and arrows that render as emoji.
+// Check marks, crosses, and ballot boxes are left out: people mark ordinary
+// checklists with them, and people who remove AI-sounding wording leave them
+// in place about as often as any other word.
+func pictograph(r rune) bool {
+	switch r {
+	case 0x2705, 0x2714, 0x2713, 0x2611, 0x274C, 0x2717, 0x2718, 0x274E, 0x2610:
+		return false
+	case 0x2B50, 0x2B55, 0x2B06, 0x2B07:
+		return true
+	}
+	return (r >= 0x1F300 && r <= 0x1FAFF) || (r >= 0x1F1E6 && r <= 0x1F1FF) || (r >= 0x2600 && r <= 0x27BF)
 }
 
 type shortList struct {

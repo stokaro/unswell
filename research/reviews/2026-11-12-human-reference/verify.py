@@ -28,7 +28,20 @@ RESULTS = "results.json"
 DATA = ("data/sentences.jsonl.gz", "data/preferences.jsonl.gz", "data/expert-pairs.jsonl.gz", "data/readers.jsonl.gz",
         "data/panel.jsonl.gz", "data/trims.jsonl.gz", "data/word-counts.jsonl.gz", "data/openers.jsonl.gz",
         "data/rule-words.jsonl.gz", "data/opener-load.jsonl.gz", "data/vocabulary.jsonl.gz",
-        "data/vocabulary-phrases.jsonl.gz", "data/vocabulary-load.jsonl.gz")
+        "data/vocabulary-phrases.jsonl.gz", "data/vocabulary-load.jsonl.gz", "data/deslop-pairs.jsonl.gz",
+        "data/emoji-load.jsonl.gz", "data/frequency-load.jsonl.gz")
+EMOJI_LOAD, FREQUENCY_LOAD = "data/emoji-load.jsonl.gz", "data/frequency-load.jsonl.gz"
+DESLOP = "data/deslop-pairs.jsonl.gz"
+DESLOP_KEYS = {"id", "repository", "commit", "path", "part", "web_edit", "words_before", "words_after", "before", "after"}
+# The rules that were tried, and the bars registered for a rule and for the default set.
+DESLOP_NEW = ("format.decorative-emoji", "format.em-dash-density", "format.em-dash-frequency")
+# This rule reports a document once. Its count in a pair is the em dashes it lists, which is its registered measure.
+DESLOP_DOCUMENT = "format.em-dash-frequency"
+# Its registered limit: it may flag at most one in twenty of the pages that people wrote before November 2022.
+DESLOP_HUMAN_PAGES = 20
+# The emoji rule as it was registered and tested first, with check marks and crosses counted.
+DESLOP_REGISTERED = "format.decorative-emoji-with-status-marks"
+DESLOP_RULE_BAR, DESLOP_SET_BAR, DESLOP_FLOOR = 0.65, 0.60, 0.55
 VOCABULARY, VOCABULARY_PHRASES = "data/vocabulary.jsonl.gz", "data/vocabulary-phrases.jsonl.gz"
 VOCABULARY_LOAD = "data/vocabulary-load.jsonl.gz"
 VOCABULARY_PARTS = ("selection", "confirmation")
@@ -786,6 +799,88 @@ def vocabulary_results(root, documents):
     return result
 
 
+def deslop_share(pairs, keep, listed=False):
+    """Compare the findings of the kept rules per 1,000 words before and after each commit.
+
+    The document-level rule adds one finding to a set. With listed, it is counted by the em dashes it lists.
+    """
+    def total(counts):
+        return sum(count if listed or name != DESLOP_DOCUMENT else 1 for name, count in counts.items() if keep(name))
+
+    lower = higher = same = before = after = 0
+    for pair in pairs:
+        b, a = total(pair["before"]), total(pair["after"])
+        if not a and not b:
+            continue
+        before += b
+        after += a
+        # Cross-multiplied, so that the comparison of two rates stays in whole numbers.
+        left, right = a * pair["words_before"], b * pair["words_after"]
+        lower += left < right
+        higher += left > right
+        same += left == right
+    return {"pairs": len(pairs), "fires": lower + higher + same, "lower": lower, "higher": higher, "same": same,
+            "findings_before": before, "findings_after": after, "interval": wilson(lower, lower + higher)}
+
+
+def deslop_load(path, label):
+    """Read the counts of one rule on the kinds of documentation."""
+    load = {}
+    for row in rows(path):
+        counts = [row.get(name) for name in ("pages", "pages_with_finding", "findings", "words")]
+        valid = set(row) == {"corpus", "pages", "pages_with_finding", "findings", "words"} and row["corpus"] not in load
+        if not valid or not all(isinstance(v, int) and v >= 0 for v in counts) or row["pages_with_finding"] > row["pages"] or not row["words"]:
+            fail(f"invalid {label} load row: {row.get('corpus')}")
+        load[row["corpus"]] = {name: row[name] for name in ("pages", "pages_with_finding", "findings", "words")}
+    return load
+
+
+def deslop_results(root):
+    """Recount, per part, how the findings of rule sets change across commits that remove AI-sounding wording."""
+    if not (root / DESLOP).exists():
+        return {}
+    parts, seen = {"development": [], "test": []}, set()
+    for row in rows(root / DESLOP):
+        if set(row) != DESLOP_KEYS or row["part"] not in parts or row["id"] in seen:
+            fail(f"invalid or repeated de-slop pair: {row.get('id')}")
+        seen.add(row["id"])
+        counts = [*row["before"].values(), *row["after"].values(), row["words_before"], row["words_after"]]
+        if not all(isinstance(value, int) and value > 0 for value in counts):
+            fail(f"invalid counts in de-slop pair {row['id']}")
+        parts[row["part"]].append(row)
+    extra = (*DESLOP_NEW, DESLOP_REGISTERED)
+    sets = {"alpha9_defaults": lambda name: name not in extra,
+            "with_decorative_emoji": lambda name: name not in ("format.em-dash-density", DESLOP_DOCUMENT, DESLOP_REGISTERED),
+            "current_defaults": lambda name: name not in ("format.em-dash-density", DESLOP_REGISTERED),
+            "format.decorative-emoji": lambda name: name == "format.decorative-emoji",
+            DESLOP_REGISTERED: lambda name: name == DESLOP_REGISTERED,
+            "format.em-dash-density": lambda name: name == "format.em-dash-density"}
+    def shares(pairs):
+        table = {name: deslop_share(pairs, keep) for name, keep in sets.items()}
+        table[DESLOP_DOCUMENT] = deslop_share(pairs, lambda name: name == DESLOP_DOCUMENT, listed=True)
+        return table
+
+    result = {"parts": {part: shares(pairs) for part, pairs in parts.items()},
+              "repositories": {part: len({pair["repository"] for pair in pairs}) for part, pairs in parts.items()},
+              "web_edits": {part: shares([p for p in pairs if p["web_edit"]]) for part, pairs in parts.items()}}
+
+    def passes(entry, bar):
+        changed = entry["lower"] + entry["higher"]
+        return bool(changed) and entry["lower"] >= bar * changed and entry["interval"][0] > DESLOP_FLOOR
+
+    test = result["parts"]["test"]
+    result["rule"] = {name: passes(test[name], DESLOP_RULE_BAR) for name in (*DESLOP_NEW, DESLOP_REGISTERED)}
+    if (root / EMOJI_LOAD).exists():
+        result["load"] = deslop_load(root / EMOJI_LOAD, "emoji")
+    if (root / FREQUENCY_LOAD).exists():
+        result["frequency_load"] = deslop_load(root / FREQUENCY_LOAD, "em dash")
+    people = result.get("frequency_load", {}).get("people")
+    result["rule"]["frequency_within_human_limit"] = bool(people) and people["pages_with_finding"] * DESLOP_HUMAN_PAGES <= people["pages"]
+    result["rule"][DESLOP_DOCUMENT] = result["rule"][DESLOP_DOCUMENT] and result["rule"]["frequency_within_human_limit"]
+    result["rule"]["defaults_follow_removal"] = passes(test["with_decorative_emoji"], DESLOP_SET_BAR)
+    return result
+
+
 def summarize(root):
     documents = load_documents(root)
     preferences = preference_results(root)
@@ -793,7 +888,8 @@ def summarize(root):
     return {"sentences": sentence_results(documents), "preferences": preferences, "expert_pairs": experts,
             "judges": admissions(preferences, experts), "readers": reader_results(root), "panel": panel_results(root),
             "trims": trim_results(root, documents), "openers": opener_results(root, documents),
-            "rule_words": rule_word_results(root, documents), "vocabulary": vocabulary_results(root, documents)}
+            "rule_words": rule_word_results(root, documents), "vocabulary": vocabulary_results(root, documents),
+            "deslop": deslop_results(root)}
 
 
 def normalized(value):

@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+`unswell check` has two new default rules. `format.decorative-emoji` reports
+emoji in Markdown headings and list items, and leaves alone paragraphs,
+tables, code, check marks, and crosses. `format.em-dash-frequency` reports a
+document once when it holds at least three em dashes and at least three per
+1,000 words; `onset` and `allowed_occurrences` change the limits. Neither has
+a gate. Both were tested on 597 files before and after commits whose message
+says that they remove AI-sounding wording
+([ADR 0056](docs/adr/0056-rules-tested-on-de-slop-commits.md)). The emoji
+findings are lower after the commit in 77.7% (69.8% to 84.0%) of the pairs
+that differ, and the listed em dashes in 70.4% (64.1% to 76.0%). On the
+same pairs the default rules of alpha.9 give 64.0% (56.1% to 71.2%)
+and fire in 158 pairs; with the new rules they give
+72.7% (67.8% to 77.1%) and fire in 365.
+
 `scaffold.chat-preamble` now also reports a chat opener in the first sentence
 after the leading headings of a document, as in a README whose title is
 followed by `Sure, here is a summary`. Before, a title hid the opener. The

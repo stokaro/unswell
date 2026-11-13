@@ -221,6 +221,90 @@ def vocabulary_section(add, vocabulary):
             f"on {load['pages_with_finding']:,} of the pages.")
 
 
+def deslop_section(add, deslop):
+    add("")
+    add("## Findings before and after commits that remove AI-sounding wording")
+    add("")
+    add("A pair is one Markdown file before and after a commit whose message says that it removes AI-sounding wording")
+    add("and that carries no assistant's trailer. For a set of rules, the findings per 1,000 words are compared between")
+    add("the two versions. The last column is the share of the pairs that differ in which the findings are lower after")
+    add("the commit; rules unrelated to the edit give 50%. `format.em-dash-frequency` reports a document once, so its")
+    add("own row counts the em dashes that it lists; in a set of rules it counts as one finding.")
+    labels = [("alpha9_defaults", "Default rules of v0.1.0-alpha.9"),
+              ("format.decorative-emoji-with-status-marks", "`format.decorative-emoji` as registered, with check marks and crosses"),
+              ("format.decorative-emoji", "`format.decorative-emoji` as it ships, without them"),
+              ("format.em-dash-density", "`format.em-dash-density`"), ("format.em-dash-frequency", "`format.em-dash-frequency`"),
+              ("with_decorative_emoji", "Default rules with `format.decorative-emoji`"),
+              ("current_defaults", "Default rules with `format.decorative-emoji` and `format.em-dash-frequency`")]
+    for part, title in (("test", "Test part"), ("development", "Development part, read first")):
+        add("")
+        add(f"{title}: {deslop['parts'][part]['alpha9_defaults']['pairs']} pairs from {deslop['repositories'][part]} repositories.")
+        add("")
+        add("| Rules | Pairs where they fire | Lower after | Higher after | Findings before | Findings after | Lower among pairs that differ |")
+        add("| --- | ---: | ---: | ---: | ---: | ---: | --- |")
+        for name, label in labels:
+            entry = deslop["parts"][part][name]
+            low, high = entry["interval"]
+            add(f"| {label} | {entry['fires']} | {entry['lower']} | {entry['higher']} | {entry['findings_before']:,} "
+                f"| {entry['findings_after']:,} | {pct(entry['lower'], entry['lower'] + entry['higher'])} ({100 * low:.1f}% to {100 * high:.1f}%) |")
+    rule = deslop["rule"]
+    add("")
+    add("A rule stays on by default at 65% or more on the test part with the lower end of the interval above 55%: "
+        + "; ".join(f"`{name}` " + ("does" if rule[name] else "does not")
+                    for name in ("format.decorative-emoji-with-status-marks", "format.em-dash-density", "format.em-dash-frequency"))
+        + ". The default rules as a whole were to reach 60% with the same lower end: they "
+        + ("do." if rule["defaults_follow_removal"] else "do not."))
+    add("")
+    add("The emoji rule was registered and tested with check marks and crosses counted. They were then taken out, because")
+    add("people use them in checklists and the development part shows them removed about as often as any word. The row of")
+    add("the rule as it ships was measured after that, on the same pairs, so it is a second reading of the test part.")
+    load = deslop.get("load")
+    if load:
+        add("")
+        add("Findings of the rule as it ships, on documentation:")
+        add("")
+        add("| Texts | Pages | Pages with a finding | Findings per 1,000 words |")
+        add("| --- | ---: | ---: | ---: |")
+        names = [("people", "Pages that people wrote before November 2022"), ("repositories", "Pages of public repositories"),
+                 ("generated", "Pages that models generated for the assistant-panel corpus"),
+                 ("before_deslop", "Texts before a commit that removes AI-sounding wording")]
+        for key, label in names:
+            if key in load:
+                entry = load[key]
+                add(f"| {label} | {entry['pages']:,} | {entry['pages_with_finding']:,} ({pct(entry['pages_with_finding'], entry['pages'])}) "
+                    f"| {1000 * entry['findings'] / entry['words']:.2f} |")
+    frequency = deslop.get("frequency_load")
+    if frequency:
+        add("")
+        add("`format.em-dash-frequency` was registered after the emoji rule had been read on the test part, so it is a second")
+        add("use of those pairs. Its bar has one more condition: it may flag at most 5% of the pages that people wrote before")
+        add("November 2022. Pages that it flags, and the em dashes that it lists:")
+        add("")
+        add("| Texts | Pages | Pages flagged | Em dashes listed per 1,000 words |")
+        add("| --- | ---: | ---: | ---: |")
+        for key, label in names:
+            if key in frequency:
+                entry = frequency[key]
+                add(f"| {label} | {entry['pages']:,} | {entry['pages_with_finding']:,} ({pct(entry['pages_with_finding'], entry['pages'])}) "
+                    f"| {1000 * entry['findings'] / entry['words']:.2f} |")
+    add("")
+    add("Who typed a commit is unknown: one without an assistant's trailer can still have been made by an assistant that")
+    add("was told to de-slop. Commits made in GitHub's web editor were most likely typed by a person, and they are few.")
+    add("Among them, the pairs in which a rule's count is lower after the commit, of those that differ:")
+    add("")
+    add("| Rule | Test part | Development part |")
+    add("| --- | ---: | ---: |")
+    for name in ("format.decorative-emoji", "format.em-dash-frequency", "current_defaults"):
+        cells = []
+        for part in ("test", "development"):
+            entry = deslop["web_edits"][part][name]
+            cells.append(f"{entry['lower']} of {entry['lower'] + entry['higher']} ({entry['pairs']} pairs)")
+        label = "All default rules" if name == "current_defaults" else f"`{name}`"
+        add(f"| {label} | {cells[0]} | {cells[1]} |")
+    add("")
+    add("These counts are too small to confirm or to reject either rule on edits that a person certainly typed.")
+
+
 def system_name(name):
     parts = name.split("-")
     if parts[0] == "rules":
@@ -413,7 +497,7 @@ def render(results):
 
 
 def has_words(results):
-    return any(results.get(name) for name in ("trims", "openers", "rule_words", "vocabulary"))
+    return any(results.get(name) for name in ("trims", "openers", "rule_words", "vocabulary", "deslop"))
 
 
 def render_words(results):
@@ -432,6 +516,8 @@ def render_words(results):
         rule_word_section(add, results["rule_words"])
     if results.get("vocabulary"):
         vocabulary_section(add, results["vocabulary"])
+    if results.get("deslop"):
+        deslop_section(add, results["deslop"])
     return "\n".join(lines) + "\n"
 
 

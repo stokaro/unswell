@@ -23,6 +23,8 @@ and comparative qualification remain in #56 and #57.
 | `readability.long-paragraph` | Both a long block and several long sentences | `onset: 120`, `saturation: 240`, `sentence_words: 25`, `min_long_sentences: 2` | 8/16 |
 | `readability.grade-metric` | ARI formula over prose words above the selected level | `min_words: 50`, `min_sentences: 2`, `onset: 12`, `saturation: 20` | 0/0 |
 | `format.em-dash-density` | More than the permitted number of U+2014 characters and excess local density | `min_words: 40`, `allowed_occurrences: 1`, `onset: 2`, `saturation: 6` | 0/0 |
+| `format.em-dash-frequency` | More than the permitted number of U+2014 characters in the paragraphs, headings, and list items of one document, and at least `onset` of them per 1,000 prose words | `allowed_occurrences: 2`, `onset: 3` | 0/0 |
+| `format.decorative-emoji` | An emoji or pictographic symbol in a Markdown heading or list item; check marks, crosses, and ballot boxes are left alone | None | 0/0 |
 | `format.list-fragmentation` | Multiple short, complete unordered lists in one bounded section | `window_blocks: 32`, `max_item_words: 10`, `max_list_items: 3`, `allowed_occurrences: 2`, `saturation_occurrences: 5` | 0/0 |
 
 Count and density boundaries activate strictly above onset. Minimum word and

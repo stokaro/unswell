@@ -178,6 +178,19 @@ to were posted on issue 525 before any test document ran.
     70% that was registered. The figure on the part that had been read before
     was 75.8%; the fresh answers put it at 69.2%.
 
+14. **On documentation that people de-slop, the default rules follow what
+    they remove, and emoji and em dashes follow it best.** Commits whose
+    message says that they remove AI-sounding wording give 1,556 pairs of a
+    Markdown file before and after. On the 597 test pairs the findings of the
+    alpha.9 defaults are lower after the commit in 64.0% (56.1% to 71.2%)
+    of the pairs that differ. A new rule for emoji in headings and list items
+    gives 77.7% (69.8% to 84.0%), a new rule for documents with many em
+    dashes 70.4% (64.1% to 76.0%), and em-dash density in one paragraph
+    62.5% (51.0% to 72.8%). Passive density, noun stacks, parenthetical
+    load, and paired contrasts sit near 50% on the development part. Who typed
+    these commits is unknown, and the 78 pairs from GitHub's web editor are too
+    few to confirm either rule.
+
 ## Decisions
 
 Each rule was registered on issue 525 before its result was read.
@@ -246,6 +259,15 @@ Each rule was registered on issue 525 before its result was read.
     findings, with the lower end of the interval above 60%.* The first holds.
     The second does not: 227 of 343 (66.2%). The list does not ship.
 
+14. *Turn a rule on by default if, on the test pairs, its findings are lower
+    after the commit in at least 65% of the pairs that differ, with the lower
+    end of the interval above 55%.* `format.decorative-emoji` meets it and is
+    on. `format.em-dash-frequency` meets it, flags 2 of the 121 pages that
+    people wrote before November 2022 against a limit of 5%, and is on.
+    `format.em-dash-density` does not and stays off outside the strict
+    profile. [ADR 0056](../../../docs/adr/0056-rules-tested-on-de-slop-commits.md)
+    records the reference and the bar.
+
 ## Limits
 
 - An unedited sentence is not a clean sentence. A person changed what they
@@ -305,6 +327,7 @@ Each rule was registered on issue 525 before its result was read.
 | `data/openers.jsonl.gz` | Every finding of the listed chat opener, with the byte spans of its words |
 | `data/opener-load.jsonl.gz` | The number of texts and of findings of the chat opener rule outside this record: documentation pages, and source files of open-source packages |
 | `data/vocabulary.jsonl.gz`, `data/vocabulary-phrases.jsonl.gz`, `data/vocabulary-load.jsonl.gz` | The wide phrase list, the phrases that the selection part dropped, per unused answer the findings of the list with the index of the phrase and the byte spans of the flagged words, and the count of findings of the kept phrases on pages of public repositories |
+| `data/deslop-pairs.jsonl.gz`, `data/emoji-load.jsonl.gz`, `data/frequency-load.jsonl.gz` | Per file before and after a commit that removes AI-sounding wording: repository, commit, path, words, and findings per rule in both versions; and the reports of the two new rules on four kinds of documentation |
 | `data/rule-words.jsonl.gz` | Per document and rule of the run with every rule: the words under the rule's findings and how many the editor changed |
 | `results.json`, `RESULTS.md`, `RESULTS-words.md` | Every published number, recounted and rendered; the second page holds the comparisons at the level of words |
 | `verify.py`, `test_verify.py`, `render.py` | The check, its negative tests, and the renderer |
