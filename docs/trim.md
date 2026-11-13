@@ -113,15 +113,20 @@ registered before the run. Brackets hold 95% intervals.
 | Documentation that maintainers reworded | `claude-sonnet-5-5` | 375 | 8.5% | 6.6% | +2.0 (-0.7 to +5.7) |
 | Documentation that maintainers reworded | `gpt-6-astra` | 942 | 6.6% | 4.4% | +2.2 (+0.6 to +4.4) |
 
-On answers of chat models that experts edited, the trimmed text is also closer to the expert's text than the
-original was. The word-level edit distance to the expert's text falls by 0.28 and 0.23 words per
-removed word with the two models. Random removal from the same sentences gives 0.15 and 0.09,
-because the experts removed or replaced more than half of the words. On fiction the distance does not fall
-(+0.05 and +0.10), though it rises less than under random removal (+0.14 and +0.21).
+On answers of chat models that experts edited, removal as such moves a text
+toward the expert's text, because the experts removed or replaced more than
+half of the words. Random removal from the same sentences shortens the
+word-level edit distance to the expert's text by 0.15 and 0.09 words per removed
+word. The command shortens it by 0.28 and 0.23 with the two models. What the
+command adds is the difference: 0.13 and 0.15 words per removed word
+(0.09 to 0.17 and 0.11 to 0.18). On fiction the distance does not fall
+(+0.05 and +0.10), though it rises less than under random removal
+(+0.14 and +0.21).
 
 By the registered rule the command agrees with editors above chance on answers
 of chat models that experts edited, and there it moves the text toward the
-editor's version. On fiction and on documentation the differences are positive and the
+editor's version. That second part says little on these answers, since random
+removal moves the text too; read the difference above. On fiction and on documentation the differences are positive and the
 rule is not met: an interval reaches zero. The documentation set is pages that
 people wrote, where a maintainer changed about 4% of the words.
 

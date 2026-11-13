@@ -104,6 +104,23 @@ func TestChatPreambleListsTheOpenerThatExpertsRemove(t *testing.T) {
 	}
 }
 
+func TestChatPreambleReadsTheFirstStringOfASourceFile(t *testing.T) {
+	c := qt.New(t)
+	engine, err := unswell.New(unswell.Options{})
+	c.Assert(err, qt.IsNil)
+	// A file of chat replies opens with a listed phrase as product text. The rule
+	// reports it, and its recorded limits name the extraction policy as the way out.
+	source := "package replies\n\nconst First = \"Sure, I can help with that.\"\n"
+	result, err := engine.Analyze(t.Context(), document.Source{Name: "replies.go", Format: document.Go, Bytes: []byte(source)})
+	c.Assert(err, qt.IsNil)
+	c.Assert(ruleIDs(result), qt.Contains, "scaffold.chat-preamble")
+	for _, implementation := range builtin.Rules() {
+		if descriptor := implementation.Descriptor(); descriptor.ID == "scaffold.chat-preamble" {
+			c.Assert(descriptor.Limitations, qt.Contains, "extraction policy")
+		}
+	}
+}
+
 func TestSourceAndScoringInvariants(t *testing.T) {
 	c := qt.New(t)
 	engine, err := unswell.New(unswell.Options{})

@@ -9,6 +9,12 @@ rule reports nothing on 3,302 pages of public repositories. It does not
 look after later headings, where a person may answer a question with `Sure,`.
 The new phrase position is `prose-start`; `document-start` keeps its meaning.
 
+The limits that `unswell rules show scaffold.chat-preamble` prints now say
+that in source code the first comment or string of a file counts as the start
+of a document, and that a file of chat replies belongs in the extraction
+policy. On 265,025 source files of open-source packages the rule reports
+nothing.
+
 ## 0.1.0-alpha.9
 
 This release makes the two model commands read more answers, adds one chat
@@ -24,8 +30,9 @@ object is now the answer. A correction that is cut off is still an error.
 ([ADR 0054](docs/adr/0054-trim-measured-against-editors.md)). On answers of
 chat models that experts edited, the words it removes are words the expert also removed or
 replaced in 71.2% and 68.0% of cases with two models, against 62.7% and 59.3%
-by chance in the same sentences, and the trimmed text is closer to the
-expert's version. On fiction and on documentation written by people the
+by chance in the same sentences. Per removed word the text moves 0.13 and
+0.15 words nearer to the expert's version than under random removal from the
+same sentences. On fiction and on documentation written by people the
 registered rule is not met. See [trim](docs/trim.md#measured-behavior).
 
 `scaffold.chat-preamble` now also reports a document that opens with `Sure,`

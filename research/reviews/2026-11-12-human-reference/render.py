@@ -143,13 +143,20 @@ def opener_section(add, openers):
     if load:
         add("")
         add("The rule also looks at the first sentence after the leading headings of a document. With that position it ran")
-        add("on documentation pages outside this record, from the assistant-panel corpus:")
+        add("on texts outside this record: documentation pages of the assistant-panel corpus, and source files of")
+        add("open-source packages, where the first comment or string of a file counts as the start of a document.")
         add("")
-        add("| Pages | Number | Pages that failed to run | Findings of the rule |")
+        add("| Texts | Number | Failed to run | Findings of the rule |")
         add("| --- | ---: | ---: | ---: |")
-        names = {"real": "Pages of public repositories", "generated": "Pages that models generated"}
+        names = {"real": "Pages of public repositories", "generated": "Pages that models generated",
+                 "code": "Source files of open-source packages"}
         for part, entry in load.items():
             add(f"| {names.get(part, part)} | {entry['pages']:,} | {entry['failed']} | {entry['findings']} |")
+        filtered = load.get("code")
+        if filtered and "candidates" in filtered:
+            add("")
+            add(f"A finding of the listed openers needs their text in the file. {filtered['candidates']:,} of the source files hold it,")
+            add("and the rule ran on those. The ones that failed exceed the engine's file size limit or do not parse.")
 
 
 def rule_word_section(add, rule_words):

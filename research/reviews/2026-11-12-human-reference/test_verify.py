@@ -361,6 +361,16 @@ class OpenerCase(TrimCase):
         self.seal()
         self.assertEqual(self.openers()["load"], {"real": {"pages": 5, "failed": 0, "findings": 1}})
 
+    def test_filtered_opener_load_names_its_candidates(self):
+        row = {"part": "code", "pages": 50, "candidates": 4, "failed": 1, "findings": 0}
+        write_rows(self.root / "data/opener-load.jsonl.gz", [row])
+        self.seal()
+        self.assertEqual(self.openers()["load"]["code"]["candidates"], 4)
+        # More failures than texts that were run cannot be.
+        self.rewrite("data/opener-load.jsonl.gz", lambda rows: rows[0].update(failed=5))
+        self.seal_digests_only()
+        self.rejects("invalid counts in the opener load")
+
     def test_opener_load_must_be_consistent(self):
         write_rows(self.root / "data/opener-load.jsonl.gz", [{"part": "real", "pages": 5, "failed": 6, "findings": 0}])
         self.seal_digests_only()
