@@ -1,6 +1,9 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-alpha.10
+
+This release lets the chat opener rule see an opener under a title, which is
+where a pasted answer usually sits, and corrects how two results were stated.
 
 `scaffold.chat-preamble` now also reports a chat opener in the first sentence
 after the leading headings of a document, as in a README whose title is
@@ -14,6 +17,17 @@ that in source code the first comment or string of a file counts as the start
 of a document, and that a file of chat replies belongs in the extraction
 policy. On 265,025 source files of open-source packages the rule reports
 nothing.
+
+The documentation states the measurement of `unswell trim` more exactly. It
+was obtained on answers of chat models, not on documentation. On those answers
+random removal also moves a text toward the expert's version, so the result is
+the difference: 0.13 and 0.15 words per removed word
+([trim](docs/trim.md#measured-behavior)).
+
+A list of 160 phrases that chat models favor was tested on expert-edited
+answers that no result had used. It falls on wording the experts changed more
+often than chance, and one finding in three is on wording they kept, so it
+does not ship ([ADR 0055](docs/adr/0055-phrase-listed-on-editor-reference.md)).
 
 ## 0.1.0-alpha.9
 
