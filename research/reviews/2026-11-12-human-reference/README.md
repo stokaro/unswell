@@ -189,7 +189,9 @@ to were posted on issue 525 before any test document ran.
     62.5% (51.0% to 72.8%). Passive density, noun stacks, parenthetical
     load, and paired contrasts sit near 50% on the development part. Who typed
     these commits is unknown, and the 78 pairs from GitHub's web editor are too
-    few to confirm either rule.
+    few to confirm either rule. 97 of the 597 test pairs are not English
+    prose; on the 500 English ones both rules still meet the bar and the
+    defaults fire in 300 pairs against 141.
 
 ## Decisions
 

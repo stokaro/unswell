@@ -32,7 +32,8 @@ DATA = ("data/sentences.jsonl.gz", "data/preferences.jsonl.gz", "data/expert-pai
         "data/emoji-load.jsonl.gz", "data/frequency-load.jsonl.gz")
 EMOJI_LOAD, FREQUENCY_LOAD = "data/emoji-load.jsonl.gz", "data/frequency-load.jsonl.gz"
 DESLOP = "data/deslop-pairs.jsonl.gz"
-DESLOP_KEYS = {"id", "repository", "commit", "path", "part", "web_edit", "words_before", "words_after", "before", "after"}
+DESLOP_KEYS = {"id", "repository", "commit", "path", "part", "web_edit", "english", "words_before", "words_after", "before",
+               "after"}
 # The rules that were tried, and the bars registered for a rule and for the default set.
 DESLOP_NEW = ("format.decorative-emoji", "format.em-dash-density", "format.em-dash-frequency")
 # This rule reports a document once. Its count in a pair is the em dashes it lists, which is its registered measure.
@@ -845,7 +846,7 @@ def deslop_results(root):
             fail(f"invalid or repeated de-slop pair: {row.get('id')}")
         seen.add(row["id"])
         counts = [*row["before"].values(), *row["after"].values(), row["words_before"], row["words_after"]]
-        if not all(isinstance(value, int) and value > 0 for value in counts):
+        if not all(isinstance(value, int) and value > 0 for value in counts) or not isinstance(row["english"], bool):
             fail(f"invalid counts in de-slop pair {row['id']}")
         parts[row["part"]].append(row)
     extra = (*DESLOP_NEW, DESLOP_REGISTERED)
@@ -862,7 +863,9 @@ def deslop_results(root):
 
     result = {"parts": {part: shares(pairs) for part, pairs in parts.items()},
               "repositories": {part: len({pair["repository"] for pair in pairs}) for part, pairs in parts.items()},
-              "web_edits": {part: shares([p for p in pairs if p["web_edit"]]) for part, pairs in parts.items()}}
+              "web_edits": {part: shares([p for p in pairs if p["web_edit"]]) for part, pairs in parts.items()},
+              # The pairs were not selected by language. The tool is for English, so the same tables are kept for English files.
+              "english": {part: shares([p for p in pairs if p["english"]]) for part, pairs in parts.items()}}
 
     def passes(entry, bar):
         changed = entry["lower"] + entry["higher"]
@@ -878,6 +881,8 @@ def deslop_results(root):
     result["rule"]["frequency_within_human_limit"] = bool(people) and people["pages_with_finding"] * DESLOP_HUMAN_PAGES <= people["pages"]
     result["rule"][DESLOP_DOCUMENT] = result["rule"][DESLOP_DOCUMENT] and result["rule"]["frequency_within_human_limit"]
     result["rule"]["defaults_follow_removal"] = passes(test["with_decorative_emoji"], DESLOP_SET_BAR)
+    english = result["english"]["test"]
+    result["rule"]["english"] = {name: passes(english[name], DESLOP_RULE_BAR) for name in ("format.decorative-emoji", DESLOP_DOCUMENT)}
     return result
 
 

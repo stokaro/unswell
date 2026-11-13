@@ -116,6 +116,15 @@ lower after the commit in 8 of 18 pairs that differ, and the em dash count in
 14 of 22. So the result is about commits that say they remove AI-sounding
 wording. It is not shown for edits that a person certainly typed.
 
+The pairs were not selected by language, and the tool is for English. 97 of
+the 597 test pairs are not English prose. On the 500 English test pairs both
+new rules still meet the bar: the emoji rule gives 77.3% (67.5% to 84.8%)
+and the em dash rule 72.0% (65.3% to 77.9%). The defaults
+fire in 300 of those pairs where the defaults of v0.1.0-alpha.9 fire in 141,
+and give 72.9% (67.5% to 77.7%). This cut was made after the first
+reading. The emoji rule fires more often on the files in other languages, so
+part of its reach in the table above lies outside the tool's scope.
+
 The commits were found by their message, so they show what is removed when
 someone sets out to de-slop. A rule that counts emoji or em dashes says
 nothing about a text that has none: the defaults fire in

@@ -303,6 +303,26 @@ def deslop_section(add, deslop):
         add(f"| {label} | {cells[0]} | {cells[1]} |")
     add("")
     add("These counts are too small to confirm or to reject either rule on edits that a person certainly typed.")
+    english = deslop["english"]["test"]
+    add("")
+    add(f"The pairs were not selected by language, and {deslop['parts']['test']['alpha9_defaults']['pairs'] - english['alpha9_defaults']['pairs']} "
+        f"of the {deslop['parts']['test']['alpha9_defaults']['pairs']} test pairs are not English prose. A file counts as English when at least")
+    add("10% of the words of its prose are common English function words. The cut was made after the results above. On the")
+    add(f"{english['alpha9_defaults']['pairs']} English test pairs:")
+    add("")
+    add("| Rules | Pairs where they fire | Lower after | Higher after | Lower among pairs that differ |")
+    add("| --- | ---: | ---: | ---: | --- |")
+    for name, label in (("alpha9_defaults", "Default rules of v0.1.0-alpha.9"), ("format.decorative-emoji", "`format.decorative-emoji`"),
+                        ("format.em-dash-frequency", "`format.em-dash-frequency`"),
+                        ("current_defaults", "Default rules with both new rules")):
+        entry = english[name]
+        low, high = entry["interval"]
+        add(f"| {label} | {entry['fires']} | {entry['lower']} | {entry['higher']} "
+            f"| {pct(entry['lower'], entry['lower'] + entry['higher'])} ({100 * low:.1f}% to {100 * high:.1f}%) |")
+    kept = deslop["rule"]["english"]
+    add("")
+    add("On English files alone the bar for a default rule is "
+        + ("met by both new rules." if all(kept.values()) else "not met by both new rules."))
 
 
 def system_name(name):

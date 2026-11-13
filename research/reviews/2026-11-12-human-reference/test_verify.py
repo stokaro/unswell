@@ -533,7 +533,7 @@ class VocabularyCase(RecordCase):
 
 def deslop_pair(name, part, before, after):
     return {"id": name, "repository": "owner/" + name, "commit": "c" * 40, "path": "README.md", "part": part, "web_edit": False,
-            "words_before": 100, "words_after": 100, "before": before, "after": after}
+            "english": True, "words_before": 100, "words_after": 100, "before": before, "after": after}
 
 
 class DeslopCase(RecordCase):
@@ -607,6 +607,21 @@ class DeslopCase(RecordCase):
         self.rewrite("data/frequency-load.jsonl.gz", lambda rows: rows[0].update(pages_with_finding=101))
         self.seal_digests_only()
         self.rejects("invalid em dash load row")
+
+    def test_english_table_leaves_out_other_languages(self):
+        self.rewrite("data/deslop-pairs.jsonl.gz", lambda rows: rows[1].update(english=False))
+        self.seal()
+        deslop = self.deslop()
+        self.assertEqual(deslop["parts"]["test"]["format.decorative-emoji"]["fires"], 2)
+        emoji = deslop["english"]["test"]["format.decorative-emoji"]
+        self.assertEqual((emoji["pairs"], emoji["fires"], emoji["lower"], emoji["higher"]), (1, 1, 1, 0))
+        # One pair cannot meet the bar: the lower end of its interval is below the floor.
+        self.assertFalse(deslop["rule"]["english"]["format.decorative-emoji"])
+
+    def test_language_mark_must_be_a_boolean(self):
+        self.rewrite("data/deslop-pairs.jsonl.gz", lambda rows: rows[0].update(english="yes"))
+        self.seal_digests_only()
+        self.rejects("invalid counts in de-slop pair")
 
     def test_pair_needs_a_known_part(self):
         self.rewrite("data/deslop-pairs.jsonl.gz", lambda rows: rows[0].update(part="extra"))
