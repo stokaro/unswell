@@ -10,7 +10,8 @@ import (
 )
 
 func TestDecorativeEmojiIsReportedInHeadingsAndListItems(t *testing.T) {
-	engine, err := unswell.New(unswell.Options{})
+	// The rule ships disabled outside the strict profile, so the test turns it on.
+	engine, err := unswell.New(unswell.Options{Config: []byte("version: 1\nrules:\n  format.decorative-emoji: {enabled: true}\n")})
 	qt.New(t).Assert(err, qt.IsNil)
 	cases := []struct {
 		name, file, text string

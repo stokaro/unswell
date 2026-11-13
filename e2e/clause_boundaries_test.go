@@ -25,7 +25,8 @@ func TestClauseBoundaryRepairs(t *testing.T) {
 		c.Assert(os.WriteFile(filepath.Join(work, name), []byte(text), 0o600), qt.IsNil)
 	}
 	binary := buildCLI(t)
-	for _, profile := range []string{"technical", "strict"} {
+	// The rule under test ships disabled outside the strict profile.
+	for _, profile := range []string{"strict"} {
 		policy := profilePolicy(t, work, profile, "filler.unscoped-assurance")
 		out, stderr, code := invoke(t, binary, work, []string{"check", "--config", policy,
 			"--include-source", "--report", "json:result.json", "draft.md", "revision.md", "control.md"}, nil)

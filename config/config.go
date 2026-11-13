@@ -361,9 +361,21 @@ func applyStrict(id string, settings *rule.Settings) {
 		settings.Gate = "forbid"
 		settings.Severity = "error"
 	}
-	if strictSurface(id) {
+	if strictSurface(id) || strictHumanLoad(id) {
 		settings.Enabled = true
 	}
+}
+
+// strictHumanLoad names the rules that ship disabled because their findings
+// fall on documentation that people wrote before language models: wordy
+// phrases, long sentences, instruction scaffolding, vague praise, doubled
+// words, and emoji in headings and list items. They name real defects of lean
+// wording, so a strict reader gets them; they do not tell AI-sounding wording
+// from other wording, so the other profiles leave them off. ADR 0058 records
+// the measurement, and the builtin catalog records the reason beside each rule.
+func strictHumanLoad(id string) bool {
+	return slices.Contains([]string{"filler.wordy-phrase", "syntax.long-sentence", "filler.instruction-scaffolding",
+		"hype.vague-praise", "repetition.adjacent-word", "format.decorative-emoji"}, id)
 }
 
 // strictSurface names the surface measurements the strict profile turns on.

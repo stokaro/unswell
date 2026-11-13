@@ -235,7 +235,8 @@ def deslop_section(add, deslop):
               ("format.decorative-emoji", "`format.decorative-emoji` as it ships, without them"),
               ("format.em-dash-density", "`format.em-dash-density`"), ("format.em-dash-frequency", "`format.em-dash-frequency`"),
               ("with_decorative_emoji", "Default rules with `format.decorative-emoji`"),
-              ("current_defaults", "Default rules with `format.decorative-emoji` and `format.em-dash-frequency`")]
+              ("current_defaults", "Default rules with `format.decorative-emoji` and `format.em-dash-frequency`"),
+              ("shipping_defaults", "The rules that ship on now, without the six that report on pages people wrote")]
     for part, title in (("test", "Test part"), ("development", "Development part, read first")):
         add("")
         add(f"{title}: {deslop['parts'][part]['alpha9_defaults']['pairs']} pairs from {deslop['repositories'][part]} repositories.")
@@ -381,6 +382,49 @@ def review_repeat_section(add, repeat):
         add("")
         add(f"The review does not find most of the edit: of the {edit['sentences_changed']} sentences that the commits changed or removed, "
             f"it had flagged {edit['changed_by_commit']} ({pct(edit['changed_by_commit'], edit['sentences_changed'])}).")
+
+
+def defaults_section(add, load, manual):
+    add("")
+    add("## Default rules on pages that people wrote, and on likely-manual edits")
+    add("")
+    add(f"{load['pages']} pages that people wrote before November 2022. A default rule may report on at most one page in twenty.")
+    add("")
+    add("| Rule | Pages with a finding | Share | Ships |")
+    add("| --- | ---: | ---: | --- |")
+    strict = ("filler.wordy-phrase", "syntax.long-sentence", "filler.instruction-scaffolding", "hype.vague-praise",
+              "repetition.adjacent-word", "format.decorative-emoji")
+    for name, count in sorted(load["rules"].items(), key=lambda item: -item[1]):
+        add(f"| `{name}` | {count} | {pct(count, load['pages'])} | {'off; on in strict' if name in strict else 'on'} |")
+    add("")
+    add(f"With the rules that ship on, {load['with_default_finding']} pages have a finding "
+        f"({pct(load['with_default_finding'], load['pages'])}); with the six others on as well, {load['with_any_finding']} "
+        f"({pct(load['with_any_finding'], load['pages'])}). Every rule over the limit ships off: "
+        + ("yes." if load["defaults_within_limit"] else "no."))
+    if not manual:
+        return
+    add("")
+    add(f"Likely-manual edits: {manual['pairs']} pairs from {manual['repositories']} repositories. A pair is one Markdown file before and")
+    add("after a commit made through GitHub's web flow that changes that one file and whose message is one short line saying")
+    add("that it removes AI-sounding wording. A commit made through GitHub's API looks the same, and a person can paste text")
+    add("into the editor, so these are likely typed by a person, not proven. Findings per 1,000 words are compared as above.")
+    labels = (("format.em-dash-frequency", "`format.em-dash-frequency`"), ("format.decorative-emoji", "`format.decorative-emoji`"),
+              ("strict_only_rules", "The five other rules that now ship off"), ("default_rules", "The rules that ship on"),
+              ("earlier_defaults", "All rules that shipped on before"))
+    for key, title in (("all", "All pairs"), ("one_per_repository", "One pair per repository")):
+        add("")
+        add(f"{title}:")
+        add("")
+        add("| Rules | Pairs where they report | Lower after | Higher after | Lower among pairs that differ |")
+        add("| --- | ---: | ---: | ---: | --- |")
+        for name, label in labels:
+            entry = manual[key][name]
+            low, high = entry["interval"]
+            add(f"| {label} | {entry['fires']} | {entry['lower']} | {entry['higher']} "
+                f"| {pct(entry['lower'], entry['lower'] + entry['higher'])} ({100 * low:.1f}% to {100 * high:.1f}%) |")
+    add("")
+    add("A rule is confirmed on these edits at 65% or more with the lower end of the interval above 50%: "
+        + "; ".join(f"`{name}` " + ("is" if kept else "is not") for name, kept in manual["confirmed"].items()) + ".")
 
 
 def system_name(name):
@@ -575,7 +619,8 @@ def render(results):
 
 
 def has_words(results):
-    return any(results.get(name) for name in ("trims", "openers", "rule_words", "vocabulary", "deslop", "review_repeat"))
+    return any(results.get(name) for name in ("trims", "openers", "rule_words", "vocabulary", "deslop", "review_repeat",
+                                              "default_load"))
 
 
 def render_words(results):
@@ -598,6 +643,8 @@ def render_words(results):
         deslop_section(add, results["deslop"])
     if results.get("review_repeat"):
         review_repeat_section(add, results["review_repeat"])
+    if results.get("default_load"):
+        defaults_section(add, results["default_load"], results.get("manual"))
     return "\n".join(lines) + "\n"
 
 

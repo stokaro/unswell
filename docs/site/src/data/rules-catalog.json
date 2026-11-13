@@ -152,14 +152,15 @@
             "paragraph",
             "string"
           ],
-          "enabled": true,
+          "enabled": false,
           "severity": "note",
           "gate": "none",
           "weight": 12,
           "cap": 24,
           "summary": "State the supported action directly; preserve its conditions and optionality.",
           "description": "An affirmative impersonal capability with a transitive configuration or presentation action, or a reader-intention clause introducing an instruction. Anaphoric gerund methods and nominalized methods are also recognized. Nested enables/allows plus an action nominalization and passive infinitive, and nominal actions performed through a gerund method, also qualify. Actor-to-action projection recognizes ability nouns, modal used-to/used-for actions, named method predicates, and nested intended-to-enable actions. Narrated prerequisites and repeated same-actor obligations can introduce an action. Standalone generic reader enablement requires an adjacent method; concrete capability explanations remain controls. Infinitive reader goals admit coordinated actions. Relative operation or actor antecedents can carry nested support; capable-of gerunds and purpose-to-steps announcements also qualify. A second method may be anchored by a repeated two-noun object and explicit reader action. An adjacent anaphoric method may name a nominal syntax or configuration instrument; that instrument cannot establish a standalone warning or replace a passive actor. A discourse-marked unnamed piece, bit or part of logic or code may carry a transitive gerund through allows, enables or supports. Named components, numbered architectural parts and unmarked part descriptions remain excluded. Reader prerequisites with will need to have the following and an installed-state operand request direct wording; separate deadlines, qualified states and optional requirements remain excluded. A complete temporal state prerequisite and impersonal safe/possible action may introduce an immediate To do this/that passive invocation of a named method or function. The pair requests direct instruction wording while retaining the safety qualifier and prerequisite; automatic execution and unnamed operations remain excluded. A reader-intent condition followed by a distinct action with an exact code-form command or option is already a direct optional instruction. The either/or coordinator before alternative actions is not an action verb. A supported-action prefix followed by a modal relative helpfulness clause and an unqualified purpose nominal requests direct wording for both layers while retaining their modality and the relative antecedent. A configuration operand or opaque identifier used as a standalone subject does not establish an actor for a simple modal used-to/used-for capability. Preserve modal meaning, named actors and conditions. Named actor permissions and simple passive predicates do not. Adjacent method announcements remain related evidence. Failure, permission, negation and quoted constructions do not match. Reports complete matched clauses, once per clause. An immediate anaphoric method may be related across adjacent prose paragraphs, without crossing structural boundaries.",
-          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples. A conditional reader goal and a be-sure-to reminder are not reported."
+          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples. A conditional reader goal and a be-sure-to reminder are not reported.",
+          "opt_in_reason": "Reports on 9.1% of pages that people wrote before language models. On in strict."
         },
         {
           "id": "filler.modern-world-opening",
@@ -365,14 +366,15 @@
             "string",
             "table-cell"
           ],
-          "enabled": true,
+          "enabled": false,
           "severity": "warning",
           "gate": "none",
           "weight": 15,
           "cap": 30,
           "summary": "Consider a shorter phrase that preserves the condition or meaning.",
           "description": "Consider a shorter phrase that preserves the condition or meaning.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+          "opt_in_reason": "Reports on 24.8% of pages that people wrote before language models, mostly for one purpose phrase. It does not follow what people change when they remove AI-sounding wording. On in strict."
         }
       ]
     },
@@ -389,14 +391,15 @@
             "heading",
             "list-item"
           ],
-          "enabled": true,
+          "enabled": false,
           "severity": "warning",
           "gate": "none",
           "weight": 0,
           "cap": 0,
           "summary": "Remove the decorative emoji from this heading or list item.",
           "description": "Reports emoji and pictographic symbols in Markdown headings and list items, with mapped source ranges.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Emoji in paragraphs, tables, code, comments, and strings are not reported. Check marks, crosses, and ballot boxes are not reported either: people use them in checklists."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Emoji in paragraphs, tables, code, comments, and strings are not reported. Check marks, crosses, and ballot boxes are not reported either: people use them in checklists.",
+          "opt_in_reason": "Reports on 5.8% of pages that people wrote before language models, and is not confirmed on likely-manual de-slop edits: lower after the edit in 20 pairs, higher in 14. On in strict."
         },
         {
           "id": "format.em-dash-density",
@@ -541,14 +544,15 @@
             "paragraph",
             "string"
           ],
-          "enabled": true,
+          "enabled": false,
           "severity": "note",
           "gate": "none",
           "weight": 12,
           "cap": 24,
           "summary": "Replace general praise with a specific property or measured result.",
           "description": "Matches configured phrases in affirmative prose, excluding questions and explicit qualifications conservatively.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This lexical screen does not determine truth, semantic vagueness, or whether every condition is stated."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This lexical screen does not determine truth, semantic vagueness, or whether every condition is stated.",
+          "opt_in_reason": "Reports on 9.1% of pages that people wrote before language models, mostly for one adjective. On files before and after a de-slop commit it moves with the edit in 55% of pairs. On in strict."
         }
       ]
     },
@@ -644,14 +648,15 @@
             "string",
             "table-cell"
           ],
-          "enabled": true,
+          "enabled": false,
           "severity": "note",
           "gate": "none",
           "weight": 12,
           "cap": 24,
           "summary": "This word occurs twice in succession; check for an accidental duplicate.",
           "description": "Locates a prose word written twice in succession, separated only by whitespace. The two copies have the same case; a sentence may open with the capitalized copy. A repeated capitalized word inside a sentence is read as a name or a title. In Markdown, emphasis, code, a closing link, or a table boundary between the copies separates them. Quoted examples, protected text, repeated adjectives/adverbs, and ambiguous grammatical repetitions are excluded. Quotation protection follows the repeated tokens, including quotes spanning sentences in one block. Numeric operands and formatting conversions are not prose words; uppercase Boolean operator names remain distinct from their lowercase grammatical uses.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Deliberate repetition and technical compounds can still match; this is not an authorship signal. Unclosed quotations and ambiguous plural possessives inside single quotes protect the remaining passage."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Deliberate repetition and technical compounds can still match; this is not an authorship signal. Unclosed quotations and ambiguous plural possessives inside single quotes protect the remaining passage.",
+          "opt_in_reason": "Reports on 7.4% of pages that people wrote before language models. A doubled word is a typing error, not AI-sounding wording. On in strict."
         },
         {
           "id": "repetition.definition-echo",
@@ -1087,14 +1092,15 @@
             "paragraph",
             "string"
           ],
-          "enabled": true,
+          "enabled": false,
           "severity": "note",
           "gate": "none",
           "weight": 20,
           "cap": 40,
           "summary": "Consider splitting this long sentence without losing its conditions.",
           "description": "Reports a sentence with more prose words than the onset. Table cells are not measured.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+          "opt_in_reason": "Reports on 18.2% of pages that people wrote before language models. A long sentence is a matter of lean wording, not of AI-sounding wording. On in strict."
         },
         {
           "id": "syntax.nominalization-chain",

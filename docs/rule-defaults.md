@@ -1,7 +1,8 @@
 # Which rules ship enabled
 
-The catalog holds 60 rules. Thirty-three are enabled by their descriptors and 27
-are opt-in; strict additionally enables em-dash density. This page says how that split was chosen and what each opt-in rule was
+The catalog holds 60 rules. Twenty-seven are enabled by their descriptors and 33
+are opt-in; strict additionally enables em-dash density and the six rules whose
+load falls on pages that people wrote. This page says how that split was chosen and what each opt-in rule was
 measured at. Every rule also carries its own reason: `unswell rules show ID`
 prints it, the rules page shows it, and a test fails if an opt-in rule has
 none.
@@ -80,14 +81,15 @@ differ, with the lower end of the interval above 55%.
 
 | Rule | What it reports | Lower after the commit | Default |
 | --- | --- | --- | --- |
-| `format.decorative-emoji` | Emoji in headings and list items | 77.7% (69.8% to 84.0%) | On |
+| `format.decorative-emoji` | Emoji in headings and list items | 77.7% (69.8% to 84.0%) | Off outside the strict profile since ADR 0058 |
 | `format.em-dash-frequency` | A document with at least three em dashes and at least three per 1,000 words | 70.4% (64.1% to 76.0%) | On |
 | `format.em-dash-density` | A paragraph dense with em dashes | 62.5% (51.0% to 72.8%) | Off outside the strict profile |
 
-With the two new rules the default findings are lower after the commit in
+With the two new rules the default findings were lower after the commit in
 72.7% (67.8% to 77.1%) of the pairs that differ, and the defaults
-fire in 365 of 597 pairs. The defaults of v0.1.0-alpha.9 give
-64.0% (56.1% to 71.2%) and fire in 158.
+fired in 365 of 597 pairs. The defaults of v0.1.0-alpha.9 gave
+64.0% (56.1% to 71.2%) and fired in 158. Since ADR 0058 six rules ship off;
+the rules that ship on give 69.0% (62.7% to 74.6%) and fire in 245.
 
 The em dash rule reports 24.1% of the pages of today's public repositories
 and 1.7% of the pages that people wrote before November 2022. It has no gate.
@@ -97,6 +99,30 @@ These shares say that the findings move the way the edits do. They do not say
 how much of an edit the rules find. The two new rules see emoji and em dashes;
 a sentence that such a commit rewords is outside them. Most of what these
 commits change is rewording, so most of an edit gets no finding.
+
+## Quiet on pages that people wrote
+
+[ADR 0058](adr/0058-default-rules-quiet-on-human-pages.md) sets a limit for a
+default rule: it reports on at most one in twenty of 121 pages that people wrote
+before November 2022. Six rules were over it and ship off. The strict profile
+turns them on.
+
+| Rule | Pages with a finding |
+| --- | ---: |
+| `filler.wordy-phrase` | 30 (24.8%) |
+| `syntax.long-sentence` | 22 (18.2%) |
+| `filler.instruction-scaffolding` | 11 (9.1%) |
+| `hype.vague-praise` | 11 (9.1%) |
+| `repetition.adjacent-word` | 9 (7.4%) |
+| `format.decorative-emoji` | 7 (5.8%) |
+
+On 153 likely-manual de-slop edits (short one-file commits through GitHub's
+web flow) the first five are lower after the edit in 23 pairs and higher in 25.
+The emoji rule is lower in 20 and higher in 14, which does not confirm it, and
+`format.em-dash-frequency` is confirmed at 70.0% (54.6% to 81.9%).
+
+With the rules that ship on, 11 of those pages have a finding (9.1%); with the
+six others on as well, 61 (50.4%).
 
 ## Listing on what editors removed
 

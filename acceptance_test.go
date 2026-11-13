@@ -19,6 +19,7 @@ rules:
   filler.announced-importance:
     score: {weight: 80, cap: 80}
   filler.wordy-phrase:
+    enabled: true
     score: {weight: 80, cap: 80}
 gate:
   sentence_score: {fail_at: 40, min_words: 1}
