@@ -23,10 +23,32 @@ func reviewRequest(c *qt.C, t *testing.T, session *mcp.ClientSession) server.Rev
 	return output[server.ReviewRequestOutput](c, result)
 }
 
+// verdicts sends the flags as items to revise, in the given order, and marks
+// every other item of the request as acceptable.
+func verdicts(items []server.ReviewItem, flags ...server.ReviewFlag) []server.ReviewVerdict {
+	result := make([]server.ReviewVerdict, 0, len(items)+len(flags))
+	flagged := map[string]bool{}
+	for _, flag := range flags {
+		flagged[flag.Item] = true
+		result = append(result, revise(flag))
+	}
+	for _, item := range items {
+		if !flagged[item.ID] {
+			result = append(result, server.ReviewVerdict{Item: item.ID, Verdict: "ok"})
+		}
+	}
+	return result
+}
+
+func revise(flag server.ReviewFlag) server.ReviewVerdict {
+	return server.ReviewVerdict{Item: flag.Item, Verdict: "revise", Categories: flag.Categories, Quote: flag.Quote, Reason: flag.Reason}
+}
+
 func reviewSubmit(c *qt.C, t *testing.T, session *mcp.ClientSession, text string, flags ...server.ReviewFlag) server.ReviewSubmitOutput {
 	c.Helper()
+	items := reviewRequest(c, t, session).Items
 	result, err := session.CallTool(t.Context(), &mcp.CallToolParams{Name: "unswell_review_submit",
-		Arguments: server.ReviewSubmitInput{Source: server.Source{Name: "guide.md", Text: text}, Flags: flags}})
+		Arguments: server.ReviewSubmitInput{Source: server.Source{Name: "guide.md", Text: text}, Items: verdicts(items, flags...)}})
 	c.Assert(err, qt.IsNil)
 	c.Assert(result.IsError, qt.IsFalse)
 	return output[server.ReviewSubmitOutput](c, result)
@@ -122,7 +144,56 @@ func TestReviewSubmitRejectsAnUnknownCategoryAtTheSchema(t *testing.T) {
 	items := reviewRequest(c, t, session).Items
 	result, err := session.CallTool(t.Context(), &mcp.CallToolParams{Name: "unswell_review_submit",
 		Arguments: server.ReviewSubmitInput{Source: server.Source{Name: "guide.md", Text: reviewText},
-			Flags: []server.ReviewFlag{{Item: items[0].ID, Categories: []string{"authorship"}, Quote: "It", Reason: "A reason."}}}})
+			Items: verdicts(items, server.ReviewFlag{Item: items[0].ID, Categories: []string{"authorship"}, Quote: "It", Reason: "A reason."})}})
+	if err == nil {
+		c.Assert(result.IsError, qt.IsTrue)
+	}
+}
+
+func TestReviewSubmitRefusesASubmissionThatSkipsItems(t *testing.T) {
+	c := qt.New(t)
+	session := connect(c, t.Context(), server.Options{})
+	items := reviewRequest(c, t, session).Items
+	c.Assert(len(items) >= 3, qt.IsTrue)
+	for _, tc := range []struct {
+		name  string
+		items []server.ReviewVerdict
+	}{
+		{"nothing", nil},
+		{"one verdict", []server.ReviewVerdict{{Item: items[0].ID, Verdict: "ok"}}},
+		{"only a flag", []server.ReviewVerdict{{Item: items[0].ID, Verdict: "revise", Categories: []string{"empty_framing"},
+			Quote: "It is important to note that", Reason: "Announces only."}}},
+		{"one item many times", []server.ReviewVerdict{{Item: items[0].ID, Verdict: "ok"}, {Item: items[0].ID, Verdict: "ok"},
+			{Item: items[0].ID, Verdict: "ok"}, {Item: items[0].ID, Verdict: "ok"}}},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			c := qt.New(t)
+			result, err := session.CallTool(t.Context(), &mcp.CallToolParams{Name: "unswell_review_submit",
+				Arguments: server.ReviewSubmitInput{Source: server.Source{Name: "guide.md", Text: reviewText}, Items: tc.items}})
+			if err == nil {
+				c.Assert(result.IsError, qt.IsTrue)
+				c.Assert(result.Content[0].(*mcp.TextContent).Text, qt.Contains, "send a verdict for every item")
+			}
+		})
+	}
+}
+
+func TestReviewSubmitAcceptsADocumentWithNothingToRevise(t *testing.T) {
+	c := qt.New(t)
+	session := connect(c, t.Context(), server.Options{})
+	out := reviewSubmit(c, t, session, reviewText)
+	c.Assert(out.Accepted, qt.HasLen, 0)
+	c.Assert(out.Rejected, qt.HasLen, 0)
+}
+
+func TestReviewSubmitRejectsAnUnknownVerdictAtTheSchema(t *testing.T) {
+	c := qt.New(t)
+	session := connect(c, t.Context(), server.Options{})
+	items := reviewRequest(c, t, session).Items
+	all := verdicts(items)
+	all[0].Verdict = "fine"
+	result, err := session.CallTool(t.Context(), &mcp.CallToolParams{Name: "unswell_review_submit",
+		Arguments: server.ReviewSubmitInput{Source: server.Source{Name: "guide.md", Text: reviewText}, Items: all}})
 	if err == nil {
 		c.Assert(result.IsError, qt.IsTrue)
 	}

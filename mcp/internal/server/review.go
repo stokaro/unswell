@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 
@@ -12,15 +13,18 @@ import (
 // ReviewProtocol names the request and answer shapes of the review tools.
 const ReviewProtocol = review.Protocol
 
-// MaxReviewFlags bounds one submitted review.
+// MaxReviewFlags bounds the items that one submitted review may mark for revision.
 const MaxReviewFlags = review.MaxFlags
+
+// MaxReviewVerdicts bounds the verdicts of one submitted review.
+const MaxReviewVerdicts = 16384
 
 // reviewInstructions is the shared rubric followed by how this server takes
 // the answer. The judgment belongs to the calling assistant.
 const reviewInstructions = review.Instructions + `
 
-List only items that need revision. An item you do not list is acceptable.
-Submit your answer with unswell_review_submit: one flag per item, with the item ID, at least one category,
+Submit your answer with unswell_review_submit: one entry for every item, in the order of the list.
+An acceptable item is "ok". An item that needs revision is "revise", with at least one category,
 a quote copied character for character from that item, and a one-sentence reason.`
 
 // ReviewRequestInput asks for the items of one document.
@@ -53,10 +57,19 @@ type ReviewFlag struct {
 	Reason     string   `json:"reason"     jsonschema:"One sentence explaining the defect."`
 }
 
-// ReviewSubmitInput carries the same document and the assistant's flags.
+// ReviewVerdict is the calling assistant's judgment of one item.
+type ReviewVerdict struct {
+	Item       string   `json:"item"                 jsonschema:"Item identifier from unswell_review_request."`
+	Verdict    string   `json:"verdict"              jsonschema:"ok for an acceptable item, revise for one that needs revision."`
+	Categories []string `json:"categories,omitempty" jsonschema:"With revise: one or more defect categories."`
+	Quote      string   `json:"quote,omitempty"      jsonschema:"With revise: text copied from the item that shows the defect."`
+	Reason     string   `json:"reason,omitempty"     jsonschema:"With revise: one sentence explaining the defect."`
+}
+
+// ReviewSubmitInput carries the same document and the assistant's verdicts.
 type ReviewSubmitInput struct {
-	Source Source       `json:"source" jsonschema:"The same document that was sent to unswell_review_request."`
-	Flags  []ReviewFlag `json:"flags"  jsonschema:"Between 0 and 256 flags."`
+	Source Source          `json:"source" jsonschema:"The same document that was sent to unswell_review_request."`
+	Items  []ReviewVerdict `json:"items"  jsonschema:"One verdict for every item. At most 256 of them may be revise."`
 }
 
 // ReviewFinding is a flag bound to exact source coordinates.
@@ -126,13 +139,19 @@ func (r *reviewer) request(
 func (r *reviewer) submit(
 	ctx context.Context, _ *mcp.CallToolRequest, input ReviewSubmitInput,
 ) (*mcp.CallToolResult, ReviewSubmitOutput, error) {
-	flags := make([]review.Flag, 0, len(input.Flags))
-	for _, flag := range input.Flags {
-		flags = append(flags, review.Flag(flag))
+	verdicts := make([]review.ItemVerdict, 0, len(input.Items))
+	for _, entry := range input.Items {
+		verdicts = append(verdicts, review.ItemVerdict{Verdict: entry.Verdict,
+			Flag: review.Flag{Item: entry.Item, Categories: entry.Categories, Quote: entry.Quote, Reason: entry.Reason}})
 	}
 	prepared, err := r.document(ctx, input.Source)
 	if err != nil {
 		return nil, ReviewSubmitOutput{}, err
+	}
+	// A submission that skips items is refused, so the assistant judges them and sends it again.
+	flags, err := prepared.Flags(verdicts)
+	if err != nil {
+		return nil, ReviewSubmitOutput{}, fmt.Errorf("%w; send a verdict for every item of unswell_review_request", err)
 	}
 	accepted, rejected, err := prepared.Bind(flags)
 	if err != nil {

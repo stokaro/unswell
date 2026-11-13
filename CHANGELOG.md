@@ -12,6 +12,11 @@ judges fewer than four in five items fails and is asked again. The answer is
 longer, about a line per sentence. In Go, `Document.ParseFlags` replaces
 `review.ParseFlags`.
 
+The MCP tool `unswell_review_submit` takes the same answer: `items` with one
+verdict per item replaces `flags`, and a submission that judges fewer than
+four in five items is refused. The measurement behind the change was made
+through `unswell review`, not through the MCP tools.
+
 `unswell check` has two new default rules. `format.decorative-emoji` reports
 emoji in Markdown headings and list items, and leaves alone paragraphs,
 tables, code, check marks, and crosses. `format.em-dash-frequency` reports a

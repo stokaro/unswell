@@ -103,6 +103,25 @@ func TestParseFlagsKeepsAFlagOnAnUnknownItemForBinding(t *testing.T) {
 	c.Assert(rejected[0].Flag.Item, qt.Equals, "i044")
 }
 
+func TestFlagsCountsVerdictsGivenAsValues(t *testing.T) {
+	c := qt.New(t)
+	prepared := prepare(c, t, "guide.md", guide)
+	verdicts := []review.ItemVerdict{
+		{Verdict: review.NeedsRevision, Flag: review.Flag{Item: "i001", Categories: []string{"empty_framing"},
+			Quote: "It is important to note that", Reason: "Announces only."}},
+		{Verdict: review.Acceptable, Flag: review.Flag{Item: "i002"}},
+		{Verdict: review.Acceptable, Flag: review.Flag{Item: "i003"}},
+	}
+	flags, err := prepared.Flags(verdicts)
+	c.Assert(err, qt.IsNil)
+	c.Assert(flags, qt.HasLen, 1)
+	c.Assert(flags[0].Item, qt.Equals, "i001")
+	_, err = prepared.Flags(verdicts[:2])
+	c.Assert(err, qt.ErrorMatches, "the answer judges 2 of 3 items")
+	_, err = prepared.Flags(nil)
+	c.Assert(err, qt.ErrorMatches, "the answer judges 0 of 3 items")
+}
+
 func bound(c *qt.C, prepared *review.Document) []review.Finding {
 	c.Helper()
 	first := itemContaining(c, prepared.Items, "It is important to note")

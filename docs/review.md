@@ -326,4 +326,6 @@ findings, dropped, err := prepared.Bind(flags)
 `Document.ConfirmationPrompt` and `review.ParseVerdicts` do the same for a
 second model. The MCP tools `unswell_review_request` and
 `unswell_review_submit` use the same package; there the calling assistant is
-the reviewer. See [MCP](mcp.md#contextual-review-by-the-calling-assistant).
+the reviewer and submits a verdict for every item through `Document.Flags`.
+The measurements on this page were made through the command, not through
+those tools. See [MCP](mcp.md#contextual-review-by-the-calling-assistant).

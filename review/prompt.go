@@ -80,6 +80,14 @@ func (d *Document) Prompt() string {
 	return prompt.String()
 }
 
+// ItemVerdict is a reviewer's judgment of one item: Acceptable or
+// NeedsRevision. Only an item that needs revision uses the fields of the flag
+// beyond the item ID.
+type ItemVerdict struct {
+	Flag
+	Verdict string `json:"verdict"`
+}
+
 // ParseFlags reads a reviewing model's answer to Prompt and returns a flag for
 // every entry with the verdict "revise". The JSON object may sit inside a code
 // fence or between other text. When the answer holds several objects with an
@@ -88,10 +96,7 @@ func (d *Document) Prompt() string {
 // refusal or a cut-off list never reads as a clean document.
 func (d *Document) ParseFlags(answer string) ([]Flag, error) {
 	var parsed struct {
-		Items *[]struct {
-			Flag
-			Verdict string `json:"verdict"`
-		} `json:"items"`
+		Items *[]ItemVerdict `json:"items"`
 	}
 	if err := decodeObject(answer, "items", &parsed); err != nil {
 		return nil, err
@@ -99,9 +104,16 @@ func (d *Document) ParseFlags(answer string) ([]Flag, error) {
 	if parsed.Items == nil {
 		return nil, fmt.Errorf("the answer has no items field")
 	}
+	return d.Flags(*parsed.Items)
+}
+
+// Flags returns a flag for every verdict that asks for revision. Verdicts that
+// judge fewer than four in five items of the document are an error. A flag on
+// an unknown item is returned as well, so that Bind reports it.
+func (d *Document) Flags(verdicts []ItemVerdict) ([]Flag, error) {
 	judged := make(map[string]bool, len(d.Items))
 	flags := []Flag{}
-	for _, entry := range *parsed.Items {
+	for _, entry := range verdicts {
 		verdict := strings.ToLower(strings.TrimSpace(entry.Verdict))
 		if verdict != Acceptable && verdict != NeedsRevision {
 			continue
@@ -109,7 +121,6 @@ func (d *Document) ParseFlags(answer string) ([]Flag, error) {
 		if _, known := d.units[entry.Item]; known {
 			judged[entry.Item] = true
 		}
-		// A flag on an unknown item goes on to Bind, which reports it as unbound.
 		if verdict == NeedsRevision {
 			flags = append(flags, entry.Flag)
 		}
