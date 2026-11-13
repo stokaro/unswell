@@ -7,6 +7,7 @@ import (
 
 	ts "github.com/odvcencio/gotreesitter"
 	"github.com/odvcencio/gotreesitter/grammars"
+	grammarruntime "github.com/odvcencio/gotreesitter/grammars/runtime"
 )
 
 var markdownSyntaxLanguage = sync.OnceValues(func() (*ts.Language, error) {
@@ -14,7 +15,7 @@ var markdownSyntaxLanguage = sync.OnceValues(func() (*ts.Language, error) {
 	if err != nil {
 		return nil, fmt.Errorf("load markdown grammar: %w", err)
 	}
-	scanner, ok := lang.ExternalScanner.(grammars.MarkdownExternalScanner)
+	scanner, ok := lang.ExternalScanner.(grammarruntime.MarkdownExternalScanner)
 	if !ok {
 		return nil, fmt.Errorf("markdown grammar has an unsupported external scanner")
 	}
@@ -38,7 +39,7 @@ var markdownSyntaxLanguage = sync.OnceValues(func() (*ts.Language, error) {
 })
 
 type markdownBoundaryScanner struct {
-	grammars.MarkdownExternalScanner
+	grammarruntime.MarkdownExternalScanner
 	line  int
 	table int
 }
