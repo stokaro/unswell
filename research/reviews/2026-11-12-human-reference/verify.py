@@ -17,6 +17,7 @@ import gzip
 import hashlib
 import itertools
 import json
+import math
 import random
 import sys
 from pathlib import Path
@@ -26,9 +27,11 @@ DIGESTS = "files.sha256"
 RESULTS = "results.json"
 DATA = ("data/sentences.jsonl.gz", "data/preferences.jsonl.gz", "data/expert-pairs.jsonl.gz", "data/readers.jsonl.gz",
         "data/panel.jsonl.gz", "data/trims.jsonl.gz", "data/word-counts.jsonl.gz", "data/openers.jsonl.gz",
-        "data/rule-words.jsonl.gz")
+        "data/rule-words.jsonl.gz", "data/opener-load.jsonl.gz")
 TRIMS, WORD_COUNTS = "data/trims.jsonl.gz", "data/word-counts.jsonl.gz"
 OPENERS, RULE_WORDS = "data/openers.jsonl.gz", "data/rule-words.jsonl.gz"
+# Counts of the rule's findings on documentation pages outside this record's sets.
+OPENER_PAGES = "data/opener-load.jsonl.gz"
 # The run of the default rules with the build whose chat-preamble rule lists the opener.
 OPENER_SYSTEM = "rules-opener"
 # The set on which the opener was registered, and the sets on which it must stay silent.
@@ -476,8 +479,12 @@ def trim_entry(row, document, counts):
 
 
 def totals(table):
-    """Sum the columns of SUMS over the rows of a table."""
-    return [sum(column) for column in zip(*table)] if table else [0.0] * len(SUMS)
+    """Sum the columns of SUMS over the rows of a table.
+
+    The sums are exactly rounded. The built-in sum of floats changed in Python 3.12, and a check that
+    compares published numbers must not depend on the interpreter that recounts them.
+    """
+    return [math.fsum(column) for column in zip(*table)] if table else [0.0] * len(SUMS)
 
 
 def trim_differences(total, sentences, distance):
@@ -624,9 +631,24 @@ def opener_results(root, documents):
     test = result["sets"].get(f"{OPENER_SET}/test", {"findings": 0, "changed": 0, "interval": [0.0, 0.0]})
     elsewhere = sum(entry["findings"] for key, entry in result["sets"].items() if key.split("/")[0] in OPENER_ELSEWHERE)
     result["elsewhere"] = elsewhere
+    if (root / OPENER_PAGES).exists():
+        result["load"] = opener_load(root)
     result["listed"] = bool(test["findings"]) and test["changed"] >= OPENER_SHARE * test["findings"] \
         and test["interval"][0] > OPENER_FLOOR and elsewhere <= OPENER_LOAD
     return result
+
+
+def opener_load(root):
+    """Return the counts of the rule's findings on documentation pages outside the record's sets."""
+    load = {}
+    for row in rows(root / OPENER_PAGES):
+        counts = [row.get(name) for name in ("pages", "failed", "findings")]
+        if set(row) != {"part", "pages", "failed", "findings"} or row["part"] in load:
+            fail(f"invalid or repeated opener load row: {row.get('part')}")
+        if not all(isinstance(value, int) and value >= 0 for value in counts) or row["failed"] > row["pages"]:
+            fail(f"invalid counts in the opener load of {row['part']}")
+        load[row["part"]] = {"pages": row["pages"], "failed": row["failed"], "findings": row["findings"]}
+    return load
 
 
 def rule_word_results(root, documents):

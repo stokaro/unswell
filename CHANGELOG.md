@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+`scaffold.chat-preamble` now also reports a chat opener in the first sentence
+after the leading headings of a document, as in a README whose title is
+followed by `Sure, here is a summary`. Before, a title hid the opener. The
+rule reports nothing on 3,302 pages of public repositories. It does not
+look after later headings, where a person may answer a question with `Sure,`.
+The new phrase position is `prose-start`; `document-start` keeps its meaning.
+
 ## 0.1.0-alpha.9
 
 This release makes the two model commands read more answers, adds one chat
@@ -12,16 +21,16 @@ and writes the object again. Such an answer failed the document; the last
 object is now the answer. A correction that is cut off is still an error.
 
 `unswell trim` was measured against human editors
-([ADR 0054](docs/adr/0054-trim-measured-against-editors.md)). On model answers
-that experts edited, the words it removes are words the expert also removed or
+([ADR 0054](docs/adr/0054-trim-measured-against-editors.md)). On answers of
+chat models that experts edited, the words it removes are words the expert also removed or
 replaced in 71.2% and 68.0% of cases with two models, against 62.7% and 59.3%
 by chance in the same sentences, and the trimmed text is closer to the
 expert's version. On fiction and on documentation written by people the
 registered rule is not met. See [trim](docs/trim.md#measured-behavior).
 
 `scaffold.chat-preamble` now also reports a document that opens with `Sure,`
-or `Sure!`, as in `Sure, here is a summary`. Experts who edited model answers
-removed that opener in 39 of 39 test answers
+or `Sure!`, as in `Sure, here is a summary`. Experts who edited answers of chat
+models removed that opener in 39 of 39 test answers
 ([ADR 0055](docs/adr/0055-phrase-listed-on-editor-reference.md)). The rule
 has `gate: forbid`, so such a document now fails the check; the business
 profile leaves the rule off as before.

@@ -127,7 +127,7 @@ func inRange(value, low, high int) bool { return value >= low && value <= high }
 
 func validateParameters(p rule.Parameters, accepted []string) error {
 	for _, position := range p.Positions {
-		if !slices.Contains([]string{"any", "sentence-start", "document-start", "document-end"}, position) {
+		if !slices.Contains([]string{"any", "sentence-start", "document-start", "prose-start", "document-end"}, position) {
 			return fmt.Errorf("invalid phrase position %q", position)
 		}
 	}

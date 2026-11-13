@@ -1,7 +1,9 @@
 # ADR 0054: Trimming is measured against what editors removed
 
 Status: proposed on November 12, 2026. It takes effect when the maintainer
-merges it. It adds a human reference to
+merges it. Clarified on the same day: the first kind of text is answers of
+chat models, and the documentation never presents the result as one on
+documentation. It adds a human reference to
 [ADR 0053](0053-trim-admitted-by-model-consensus.md) and applies decision 6 of
 [ADR 0052](0052-claims-follow-human-references.md) to a command that changes
 text.
@@ -14,8 +16,10 @@ not share professional writers' preferences. Nothing compared the command with
 people.
 
 The human-reference record holds three kinds of text that people edited:
-model answers that experts edited, model fiction that writers edited, and
-documentation pages that maintainers reworded. For the first two it holds the
+answers of chat models that experts edited, model fiction that writers
+edited, and documentation pages that maintainers reworded. The answers are
+what ten open chat models of 2023 and early 2024, among them Llama 2,
+Mistral 7B, Zephyr, and Gemma, gave to instructions. For the first two it holds the
 text before and after the edit.
 
 ## Decision
@@ -36,12 +40,12 @@ text before and after the edit.
    way. The rule was registered on issue 525 before the command ran on these
    texts.
 
-3. **The result.** The rule is met on model answers that experts edited. It
-   is not met on fiction or on documentation written by people.
+3. **The result.** The rule is met on answers of chat models that experts
+   edited. It is not met on fiction or on documentation written by people.
 
 4. **What the documentation states.** The documentation of the command and
-   the README state the result for model answers that experts edited, with
-   that scope. The documentation of the command also states that the rule is
+   the README state the result for answers of chat models that experts
+   edited, with that scope, and never as a result on documentation. The documentation of the command also states that the rule is
    not met on the other two kinds of text and that documentation written by
    models and edited by people is not measured.
 
@@ -65,14 +69,14 @@ word. Test parts:
 
 | Text | Trimming model | Removed words | Editor changed them | By chance in the same sentences | Difference, points |
 | --- | --- | ---: | ---: | ---: | --- |
-| Model answers that experts edited | `claude-sonnet-5-5` | 1,617 | 71.2% | 62.7% | +8.5 (+6.3 to +10.6) |
-| Model answers that experts edited | `gpt-6-astra` | 2,110 | 68.0% | 59.3% | +8.7 (+6.7 to +10.7) |
+| Answers of chat models that experts edited | `claude-sonnet-5-5` | 1,617 | 71.2% | 62.7% | +8.5 (+6.3 to +10.6) |
+| Answers of chat models that experts edited | `gpt-6-astra` | 2,110 | 68.0% | 59.3% | +8.7 (+6.7 to +10.7) |
 | Model fiction that writers edited | `claude-sonnet-5-5` | 1,037 | 51.9% | 49.3% | +2.6 (+0.0 to +5.2) |
 | Model fiction that writers edited | `gpt-6-astra` | 853 | 49.6% | 46.5% | +3.1 (-0.1 to +6.4) |
 | Documentation that maintainers reworded | `claude-sonnet-5-5` | 375 | 8.5% | 6.6% | +2.0 (-0.7 to +5.7) |
 | Documentation that maintainers reworded | `gpt-6-astra` | 942 | 6.6% | 4.4% | +2.2 (+0.6 to +4.4) |
 
-On model answers that experts edited, the trimmed text is also closer to the expert's text than the
+On answers of chat models that experts edited, the trimmed text is also closer to the expert's text than the
 original was. The word-level edit distance to the expert's text falls by 0.28 and 0.23 words per
 removed word with the two models. Random removal from the same sentences gives 0.15 and 0.09,
 because the experts removed or replaced more than half of the words. On fiction the distance does not fall

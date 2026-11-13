@@ -13,8 +13,7 @@ type phraseMatcher struct {
 	view     rule.View
 	emit     rule.Emitter
 	patterns [][]string
-	index    int
-	total    int
+	place    sentencePlace
 }
 
 func phraseEvaluate(ctx context.Context, view rule.View, emit rule.Emitter) error {
@@ -25,8 +24,9 @@ func phraseEvaluate(ctx context.Context, view rule.View, emit rule.Emitter) erro
 		}
 	}
 	for _, block := range view.Document.Blocks {
-		m.total += len(block.Sentences)
+		m.place.total += len(block.Sentences)
 	}
+	m.place.prose = firstProseSentence(view.Document.Blocks)
 	for _, block := range view.Document.Blocks {
 		if err := m.block(ctx, block); err != nil {
 			return err
@@ -51,7 +51,7 @@ func (m *phraseMatcher) block(ctx context.Context, block document.Block) error {
 			}
 			evaluated = evaluated || observed
 		}
-		m.index++
+		m.place.index++
 	}
 	return m.view.Observe(phraseObservation(block, len(m.patterns), evaluated))
 }
@@ -92,7 +92,7 @@ func (m *phraseMatcher) match(sentence document.Sentence, pattern []string) (boo
 }
 
 func (m *phraseMatcher) candidate(sentence document.Sentence, start, end int) bool {
-	return phrasePosition(m.view.Parameters.Positions, start, m.index, m.total) &&
+	return phrasePosition(m.view.Parameters.Positions, start, m.place) &&
 		!m.view.Exempts(sentence, start, end)
 }
 

@@ -102,6 +102,14 @@ the findings these two phrases produce and how often the editor removed or repla
 The rule asked for at least 85% on the test part of the expert-edited answers, a lower end of the interval above
 70%, and at most one finding on the other two sets, which have 0. The phrases are listed.
 
+The rule also looks at the first sentence after the leading headings of a document. With that position it ran
+on documentation pages outside this record, from the assistant-panel corpus:
+
+| Pages | Number | Pages that failed to run | Findings of the rule |
+| --- | ---: | ---: | ---: |
+| Pages that models generated | 455 | 0 | 0 |
+| Pages of public repositories | 3,302 | 0 | 0 |
+
 ## Each rule against the words an editor changed
 
 Test parts, every rule enabled, before the opener was listed. A row gives the words under the findings of one

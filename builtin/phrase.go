@@ -12,15 +12,17 @@ import (
 
 func phraseRules() []rule.Rule {
 	definitions := []struct {
-		id, summary, position string
-		phrases               []string
-		forbid                bool
+		id, summary        string
+		positions, phrases []string
+		forbid             bool
 	}{
-		{"policy.banned-phrases", "Remove a phrase forbidden by this editorial policy.", "any", []string{}, true},
+		{"policy.banned-phrases", "Remove a phrase forbidden by this editorial policy.", []string{"any"}, []string{}, true},
 		{
 			"scaffold.chat-preamble",
 			"Start with the subject instead of a conversational acknowledgment.",
-			"document-start",
+			// A pasted chat answer usually sits under a title, so the opener is
+			// also sought in the first sentence after the leading headings.
+			[]string{"document-start", "prose-start"},
 			// "Sure," and "Sure!" come from what experts removed from model answers;
 			// see ADR 0055.
 			[]string{"Certainly!", "Great question!", "Absolutely!", "Sure,", "Sure!"},
@@ -29,42 +31,42 @@ func phraseRules() []rule.Rule {
 		{
 			"scaffold.ai-self-reference",
 			"Remove the assistant's self-reference.",
-			"sentence-start",
+			[]string{"sentence-start"},
 			[]string{"As an AI language model", "As an AI assistant"},
 			true,
 		},
 		{
 			"scaffold.follow-up-offer",
 			"Remove the conversational follow-up offer from this document.",
-			"document-end",
+			[]string{"document-end"},
 			[]string{"Let me know if you'd like", "Let me know if you need"},
 			false,
 		},
 		{
 			"scaffold.dive-in",
 			"Start with the subject instead of announcing the explanation.",
-			"sentence-start",
+			[]string{"sentence-start"},
 			[]string{"Let's dive in", "Let's dive into", "Let's delve into"},
 			false,
 		},
 		{
 			"filler.announced-importance",
 			"State the fact without announcing its importance.",
-			"sentence-start",
+			[]string{"sentence-start"},
 			[]string{"It is important to note that", "It is worth noting that", "It is crucial to note that"},
 			false,
 		},
 		{
 			"filler.modern-world-opening",
 			"Replace the generic opening with the document's subject.",
-			"sentence-start",
+			[]string{"sentence-start"},
 			[]string{"In today's rapidly evolving digital landscape", "In today's fast-paced digital world"},
 			false,
 		},
 		{
 			"filler.wordy-phrase",
 			"Consider a shorter phrase that preserves the condition or meaning.",
-			"any",
+			[]string{"any"},
 			append([]string{"due to the fact that", "in order to", "at this point in time"}, qualifiedWordyPhrases()...),
 			false,
 		},
@@ -74,7 +76,7 @@ func phraseRules() []rule.Rule {
 		d := descriptor(def.id, def.summary, "scaffolding", "sentence", 15)
 		d.TermExemptions = true
 		d.BlockObservations = true
-		d.Defaults.Parameters = rule.Parameters{Phrases: def.phrases, Positions: []string{def.position}}
+		d.Defaults.Parameters = rule.Parameters{Phrases: def.phrases, Positions: def.positions}
 		d.Parameters = []string{"phrases", "positions"}
 		if def.forbid {
 			d.Defaults.Gate = "forbid"
@@ -114,27 +116,54 @@ func matches(tokens []document.Token, pattern []string) bool {
 	return true
 }
 
-func phrasePosition(positions []string, start, index, total int) bool {
+// sentencePlace locates one sentence among the sentences of its document.
+type sentencePlace struct {
+	// index counts sentences from the start of the document.
+	index int
+	// prose is the index of the first sentence outside a heading, or -1 when
+	// a document has headings only.
+	prose int
+	total int
+}
+
+func phrasePosition(positions []string, start int, place sentencePlace) bool {
 	for _, position := range positions {
-		if atPosition(position, start, index, total) {
+		if atPosition(position, start, place) {
 			return true
 		}
 	}
 	return false
 }
 
-func atPosition(position string, start, index, total int) bool {
+func atPosition(position string, start int, place sentencePlace) bool {
 	switch position {
 	case "any":
 		return true
 	case "sentence-start":
 		return start == 0
 	case "document-start":
-		return index == 0 && start == 0
+		return place.index == 0 && start == 0
+	case "prose-start":
+		// The first sentence after the leading headings. Without a heading it
+		// is the start of the document.
+		return place.index == place.prose && start == 0
 	case "document-end":
-		return index == total-1 && start == 0
+		return place.index == place.total-1 && start == 0
 	}
 	return false
+}
+
+// firstProseSentence returns the index of the first sentence outside a
+// heading, or -1 when a document has headings only.
+func firstProseSentence(blocks []document.Block) int {
+	index := 0
+	for _, block := range blocks {
+		if block.Kind != "heading" && len(block.Sentences) > 0 {
+			return index
+		}
+		index += len(block.Sentences)
+	}
+	return -1
 }
 
 func allSentences(doc *document.Document) []document.Sentence {
