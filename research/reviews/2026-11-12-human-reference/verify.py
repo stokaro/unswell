@@ -29,7 +29,14 @@ DATA = ("data/sentences.jsonl.gz", "data/preferences.jsonl.gz", "data/expert-pai
         "data/panel.jsonl.gz", "data/trims.jsonl.gz", "data/word-counts.jsonl.gz", "data/openers.jsonl.gz",
         "data/rule-words.jsonl.gz", "data/opener-load.jsonl.gz", "data/vocabulary.jsonl.gz",
         "data/vocabulary-phrases.jsonl.gz", "data/vocabulary-load.jsonl.gz", "data/deslop-pairs.jsonl.gz",
-        "data/emoji-load.jsonl.gz", "data/frequency-load.jsonl.gz")
+        "data/emoji-load.jsonl.gz", "data/frequency-load.jsonl.gz", "data/review-repeat.jsonl.gz")
+REVIEW_REPEAT = "data/review-repeat.jsonl.gz"
+REVIEW_REPEAT_KEYS = {"document", "reviewer", "protocol", "words", "changed", "findings", "flagged", "flagged_changed", "sentences",
+                      "both", "after_words", "after_findings", "edit"}
+REVIEW_EDIT_KEYS = ("sentences", "sentences_changed", "flagged_before", "changed_by_commit", "flagged_after", "on_new_text",
+                    "flagged_both_times")
+# The seed that the registered comparison of the two answer protocols was run with.
+REVIEW_REPEAT_SEED = 20261113
 EMOJI_LOAD, FREQUENCY_LOAD = "data/emoji-load.jsonl.gz", "data/frequency-load.jsonl.gz"
 DESLOP = "data/deslop-pairs.jsonl.gz"
 DESLOP_KEYS = {"id", "repository", "commit", "path", "part", "web_edit", "english", "words_before", "words_after", "before",
@@ -886,6 +893,114 @@ def deslop_results(root):
     return result
 
 
+def review_row_valid(row):
+    """Report whether the counts of one text under one answer protocol are consistent."""
+    pairs = [row["findings"], row["flagged"], row["flagged_changed"], row["sentences"]]
+    if not all(isinstance(pair, list) and len(pair) == 2 and all(isinstance(v, int) and v >= 0 for v in pair) for pair in pairs):
+        return False
+    if not all(isinstance(row[name], int) for name in ("words", "changed", "both")) or not 0 <= row["changed"] <= row["words"]:
+        return False
+    later = (row["after_words"], row["after_findings"])
+    if row["protocol"] == "list":
+        if later != (None, None) or row["edit"] is not None:
+            return False
+    elif not all(isinstance(v, int) and v >= 0 for v in later) or not row["after_words"] or not review_edit_valid(row["edit"]):
+        return False
+    return (row["words"] > 0 and 0 <= row["both"] <= min(row["sentences"])
+            and all(c <= f <= row["words"] for c, f in zip(row["flagged_changed"], row["flagged"])))
+
+
+def review_edit_valid(edit):
+    """Report whether the counts of what a commit did to the flagged sentences of one text are consistent."""
+    if not isinstance(edit, dict) or set(edit) != set(REVIEW_EDIT_KEYS) or not all(isinstance(v, int) and v >= 0 for v in edit.values()):
+        return False
+    return (edit["sentences_changed"] <= edit["sentences"] and edit["changed_by_commit"] <= edit["flagged_before"] <= edit["sentences"]
+            and edit["on_new_text"] + edit["flagged_both_times"] <= edit["flagged_after"]
+            and edit["changed_by_commit"] <= edit["sentences_changed"])
+
+
+def repeat_rate(sample):
+    """Of the sentences flagged in one run, the share flagged in the other run of the same text."""
+    flagged = sum(sum(row["sentences"]) for row in sample)
+    return 2 * sum(row["both"] for row in sample) / flagged if flagged else 0.0
+
+
+def over_chance(sample):
+    """Share of the flagged words of the first run that the commit changed, and the chance of the same documents."""
+    flagged = sum(row["flagged"][0] for row in sample)
+    if not flagged:
+        return None
+    hits = sum(row["flagged_changed"][0] for row in sample)
+    chance = sum(row["flagged"][0] * row["changed"] / row["words"] for row in sample)
+    return hits / flagged, chance / flagged
+
+
+def draws_of(sample, statistic):
+    """Bootstrap over documents, in the way the registered comparison drew them."""
+    generator, values = random.Random(REVIEW_REPEAT_SEED), []
+    for _ in range(BOOTSTRAP):
+        value = statistic([sample[generator.randrange(len(sample))] for _ in sample])
+        if value is not None:
+            values.append(value)
+    return sorted(values)
+
+
+def review_protocol(sample):
+    precision, chance = over_chance(sample) or (0.0, 0.0)
+    draws = draws_of(sample, lambda drawn: None if over_chance(drawn) is None else over_chance(drawn)[0] - over_chance(drawn)[1])
+    return {"documents": len(sample), "sentences": [sum(row["sentences"][run] for row in sample) for run in (0, 1)],
+            "both": sum(row["both"] for row in sample), "repeat_rate": repeat_rate(sample),
+            "findings": [sum(row["findings"][run] for row in sample) for run in (0, 1)],
+            "flagged_words": sum(row["flagged"][0] for row in sample), "precision": precision, "chance": chance,
+            "interval": [draws[int(0.025 * len(draws))], draws[int(0.975 * len(draws)) - 1]] if draws else [0.0, 0.0]}
+
+
+def review_movement(sample):
+    """Compare the findings per 1,000 words of the first run with the findings on the text after the commit."""
+    lower = higher = same = after = 0
+    for row in sample:
+        before, later = row["findings"][0], row["after_findings"]
+        after += later
+        if not before and not later:
+            continue
+        left, right = later * row["words"], before * row["after_words"]
+        lower += left < right
+        higher += left > right
+        same += left == right
+    edit = {name: sum(row["edit"][name] for row in sample) for name in REVIEW_EDIT_KEYS}
+    return {"lower": lower, "higher": higher, "same": same, "findings_after": after, "interval": wilson(lower, lower + higher),
+            "edit": edit}
+
+
+def review_repeat_results(root):
+    """Recount how often a reviewer flags the same sentences twice under each of two answer protocols."""
+    if not (root / REVIEW_REPEAT).exists():
+        return {}
+    table, seen = {}, set()
+    for row in rows(root / REVIEW_REPEAT):
+        key = (row.get("reviewer"), row.get("protocol"), row.get("document"))
+        if set(row) != REVIEW_REPEAT_KEYS or row["protocol"] not in ("verdicts", "list") or key in seen:
+            fail(f"invalid or repeated review row: {row.get('document')}")
+        seen.add(key)
+        if not review_row_valid(row):
+            fail(f"inconsistent review row: {row['document']}")
+        table.setdefault(row["reviewer"], {}).setdefault(row["protocol"], {})[row["document"]] = row
+    result = {}
+    for reviewer, protocols in sorted(table.items()):
+        if set(protocols) != {"verdicts", "list"} or set(protocols["verdicts"]) != set(protocols["list"]):
+            fail(f"review rows of {reviewer} do not pair the two protocols")
+        documents = sorted(protocols["verdicts"])
+        paired = [(protocols["verdicts"][name], protocols["list"][name]) for name in documents]
+        new, old = [pair[0] for pair in paired], [pair[1] for pair in paired]
+        draws = draws_of(paired, lambda drawn: repeat_rate([p[0] for p in drawn]) - repeat_rate([p[1] for p in drawn]))
+        entry = {"verdicts": review_protocol(new), "list": review_protocol(old), "movement": review_movement(new),
+                 "difference": repeat_rate(new) - repeat_rate(old), "difference_interval": [draws[49], draws[BOOTSTRAP - 51]]}
+        entry["rule"] = {"repeats_more": entry["difference_interval"][0] > 0, "on_changed_words": entry["verdicts"]["interval"][0] > 0}
+        entry["rule"]["ships"] = all(entry["rule"].values())
+        result[reviewer] = entry
+    return result
+
+
 def summarize(root):
     documents = load_documents(root)
     preferences = preference_results(root)
@@ -894,7 +1009,7 @@ def summarize(root):
             "judges": admissions(preferences, experts), "readers": reader_results(root), "panel": panel_results(root),
             "trims": trim_results(root, documents), "openers": opener_results(root, documents),
             "rule_words": rule_word_results(root, documents), "vocabulary": vocabulary_results(root, documents),
-            "deslop": deslop_results(root)}
+            "deslop": deslop_results(root), "review_repeat": review_repeat_results(root)}
 
 
 def normalized(value):

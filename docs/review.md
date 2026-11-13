@@ -6,8 +6,9 @@ that a claim has no scope. A reader can, and `unswell review` uses a model as
 that reader.
 
 The command gives each document to a model you name. The model reads the whole
-document and flags items under a fixed rubric. Unswell binds every flag to
-source bytes and drops a flag that does not quote its item. A second model can
+document and gives every item a verdict under a fixed rubric: acceptable, or
+in need of revision. Unswell binds every flag to source bytes and drops a flag
+that does not quote its item. A second model can
 then judge the bound flags one by one.
 
 The findings are a model's judgment. They are advisory. They never enter
@@ -163,9 +164,60 @@ The answer is one JSON object, with or without text around it. When a model
 corrects itself and writes the object again, the last one counts. An answer
 whose last object is cut off fails and is asked again, up to `--attempts`.
 
+The reviewer's answer holds a verdict for every item, so it grows with the
+document: about a line per sentence. An answer that judges fewer than four in
+five items also fails and is asked again. A list that stops early is not read
+as a clean document.
+
 A document without prose is counted and not sent.
 
 ## Measured behavior
+
+### On documentation that people de-slopped, and on a second run
+
+The [human-reference record](../research/reviews/2026-11-12-human-reference/RESULTS-words.md)
+holds Markdown files before and after commits whose message says that they
+remove AI-sounding wording
+([ADR 0056](adr/0056-rules-tested-on-de-slop-commits.md)). On 40 of them
+`claude-sonnet-5-5` reviewed the text before the commit twice, with no
+confirming model, under each of two answer forms: the verdict for every item
+that the command asks for now, and the list of items to revise that it asked
+for before.
+
+| Answer asked for | Sentences flagged, two runs | In both | Repeat rate | Flagged words that the commit changed | Same share of all words | Difference |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| A verdict for every item | 99 and 102 | 85 | 84.6% | 42.0% | 26.9% | +15.1 points (+4.7 to +24.9) |
+| Only the items that need revision | 121 and 122 | 94 | 77.4% | 39.3% | 27.6% | +11.7 points (+2.3 to +21.0) |
+
+The repeat rate is the share of the sentences flagged in one run that the
+other run of the same text flags too. The last three columns are from the
+first run.
+
+The review points at wording that the commit then changed: 42.0% of the
+flagged words, where the commit changed 26.9% of all words of those files.
+
+A second run does not give the same list. It repeats 84.6% of the flagged
+sentences. The earlier form repeated 77.4%; the verdict form is +7.2 points (+0.7 to +16.1)
+better, and that is why the command uses it
+([ADR 0057](adr/0057-reviewer-judges-every-item.md)).
+
+The findings are not shown to fall after the commit. The review reports 99
+findings on the texts before and 73 on the texts after, and per 1,000 words
+they are lower after the commit in 17 pairs and higher in 15: 53.1% (36.4% to 69.1%).
+Do not use the number of findings to tell whether a revision helped.
+
+The commit changed or removed 57 of the 95 sentences flagged before it
+(60.0%), where it changed 33.1% of all sentences of those files. Of the 72
+sentences flagged after it, 37 are new or changed text. So the review points at
+sentences that people go on to change, and it flags what they write in their
+place about as often.
+
+It does not find most of the edit. The commits changed or removed 642
+sentences in those files, and the review had flagged 57 of them (8.9%).
+The default rules of `unswell check` do fall on such commits; see
+[rule defaults](rule-defaults.md#tested-on-what-people-remove-from-ai-sounding-documentation).
+
+The two sections below were measured with the earlier answer form.
 
 ### Against what people edited
 
@@ -263,7 +315,7 @@ model call. It reads no file and uses no network.
 reviewer, err := review.New(review.Options{})
 prepared, err := reviewer.Prepare(ctx, document.Source{Name: "guide.md", Bytes: text})
 answer := askYourModel(prepared.Prompt())
-flags, err := review.ParseFlags(answer)
+flags, err := prepared.ParseFlags(answer)
 findings, dropped, err := prepared.Bind(flags)
 ```
 

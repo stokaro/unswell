@@ -93,6 +93,11 @@ The em dash rule reports 24.1% of the pages of today's public repositories
 and 1.7% of the pages that people wrote before November 2022. It has no gate.
 Raise `onset` or `allowed_occurrences` to report fewer documents.
 
+These shares say that the findings move the way the edits do. They do not say
+how much of an edit the rules find. The two new rules see emoji and em dashes;
+a sentence that such a commit rewords is outside them. Most of what these
+commits change is rewording, so most of an edit gets no finding.
+
 ## Listing on what editors removed
 
 [ADR 0055](adr/0055-phrase-listed-on-editor-reference.md) adds a second route

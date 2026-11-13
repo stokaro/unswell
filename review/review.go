@@ -39,7 +39,7 @@ const minFragmentWords = 6
 const Instructions = `Review one complete technical document for wording that needs revision.
 
 For every numbered item ask: does it need a wording change because it contains one of the defects below,
-while keeping its substantive meaning? List only items that need revision. An item you do not list is acceptable.
+while keeping its substantive meaning?
 
 Defect categories:
 - empty_framing: the opening only announces the statement. "It is important to note that the client may retry."

@@ -634,6 +634,84 @@ class DeslopCase(RecordCase):
         self.rejects("invalid counts in de-slop pair")
 
 
+def review_row(document, protocol, sentences, both, flagged=(10, 10), hits=(6, 6), findings=(2, 2)):
+    later = (90, 1) if protocol == "verdicts" else (None, None)
+    edit = {"sentences": 10, "sentences_changed": 3, "flagged_before": 2, "changed_by_commit": 1, "flagged_after": 1,
+            "on_new_text": 1, "flagged_both_times": 0} if protocol == "verdicts" else None
+    return {"document": document, "reviewer": "model-a", "protocol": protocol, "words": 100, "changed": 20,
+            "findings": list(findings), "flagged": list(flagged), "flagged_changed": list(hits), "sentences": list(sentences),
+            "both": both, "after_words": later[0], "after_findings": later[1], "edit": edit}
+
+
+class ReviewRepeatCase(RecordCase):
+    def setUp(self):
+        super().setUp()
+        table = []
+        for number in range(12):
+            name = f"d{number:02}"
+            table += [review_row(name, "verdicts", (4, 4), 4), review_row(name, "list", (4, 4), 2)]
+        write_rows(self.root / "data/review-repeat.jsonl.gz", table)
+        self.seal()
+
+    def repeat(self):
+        return verify.verify(self.root)["review_repeat"]["model-a"]
+
+    def test_repeat_rate_and_rule(self):
+        entry = self.repeat()
+        self.assertEqual((entry["verdicts"]["repeat_rate"], entry["list"]["repeat_rate"]), (1.0, 0.5))
+        self.assertEqual(entry["difference_interval"], [0.5, 0.5])
+        # Six of ten flagged words changed where two in ten words of the document did.
+        self.assertAlmostEqual(entry["verdicts"]["precision"] - entry["verdicts"]["chance"], 0.4)
+        self.assertTrue(entry["rule"]["ships"])
+        # Two findings in 100 words before, one in 90 after: lower in every pair.
+        self.assertEqual((entry["movement"]["lower"], entry["movement"]["higher"]), (12, 0))
+        edit = entry["movement"]["edit"]
+        self.assertEqual((edit["flagged_before"], edit["changed_by_commit"], edit["on_new_text"]), (24, 12, 12))
+
+    def test_no_gain_does_not_ship(self):
+        self.rewrite("data/review-repeat.jsonl.gz", lambda rows: [row.update(both=2) for row in rows])
+        self.seal()
+        entry = self.repeat()
+        self.assertEqual(entry["difference"], 0.0)
+        self.assertFalse(entry["rule"]["repeats_more"])
+        self.assertFalse(entry["rule"]["ships"])
+
+    def test_flags_at_chance_do_not_ship(self):
+        self.rewrite("data/review-repeat.jsonl.gz", lambda rows: [row.update(flagged_changed=[2, 2]) for row in rows])
+        self.seal()
+        self.assertFalse(self.repeat()["rule"]["on_changed_words"])
+        self.assertFalse(self.repeat()["rule"]["ships"])
+
+    def test_result_cannot_be_declared(self):
+        self.rewrite("data/review-repeat.jsonl.gz", lambda rows: [row.update(both=2) for row in rows])
+        self.seal()
+        results = json.loads((self.root / "results.json").read_text())
+        results["review_repeat"]["model-a"]["rule"]["ships"] = True
+        (self.root / "results.json").write_text(json.dumps(results))
+        verify.write_digests(self.root)
+        self.rejects("results differ from the data files")
+
+    def test_shared_sentences_cannot_exceed_a_run(self):
+        self.rewrite("data/review-repeat.jsonl.gz", lambda rows: rows[0].update(both=5))
+        self.seal_digests_only()
+        self.rejects("inconsistent review row")
+
+    def test_commit_cannot_change_more_flagged_sentences_than_were_flagged(self):
+        self.rewrite("data/review-repeat.jsonl.gz", lambda rows: rows[0]["edit"].update(changed_by_commit=3))
+        self.seal_digests_only()
+        self.rejects("inconsistent review row")
+
+    def test_protocols_must_cover_the_same_texts(self):
+        self.rewrite("data/review-repeat.jsonl.gz", lambda rows: rows[1].update(document="other"))
+        self.seal_digests_only()
+        self.rejects("do not pair the two protocols")
+
+    def test_list_rows_carry_no_text_after_the_commit(self):
+        self.rewrite("data/review-repeat.jsonl.gz", lambda rows: rows[1].update(after_words=90, after_findings=1))
+        self.seal_digests_only()
+        self.rejects("inconsistent review row")
+
+
 class OpenerRuleTest(unittest.TestCase):
     """The listing rule, on counts."""
 

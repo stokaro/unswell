@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+`unswell review` now asks the reviewer for a verdict on every item, not only
+for the items to revise. A reviewer that lists only what it wants changed
+picks differently on each run: two runs on the same 40 files repeated 77.4%
+of each other's flagged sentences, and 84.6% with the verdict form
+([ADR 0057](docs/adr/0057-reviewer-judges-every-item.md)). An answer that
+judges fewer than four in five items fails and is asked again. The answer is
+longer, about a line per sentence. In Go, `Document.ParseFlags` replaces
+`review.ParseFlags`.
+
 `unswell check` has two new default rules. `format.decorative-emoji` reports
 emoji in Markdown headings and list items, and leaves alone paragraphs,
 tables, code, check marks, and crosses. `format.em-dash-frequency` reports a

@@ -19,36 +19,41 @@ func TestPromptCarriesTheRubricTheDocumentAndEveryItem(t *testing.T) {
 		c.Assert(prompt, qt.Contains, item.ID+" (line ")
 		c.Assert(prompt, qt.Contains, item.Text)
 	}
-	c.Assert(prompt, qt.Contains, `{"flags": []}`)
+	c.Assert(prompt, qt.Contains, `{"item": "<id>", "verdict": "ok"}`)
+	c.Assert(prompt, qt.Contains, "one entry for every numbered item")
 	// The whole document is shown as context, code included; only items can be flagged.
 	c.Assert(prompt, qt.Contains, "install-the-service-on-every-host")
 }
 
+// The guide has three items. revised is an answer that wants the first one changed.
+const revised = `{"items": [{"item": "i001", "verdict": "revise", "categories": ["empty_framing"], ` +
+	`"quote": "It is important to note that", "reason": "Announces only."}, ` +
+	`{"item": "i002", "verdict": "ok"}, {"item": "i003", "verdict": "ok"}]}`
+
+const accepted = `{"items": [{"item": "i001", "verdict": "ok"}, {"item": "i002", "verdict": "ok"}, {"item": "i003", "verdict": "ok"}]}`
+
 func TestParseFlagsReadsAnObjectInsideOtherText(t *testing.T) {
 	c := qt.New(t)
-	answer := "Here is the review.\n```json\n" +
-		`{"flags": [{"item": "i001", "categories": ["wordiness"], "quote": "in order to", "reason": "Shorter."}]}` +
-		"\n```\n"
-	flags, err := review.ParseFlags(answer)
+	prepared := prepare(c, t, "guide.md", guide)
+	c.Assert(prepared.Items, qt.HasLen, 3)
+	flags, err := prepared.ParseFlags("Here is the review.\n```json\n" + revised + "\n```\n")
 	c.Assert(err, qt.IsNil)
-	c.Assert(flags, qt.DeepEquals, []review.Flag{{Item: "i001", Categories: []string{"wordiness"},
-		Quote: "in order to", Reason: "Shorter."}})
-	flags, err = review.ParseFlags(`{"flags": []}`)
+	c.Assert(flags, qt.DeepEquals, []review.Flag{{Item: "i001", Categories: []string{"empty_framing"},
+		Quote: "It is important to note that", Reason: "Announces only."}})
+	flags, err = prepared.ParseFlags(accepted)
 	c.Assert(err, qt.IsNil)
 	c.Assert(flags, qt.HasLen, 0)
 }
 
 func TestParseFlagsTakesTheLastObjectOfACorrectedAnswer(t *testing.T) {
 	c := qt.New(t)
-	answer := `{"flags": [{"item": "i001", "categories": ["wordiness"], "quote": "in order", "reason": "Shorter."}]}` +
-		"\n\nWait, the quote is incomplete. Corrected:\n\n" +
-		`{"flags": [{"item": "i001", "categories": ["wordiness"], "quote": "in order to", "reason": "Shorter."}]}`
-	flags, err := review.ParseFlags(answer)
+	prepared := prepare(c, t, "guide.md", guide)
+	flags, err := prepared.ParseFlags(accepted + "\n\nWait, the first item only announces. Corrected:\n\n" + revised)
 	c.Assert(err, qt.IsNil)
-	c.Assert(flags, qt.DeepEquals, []review.Flag{{Item: "i001", Categories: []string{"wordiness"},
-		Quote: "in order to", Reason: "Shorter."}})
+	c.Assert(flags, qt.HasLen, 1)
+	c.Assert(flags[0].Item, qt.Equals, "i001")
 
-	_, err = review.ParseFlags(`{"flags": []}` + "\nCorrected:\n" + `{"flags": [{"item": "i001"`)
+	_, err = prepared.ParseFlags(accepted + "\nCorrected:\n" + `{"items": [{"item": "i001"`)
 	c.Assert(err, qt.ErrorMatches, "the answer is not the requested JSON object: .*")
 }
 
@@ -56,18 +61,46 @@ func TestParseFlagsRejectsAnswersThatAreNotAReview(t *testing.T) {
 	cases := []struct{ name, answer, problem string }{
 		{"refusal", "I cannot review this document.", "the answer contains no JSON object"},
 		{"empty", "", "the answer contains no JSON object"},
-		{"other object", `{"result": "fine"}`, "the answer has no flags field"},
-		{"null flags", `{"flags": null}`, "the answer has no flags field"},
-		{"wrong type", `{"flags": [{"item": "i001", "categories": "wordiness"}]}`, "the answer is not the requested JSON object: .*"},
-		{"truncated", `{"flags": [{"item": "i001"}`, "the answer is not the requested JSON object: .*"},
+		{"other object", `{"result": "fine"}`, "the answer has no items field"},
+		{"list of flags only", `{"flags": []}`, "the answer has no items field"},
+		{"null items", `{"items": null}`, "the answer has no items field"},
+		{"wrong type", `{"items": [{"item": "i001", "verdict": "revise", "categories": "wordiness"}]}`,
+			"the answer is not the requested JSON object: .*"},
+		{"truncated", `{"items": [{"item": "i001"}`, "the answer is not the requested JSON object: .*"},
+		// A list that stops early is not a clean document.
+		{"no verdicts", `{"items": []}`, "the answer judges 0 of 3 items"},
+		{"too few", `{"items": [{"item": "i001", "verdict": "ok"}, {"item": "i002", "verdict": "ok"}]}`, "the answer judges 2 of 3 items"},
+		{"one item repeated", `{"items": [{"item": "i001", "verdict": "ok"}, {"item": "i001", "verdict": "ok"}, ` +
+			`{"item": "i001", "verdict": "ok"}]}`, "the answer judges 1 of 3 items"},
+		{"unknown verdicts", `{"items": [{"item": "i001", "verdict": "fine"}, {"item": "i002", "verdict": ""}, ` +
+			`{"item": "i003", "verdict": "maybe"}]}`, "the answer judges 0 of 3 items"},
+		{"unknown items", `{"items": [{"item": "i007", "verdict": "ok"}, {"item": "i008", "verdict": "ok"}, ` +
+			`{"item": "i009", "verdict": "ok"}]}`, "the answer judges 0 of 3 items"},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
 			c := qt.New(t)
-			_, err := review.ParseFlags(tc.answer)
+			_, err := prepare(c, t, "guide.md", guide).ParseFlags(tc.answer)
 			c.Assert(err, qt.ErrorMatches, tc.problem)
 		})
 	}
+}
+
+func TestParseFlagsKeepsAFlagOnAnUnknownItemForBinding(t *testing.T) {
+	c := qt.New(t)
+	prepared := prepare(c, t, "guide.md", guide)
+	answer := `{"items": [{"item": "i001", "verdict": " Revise ", "categories": ["empty_framing"], ` +
+		`"quote": "It is important to note that", "reason": "Announces only."}, ` +
+		`{"item": "i002", "verdict": "OK"}, {"item": "i003", "verdict": "ok"}, ` +
+		`{"item": "i044", "verdict": "revise", "categories": ["wordiness"], "quote": "in order to", "reason": "Shorter."}]}`
+	flags, err := prepared.ParseFlags(answer)
+	c.Assert(err, qt.IsNil)
+	c.Assert(flags, qt.HasLen, 2)
+	findings, rejected, err := prepared.Bind(flags)
+	c.Assert(err, qt.IsNil)
+	c.Assert(findings, qt.HasLen, 1)
+	c.Assert(rejected, qt.HasLen, 1)
+	c.Assert(rejected[0].Flag.Item, qt.Equals, "i044")
 }
 
 func bound(c *qt.C, prepared *review.Document) []review.Finding {
