@@ -5,6 +5,7 @@ import (
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 
 	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/review"
 )
 
 func toolSchemas() (*mcp.Tool, *mcp.Tool, error) {
@@ -50,10 +51,11 @@ func reviewSchemas() (*mcp.Tool, *mcp.Tool, error) {
 			format.Enum = append(format.Enum, string(name))
 		}
 	}
-	maximum := MaxReviewFlags
-	flags := submitInput.Properties["flags"]
-	flags.MaxItems = &maximum
-	categories := flags.Items.Properties["categories"]
+	maximum := MaxReviewVerdicts
+	verdicts := submitInput.Properties["items"]
+	verdicts.MaxItems = &maximum
+	verdicts.Items.Properties["verdict"].Enum = []any{review.Acceptable, review.NeedsRevision}
+	categories := verdicts.Items.Properties["categories"]
 	for _, name := range ReviewCategories() {
 		categories.Items.Enum = append(categories.Items.Enum, name)
 	}
@@ -61,7 +63,8 @@ func reviewSchemas() (*mcp.Tool, *mcp.Tool, error) {
 		"List the reviewable items of one document with the editorial rubric for the calling assistant.")
 	request.InputSchema = requestInput
 	submit := tool("unswell_review_submit",
-		"Bind the calling assistant's review flags to exact source coordinates. The result is advisory.")
+		"Take the calling assistant's verdict on every item and bind the ones to revise to exact source coordinates. "+
+			"The result is advisory.")
 	submit.InputSchema = submitInput
 	return request, submit, nil
 }

@@ -165,9 +165,17 @@ corrects itself and writes the object again, the last one counts. An answer
 whose last object is cut off fails and is asked again, up to `--attempts`.
 
 The reviewer's answer holds a verdict for every item, so it grows with the
-document: about a line per sentence. An answer that judges fewer than four in
-five items also fails and is asked again. A list that stops early is not read
-as a clean document.
+document: about ten tokens per item, and about 10,000 tokens for a document
+near the size limit. An answer that judges fewer than four in five items also
+fails and is asked again. A list that stops early is not read as a clean
+document. When an endpoint reports that it cut the answer off at its output
+limit, the document fails at once with that reason; set a larger
+`--max-tokens`.
+
+A long document goes to the reviewer whole. Cutting it into parts was tried on
+files of 2,500 to 10,000 words and gave more flags that fell on wording nobody
+changed: the reviewer needs the rest of the document to judge an item. Issue
+525 has that comparison.
 
 A document without prose is counted and not sent.
 
@@ -326,4 +334,6 @@ findings, dropped, err := prepared.Bind(flags)
 `Document.ConfirmationPrompt` and `review.ParseVerdicts` do the same for a
 second model. The MCP tools `unswell_review_request` and
 `unswell_review_submit` use the same package; there the calling assistant is
-the reviewer. See [MCP](mcp.md#contextual-review-by-the-calling-assistant).
+the reviewer and submits a verdict for every item through `Document.Flags`.
+The measurements on this page were made through the command, not through
+those tools. See [MCP](mcp.md#contextual-review-by-the-calling-assistant).

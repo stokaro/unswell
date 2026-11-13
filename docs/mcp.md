@@ -99,23 +99,32 @@ separate sentences, and each fragment of six or more words. Every item has an
 same extraction as `unswell_check`, so protected code and excluded regions are
 not listed. A document without prose returns an empty `items` list.
 
-The assistant reads the items in the context of the whole document and decides
-which ones need revision under the rubric. It sends those to
-`unswell_review_submit` with the same `source` and up to 256 `flags`:
+The assistant reads the items in the context of the whole document and gives
+every one a verdict under the rubric. It sends them to `unswell_review_submit`
+with the same `source`: one entry per item, `ok` or `revise`, and at most 256
+of them `revise`:
 
 ```json
 {
-  "source": {"name": "docs/guide.md", "text": "It is important to note that the client retries.\n"},
-  "flags": [
+  "source": {"name": "docs/guide.md", "text": "It is important to note that the client retries. The interval is 30 seconds.\n"},
+  "items": [
     {
       "item": "i001",
+      "verdict": "revise",
       "categories": ["empty_framing"],
       "quote": "It is important to note that",
       "reason": "The opening only announces the statement."
-    }
+    },
+    {"item": "i002", "verdict": "ok"}
   ]
 }
 ```
+
+A submission that judges fewer than four in five items is refused with an
+error, and the assistant sends it again with the missing verdicts. An assistant
+that lists only what it wants changed picks differently on each run;
+[ADR 0057](adr/0057-reviewer-judges-every-item.md) has the measurement, which
+was made through `unswell review` and not through these tools.
 
 The response lists `accepted` findings and `rejected` flags. An accepted finding
 carries the item, categories, reason, the quote exactly as it occurs in the
@@ -134,7 +143,8 @@ The items, the rubric, and the binding come from the public Go package
 [`unswell review`](review.md) runs the same review with a model you name.
 
 The [rule qualification record](research/rule-qualification.md) measures these
-tools on 120 real documentation pages with two calling assistants. The server
+tools on 120 real documentation pages with two calling assistants. That was
+with the earlier submission, which held only the flags. The server
 bound 690 of 729 flags; the rest quoted text that does not occur inside one
 segment of the item. An assistant of the other model family accepted 70.1% of
 the 685 flags it judged, against 77.3% for the findings of the default rules.

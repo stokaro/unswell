@@ -34,6 +34,10 @@ const (
 		{"id": "f002", "justified": "no", "reason": "The purpose clause is needed."}]}`
 )
 
+// cutOff starts a scripted answer that the fake endpoint reports as stopped at
+// its output limit.
+const cutOff = "\x00cut off\x00"
+
 // chatCall is one request a fake model endpoint received.
 type chatCall struct {
 	Model         string
@@ -78,7 +82,11 @@ func newFakeModel(t *testing.T, answer func(call chatCall, number int) (int, str
 			http.Error(writer, text, status)
 			return
 		}
-		reply := map[string]any{"choices": []map[string]any{{"finish_reason": "stop",
+		finish := "stop"
+		if rest, cut := strings.CutPrefix(text, cutOff); cut {
+			finish, text = "length", rest
+		}
+		reply := map[string]any{"choices": []map[string]any{{"finish_reason": finish,
 			"message": map[string]string{"role": "assistant", "content": text}}}}
 		_ = json.NewEncoder(writer).Encode(reply)
 	}))
@@ -317,6 +325,10 @@ func TestReviewFailsWhenAModelCannotAnswer(t *testing.T) {
 		{"no review in the answer", refusal, []string{"--attempts", "2"}, 2, "reviewer: the answer contains no JSON object", 0},
 		{"empty answer", func(chatCall, int) (int, string) { return http.StatusOK, " " },
 			[]string{"--attempts", "1"}, 1, "returned no text", 0},
+		// A cut-off answer is not asked again: the same limit would cut it at the same place.
+		{"answer cut off at the output limit", func(chatCall, int) (int, string) {
+			return http.StatusOK, cutOff + `{"items": [{"item": "i001", "verdict": "ok"}`
+		}, nil, 1, "cut the answer off at its output limit; set a larger --max-tokens", 0},
 		{"confirming model fails", func(call chatCall, number int) (int, string) {
 			if strings.Contains(call.User, "===== FLAGS =====") {
 				return http.StatusOK, `{"reviews": []}`

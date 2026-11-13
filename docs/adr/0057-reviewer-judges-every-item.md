@@ -29,8 +29,9 @@ consequences.
 3. `Document.ParseFlags` replaces `review.ParseFlags`: it needs the items to
    count the verdicts. `Document.Bind` and the report are unchanged.
 
-4. The MCP tools keep the list form. There the calling assistant submits
-   flags through a tool call, and the tool cannot ask it for every item.
+4. The MCP tools ask for the same. `unswell_review_submit` takes one verdict
+   per item and refuses a submission that judges fewer than four in five, so
+   the calling assistant sends the rest.
 
 ## Evidence
 
@@ -78,6 +79,11 @@ commits changed or removed (15.5%).
 The tables in `docs/review.md` that compare the review with human edits and
 with another model's annotation were measured with the list form. They stay,
 marked as such, until they are measured again.
+
+The measurement was made through `unswell review`. The MCP tools give the
+calling assistant the same rubric and the same items and now ask for the same
+answer, but no run went through them, so the numbers above are not a
+measurement of review inside an assistant session.
 
 One model carries the result. The same runs with a second, weaker model,
 `private-host/Qwen3.8-27B`, show no gain: the verdict form repeats 67.0%

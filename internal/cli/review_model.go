@@ -239,6 +239,10 @@ func chatAnswer(host string, data []byte) (string, error) {
 		return "", fmt.Errorf("%s returned no text (finish reason %q); a model that reasons before it answers "+
 			"may need a larger --max-tokens", host, choice.FinishReason)
 	}
+	// An answer that stopped at the output limit is cut off, and asking again cuts it at the same place.
+	if choice.FinishReason == "length" {
+		return "", permanentError{fmt.Errorf("%s cut the answer off at its output limit; set a larger --max-tokens", host)}
+	}
 	return choice.Message.Content, nil
 }
 
