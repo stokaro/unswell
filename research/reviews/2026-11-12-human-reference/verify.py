@@ -29,7 +29,18 @@ DATA = ("data/sentences.jsonl.gz", "data/preferences.jsonl.gz", "data/expert-pai
         "data/panel.jsonl.gz", "data/trims.jsonl.gz", "data/word-counts.jsonl.gz", "data/openers.jsonl.gz",
         "data/rule-words.jsonl.gz", "data/opener-load.jsonl.gz", "data/vocabulary.jsonl.gz",
         "data/vocabulary-phrases.jsonl.gz", "data/vocabulary-load.jsonl.gz", "data/deslop-pairs.jsonl.gz",
-        "data/emoji-load.jsonl.gz", "data/frequency-load.jsonl.gz", "data/review-repeat.jsonl.gz")
+        "data/emoji-load.jsonl.gz", "data/frequency-load.jsonl.gz", "data/review-repeat.jsonl.gz",
+        "data/default-load.jsonl.gz", "data/manual-pairs.jsonl.gz")
+DEFAULT_LOAD, MANUAL = "data/default-load.jsonl.gz", "data/manual-pairs.jsonl.gz"
+# Rules that ship disabled because they report on more than one in twenty pages that people wrote, or are not
+# confirmed on likely-manual edits. The strict profile turns them on.
+STRICT_ONLY = ("filler.wordy-phrase", "syntax.long-sentence", "filler.instruction-scaffolding", "hype.vague-praise",
+               "repetition.adjacent-word", "format.decorative-emoji")
+# A default rule may report on at most one in twenty pages that people wrote before November 2022.
+HUMAN_PAGE_LIMIT = 20
+MANUAL_KEYS = {"id", "repository", "commit", "path", "words_before", "words_after", "before", "after"}
+# The registered reading of a rule on likely-manual edits: this share, with the lower end of the interval above one half.
+MANUAL_BAR = 0.65
 REVIEW_REPEAT = "data/review-repeat.jsonl.gz"
 REVIEW_REPEAT_KEYS = {"document", "reviewer", "protocol", "words", "changed", "findings", "flagged", "flagged_changed", "sentences",
                       "both", "after_words", "after_findings", "edit"}
@@ -862,6 +873,8 @@ def deslop_results(root):
     sets = {"alpha9_defaults": lambda name: name not in extra,
             "with_decorative_emoji": lambda name: name not in ("format.em-dash-density", DESLOP_DOCUMENT, DESLOP_REGISTERED),
             "current_defaults": lambda name: name not in ("format.em-dash-density", DESLOP_REGISTERED),
+            # The rules that ship on after the rules with a load on human text were turned off.
+            "shipping_defaults": lambda name: name not in (*STRICT_ONLY, "format.em-dash-density", DESLOP_REGISTERED),
             "format.decorative-emoji": lambda name: name == "format.decorative-emoji",
             DESLOP_REGISTERED: lambda name: name == DESLOP_REGISTERED,
             "format.em-dash-density": lambda name: name == "format.em-dash-density"}
@@ -1010,6 +1023,63 @@ def review_repeat_results(root):
     return result
 
 
+def default_load_results(root):
+    """Recount on how many pages that people wrote each rule reports, and which rules pass the limit for a default."""
+    if not (root / DEFAULT_LOAD).exists():
+        return {}
+    pages, counts = set(), {}
+    for row in rows(root / DEFAULT_LOAD):
+        valid = set(row) == {"page", "words", "rules"} and row["page"] not in pages and isinstance(row["rules"], list)
+        if not valid or not isinstance(row["words"], int) or row["words"] <= 0 or len(set(row["rules"])) != len(row["rules"]):
+            fail(f"invalid load row: {row.get('page')}")
+        pages.add(row["page"])
+        for name in row["rules"]:
+            counts[name] = counts.get(name, 0) + 1
+    result = {"pages": len(pages), "rules": dict(sorted(counts.items())),
+              "over_limit": sorted(name for name, count in counts.items() if count * HUMAN_PAGE_LIMIT > len(pages)),
+              "with_default_finding": 0, "with_any_finding": 0}
+    for row in rows(root / DEFAULT_LOAD):
+        result["with_any_finding"] += bool(row["rules"])
+        result["with_default_finding"] += any(name not in STRICT_ONLY for name in row["rules"])
+    # Every rule over the limit must be one that ships disabled.
+    result["defaults_within_limit"] = all(name in STRICT_ONLY for name in result["over_limit"])
+    return result
+
+
+def manual_results(root):
+    """Recount how the rules move on short one-file edits through GitHub's web flow."""
+    if not (root / MANUAL).exists():
+        return {}
+    pairs, seen = [], set()
+    for row in rows(root / MANUAL):
+        if set(row) != MANUAL_KEYS or row["id"] in seen:
+            fail(f"invalid or repeated manual pair: {row.get('id')}")
+        seen.add(row["id"])
+        counts = [*row["before"].values(), *row["after"].values(), row["words_before"], row["words_after"]]
+        if not all(isinstance(value, int) and value > 0 for value in counts):
+            fail(f"invalid counts in manual pair {row['id']}")
+        pairs.append(row)
+    other = (*STRICT_ONLY, DESLOP_DOCUMENT)
+    sets = {"format.decorative-emoji": (lambda name: name == "format.decorative-emoji", False),
+            DESLOP_DOCUMENT: (lambda name: name == DESLOP_DOCUMENT, True),
+            "strict_only_rules": (lambda name: name in STRICT_ONLY and name != "format.decorative-emoji", False),
+            "default_rules": (lambda name: name not in STRICT_ONLY, False),
+            "earlier_defaults": (lambda name: True, False)}
+    first = {}
+    for row in sorted(pairs, key=lambda item: item["id"]):
+        first.setdefault(row["repository"], row)
+    result = {"pairs": len(pairs), "repositories": len(first),
+              "all": {name: deslop_share(pairs, keep, listed) for name, (keep, listed) in sets.items()},
+              "one_per_repository": {name: deslop_share(list(first.values()), keep, listed) for name, (keep, listed) in sets.items()}}
+
+    def confirmed(entry):
+        changed = entry["lower"] + entry["higher"]
+        return bool(changed) and entry["lower"] >= MANUAL_BAR * changed and entry["interval"][0] > 0.5
+
+    result["confirmed"] = {name: confirmed(result["all"][name]) for name in ("format.decorative-emoji", DESLOP_DOCUMENT)}
+    return result
+
+
 def summarize(root):
     documents = load_documents(root)
     preferences = preference_results(root)
@@ -1018,7 +1088,8 @@ def summarize(root):
             "judges": admissions(preferences, experts), "readers": reader_results(root), "panel": panel_results(root),
             "trims": trim_results(root, documents), "openers": opener_results(root, documents),
             "rule_words": rule_word_results(root, documents), "vocabulary": vocabulary_results(root, documents),
-            "deslop": deslop_results(root), "review_repeat": review_repeat_results(root)}
+            "deslop": deslop_results(root), "review_repeat": review_repeat_results(root),
+            "default_load": default_load_results(root), "manual": manual_results(root)}
 
 
 def normalized(value):

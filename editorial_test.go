@@ -96,7 +96,7 @@ func TestNewEditorialRulesRequireExplicitOptIn(t *testing.T) {
 	newRules := 0
 	for _, implementation := range builtin.Rules() {
 		d := implementation.Descriptor()
-		if d.Defaults.Enabled || strings.HasPrefix(d.ID, "repetition.") || surfaceRuleID(d.ID) {
+		if d.Defaults.Enabled || strings.HasPrefix(d.ID, "repetition.") || surfaceRuleID(d.ID) || strictOnlyRuleID(d.ID) {
 			continue
 		}
 		newRules++
@@ -112,6 +112,35 @@ func TestNewEditorialRulesRequireExplicitOptIn(t *testing.T) {
 		}
 	}
 	c.Assert(newRules, qt.Equals, 12)
+}
+
+// strictOnlyRuleID names the rules that ship disabled for their load on
+// documentation that people wrote and that the strict profile turns on.
+func strictOnlyRuleID(id string) bool {
+	return slices.Contains([]string{"filler.wordy-phrase", "syntax.long-sentence", "filler.instruction-scaffolding",
+		"hype.vague-praise", "repetition.adjacent-word", "format.decorative-emoji"}, id)
+}
+
+func TestRulesWithLoadOnHumanTextAreOnOnlyInStrict(t *testing.T) {
+	c := qt.New(t)
+	found := 0
+	for _, implementation := range builtin.Rules() {
+		d := implementation.Descriptor()
+		if !strictOnlyRuleID(d.ID) {
+			continue
+		}
+		found++
+		c.Assert(d.Defaults.Enabled, qt.IsFalse, qt.Commentf("%s", d.ID))
+		c.Assert(d.OptInReason, qt.Contains, "On in strict", qt.Commentf("%s", d.ID))
+		for _, profile := range []string{"technical", "strict", "minimal", "business", "reference", "custom"} {
+			engine, err := unswell.New(unswell.Options{Config: []byte("version: 1\nextends: [builtin:" + profile + "]\n")})
+			c.Assert(err, qt.IsNil)
+			policy, err := engine.PolicyForFile("guide.md")
+			c.Assert(err, qt.IsNil)
+			c.Assert(policy.Rules[d.ID].Enabled, qt.Equals, profile == "strict", qt.Commentf("%s in %s", d.ID, profile))
+		}
+	}
+	c.Assert(found, qt.Equals, 6)
 }
 
 func surfaceRuleID(id string) bool {

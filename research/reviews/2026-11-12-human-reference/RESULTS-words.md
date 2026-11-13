@@ -195,6 +195,7 @@ Test part: 597 pairs from 423 repositories.
 | `format.em-dash-frequency` | 238 | 157 | 66 | 3,790 | 2,618 | 70.4% (64.1% to 76.0%) |
 | Default rules with `format.decorative-emoji` | 253 | 171 | 70 | 1,666 | 709 | 71.0% (64.9% to 76.3%) |
 | Default rules with `format.decorative-emoji` and `format.em-dash-frequency` | 365 | 253 | 95 | 1,887 | 857 | 72.7% (67.8% to 77.1%) |
+| The rules that ship on now, without the six that report on pages people wrote | 245 | 158 | 71 | 230 | 155 | 69.0% (62.7% to 74.6%) |
 
 Development part, read first: 959 pairs from 648 repositories.
 
@@ -207,6 +208,7 @@ Development part, read first: 959 pairs from 648 repositories.
 | `format.em-dash-frequency` | 414 | 269 | 132 | 6,988 | 4,663 | 67.1% (62.3% to 71.5%) |
 | Default rules with `format.decorative-emoji` | 419 | 269 | 124 | 2,689 | 1,411 | 68.4% (63.7% to 72.8%) |
 | Default rules with `format.decorative-emoji` and `format.em-dash-frequency` | 625 | 413 | 186 | 3,074 | 1,670 | 68.9% (65.1% to 72.5%) |
+| The rules that ship on now, without the six that report on pages people wrote | 430 | 259 | 154 | 417 | 292 | 62.7% (58.0% to 67.2%) |
 
 A rule stays on by default at 65% or more on the test part with the lower end of the interval above 55%: `format.decorative-emoji-with-status-marks` does; `format.em-dash-density` does not; `format.em-dash-frequency` does. The default rules as a whole were to reach 60% with the same lower end: they do.
 
@@ -310,3 +312,52 @@ Its findings number 98 on the texts before the commit and 81 on the texts after.
 What the commit did to the flagged sentences says why. Of the 98 sentences flagged before the commit, it changed or removed 48 (49.0%); of all 1,939 sentences of six or more words in those files it changed or removed 33.0%. Of the 80 sentences flagged after the commit, 33 are new or changed text, 31 stood unchanged and were flagged before, and 16 stood unchanged and were not. So the count stays up mainly because the rewritten text is flagged again, not because the reviewer fails to repeat itself.
 
 The review does not find most of the edit: of the 639 sentences that the commits changed or removed, it had flagged 48 (7.5%).
+
+## Default rules on pages that people wrote, and on likely-manual edits
+
+121 pages that people wrote before November 2022. A default rule may report on at most one page in twenty.
+
+| Rule | Pages with a finding | Share | Ships |
+| --- | ---: | ---: | --- |
+| `filler.wordy-phrase` | 30 | 24.8% | off; on in strict |
+| `syntax.long-sentence` | 22 | 18.2% | off; on in strict |
+| `filler.instruction-scaffolding` | 11 | 9.1% | off; on in strict |
+| `hype.vague-praise` | 11 | 9.1% | off; on in strict |
+| `repetition.adjacent-word` | 9 | 7.4% | off; on in strict |
+| `format.decorative-emoji` | 7 | 5.8% | off; on in strict |
+| `filler.nominal-support` | 3 | 2.5% | on |
+| `format.em-dash-frequency` | 2 | 1.7% | on |
+| `repetition.near-sentence` | 2 | 1.7% | on |
+| `filler.announced-importance` | 1 | 0.8% | on |
+| `filler.evaluative-closure` | 1 | 0.8% | on |
+| `repetition.exact-sentence` | 1 | 0.8% | on |
+| `repetition.repeated-claim` | 1 | 0.8% | on |
+
+With the rules that ship on, 11 pages have a finding (9.1%); with the six others on as well, 61 (50.4%). Every rule over the limit ships off: yes.
+
+Likely-manual edits: 153 pairs from 134 repositories. A pair is one Markdown file before and
+after a commit made through GitHub's web flow that changes that one file and whose message is one short line saying
+that it removes AI-sounding wording. A commit made through GitHub's API looks the same, and a person can paste text
+into the editor, so these are likely typed by a person, not proven. Findings per 1,000 words are compared as above.
+
+All pairs:
+
+| Rules | Pairs where they report | Lower after | Higher after | Lower among pairs that differ |
+| --- | ---: | ---: | ---: | --- |
+| `format.em-dash-frequency` | 45 | 28 | 12 | 70.0% (54.6% to 81.9%) |
+| `format.decorative-emoji` | 36 | 20 | 14 | 58.8% (42.2% to 73.6%) |
+| The five other rules that now ship off | 50 | 23 | 25 | 47.9% (34.5% to 61.7%) |
+| The rules that ship on | 47 | 25 | 17 | 59.5% (44.5% to 73.0%) |
+| All rules that shipped on before | 96 | 49 | 40 | 55.1% (44.7% to 65.0%) |
+
+One pair per repository:
+
+| Rules | Pairs where they report | Lower after | Higher after | Lower among pairs that differ |
+| --- | ---: | ---: | ---: | --- |
+| `format.em-dash-frequency` | 36 | 22 | 10 | 68.8% (51.4% to 82.0%) |
+| `format.decorative-emoji` | 32 | 20 | 11 | 64.5% (46.9% to 78.9%) |
+| The five other rules that now ship off | 43 | 19 | 22 | 46.3% (32.1% to 61.3%) |
+| The rules that ship on | 38 | 20 | 14 | 58.8% (42.2% to 73.6%) |
+| All rules that shipped on before | 82 | 42 | 35 | 54.5% (43.5% to 65.2%) |
+
+A rule is confirmed on these edits at 65% or more with the lower end of the interval above 50%: `format.decorative-emoji` is not; `format.em-dash-frequency` is.

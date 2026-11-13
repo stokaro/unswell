@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+Six rules of `unswell check` now ship off: `filler.wordy-phrase`,
+`syntax.long-sentence`, `filler.instruction-scaffolding`, `hype.vague-praise`,
+`repetition.adjacent-word`, and `format.decorative-emoji`. Each reports on more
+than one in twenty of 121 pages that people wrote before November 2022, and
+none of them follows likely-manual de-slop edits
+([ADR 0058](docs/adr/0058-default-rules-quiet-on-human-pages.md)). With the
+rules that ship on, 9.1% of those pages have a finding where 50.4% had one.
+To keep the six, use `extends: [builtin:strict-v1]` or enable them by name.
+
 `unswell review` now asks the reviewer for a verdict on every item, not only
 for the items to revise. A reviewer that lists only what it wants changed
 picks differently on each run: two runs on the same 40 files repeated 77.4%

@@ -33,9 +33,10 @@ calibration model meet the later acceptance criteria.
 ## What it does
 
 `unswell check` applies fixed rules offline: announcements, stock phrases,
-wordy constructions, long sentences, repetition. It explains each finding, gives
-the same result on every run, and can fail a build on wording your project has
-decided to refuse.
+repetition, a page that leans on em dashes. The strict profile adds wordy
+constructions, long sentences, and emoji in headings. It explains each finding,
+gives the same result on every run, and can fail a build on wording your
+project has decided to refuse.
 
 `unswell review` gives a document to a model you name. The model reads it in
 context and flags sentences to tighten. Unswell binds each flag to the exact

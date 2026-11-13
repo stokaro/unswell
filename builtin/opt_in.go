@@ -70,6 +70,21 @@ var optInReasons = map[string]string{
 	"filler.weak-intensifiers":     "0.019 per thousand words in human prose against 0.007 in the controlled arm.",
 	"syntax.parenthetical-load":    "Fires more on human prose, 0.499 per thousand words against 0.300 in the controlled arm.",
 
+	// Rules whose findings fall on documentation that people wrote. The shares
+	// are of 121 pages written before November 2022; the strict profile turns
+	// these rules on.
+	"filler.wordy-phrase": "Reports on 24.8% of pages that people wrote before language models, mostly for one " +
+		"purpose phrase. It does not follow what people change when they remove AI-sounding wording. On in strict.",
+	"syntax.long-sentence": "Reports on 18.2% of pages that people wrote before language models. " +
+		"A long sentence is a matter of lean wording, not of AI-sounding wording. On in strict.",
+	"filler.instruction-scaffolding": "Reports on 9.1% of pages that people wrote before language models. On in strict.",
+	"hype.vague-praise": "Reports on 9.1% of pages that people wrote before language models, mostly for one adjective. " +
+		"On files before and after a de-slop commit it moves with the edit in 55% of pairs. On in strict.",
+	"repetition.adjacent-word": "Reports on 7.4% of pages that people wrote before language models. " +
+		"A doubled word is a typing error, not AI-sounding wording. On in strict.",
+	"format.decorative-emoji": "Reports on 5.8% of pages that people wrote before language models, and is not confirmed " +
+		"on likely-manual de-slop edits: lower after the edit in 20 pairs, higher in 14. On in strict.",
+
 	// Rules measured against a frozen hypothesis and not supported by it.
 	"syntax.noun-stack": "Version 4 did not establish a cross-family association in the complete-document study. " +
 		"Version 5 repairs noun/verb boundaries but has no independent editorial qualification.",
@@ -77,13 +92,41 @@ var optInReasons = map[string]string{
 		"limitations. It runs at 1.953 per thousand words in the controlled arm against 1.112 in human prose.",
 }
 
-// withOptInReasons attaches the recorded reason to every rule that ships
-// disabled. A disabled rule with no recorded reason is a programming error
-// and the catalog test reports it.
+// humanLoad lists the rules that ship disabled because their findings fall on
+// documentation that people wrote before language models, and do not follow
+// what people change when they remove AI-sounding wording. Each one reports on
+// more than one in twenty of 121 such pages, and together they are lower after
+// a likely-manual de-slop edit in 23 pairs and higher in 26. The emoji rule
+// reports on 7 of the 121 pages and is not confirmed on those edits either.
+// The strict profile turns all of them on. ADR 0058 records the measurement.
+var humanLoad = map[string]bool{
+	"filler.wordy-phrase":            true,
+	"syntax.long-sentence":           true,
+	"filler.instruction-scaffolding": true,
+	"hype.vague-praise":              true,
+	"repetition.adjacent-word":       true,
+	"format.decorative-emoji":        true,
+}
+
+// withOptInReasons turns off the rules of humanLoad and attaches the recorded
+// reason to every rule that ships disabled. A disabled rule with no recorded
+// reason is a programming error and the catalog test reports it.
 func withOptInReasons(rules []rule.Rule) []rule.Rule {
 	result := make([]rule.Rule, 0, len(rules))
 	for _, r := range rules {
 		d := r.Descriptor()
+		if humanLoad[d.ID] {
+			d.Defaults.Enabled = false
+			// The examples of a rule that ships disabled turn it on, as those of every other opt-in rule do.
+			examples := make([]rule.Example, len(d.Examples))
+			for index, example := range d.Examples {
+				if example.Config == "" {
+					example.Config = "version: 1\nrules:\n  " + d.ID + ": {enabled: true}\n"
+				}
+				examples[index] = example
+			}
+			d.Examples = examples
+		}
 		if !d.Defaults.Enabled {
 			d.OptInReason = optInReasons[d.ID]
 		}

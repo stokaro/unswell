@@ -3,6 +3,11 @@
 Status: proposed on November 13, 2026. It takes effect when the maintainer
 merges it.
 
+[ADR 0058](0058-default-rules-quiet-on-human-pages.md) later turned
+`format.decorative-emoji` off outside the strict profile: it reports on more
+than one in twenty pages that people wrote and is not confirmed on
+likely-manual edits. The measurements below stand as they were made.
+
 ## Context
 
 The tool is for documentation that reads as written by a model. Until now no

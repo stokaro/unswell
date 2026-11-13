@@ -731,6 +731,70 @@ class ReviewRepeatCase(RecordCase):
         self.rejects("inconsistent review row")
 
 
+class DefaultsCase(RecordCase):
+    def setUp(self):
+        super().setUp()
+        pages = [{"page": f"p{n:02}", "words": 300, "rules": []} for n in range(40)]
+        pages[0]["rules"] = ["filler.wordy-phrase", "format.em-dash-frequency"]
+        pages[1]["rules"] = ["filler.wordy-phrase"]
+        pages[2]["rules"] = ["filler.wordy-phrase", "format.em-dash-frequency"]
+        write_rows(self.root / "data/default-load.jsonl.gz", pages)
+        dash = "format.em-dash-frequency"
+        pairs = [deslop_pair(f"m{n:02}", "test", {dash: 9, "filler.wordy-phrase": 1}, {dash: 3, "filler.wordy-phrase": 2})
+                 for n in range(30)]
+        for pair in pairs:
+            del pair["part"], pair["web_edit"], pair["english"]
+        pairs[1]["repository"] = pairs[0]["repository"]
+        write_rows(self.root / "data/manual-pairs.jsonl.gz", pairs)
+        self.seal()
+
+    def results(self):
+        return verify.verify(self.root)
+
+    def test_rules_over_the_limit_ship_off(self):
+        load = self.results()["default_load"]
+        # Three pages in forty are over one in twenty; two in forty are not.
+        self.assertEqual((load["rules"]["filler.wordy-phrase"], load["rules"]["format.em-dash-frequency"]), (3, 2))
+        self.assertEqual(load["over_limit"], ["filler.wordy-phrase"])
+        self.assertTrue(load["defaults_within_limit"])
+        self.assertEqual((load["with_any_finding"], load["with_default_finding"]), (3, 2))
+
+    def test_default_rule_over_the_limit_is_reported(self):
+        self.rewrite("data/default-load.jsonl.gz", lambda rows: rows[1].update(rules=["filler.wordy-phrase", "format.em-dash-frequency"]))
+        self.seal()
+        load = self.results()["default_load"]
+        self.assertEqual(load["over_limit"], ["filler.wordy-phrase", "format.em-dash-frequency"])
+        self.assertFalse(load["defaults_within_limit"])
+
+    def test_manual_reading(self):
+        manual = self.results()["manual"]
+        self.assertEqual((manual["pairs"], manual["repositories"]), (30, 29))
+        dash = manual["all"]["format.em-dash-frequency"]
+        self.assertEqual((dash["lower"], dash["higher"]), (30, 0))
+        self.assertTrue(manual["confirmed"]["format.em-dash-frequency"])
+        # The wordy-phrase rule rises in every pair and is counted with the rules that ship off.
+        self.assertEqual(manual["all"]["strict_only_rules"]["higher"], 30)
+        self.assertEqual(manual["one_per_repository"]["format.em-dash-frequency"]["lower"], 29)
+        self.assertFalse(manual["confirmed"]["format.decorative-emoji"])
+
+    def test_confirmation_cannot_be_declared(self):
+        results = json.loads((self.root / "results.json").read_text())
+        results["manual"]["confirmed"]["format.decorative-emoji"] = True
+        (self.root / "results.json").write_text(json.dumps(results))
+        verify.write_digests(self.root)
+        self.rejects("results differ from the data files")
+
+    def test_load_page_cannot_repeat(self):
+        self.rewrite("data/default-load.jsonl.gz", lambda rows: rows[1].update(page="p00"))
+        self.seal_digests_only()
+        self.rejects("invalid load row")
+
+    def test_manual_pair_needs_positive_counts(self):
+        self.rewrite("data/manual-pairs.jsonl.gz", lambda rows: rows[0].update(words_after=0))
+        self.seal_digests_only()
+        self.rejects("invalid counts in manual pair")
+
+
 class OpenerRuleTest(unittest.TestCase):
     """The listing rule, on counts."""
 

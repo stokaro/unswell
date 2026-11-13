@@ -40,7 +40,8 @@ func checkInstructionRevision(t *testing.T, files map[string]string, want int) {
 		c.Assert(os.WriteFile(filepath.Join(work, name), []byte(text), 0o600), qt.IsNil)
 	}
 	binary := buildCLI(t)
-	for _, profile := range []string{"technical", "strict"} {
+	// The rule under test ships disabled outside the strict profile.
+	for _, profile := range []string{"strict"} {
 		out, stderr, code := invoke(t, binary, work, []string{"check", "--profile", profile,
 			"--include-source", "--report", "json:result.json", "draft.md", "revision.md", "control.md"}, nil)
 		c.Assert(code, qt.Equals, 0, qt.Commentf("%s\n%s", out, stderr))
