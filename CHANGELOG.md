@@ -17,6 +17,10 @@ verdict per item replaces `flags`, and a submission that judges fewer than
 four in five items is refused. The measurement behind the change was made
 through `unswell review`, not through the MCP tools.
 
+`unswell review` and `unswell trim` now say when an endpoint cut an answer off
+at its output limit, and do not ask again: set a larger `--max-tokens`. Before,
+such an answer was reported as malformed JSON after every attempt.
+
 `unswell check` has two new default rules. `format.decorative-emoji` reports
 emoji in Markdown headings and list items, and leaves alone paragraphs,
 tables, code, check marks, and crosses. `format.em-dash-frequency` reports a
