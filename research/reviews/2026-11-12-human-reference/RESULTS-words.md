@@ -175,3 +175,73 @@ The phrases that left: `aims to`, `empower`, `ensuring`, `ensuring that`, `in th
 The rule for the confirmation part asked for two things. Words under findings above the chance of the same answers, with an interval above zero: met. At least 70% of findings with every flagged word changed, with the lower end of the interval above 60%: not met. The list does not ship.
 
 On 3,302 pages of public repositories from the assistant-panel corpus the kept phrases produce 3,922 findings in 5,547,105 words, 0.71 per 1,000 words, on 1,509 of the pages.
+
+## Findings before and after commits that remove AI-sounding wording
+
+A pair is one Markdown file before and after a commit whose message says that it removes AI-sounding wording
+and that carries no assistant's trailer. For a set of rules, the findings per 1,000 words are compared between
+the two versions. The last column is the share of the pairs that differ in which the findings are lower after
+the commit; rules unrelated to the edit give 50%. `format.em-dash-frequency` reports a document once, so its
+own row counts the em dashes that it lists; in a set of rules it counts as one finding.
+
+Test part: 597 pairs from 423 repositories.
+
+| Rules | Pairs where they fire | Lower after | Higher after | Findings before | Findings after | Lower among pairs that differ |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| Default rules of v0.1.0-alpha.9 | 158 | 96 | 54 | 380 | 334 | 64.0% (56.1% to 71.2%) |
+| `format.decorative-emoji` as registered, with check marks and crosses | 141 | 102 | 32 | 1,408 | 424 | 76.1% (68.2% to 82.5%) |
+| `format.decorative-emoji` as it ships, without them | 135 | 101 | 29 | 1,286 | 375 | 77.7% (69.8% to 84.0%) |
+| `format.em-dash-density` | 74 | 45 | 27 | 162 | 125 | 62.5% (51.0% to 72.8%) |
+| `format.em-dash-frequency` | 238 | 157 | 66 | 3,790 | 2,618 | 70.4% (64.1% to 76.0%) |
+| Default rules with `format.decorative-emoji` | 253 | 171 | 70 | 1,666 | 709 | 71.0% (64.9% to 76.3%) |
+| Default rules with `format.decorative-emoji` and `format.em-dash-frequency` | 365 | 253 | 95 | 1,887 | 857 | 72.7% (67.8% to 77.1%) |
+
+Development part, read first: 959 pairs from 648 repositories.
+
+| Rules | Pairs where they fire | Lower after | Higher after | Findings before | Findings after | Lower among pairs that differ |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| Default rules of v0.1.0-alpha.9 | 284 | 161 | 103 | 921 | 763 | 61.0% (55.0% to 66.7%) |
+| `format.decorative-emoji` as registered, with check marks and crosses | 207 | 154 | 43 | 1,971 | 747 | 78.2% (71.9% to 83.4%) |
+| `format.decorative-emoji` as it ships, without them | 193 | 147 | 38 | 1,768 | 648 | 79.5% (73.1% to 84.7%) |
+| `format.em-dash-density` | 154 | 108 | 41 | 382 | 218 | 72.5% (64.8% to 79.0%) |
+| `format.em-dash-frequency` | 414 | 269 | 132 | 6,988 | 4,663 | 67.1% (62.3% to 71.5%) |
+| Default rules with `format.decorative-emoji` | 419 | 269 | 124 | 2,689 | 1,411 | 68.4% (63.7% to 72.8%) |
+| Default rules with `format.decorative-emoji` and `format.em-dash-frequency` | 625 | 413 | 186 | 3,074 | 1,670 | 68.9% (65.1% to 72.5%) |
+
+A rule stays on by default at 65% or more on the test part with the lower end of the interval above 55%: `format.decorative-emoji-with-status-marks` does; `format.em-dash-density` does not; `format.em-dash-frequency` does. The default rules as a whole were to reach 60% with the same lower end: they do.
+
+The emoji rule was registered and tested with check marks and crosses counted. They were then taken out, because
+people use them in checklists and the development part shows them removed about as often as any word. The row of
+the rule as it ships was measured after that, on the same pairs, so it is a second reading of the test part.
+
+Findings of the rule as it ships, on documentation:
+
+| Texts | Pages | Pages with a finding | Findings per 1,000 words |
+| --- | ---: | ---: | ---: |
+| Pages that people wrote before November 2022 | 121 | 6 (5.0%) | 0.16 |
+| Pages of public repositories | 3,302 | 362 (11.0%) | 0.59 |
+| Pages that models generated for the assistant-panel corpus | 455 | 0 (0.0%) | 0.00 |
+| Texts before a commit that removes AI-sounding wording | 1,608 | 318 (19.8%) | 1.45 |
+
+`format.em-dash-frequency` was registered after the emoji rule had been read on the test part, so it is a second
+use of those pairs. Its bar has one more condition: it may flag at most 5% of the pages that people wrote before
+November 2022. Pages that it flags, and the em dashes that it lists:
+
+| Texts | Pages | Pages flagged | Em dashes listed per 1,000 words |
+| --- | ---: | ---: | ---: |
+| Pages that people wrote before November 2022 | 121 | 2 (1.7%) | 0.06 |
+| Pages of public repositories | 3,302 | 796 (24.1%) | 2.40 |
+| Pages that models generated for the assistant-panel corpus | 455 | 10 (2.2%) | 0.35 |
+| Texts before a commit that removes AI-sounding wording | 1,608 | 608 (37.8%) | 5.10 |
+
+Who typed a commit is unknown: one without an assistant's trailer can still have been made by an assistant that
+was told to de-slop. Commits made in GitHub's web editor were most likely typed by a person, and they are few.
+Among them, the pairs in which a rule's count is lower after the commit, of those that differ:
+
+| Rule | Test part | Development part |
+| --- | ---: | ---: |
+| `format.decorative-emoji` | 5 of 8 (37 pairs) | 3 of 10 (41 pairs) |
+| `format.em-dash-frequency` | 5 of 7 (37 pairs) | 9 of 15 (41 pairs) |
+| All default rules | 12 of 19 (37 pairs) | 13 of 22 (41 pairs) |
+
+These counts are too small to confirm or to reject either rule on edits that a person certainly typed.

@@ -160,7 +160,14 @@ Previous classes and measured results remain frozen; the rule establishes no
 authorship association or broad recall.
 
 Revision 12, [`rule-classes-v1-r12.json`](rule-classes-v1-r12.json), covers the
-current 58-rule catalog. Standalone unspecified update announcements are general
-style signals. Current command tests use revision 12. Earlier classifications
-and measurements remain frozen; this rule establishes no authorship association
-or broad recall.
+58-rule catalog. Standalone unspecified update announcements are general
+style signals. Earlier classifications and measurements remain frozen; this
+rule establishes no authorship association or broad recall.
+
+Revision 13, [`rule-classes-v1-r13.json`](rule-classes-v1-r13.json), covers the
+current 60-rule catalog. Emoji in headings and list items and the em dash
+count of a whole document are general style signals. Both were tested on files
+before and after commits that say they remove AI-sounding wording
+([ADR 0056](../../docs/adr/0056-rules-tested-on-de-slop-commits.md)). Current
+command tests use revision 13. Earlier classifications and measurements remain
+frozen; the rules establish no authorship association.

@@ -167,5 +167,34 @@ func surfaceFormatRules() []rule.Rule {
 	list.Description = "Counts complete short flat unordered lists in a bounded section window using grammar-derived list ownership."
 	list.Limitations += " Ordered/task/nested lists, sentence items, procedure openings, identifiers," +
 		" and selected reference headings are excluded."
-	return []rule.Rule{check{dash, emDashDensity}, check{list, listFragmentation}}
+	emoji := surfacePattern("format.decorative-emoji", "Remove the decorative emoji from this heading or list item.",
+		"readability", "paragraph", 0,
+		rule.Example{Text: "## \U0001F680 Quick start\n\nRun the installer.", Format: document.Markdown, Match: true},
+		rule.Example{Text: "## Quick start\n\nRun the installer.", Format: document.Markdown})
+	emoji.Contexts, emoji.RequiresStructure = []string{"heading", "list-item"}, true
+	emoji.TermExemptions = false
+	// On by default: people who remove AI-sounding wording from documentation remove these emoji. See ADR 0056.
+	emoji.Defaults.Enabled = true
+	emoji.Description = "Reports emoji and pictographic symbols in Markdown headings and list items, with mapped source ranges."
+	emoji.Limitations += " Emoji in paragraphs, tables, code, comments, and strings are not reported." +
+		" Check marks, crosses, and ballot boxes are not reported either: people use them in checklists."
+	frequency := surfacePattern("format.em-dash-frequency",
+		"This document leans on em dashes; replace most of them with commas, periods, or parentheses.",
+		"readability", "document", 0,
+		rule.Example{Text: "# Client\n\nThe client opens a connection — then waits. The pool keeps it — for a while. " +
+			"A timeout closes it — unless a request is pending.", Format: document.Markdown, Match: true},
+		rule.Example{Text: "# Client\n\nThe client opens a connection — then waits. " +
+			strings.Repeat("The server sends the response. ", 8), Format: document.Markdown})
+	frequency.Contexts, frequency.RequiresStructure = []string{"paragraph", "heading", "list-item"}, true
+	frequency.TermExemptions = false
+	// On by default: ADR 0056 measured it on what people remove from AI-sounding documentation.
+	frequency.Defaults.Enabled = true
+	frequency.Defaults.Parameters = rule.Parameters{Onset: 3, AllowedOccurrences: 2}
+	frequency.Parameters = []string{"onset", "allowed_occurrences"}
+	frequency.Description = "Counts U+2014 in the paragraphs, headings, and list items of one document per 1,000 prose words " +
+		"and reports the document once when both the count and the rate pass their limits."
+	frequency.Limitations += " One em dash is ordinary punctuation; the rule reports a habit, not a mark." +
+		" Comments and strings in code are not counted."
+	return []rule.Rule{check{dash, emDashDensity}, check{list, listFragmentation}, check{emoji, decorativeEmoji},
+		check{frequency, emDashFrequency}}
 }

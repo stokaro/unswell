@@ -1,6 +1,6 @@
 # Which rules ship enabled
 
-The catalog holds 58 rules. Thirty-three are enabled by their descriptors and 25
+The catalog holds 60 rules. Thirty-three are enabled by their descriptors and 27
 are opt-in; strict additionally enables em-dash density. This page says how that split was chosen and what each opt-in rule was
 measured at. Every rule also carries its own reason: `unswell rules show ID`
 prints it, the rules page shows it, and a test fails if an opt-in rule has
@@ -69,6 +69,29 @@ The share of ADR 0047 is read again whenever new pages are reviewed.
 listed family leaves: its share is below 80%, and the upper end of the 95%
 interval is below 80% as well. Two families have left: `state-of-the-art` in
 `hype.vague-praise`, and `foster` with its forms in `filler.wordy-phrase`.
+
+## Tested on what people remove from AI-sounding documentation
+
+[ADR 0056](adr/0056-rules-tested-on-de-slop-commits.md) adds a reference in the
+tool's own domain: Markdown files before and after commits whose message says
+that they remove AI-sounding wording. A rule enters the defaults there when
+its findings are lower after the commit in at least 65% of the test pairs that
+differ, with the lower end of the interval above 55%.
+
+| Rule | What it reports | Lower after the commit | Default |
+| --- | --- | --- | --- |
+| `format.decorative-emoji` | Emoji in headings and list items | 77.7% (69.8% to 84.0%) | On |
+| `format.em-dash-frequency` | A document with at least three em dashes and at least three per 1,000 words | 70.4% (64.1% to 76.0%) | On |
+| `format.em-dash-density` | A paragraph dense with em dashes | 62.5% (51.0% to 72.8%) | Off outside the strict profile |
+
+With the two new rules the default findings are lower after the commit in
+72.7% (67.8% to 77.1%) of the pairs that differ, and the defaults
+fire in 365 of 597 pairs. The defaults of v0.1.0-alpha.9 give
+64.0% (56.1% to 71.2%) and fire in 158.
+
+The em dash rule reports 24.1% of the pages of today's public repositories
+and 1.7% of the pages that people wrote before November 2022. It has no gate.
+Raise `onset` or `allowed_occurrences` to report fewer documents.
 
 ## Listing on what editors removed
 
