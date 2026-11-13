@@ -23,11 +23,13 @@ const reviewDraft = "It is important to note that the client retries after a fai
 	"In order to start the service, run the installer.\n"
 
 const (
-	draftFlags = `{"flags": [
-		{"item": "i001", "categories": ["empty_framing"], "quote": "It is important to note that", "reason": "Announces only."},
-		{"item": "i002", "categories": ["wordiness"], "quote": "text that is absent", "reason": "Not a quote."},
-		{"item": "i002", "categories": ["wordiness"], "quote": "In order to", "reason": "A shorter form exists."},
-		{"item": "i002", "categories": ["wordiness"], "quote": "run the installer", "reason": "A second flag on one item."}]}`
+	draftFlags = `{"items": [
+		{"item": "i001", "verdict": "revise", "categories": ["empty_framing"], "quote": "It is important to note that",
+			"reason": "Announces only."},
+		{"item": "i002", "verdict": "revise", "categories": ["wordiness"], "quote": "text that is absent", "reason": "Not a quote."},
+		{"item": "i002", "verdict": "revise", "categories": ["wordiness"], "quote": "In order to", "reason": "A shorter form exists."},
+		{"item": "i002", "verdict": "revise", "categories": ["wordiness"], "quote": "run the installer",
+			"reason": "A second flag on one item."}]}`
 	draftVerdicts = `{"reviews": [{"id": "f001", "justified": "yes", "reason": "Adds nothing."},
 		{"id": "f002", "justified": "no", "reason": "The purpose clause is needed."}]}`
 )
@@ -348,8 +350,9 @@ func TestReviewKeepsTheKeyAndTerminalControlOutOfItsOutput(t *testing.T) {
 		if strings.Contains(call.User, "Second page") {
 			return http.StatusUnauthorized, "rejected key secret-key\x1b[2J for this model"
 		}
-		return http.StatusOK, `{"flags": [{"item": "i001", "categories": ["empty_framing"], ` +
-			`"quote": "It is important to note that", "reason": "Announces\u001b[31m only.\nSecond line."}]}`
+		return http.StatusOK, `{"items": [{"item": "i001", "verdict": "revise", "categories": ["empty_framing"], ` +
+			`"quote": "It is important to note that", "reason": "Announces\u001b[31m only.\nSecond line."}, ` +
+			`{"item": "i002", "verdict": "ok"}]}`
 	})
 	root := t.TempDir()
 	c.Assert(os.WriteFile(filepath.Join(root, "a.md"), []byte(reviewDraft), 0o600), qt.IsNil)

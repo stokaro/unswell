@@ -22,9 +22,9 @@ func TestReviewBindsACallersModelAnswerToTheSource(t *testing.T) {
 	c.Assert(prepared.Prompt(), qt.Contains, text)
 
 	// The answer of the caller's own model to prepared.Prompt().
-	answer := `{"flags": [{"item": "i001", "categories": ["empty_framing"], ` +
+	answer := `{"items": [{"item": "i001", "verdict": "revise", "categories": ["empty_framing"], ` +
 		`"quote": "It is important to note that", "reason": "The opening only announces the statement."}]}`
-	flags, err := review.ParseFlags(answer)
+	flags, err := prepared.ParseFlags(answer)
 	c.Assert(err, qt.IsNil)
 	findings, rejected, err := prepared.Bind(flags)
 	c.Assert(err, qt.IsNil)

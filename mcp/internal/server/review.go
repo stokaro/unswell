@@ -19,6 +19,7 @@ const MaxReviewFlags = review.MaxFlags
 // the answer. The judgment belongs to the calling assistant.
 const reviewInstructions = review.Instructions + `
 
+List only items that need revision. An item you do not list is acceptable.
 Submit your answer with unswell_review_submit: one flag per item, with the item ID, at least one category,
 a quote copied character for character from that item, and a one-sentence reason.`
 

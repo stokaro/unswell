@@ -6,6 +6,14 @@ import (
 	"strings"
 )
 
+// Verdicts of a reviewer on one item.
+const (
+	// Acceptable means the item needs no revision.
+	Acceptable = "ok"
+	// NeedsRevision means the item has one of the defects of the rubric.
+	NeedsRevision = "revise"
+)
+
 // Verdicts of a confirming reviewer.
 const (
 	// Justified means the defect is present and a revision would help.
@@ -16,11 +24,16 @@ const (
 	Uncertain = "uncertain"
 )
 
-const flagsAnswer = `
-Answer with JSON only: {"flags": [{"item": "<id>", "categories": ["<category>"], ` +
-	`"quote": "<text copied from the item>", "reason": "<one sentence>"}]}.
-Give one flag per item, with the item ID, at least one category, a quote copied character for character
-from that item, and a one-sentence reason. Return {"flags": []} when nothing needs revision.
+// itemsAnswer asks for a verdict on every item. A reviewer that lists only
+// what it wants revised picks a different part of the same defects on each
+// run; one that must judge every item repeats itself more often.
+const itemsAnswer = `
+Answer with JSON only: {"items": [{"item": "<id>", "verdict": "ok"}, {"item": "<id>", "verdict": "revise", ` +
+	`"categories": ["<category>"], "quote": "<text copied from the item>", "reason": "<one sentence>"}]}.
+Give one entry for every numbered item, in the order of the list. An acceptable item is "ok".
+An item that needs revision is "revise", with at least one category, a quote copied character for character
+from that item, and a one-sentence reason. Use "revise" only when the defect is clear; an item you hesitate
+about is "ok".
 `
 
 const confirmationInstructions = `You review flags that another reviewer raised on one technical document.
@@ -40,8 +53,9 @@ Answer with JSON only: {"reviews": [{"id": "<flag id>", "justified": "yes" | "no
 	`"reason": "<short reason>"}]} with one entry per flag.
 `
 
-// minimumAnswered is the share of listed flags a confirming answer must judge.
-// A shorter answer is treated as a failed answer, not as a set of rejections.
+// minimumAnswered is the share of the listed items a reviewer's answer must
+// judge, and of the listed flags a confirming answer must judge. A shorter
+// answer is a failed answer, not a set of acceptances or rejections.
 const minimumAnswered = 0.8
 
 // Verdict is a confirming reviewer's judgment of one finding. Justified is
@@ -52,8 +66,8 @@ type Verdict struct {
 }
 
 // Prompt returns the complete text for a reviewing model: the rubric, the
-// whole document, its numbered items, and the answer shape. Send it unchanged
-// and give the answer to ParseFlags.
+// whole document, its numbered items, and the answer shape, which asks for a
+// verdict on every item. Send it unchanged and give the answer to ParseFlags.
 func (d *Document) Prompt() string {
 	var prompt strings.Builder
 	prompt.WriteString(Instructions)
@@ -63,25 +77,48 @@ func (d *Document) Prompt() string {
 	for _, item := range d.Items {
 		fmt.Fprintf(&prompt, "%s (line %d): %s\n", item.ID, item.Line, item.Text)
 	}
-	prompt.WriteString(flagsAnswer)
+	prompt.WriteString(itemsAnswer)
 	return prompt.String()
 }
 
-// ParseFlags reads a reviewing model's answer. The JSON object may sit inside
-// a code fence or between other text. When the answer holds several objects
-// with a flags field, the last one counts. An answer without a flags field is
-// an error, so a refusal or an empty answer never reads as a clean document.
-func ParseFlags(answer string) ([]Flag, error) {
+// ParseFlags reads a reviewing model's answer to Prompt and returns a flag for
+// every entry with the verdict "revise". The JSON object may sit inside a code
+// fence or between other text. When the answer holds several objects with an
+// items field, the last one counts. An answer without that field, or one that
+// judges fewer than four in five items of the document, is an error: a
+// refusal or a cut-off list never reads as a clean document.
+func (d *Document) ParseFlags(answer string) ([]Flag, error) {
 	var parsed struct {
-		Flags *[]Flag `json:"flags"`
+		Items *[]struct {
+			Flag
+			Verdict string `json:"verdict"`
+		} `json:"items"`
 	}
-	if err := decodeObject(answer, "flags", &parsed); err != nil {
+	if err := decodeObject(answer, "items", &parsed); err != nil {
 		return nil, err
 	}
-	if parsed.Flags == nil {
-		return nil, fmt.Errorf("the answer has no flags field")
+	if parsed.Items == nil {
+		return nil, fmt.Errorf("the answer has no items field")
 	}
-	return *parsed.Flags, nil
+	judged := make(map[string]bool, len(d.Items))
+	flags := []Flag{}
+	for _, entry := range *parsed.Items {
+		verdict := strings.ToLower(strings.TrimSpace(entry.Verdict))
+		if verdict != Acceptable && verdict != NeedsRevision {
+			continue
+		}
+		if _, known := d.units[entry.Item]; known {
+			judged[entry.Item] = true
+		}
+		// A flag on an unknown item goes on to Bind, which reports it as unbound.
+		if verdict == NeedsRevision {
+			flags = append(flags, entry.Flag)
+		}
+	}
+	if float64(len(judged)) < minimumAnswered*float64(len(d.Items)) {
+		return nil, fmt.Errorf("the answer judges %d of %d items", len(judged), len(d.Items))
+	}
+	return flags, nil
 }
 
 // ConfirmationPrompt returns the complete text for a second reviewer who

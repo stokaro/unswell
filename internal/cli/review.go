@@ -259,7 +259,7 @@ func (r *reviewRun) one(ctx context.Context, source document.Source) reviewedDoc
 func (r *reviewRun) judge(ctx context.Context, prepared *review.Document, result *reviewedDocument) error {
 	var flags []review.Flag
 	err := askModel(ctx, r.reviewer, prepared.Prompt(), r.options.modelRunOptions, func(answer string) (parseErr error) {
-		flags, parseErr = review.ParseFlags(answer)
+		flags, parseErr = prepared.ParseFlags(answer)
 		return parseErr
 	})
 	if err != nil {

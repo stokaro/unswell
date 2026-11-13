@@ -325,6 +325,54 @@ def deslop_section(add, deslop):
         + ("met by both new rules." if all(kept.values()) else "not met by both new rules."))
 
 
+def review_repeat_section(add, repeat):
+    add("")
+    add("## Whether a reviewer repeats itself")
+    add("")
+    add("`unswell review` used to ask the reviewer only for the items that need revision. It now asks for a verdict on every")
+    add("item, with \"revise\" only when the defect is clear. Each form was run twice on the same texts: 40 files before a")
+    add("commit that removes AI-sounding wording, pairs 41 to 80 of the review sample, which no earlier run of either form")
+    add("with this reviewer had touched. The repeat rate is the share of the sentences flagged in one run that the other run")
+    add("flags too. The last columns are from the first run: the share of flagged words that the commit changed, the same")
+    add("share for all words of those documents, and the difference with a 95% interval.")
+    for reviewer, entry in repeat.items():
+        add("")
+        add(f"Reviewer `{reviewer}`, no confirming model:")
+        add("")
+        add("| Answer asked for | Sentences flagged, two runs | In both | Repeat rate | Flagged words changed | Chance | Difference |")
+        add("| --- | ---: | ---: | ---: | ---: | ---: | --- |")
+        for name, label in (("verdicts", "A verdict for every item"), ("list", "Only the items that need revision")):
+            row = entry[name]
+            low, high = row["interval"]
+            add(f"| {label} | {row['sentences'][0]} and {row['sentences'][1]} | {row['both']} | {100 * row['repeat_rate']:.1f}% "
+                f"| {100 * row['precision']:.1f}% | {100 * row['chance']:.1f}% "
+                f"| {100 * (row['precision'] - row['chance']):+.1f} points ({100 * low:+.1f} to {100 * high:+.1f}) |")
+        low, high = entry["difference_interval"]
+        add("")
+        add(f"The verdict form repeats {100 * entry['difference']:+.1f} points more ({100 * low:+.1f} to {100 * high:+.1f}). "
+            "It was to replace the other form if that interval and the interval of its own difference both exclude zero: "
+            + ("they do." if entry["rule"]["ships"] else "they do not."))
+        move, row = entry["movement"], entry["verdicts"]
+        low, high = move["interval"]
+        add("")
+        add(f"Its findings number {row['findings'][0]} on the texts before the commit and {move['findings_after']} on the texts after. "
+            f"Per 1,000 words they are lower after the commit in {move['lower']} pairs and higher in {move['higher']}: "
+            f"{pct(move['lower'], move['lower'] + move['higher'])} ({100 * low:.1f}% to {100 * high:.1f}%). "
+            "The review is not shown to report fewer findings after such a commit.")
+        edit = move["edit"]
+        add("")
+        add(f"What the commit did to the flagged sentences says why. Of the {edit['flagged_before']} sentences flagged before the commit, "
+            f"it changed or removed {edit['changed_by_commit']} ({pct(edit['changed_by_commit'], edit['flagged_before'])}); of all "
+            f"{edit['sentences']:,} sentences of six or more words in those files it changed or removed "
+            f"{pct(edit['sentences_changed'], edit['sentences'])}. Of the {edit['flagged_after']} sentences flagged after the commit, "
+            f"{edit['on_new_text']} are new or changed text, {edit['flagged_both_times']} stood unchanged and were flagged before, and "
+            f"{edit['flagged_after'] - edit['on_new_text'] - edit['flagged_both_times']} stood unchanged and were not. "
+            "So the count stays up mainly because the rewritten text is flagged again, not because the reviewer fails to repeat itself.")
+        add("")
+        add(f"The review does not find most of the edit: of the {edit['sentences_changed']} sentences that the commits changed or removed, "
+            f"it had flagged {edit['changed_by_commit']} ({pct(edit['changed_by_commit'], edit['sentences_changed'])}).")
+
+
 def system_name(name):
     parts = name.split("-")
     if parts[0] == "rules":
@@ -517,7 +565,7 @@ def render(results):
 
 
 def has_words(results):
-    return any(results.get(name) for name in ("trims", "openers", "rule_words", "vocabulary", "deslop"))
+    return any(results.get(name) for name in ("trims", "openers", "rule_words", "vocabulary", "deslop", "review_repeat"))
 
 
 def render_words(results):
@@ -538,6 +586,8 @@ def render_words(results):
         vocabulary_section(add, results["vocabulary"])
     if results.get("deslop"):
         deslop_section(add, results["deslop"])
+    if results.get("review_repeat"):
+        review_repeat_section(add, results["review_repeat"])
     return "\n".join(lines) + "\n"
 
 
