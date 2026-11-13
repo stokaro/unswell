@@ -1101,14 +1101,10 @@
  },
  "review_repeat": {
   "claude-sonnet-5-5": {
-   "difference": 0.07210859283827775,
-   "difference_interval": [
-    0.006596111247846426,
-    0.16060906984442236
-   ],
    "list": {
     "both": 94,
     "chance": 0.2763310058729103,
+    "changed_words_flagged": 439,
     "documents": 40,
     "findings": [
      121,
@@ -1126,33 +1122,21 @@
      122
     ]
    },
-   "movement": {
-    "edit": {
-     "changed_by_commit": 57,
-     "flagged_after": 72,
-     "flagged_before": 95,
-     "flagged_both_times": 27,
-     "on_new_text": 37,
-     "sentences": 1942,
-     "sentences_changed": 642
-    },
-    "findings_after": 73,
-    "higher": 15,
-    "interval": [
-     0.3644923793257382,
-     0.6913087009831766
-    ],
-    "lower": 17,
-    "same": 2
-   },
    "rule": {
+    "finds_no_less": true,
     "on_changed_words": true,
     "repeats_more": true,
     "ships": true
    },
-   "verdicts": {
+   "strict": {
     "both": 85,
     "chance": 0.26878244652679195,
+    "changed_words_flagged": 349,
+    "difference": 0.07210859283827775,
+    "difference_interval": [
+     0.006596111247846426,
+     0.16060906984442236
+    ],
     "documents": 40,
     "findings": [
      99,
@@ -1163,11 +1147,194 @@
      0.047115574509842245,
      0.2487528918742936
     ],
+    "movement": {
+     "edit": {
+      "changed_by_commit": 57,
+      "flagged_after": 72,
+      "flagged_before": 95,
+      "flagged_both_times": 27,
+      "on_new_text": 37,
+      "sentences": 1942,
+      "sentences_changed": 642
+     },
+     "findings_after": 73,
+     "higher": 15,
+     "interval": [
+      0.3644923793257382,
+      0.6913087009831766
+     ],
+     "lower": 17,
+     "same": 2
+    },
     "precision": 0.41997593261131166,
     "repeat_rate": 0.845771144278607,
     "sentences": [
      99,
      102
+    ]
+   },
+   "verdicts": {
+    "both": 151,
+    "chance": 0.27585657588122225,
+    "changed_words_flagged": 636,
+    "difference": 0.06522633744855966,
+    "difference_interval": [
+     0.013660262394968314,
+     0.13349245302047263
+    ],
+    "documents": 40,
+    "findings": [
+     185,
+     182
+    ],
+    "flagged_words": 1575,
+    "interval": [
+     0.03394903495050522,
+     0.21928254656047486
+    ],
+    "movement": {
+     "edit": {
+      "changed_by_commit": 100,
+      "flagged_after": 139,
+      "flagged_before": 174,
+      "flagged_both_times": 56,
+      "on_new_text": 64,
+      "sentences": 1950,
+      "sentences_changed": 644
+     },
+     "findings_after": 143,
+     "higher": 15,
+     "interval": [
+      0.4219996966427768,
+      0.7285966649491271
+     ],
+     "lower": 21,
+     "same": 2
+    },
+    "precision": 0.4038095238095238,
+    "repeat_rate": 0.8388888888888889,
+    "sentences": [
+     181,
+     179
+    ]
+   }
+  },
+  "private-host/Qwen3.8-27B": {
+   "list": {
+    "both": 59,
+    "chance": 0.2727276558480182,
+    "changed_words_flagged": 319,
+    "documents": 40,
+    "findings": [
+     79,
+     97
+    ],
+    "flagged_words": 783,
+    "interval": [
+     -0.007652326880105642,
+     0.2704091470232874
+    ],
+    "precision": 0.4074074074074074,
+    "repeat_rate": 0.6742857142857143,
+    "sentences": [
+     78,
+     97
+    ]
+   },
+   "rule": {
+    "finds_no_less": false,
+    "on_changed_words": true,
+    "repeats_more": false,
+    "ships": false
+   },
+   "strict": {
+    "both": 38,
+    "chance": 0.27074889029500443,
+    "changed_words_flagged": 209,
+    "difference": -0.04618654073199524,
+    "difference_interval": [
+     -0.16722972972972971,
+     0.0708771929824562
+    ],
+    "documents": 40,
+    "findings": [
+     59,
+     62
+    ],
+    "flagged_words": 558,
+    "interval": [
+     -0.04960914840487901,
+     0.2654247988680638
+    ],
+    "movement": {
+     "edit": {
+      "changed_by_commit": 32,
+      "flagged_after": 55,
+      "flagged_before": 59,
+      "flagged_both_times": 19,
+      "on_new_text": 23,
+      "sentences": 1938,
+      "sentences_changed": 639
+     },
+     "findings_after": 56,
+     "higher": 17,
+     "interval": [
+      0.34069062628048985,
+      0.6593093737195102
+     ],
+     "lower": 17,
+     "same": 0
+    },
+    "precision": 0.37455197132616486,
+    "repeat_rate": 0.628099173553719,
+    "sentences": [
+     59,
+     62
+    ]
+   },
+   "verdicts": {
+    "both": 66,
+    "chance": 0.2504977231801802,
+    "changed_words_flagged": 285,
+    "difference": -0.004234952864394459,
+    "difference_interval": [
+     -0.15176507341455792,
+     0.11587893383970549
+    ],
+    "documents": 40,
+    "findings": [
+     98,
+     100
+    ],
+    "flagged_words": 742,
+    "interval": [
+     0.011854258460822498,
+     0.26764625611467185
+    ],
+    "movement": {
+     "edit": {
+      "changed_by_commit": 48,
+      "flagged_after": 80,
+      "flagged_before": 98,
+      "flagged_both_times": 31,
+      "on_new_text": 33,
+      "sentences": 1939,
+      "sentences_changed": 639
+     },
+     "findings_after": 81,
+     "higher": 17,
+     "interval": [
+      0.38383779524767364,
+      0.6896167217154228
+     ],
+     "lower": 20,
+     "same": 1
+    },
+    "precision": 0.38409703504043125,
+    "repeat_rate": 0.6700507614213198,
+    "sentences": [
+     98,
+     99
     ]
    }
   }

@@ -330,36 +330,46 @@ def review_repeat_section(add, repeat):
     add("## Whether a reviewer repeats itself")
     add("")
     add("`unswell review` used to ask the reviewer only for the items that need revision. It now asks for a verdict on every")
-    add("item, with \"revise\" only when the defect is clear. Each form was run twice on the same texts: 40 files before a")
-    add("commit that removes AI-sounding wording, pairs 41 to 80 of the review sample, which no earlier run of either form")
-    add("with this reviewer had touched. The repeat rate is the share of the sentences flagged in one run that the other run")
-    add("flags too. The last columns are from the first run: the share of flagged words that the commit changed, the same")
-    add("share for all words of those documents, and the difference with a 95% interval.")
+    add("item. A stricter verdict form, with \"revise\" only when the defect is clear, was tried as well. Each form was run")
+    add("twice on the same texts: 40 files before a commit that removes AI-sounding wording, pairs 41 to 80 of the review")
+    add("sample, which no earlier run of these forms with the first reviewer had touched. The repeat rate is the share of the")
+    add("sentences flagged in one run that the other run flags too. The other columns are from the first run: the flagged")
+    add("words that the commit changed, their share of the flagged words, the same share for all words of those documents,")
+    add("and the difference with a 95% interval.")
+    labels = (("verdicts", "A verdict for every item"), ("strict", "The same, \"revise\" only when clear"),
+              ("list", "Only the items that need revision"))
     for reviewer, entry in repeat.items():
         add("")
         add(f"Reviewer `{reviewer}`, no confirming model:")
         add("")
-        add("| Answer asked for | Sentences flagged, two runs | In both | Repeat rate | Flagged words changed | Chance | Difference |")
-        add("| --- | ---: | ---: | ---: | ---: | ---: | --- |")
-        for name, label in (("verdicts", "A verdict for every item"), ("list", "Only the items that need revision")):
+        add("| Answer asked for | Sentences flagged, two runs | In both | Repeat rate | Changed words flagged | Share of flagged words "
+            "| Chance | Difference |")
+        add("| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |")
+        for name, label in labels:
             row = entry[name]
             low, high = row["interval"]
             add(f"| {label} | {row['sentences'][0]} and {row['sentences'][1]} | {row['both']} | {100 * row['repeat_rate']:.1f}% "
-                f"| {100 * row['precision']:.1f}% | {100 * row['chance']:.1f}% "
+                f"| {row['changed_words_flagged']} | {100 * row['precision']:.1f}% | {100 * row['chance']:.1f}% "
                 f"| {100 * (row['precision'] - row['chance']):+.1f} points ({100 * low:+.1f} to {100 * high:+.1f}) |")
-        low, high = entry["difference_interval"]
         add("")
-        add(f"The verdict form repeats {100 * entry['difference']:+.1f} points more ({100 * low:+.1f} to {100 * high:+.1f}). "
-            "It was to replace the other form if that interval and the interval of its own difference both exclude zero: "
-            + ("they do." if entry["rule"]["ships"] else "they do not."))
-        move, row = entry["movement"], entry["verdicts"]
+        for name, label in labels[:2]:
+            low, high = entry[name]["difference_interval"]
+            add(f"{label}: repeats {100 * entry[name]['difference']:+.1f} points against the list form "
+                f"({100 * low:+.1f} to {100 * high:+.1f}).")
+            add("")
+        rule = entry["rule"]
+        add("The verdict form was to replace the list form if it repeats more with an interval that excludes zero, its flags fall")
+        add("on changed words above chance with an interval that excludes zero, and it flags no fewer changed words: "
+            + ("all three hold." if rule["ships"] else "they do not all hold: " + ", ".join(
+                f"{name.replace('_', ' ')} {'holds' if kept else 'fails'}" for name, kept in rule.items() if name != "ships") + "."))
+        row = entry["verdicts"]
+        move, edit = row["movement"], row["movement"]["edit"]
         low, high = move["interval"]
         add("")
         add(f"Its findings number {row['findings'][0]} on the texts before the commit and {move['findings_after']} on the texts after. "
             f"Per 1,000 words they are lower after the commit in {move['lower']} pairs and higher in {move['higher']}: "
             f"{pct(move['lower'], move['lower'] + move['higher'])} ({100 * low:.1f}% to {100 * high:.1f}%). "
             "The review is not shown to report fewer findings after such a commit.")
-        edit = move["edit"]
         add("")
         add(f"What the commit did to the flagged sentences says why. Of the {edit['flagged_before']} sentences flagged before the commit, "
             f"it changed or removed {edit['changed_by_commit']} ({pct(edit['changed_by_commit'], edit['flagged_before'])}); of all "

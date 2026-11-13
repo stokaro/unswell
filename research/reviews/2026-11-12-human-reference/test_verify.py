@@ -635,9 +635,9 @@ class DeslopCase(RecordCase):
 
 
 def review_row(document, protocol, sentences, both, flagged=(10, 10), hits=(6, 6), findings=(2, 2)):
-    later = (90, 1) if protocol == "verdicts" else (None, None)
-    edit = {"sentences": 10, "sentences_changed": 3, "flagged_before": 2, "changed_by_commit": 1, "flagged_after": 1,
-            "on_new_text": 1, "flagged_both_times": 0} if protocol == "verdicts" else None
+    later = (None, None) if protocol == "list" else (90, 1)
+    edit = None if protocol == "list" else {"sentences": 10, "sentences_changed": 3, "flagged_before": 2, "changed_by_commit": 1,
+                                             "flagged_after": 1, "on_new_text": 1, "flagged_both_times": 0}
     return {"document": document, "reviewer": "model-a", "protocol": protocol, "words": 100, "changed": 20,
             "findings": list(findings), "flagged": list(flagged), "flagged_changed": list(hits), "sentences": list(sentences),
             "both": both, "after_words": later[0], "after_findings": later[1], "edit": edit}
@@ -649,42 +649,55 @@ class ReviewRepeatCase(RecordCase):
         table = []
         for number in range(12):
             name = f"d{number:02}"
-            table += [review_row(name, "verdicts", (4, 4), 4), review_row(name, "list", (4, 4), 2)]
+            table += [review_row(name, "verdicts", (4, 4), 4), review_row(name, "strict", (2, 2), 2, flagged=(5, 5), hits=(3, 3)),
+                      review_row(name, "list", (4, 4), 2)]
         write_rows(self.root / "data/review-repeat.jsonl.gz", table)
         self.seal()
 
     def repeat(self):
         return verify.verify(self.root)["review_repeat"]["model-a"]
 
+    def change(self, protocol, **fields):
+        self.rewrite("data/review-repeat.jsonl.gz", lambda rows: [row.update(fields) for row in rows if row["protocol"] == protocol])
+        self.seal()
+        return self.repeat()
+
     def test_repeat_rate_and_rule(self):
         entry = self.repeat()
-        self.assertEqual((entry["verdicts"]["repeat_rate"], entry["list"]["repeat_rate"]), (1.0, 0.5))
-        self.assertEqual(entry["difference_interval"], [0.5, 0.5])
+        self.assertEqual((entry["verdicts"]["repeat_rate"], entry["strict"]["repeat_rate"], entry["list"]["repeat_rate"]), (1.0, 1.0, 0.5))
+        self.assertEqual(entry["verdicts"]["difference_interval"], [0.5, 0.5])
         # Six of ten flagged words changed where two in ten words of the document did.
         self.assertAlmostEqual(entry["verdicts"]["precision"] - entry["verdicts"]["chance"], 0.4)
+        self.assertEqual((entry["verdicts"]["changed_words_flagged"], entry["strict"]["changed_words_flagged"]), (72, 36))
         self.assertTrue(entry["rule"]["ships"])
         # Two findings in 100 words before, one in 90 after: lower in every pair.
-        self.assertEqual((entry["movement"]["lower"], entry["movement"]["higher"]), (12, 0))
-        edit = entry["movement"]["edit"]
-        self.assertEqual((edit["flagged_before"], edit["changed_by_commit"], edit["on_new_text"]), (24, 12, 12))
+        move = entry["verdicts"]["movement"]
+        self.assertEqual((move["lower"], move["higher"]), (12, 0))
+        self.assertEqual((move["edit"]["flagged_before"], move["edit"]["changed_by_commit"], move["edit"]["on_new_text"]), (24, 12, 12))
 
     def test_no_gain_does_not_ship(self):
-        self.rewrite("data/review-repeat.jsonl.gz", lambda rows: [row.update(both=2) for row in rows])
-        self.seal()
-        entry = self.repeat()
-        self.assertEqual(entry["difference"], 0.0)
+        entry = self.change("verdicts", both=2)
+        self.assertEqual(entry["verdicts"]["difference"], 0.0)
         self.assertFalse(entry["rule"]["repeats_more"])
         self.assertFalse(entry["rule"]["ships"])
 
     def test_flags_at_chance_do_not_ship(self):
-        self.rewrite("data/review-repeat.jsonl.gz", lambda rows: [row.update(flagged_changed=[2, 2]) for row in rows])
-        self.seal()
-        self.assertFalse(self.repeat()["rule"]["on_changed_words"])
-        self.assertFalse(self.repeat()["rule"]["ships"])
+        entry = self.change("verdicts", flagged_changed=[2, 2])
+        self.assertFalse(entry["rule"]["on_changed_words"])
+        self.assertFalse(entry["rule"]["ships"])
+
+    def test_finding_less_than_the_list_form_does_not_ship(self):
+        # The list form now flags more changed words than the verdict form does.
+        entry = self.change("list", flagged=[20, 20], flagged_changed=[12, 12])
+        self.assertFalse(entry["rule"]["finds_no_less"])
+        self.assertFalse(entry["rule"]["ships"])
+
+    def test_strict_form_does_not_decide(self):
+        entry = self.change("strict", both=0, flagged_changed=[0, 0])
+        self.assertTrue(entry["rule"]["ships"])
 
     def test_result_cannot_be_declared(self):
-        self.rewrite("data/review-repeat.jsonl.gz", lambda rows: [row.update(both=2) for row in rows])
-        self.seal()
+        self.change("verdicts", both=2)
         results = json.loads((self.root / "results.json").read_text())
         results["review_repeat"]["model-a"]["rule"]["ships"] = True
         (self.root / "results.json").write_text(json.dumps(results))
@@ -702,12 +715,18 @@ class ReviewRepeatCase(RecordCase):
         self.rejects("inconsistent review row")
 
     def test_protocols_must_cover_the_same_texts(self):
-        self.rewrite("data/review-repeat.jsonl.gz", lambda rows: rows[1].update(document="other"))
+        self.rewrite("data/review-repeat.jsonl.gz", lambda rows: rows[2].update(document="other"))
         self.seal_digests_only()
-        self.rejects("do not pair the two protocols")
+        self.rejects("do not pair the protocols")
+
+    def test_a_protocol_cannot_be_missing(self):
+        self.rewrite("data/review-repeat.jsonl.gz", lambda rows: [row.update(protocol="verdicts", reviewer="model-b")
+                                                                   for row in rows if row["protocol"] == "strict"])
+        self.seal_digests_only()
+        self.rejects("do not pair the protocols")
 
     def test_list_rows_carry_no_text_after_the_commit(self):
-        self.rewrite("data/review-repeat.jsonl.gz", lambda rows: rows[1].update(after_words=90, after_findings=1))
+        self.rewrite("data/review-repeat.jsonl.gz", lambda rows: rows[2].update(after_words=90, after_findings=1))
         self.seal_digests_only()
         self.rejects("inconsistent review row")
 
