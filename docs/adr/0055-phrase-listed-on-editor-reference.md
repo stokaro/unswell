@@ -50,7 +50,19 @@ on those 150 answers.
    that is ordinary writing. The gate, the severity, and the place outside the
    business profile are unchanged.
 
-4. **Not listed.** A wide list of 160 words and phrases that models favor
+4. **In source code.** `unswell check` also reads comments and strings, and
+   there the first comment or string of a file counts as the start of a
+   document. A file that holds chat replies as product text can open with a
+   listed phrase, and the finding is then unwanted. On 265,025 source files of
+   open-source packages, mostly Go, YAML, C, Python, and JavaScript, the rule
+   reports nothing: 698 of them hold the opener's text at all, and none
+   opens with it. Those are libraries; applications that store replies of a
+   chat model are not among them. The rule keeps reading source code, as it
+   has for its other openers since it exists, because a comment pasted from a
+   chat is the same defect. Its recorded limits now name the case and the way
+   out: exclude such a file in the extraction policy.
+
+5. **Not listed.** A wide list of 160 words and phrases that models favor
    was part of the run with every rule. On the test part, which had been read,
    the words under its findings were words the expert changed in 75.8% of
    cases. The list was then tested under a registered rule on the

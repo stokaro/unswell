@@ -103,12 +103,17 @@ The rule asked for at least 85% on the test part of the expert-edited answers, a
 70%, and at most one finding on the other two sets, which have 0. The phrases are listed.
 
 The rule also looks at the first sentence after the leading headings of a document. With that position it ran
-on documentation pages outside this record, from the assistant-panel corpus:
+on texts outside this record: documentation pages of the assistant-panel corpus, and source files of
+open-source packages, where the first comment or string of a file counts as the start of a document.
 
-| Pages | Number | Pages that failed to run | Findings of the rule |
+| Texts | Number | Failed to run | Findings of the rule |
 | --- | ---: | ---: | ---: |
+| Source files of open-source packages | 265,025 | 35 | 0 |
 | Pages that models generated | 455 | 0 | 0 |
 | Pages of public repositories | 3,302 | 0 | 0 |
+
+A finding of the listed openers needs their text in the file. 698 of the source files hold it,
+and the rule ran on those. The ones that failed exceed the engine's file size limit or do not parse.
 
 ## Each rule against the words an editor changed
 

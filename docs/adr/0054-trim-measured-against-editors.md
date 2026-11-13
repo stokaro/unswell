@@ -76,11 +76,15 @@ word. Test parts:
 | Documentation that maintainers reworded | `claude-sonnet-5-5` | 375 | 8.5% | 6.6% | +2.0 (-0.7 to +5.7) |
 | Documentation that maintainers reworded | `gpt-6-astra` | 942 | 6.6% | 4.4% | +2.2 (+0.6 to +4.4) |
 
-On answers of chat models that experts edited, the trimmed text is also closer to the expert's text than the
-original was. The word-level edit distance to the expert's text falls by 0.28 and 0.23 words per
-removed word with the two models. Random removal from the same sentences gives 0.15 and 0.09,
-because the experts removed or replaced more than half of the words. On fiction the distance does not fall
-(+0.05 and +0.10), though it rises less than under random removal (+0.14 and +0.21).
+On answers of chat models that experts edited, removal as such moves a text
+toward the expert's text, because the experts removed or replaced more than
+half of the words. Random removal from the same sentences shortens the
+word-level edit distance to the expert's text by 0.15 and 0.09 words per removed
+word. The command shortens it by 0.28 and 0.23 with the two models. What the
+command adds is the difference: 0.13 and 0.15 words per removed word
+(0.09 to 0.17 and 0.11 to 0.18). On fiction the distance does not fall
+(+0.05 and +0.10), though it rises less than under random removal
+(+0.14 and +0.21).
 
 The development parts were read first and agree in direction on all three
 kinds of text; on fiction they showed a larger difference than the test part
@@ -90,9 +94,15 @@ did.
 
 `unswell trim` now has evidence against people on one kind of text: where
 experts edited what models wrote, it removes words that the experts also
-changed, more often than chance, and the result is closer to what the experts
-made. The size is modest: +8.5 and +8.7 points over chance in the
-same sentences.
+changed, more often than chance, and removing them brings the text nearer to
+what the experts made than removing random words does. The size is modest:
++8.5 and +8.7 points over chance in the same sentences, and 0.13 and 0.15 words
+per removed word over random removal.
+
+The second part of the rule, movement toward the editor's version, is met on
+those answers by random removal as well, because the experts removed or
+replaced more than half of the words. The documentation therefore states the
+difference from random removal and not the movement itself.
 
 The consensus of models of ADR 0053 stays what admitted the command. This
 record does not validate that consensus; it measures the command by another

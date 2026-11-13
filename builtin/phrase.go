@@ -78,6 +78,11 @@ func phraseRules() []rule.Rule {
 		d.BlockObservations = true
 		d.Defaults.Parameters = rule.Parameters{Phrases: def.phrases, Positions: def.positions}
 		d.Parameters = []string{"phrases", "positions"}
+		if def.id == "scaffold.chat-preamble" {
+			d.Limitations += " In source code the first comment or string of a file is read as the start of a document." +
+				" A file that holds chat replies as product text can open with a listed phrase;" +
+				" exclude such a file in the extraction policy."
+		}
 		if def.forbid {
 			d.Defaults.Gate = "forbid"
 			d.Defaults.Severity = "error"

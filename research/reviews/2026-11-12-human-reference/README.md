@@ -126,9 +126,11 @@ to were posted on issue 525 before any test document ran.
    On Beemo's test part, 71.2% and 68.0% of the words that
    `unswell trim` removes with the two models are words the expert removed or
    replaced, against 62.7% and 59.3% for random words of the same
-   sentences. The trimmed text is closer to the expert's text than the
-   original was: the edit distance falls by 0.28 and 0.23 words per
-   removed word, against 0.15 and 0.09 under random removal. This is the
+   sentences. Removal as such moves these answers toward the expert's text,
+   because the experts removed or replaced more than half of the words: under
+   random removal from the same sentences the edit distance falls by 0.15 and
+   0.09 words per removed word. Under the command it falls by 0.28 and 0.23,
+   so the command adds 0.13 and 0.15. This is the
    first result in this record in which a part of the tool changes text in the
    direction that people changed it.
 
@@ -301,7 +303,7 @@ Each rule was registered on issue 525 before its result was read.
 | `data/trims.jsonl.gz` | Per document and trimming model: each accepted trim with the byte spans of the words of its sentence, the words the check never removes, the words the trim removed, and the edit distances to the editor's text before, after, and under random removal |
 | `data/word-counts.jsonl.gz` | Per document: its words, the words an editor changed, and both counts under the findings of the default rules and of the review |
 | `data/openers.jsonl.gz` | Every finding of the listed chat opener, with the byte spans of its words |
-| `data/opener-load.jsonl.gz` | The number of pages and of findings of the chat opener rule on documentation pages outside this record |
+| `data/opener-load.jsonl.gz` | The number of texts and of findings of the chat opener rule outside this record: documentation pages, and source files of open-source packages |
 | `data/vocabulary.jsonl.gz`, `data/vocabulary-phrases.jsonl.gz`, `data/vocabulary-load.jsonl.gz` | The wide phrase list, the phrases that the selection part dropped, per unused answer the findings of the list with the index of the phrase and the byte spans of the flagged words, and the count of findings of the kept phrases on pages of public repositories |
 | `data/rule-words.jsonl.gz` | Per document and rule of the run with every rule: the words under the rule's findings and how many the editor changed |
 | `results.json`, `RESULTS.md`, `RESULTS-words.md` | Every published number, recounted and rendered; the second page holds the comparisons at the level of words |

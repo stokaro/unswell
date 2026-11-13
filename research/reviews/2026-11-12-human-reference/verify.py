@@ -651,12 +651,15 @@ def opener_load(root):
     """Return the counts of the rule's findings on documentation pages outside the record's sets."""
     load = {}
     for row in rows(root / OPENER_PAGES):
-        counts = [row.get(name) for name in ("pages", "failed", "findings")]
-        if set(row) != {"part", "pages", "failed", "findings"} or row["part"] in load:
+        # A part that was filtered by text first also says how many of its texts were run.
+        names = ("pages", "failed", "findings", "candidates") if "candidates" in row else ("pages", "failed", "findings")
+        counts = [row.get(name) for name in names]
+        if set(row) != {"part", *names} or row["part"] in load:
             fail(f"invalid or repeated opener load row: {row.get('part')}")
-        if not all(isinstance(value, int) and value >= 0 for value in counts) or row["failed"] > row["pages"]:
+        run = row.get("candidates", row.get("pages"))
+        if not all(isinstance(value, int) and value >= 0 for value in counts) or row["failed"] > run or run > row["pages"]:
             fail(f"invalid counts in the opener load of {row['part']}")
-        load[row["part"]] = {"pages": row["pages"], "failed": row["failed"], "findings": row["findings"]}
+        load[row["part"]] = {name: row[name] for name in names}
     return load
 
 

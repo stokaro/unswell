@@ -48,8 +48,9 @@ you ask.
 On answers that chat models gave to instructions and that experts then
 edited, the words that `unswell trim` removes are words the expert also
 removed or replaced in 71.2% and 68.0% of cases with two trimming models,
-against 62.7% and 59.3% for random words of the same sentences, and the
-trimmed text is closer to the expert's version.
+against 62.7% and 59.3% for random words of the same sentences. Removing
+them brings the text nearer to the expert's version than removing random
+words of the same sentences does, by 0.13 and 0.15 words per removed word.
 
 How each part was measured is in the documentation of
 [review](docs/review.md#measured-behavior) and
