@@ -139,6 +139,17 @@ def opener_section(add, openers):
     add("The rule asked for at least 85% on the test part of the expert-edited answers, a lower end of the interval above")
     add(f"70%, and at most one finding on the other two sets, which have {openers['elsewhere']}. "
         + ("The phrases are listed." if openers["listed"] else "The phrases are not listed."))
+    load = openers.get("load")
+    if load:
+        add("")
+        add("The rule also looks at the first sentence after the leading headings of a document. With that position it ran")
+        add("on documentation pages outside this record, from the assistant-panel corpus:")
+        add("")
+        add("| Pages | Number | Pages that failed to run | Findings of the rule |")
+        add("| --- | ---: | ---: | ---: |")
+        names = {"real": "Pages of public repositories", "generated": "Pages that models generated"}
+        for part, entry in load.items():
+            add(f"| {names.get(part, part)} | {entry['pages']:,} | {entry['failed']} | {entry['findings']} |")
 
 
 def rule_word_section(add, rule_words):

@@ -356,6 +356,22 @@ class OpenerCase(TrimCase):
         verify.write_digests(self.root)
         self.rejects("results differ from the data files")
 
+    def test_opener_load_is_reported(self):
+        write_rows(self.root / "data/opener-load.jsonl.gz", [{"part": "real", "pages": 5, "failed": 0, "findings": 1}])
+        self.seal()
+        self.assertEqual(self.openers()["load"], {"real": {"pages": 5, "failed": 0, "findings": 1}})
+
+    def test_opener_load_must_be_consistent(self):
+        write_rows(self.root / "data/opener-load.jsonl.gz", [{"part": "real", "pages": 5, "failed": 6, "findings": 0}])
+        self.seal_digests_only()
+        self.rejects("invalid counts in the opener load")
+
+    def test_opener_load_part_cannot_repeat(self):
+        row = {"part": "real", "pages": 5, "failed": 0, "findings": 0}
+        write_rows(self.root / "data/opener-load.jsonl.gz", [row, row])
+        self.seal_digests_only()
+        self.rejects("invalid or repeated opener load row")
+
     def test_opener_must_be_a_finding_of_the_changed_rule(self):
         self.rewrite("data/openers.jsonl.gz", lambda rows: rows[0].update(span=[2, 7]))
         self.seal_digests_only()
@@ -406,6 +422,15 @@ class WordsPageTest(OpenerCase):
     def test_missing_words_page_is_rejected(self):
         (self.root / "RESULTS-words.md").unlink()
         self.rejects("RESULTS-words.md is missing")
+
+
+class SummationTest(unittest.TestCase):
+    """Published numbers must not depend on the Python version that recounts them."""
+
+    def test_column_sums_are_exactly_rounded(self):
+        # Ten times 0.1 is 1.0 when rounded once; adding one by one gives 0.9999999999999999 before Python 3.12.
+        table = [(0.1,) * len(verify.SUMS)] * 10
+        self.assertEqual(verify.totals(table), [1.0] * len(verify.SUMS))
 
 
 class OpenerRuleTest(unittest.TestCase):

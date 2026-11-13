@@ -74,10 +74,12 @@ interval is below 80% as well. Two families have left: `state-of-the-art` in
 
 [ADR 0055](adr/0055-phrase-listed-on-editor-reference.md) adds a second route
 into a default list: what human editors did. `scaffold.chat-preamble` lists
-`Sure,` and `Sure!` at the start of a document on that route. On model answers
-that experts edited, the experts removed or replaced the flagged opener in
-39 of 39 test answers, and the phrases produce no finding on 121
-documentation pages. The
+`Sure,` and `Sure!` on that route, at the start of a document and in the first
+sentence after its leading headings. On answers of chat models that experts
+edited, the experts removed or replaced the flagged opener in 39 of 39 test
+answers. The rule reports nothing on 3,302 pages of public repositories.
+It does not look after later headings, where a person may answer a question
+with `Sure,`. The
 [human-reference record](../research/reviews/2026-11-12-human-reference/RESULTS-words.md)
 holds the counts and a table of every rule against the words editors changed.
 

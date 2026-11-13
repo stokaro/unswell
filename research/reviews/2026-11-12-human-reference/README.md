@@ -152,6 +152,10 @@ to were posted on issue 525 before any test document ran.
     it. With the two phrases listed, the rule reports 39 of the 300 test
     answers, and the expert changed the flagged word in 39 of 39. The phrases
     report nothing on the documentation pages and the fiction paragraphs.
+    The rule also looks at the first sentence after the leading headings of a
+    document, because a pasted answer usually sits under a title; with that
+    position it reports nothing on 3,302 pages of public repositories and
+    455 generated pages outside this record.
 
 12. **Rule by rule, little else stands out.** `results.json` has every rule
     against the words editors changed on the test parts, and
@@ -276,6 +280,7 @@ Each rule was registered on issue 525 before its result was read.
 | `data/trims.jsonl.gz` | Per document and trimming model: each accepted trim with the byte spans of the words of its sentence, the words the check never removes, the words the trim removed, and the edit distances to the editor's text before, after, and under random removal |
 | `data/word-counts.jsonl.gz` | Per document: its words, the words an editor changed, and both counts under the findings of the default rules and of the review |
 | `data/openers.jsonl.gz` | Every finding of the listed chat opener, with the byte spans of its words |
+| `data/opener-load.jsonl.gz` | The number of pages and of findings of the chat opener rule on documentation pages outside this record |
 | `data/rule-words.jsonl.gz` | Per document and rule of the run with every rule: the words under the rule's findings and how many the editor changed |
 | `results.json`, `RESULTS.md`, `RESULTS-words.md` | Every published number, recounted and rendered; the second page holds the comparisons at the level of words |
 | `verify.py`, `test_verify.py`, `render.py` | The check, its negative tests, and the renderer |

@@ -2,7 +2,8 @@
 
 Status: proposed on November 12, 2026. It takes effect when the maintainer
 merges it. It adds a second route to the listing of
-[ADR 0047](0047-qualified-defaults-and-assistant-review.md).
+[ADR 0047](0047-qualified-defaults-and-assistant-review.md). Decision 3 was
+replaced on the same day, after the first release with the opener.
 
 ## Context
 
@@ -35,9 +36,19 @@ on those 150 answers.
    39 of 39 (91.0% to 100.0%). They produce no finding on 121 documentation
    pages and 282 fiction paragraphs.
 
-3. **Unchanged.** The rule keeps its position, its gate, its severity, and its
-   place outside the business profile. A document that opens with a heading
-   is not flagged, as before.
+3. **Under a title too.** The answers of the reference have no headings, and
+   the rule looked only at the very first sentence of a document. A README or
+   a documentation page opens with a title, so a pasted answer under it went
+   unseen. The rule now also looks at the first sentence after the leading
+   headings, through a new phrase position, `prose-start`. `document-start`
+   keeps its meaning. The findings on the reference are the same. On 3,302
+   pages of public repositories and 455 generated pages of the
+   assistant-panel corpus the rule reports nothing.
+
+   The rule does not look after every heading. Real pages have FAQ sections
+   in which a person answers a question heading with `Sure,` or `Sure!`, and
+   that is ordinary writing. The gate, the severity, and the place outside the
+   business profile are unchanged.
 
 4. **Not listed.** A wide list of words that models favor was part of the run
    with every rule. On the test part the words under its findings are words

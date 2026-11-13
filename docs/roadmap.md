@@ -84,7 +84,7 @@ consensus of models as the judge of revisions and admits `unswell trim`: a
 model proposes sentences with words removed, and a deterministic check keeps
 the proposals that only delete.
 [ADR 0054](adr/0054-trim-measured-against-editors.md) measures the command
-against human editors: on model answers that experts edited it removes words
+against human editors: on answers of chat models that experts edited it removes words
 the expert also changed, more often than chance, and moves the text toward the
 expert's version; on fiction and on documentation written by people its rule
 is not met. Open after it: a second model that confirms each trim, free

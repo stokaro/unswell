@@ -72,7 +72,11 @@ func TestChatPreambleListsTheOpenerThatExpertsRemove(t *testing.T) {
 		{"comma", "Sure, here is a summary of the text.\n\nThe client retries a request after a timeout.", true},
 		{"exclamation", "Sure! Here's a summary.\n\nThe client retries a request after a timeout.", true},
 		{"lower case", "sure, the client retries a request after a timeout.", true},
-		{"heading first", "# Summary\n\nSure, here is a summary of the text.", false},
+		{"under the title", "# Summary\n\nSure, here is a summary of the text.", true},
+		{"under two headings", "# Guide\n\n## Summary\n\nSure! Here's a summary.\n\nThe client retries.", true},
+		{"another opener under the title", "# Client\n\nCertainly! The client retries a request.", true},
+		{"answer in a later section", "# FAQ\n\nThe questions follow.\n\n## Can I retry?\n\nSure, if the request timed out.", false},
+		{"second paragraph", "# Client\n\nThe client retries a request.\n\nSure, it waits for a timeout first.", false},
 		{"later sentence", "The client retries a request. Sure, it waits for a timeout first.", false},
 		{"another word", "Surely, the client retries a request after a timeout.", false},
 		{"inside a sentence", "Make sure, before a release, that the client retries a request.", false},
@@ -89,7 +93,7 @@ func TestChatPreambleListsTheOpenerThatExpertsRemove(t *testing.T) {
 				if finding.RuleID == "scaffold.chat-preamble" {
 					found = true
 					c.Assert(strings.ToLower(tc.text[finding.Primary.Span.Start:finding.Primary.Span.End]),
-						qt.Matches, `sure[,!]`)
+						qt.Matches, `sure[,!]|certainly!`)
 				}
 			}
 			c.Assert(found, qt.Equals, tc.found)
