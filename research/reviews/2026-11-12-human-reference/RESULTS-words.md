@@ -245,3 +245,16 @@ Among them, the pairs in which a rule's count is lower after the commit, of thos
 | All default rules | 12 of 19 (37 pairs) | 13 of 22 (41 pairs) |
 
 These counts are too small to confirm or to reject either rule on edits that a person certainly typed.
+
+The pairs were not selected by language, and 97 of the 597 test pairs are not English prose. A file counts as English when at least
+10% of the words of its prose are common English function words. The cut was made after the results above. On the
+500 English test pairs:
+
+| Rules | Pairs where they fire | Lower after | Higher after | Lower among pairs that differ |
+| --- | ---: | ---: | ---: | --- |
+| Default rules of v0.1.0-alpha.9 | 141 | 85 | 50 | 63.0% (54.6% to 70.6%) |
+| `format.decorative-emoji` | 92 | 68 | 20 | 77.3% (67.5% to 84.8%) |
+| `format.em-dash-frequency` | 203 | 139 | 54 | 72.0% (65.3% to 77.9%) |
+| Default rules with both new rules | 300 | 210 | 78 | 72.9% (67.5% to 77.7%) |
+
+On English files alone the bar for a default rule is met by both new rules.
