@@ -44,7 +44,7 @@ people wrote, and says where the marks are.
 3. **The result lists the marks.** Each mark has its signal, its place, and a
    mechanical replacement where one exists. Each signal has one line of
    advice. The text and Markdown reports list the marks of the pages above
-   `low`.
+   `low`, and each line names the replacement of its mark.
 
 4. **`unswell fix` applies the mechanical replacements.** An em dash becomes
    a comma, a period between two full clauses, a colon after the short label

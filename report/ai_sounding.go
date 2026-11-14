@@ -18,9 +18,6 @@ var aiSignalNames = map[string][2]string{
 	"bold-label-in-list": {"list item that starts with a bold label", "list items that start with a bold label"},
 }
 
-// aiSoundingSignalOrder is the order in which the reports name the signals.
-var aiSoundingSignalOrder = []string{"em-dash", "emoji-in-heading", "emoji-at-list-item", "arrow", "stock-word", "bold-label-in-list"}
-
 // maxAISoundingPages bounds the pages that the text reports name one by one,
 // and maxAIMarkLines the marks they list across a run. The JSON report holds
 // the marks of every page.
@@ -30,9 +27,9 @@ const (
 )
 
 // aiSoundingLines reports the page index of the Markdown pages of a run: one
-// line for each page above the low level, most marked first, with the places
-// of its marks, then the count by level and what the index is. A run without
-// a measured page adds nothing.
+// line for each page above the low level, most marked first, with the place
+// of each mark and what to do with it, then the count by level and what the
+// index is. A run without a measured page adds nothing.
 func aiSoundingLines(result unswell.RunResult) []string {
 	var measured []unswell.DocumentResult
 	levels := map[string]int{}
@@ -93,7 +90,7 @@ func aiMarkLines(doc unswell.DocumentResult, left int) ([]string, int) {
 		if mark.Word != "" {
 			name += fmt.Sprintf(" %q", mark.Word)
 		}
-		lines = append(lines, fmt.Sprintf("  %s:%d:%d: %s", doc.Name, mark.Start.Line, mark.Start.Column, name))
+		lines = append(lines, fmt.Sprintf("  %s:%d:%d: %s; %s", doc.Name, mark.Start.Line, mark.Start.Column, name, aiMarkAction(mark)))
 	}
 	total := 0
 	for _, signal := range doc.AISounding.Signals {
@@ -108,30 +105,51 @@ func aiMarkLines(doc unswell.DocumentResult, left int) ([]string, int) {
 	return lines, left - listed
 }
 
-// aiAdviceLines says how to remove each kind of mark that a page above the
-// low level has, once for the run.
+// aiMarkAction says what to do with one mark: the replacement that
+// `unswell fix` would make, or what only a person can do.
+func aiMarkAction(mark unswell.AIMark) string {
+	switch {
+	case mark.Signal == "stock-word":
+		return "say what the thing does, or drop the word"
+	case mark.Fix == nil:
+		return "leave it if it stands between two numbers"
+	case mark.Signal == "em-dash":
+		return dashAction(mark.Fix.Text)
+	case mark.Signal == "arrow":
+		return fmt.Sprintf("write %q", mark.Fix.Text)
+	case mark.Signal == "bold-label-in-list":
+		return "remove the bold"
+	}
+	return "remove it"
+}
+
+// dashAction names the replacement of an em dash from the text of its fix.
+func dashAction(text string) string {
+	switch {
+	case strings.HasPrefix(text, "."):
+		return "write a period and start the next word with a capital letter"
+	case strings.HasPrefix(text, ","):
+		return "write a comma"
+	case strings.HasPrefix(text, ":"):
+		return "write a colon"
+	}
+	return "remove it"
+}
+
+// aiAdviceLines says, once for the run, that the command makes the
+// replacements named at the marks of the pages above the low level.
 func aiAdviceLines(measured []unswell.DocumentResult) []string {
-	advice := map[string]string{}
 	for _, doc := range measured {
 		if doc.AISounding.Level == unswell.AISoundingLow {
 			continue
 		}
-		for _, signal := range doc.AISounding.Signals {
-			if signal.Count > 0 {
-				advice[signal.Name] = signal.Advice
+		for _, mark := range doc.AISounding.Marks {
+			if mark.Fix != nil {
+				return []string{"`unswell fix --write` makes the replacements named above. A stock word needs your own words."}
 			}
 		}
 	}
-	if len(advice) == 0 {
-		return nil
-	}
-	lines := []string{"To lower the index, remove its marks:"}
-	for _, signal := range aiSoundingSignalOrder {
-		if text, found := advice[signal]; found {
-			lines = append(lines, fmt.Sprintf("  %s: %s", aiSignalNames[signal][0], text))
-		}
-	}
-	return lines
+	return nil
 }
 
 // aiSignalText lists the counted marks of one page, or says that it has none.

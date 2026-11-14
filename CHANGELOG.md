@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+The report of `unswell check` now says at each mark of the AI-sounding index
+what to do with it: the replacement that `unswell fix` would make, such as
+"write a comma" or "remove the bold", or, for a stock word, that only the
+writer can say what the thing does. Before, a line gave the place of a mark
+and general advice stood below the list, which left a person or a model
+that follows the report free to pick any punctuation. One line now says that
+`unswell fix --write` makes the replacements.
+
 ## 0.1.0-alpha.11
 
 This release makes `unswell fix` leave alone the pages that the index calls
