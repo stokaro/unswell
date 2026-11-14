@@ -525,6 +525,15 @@ def judges_section(add, judges):
         if entry["before"] + entry["after"]:
             add(f"| `{judge}` | {entry['before']} | {entry['after']} | {entry['same']} | {judge_share(entry)} "
                 f"| {'yes' if judges['admitted'][judge] else 'no'} |")
+    add("")
+    add(f"{judges['likely_manual_pairs']} of the pairs are short one-file edits through GitHub's web flow, which a person most likely typed. On them alone:")
+    add("")
+    add("| Judge | Before the edit named | After the edit named | Same | Share of decisive answers | At least 70% |")
+    add("| --- | ---: | ---: | ---: | --- | --- |")
+    for judge, entry in judges["likely_manual"].items():
+        if entry["before"] + entry["after"]:
+            add(f"| `{judge}` | {entry['before']} | {entry['after']} | {entry['same']} | {judge_share(entry)} "
+                f"| {'yes' if judges['admitted_on_likely_manual'][judge] else 'no'} |")
     both, fixed = judges["comparisons"]["edit_both_fixed"], judges["comparisons"]["fixed_against_edit"]
     if not any(entry["before"] + entry["after"] for entry in both.values()):
         return

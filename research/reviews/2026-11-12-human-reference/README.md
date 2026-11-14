@@ -219,7 +219,11 @@ to were posted on issue 525 before any test document ran.
     and against its page the page fixed with unswell's report is the less
     AI-sounding one on 48 of 70, 68.6% (57.0% to 78.2%).
     With Vale's two styles the same model makes pages that the judges find
-    more AI-sounding than the original. A judge of another model family,
+    more AI-sounding than the original. The judges were admitted on 80
+    held-out pairs before and after a de-slop edit; on the 38 of them that are
+    web-flow edits, which a person most likely typed, they name the version
+    before the edit in 74.2%, 78.4%, 89.7% of their decisive answers.
+    A judge of another model family,
     added afterwards, never prefers the original or the linter's page where
     it decides, and calls the two versions the same on 40 of the 83 pages
     for `unswell fix` and on 31 for the report version. With the marks

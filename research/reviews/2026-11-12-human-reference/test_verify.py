@@ -1106,6 +1106,8 @@ class JudgePairsCase(RecordCase):
                     EXTRA: "same" if number == 19 else "before" if number < 14 else "after"}
             pairs.append(judge_pair(f"j{number:02}", edit, {first: "before" if number < 10 else "after"},
                                     {first: "before"} if number < 18 else None))
+            # The first ten pairs are web-flow edits; the others come from the search of commits.
+            pairs[-1]["layer"] = "web" if number < 10 else "reserve"
         write_rows(self.root / "data/judge-pairs.jsonl.gz", pairs)
         self.seal()
 
@@ -1125,6 +1127,30 @@ class JudgePairsCase(RecordCase):
         self.assertEqual((both["before"], both["after"]), (10, 10))
         self.assertEqual(judges["comparisons"]["fixed_against_edit"][first]["before"], 18)
         self.assertEqual(judges["comparisons"]["fixed_against_edit"][second]["before"], 0)
+        # On the ten web-flow edits alone every judge names the version before the edit each time.
+        self.assertEqual(judges["likely_manual_pairs"], 10)
+        self.assertEqual((judges["likely_manual"][second]["before"], judges["likely_manual"][second]["after"]), (10, 0))
+        self.assertEqual(judges["admitted_on_likely_manual"], {first: True, second: True, EXTRA: True})
+
+    def test_admission_on_manual_edits_is_recounted(self):
+        def swap_layers(rows):
+            for number, row in enumerate(rows):
+                row["layer"] = "reserve" if number < 10 else "web"
+
+        self.rewrite("data/judge-pairs.jsonl.gz", swap_layers)
+        self.seal()
+        first, second = JUDGES
+        judges = self.results()
+        # Now the web-flow edits are the last ten pairs: the first judge names the earlier version on five of them,
+        # the second on three, the third on four of its nine decisive answers.
+        self.assertEqual((judges["likely_manual"][first]["before"], judges["likely_manual"][first]["after"]), (5, 5))
+        self.assertEqual(judges["admitted_on_likely_manual"], {first: False, second: False, EXTRA: False})
+        self.assertEqual(judges["admitted"], {first: True, second: False, EXTRA: True})
+
+    def test_unknown_layer_is_refused(self):
+        self.rewrite("data/judge-pairs.jsonl.gz", lambda rows: rows[0].update(layer="other"))
+        self.seal_digests_only()
+        self.rejects("invalid judge pair")
 
     def test_admission_cannot_be_declared(self):
         results = json.loads((self.root / "results.json").read_text())
