@@ -227,8 +227,8 @@ In both runs above the page after `unswell fix` was the less AI-sounding one aga
 findings, and in neither did that comparison have a bar. The comparison that had one, for the page fixed by a model
 with unswell's report, held in the first run and not in the second. This run tests the command, with the bar written
 on issue 525 first, on 250 more pages that no earlier run had read: the rest of the same new search, without any
-repository of an earlier set, selected as before. `unswell fix` is the build of the commit that the next release
-tags; on every page of the two earlier runs it writes the same bytes as `v0.1.0-alpha.10`.
+repository of an earlier set, selected as before. `unswell fix` is the build of `main` at b868082e, whose code
+`v0.1.0-alpha.11` ships; on every page of the two earlier runs it writes the same bytes as `v0.1.0-alpha.10`.
 
 | Fixed by | Pages fixed | Failed | Index lower | Index higher | High before | High after | Median share of tokens changed |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
