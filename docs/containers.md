@@ -9,9 +9,9 @@ model and grammars and run without runtime downloads. Release images support
 | CLI commands, filesystem discovery and reports | `ghcr.io/stokaro/unswell` | `docker.io/cabyrc/unswell` |
 | MCP over stdin/stdout, with source bytes supplied by the client | `ghcr.io/stokaro/unswell-mcp` | `docker.io/cabyrc/unswell-mcp` |
 
-The release tag is the version without its leading `v`, such as `0.1.0-alpha.9`.
-Version `0.1.0-alpha.9` is public in GHCR. Docker Hub holds versions up to
-`0.1.0-alpha.4`; later ones follow when the mirror credential is renewed. Each mirror preserves the
+The release tag is the version without its leading `v`, such as `0.1.0-alpha.10`.
+Version `0.1.0-alpha.10` is public in GHCR and on Docker Hub; the mirror does not
+hold `0.1.0-alpha.2` and `0.1.0-alpha.5`. Each mirror preserves the
 GHCR image index, both architectures, and its provenance/SBOM attestations. Release
 evidence records immutable image digests; pin a digest in reproducible installations.
 Either registry name works in the examples below for a mirrored version.
@@ -23,7 +23,7 @@ With an explicit Docker context, mount a repository at `/work` and keep it read-
 ```sh
 docker --context remote-dev-container run --rm --read-only --network none \
   --mount type=bind,source=/absolute/path/on/daemon/repository,target=/work,readonly \
-  ghcr.io/stokaro/unswell:0.1.0-alpha.9 \
+  ghcr.io/stokaro/unswell:0.1.0-alpha.10 \
   check . --config .unswell.yaml --report json:-
 ```
 
@@ -46,7 +46,7 @@ Use `docker` as the client's command with these arguments:
 [
   "--context", "remote-dev-container", "run", "--rm", "-i",
   "--read-only", "--network", "none",
-  "ghcr.io/stokaro/unswell-mcp:0.1.0-alpha.9"
+  "ghcr.io/stokaro/unswell-mcp:0.1.0-alpha.10"
 ]
 ```
 
@@ -109,9 +109,8 @@ The mirror does not gate a release. When Docker Hub rejects the credential, the
 mirror job and the run fail, and the archives, the MCP registry entry, and the
 distribution updates are published without the mirror. The weekly
 `Release prerequisites` workflow logs in with the same credential, so an expired
-token shows before a release. Releases `v0.1.0-alpha.6` and later have no
-Docker Hub images until the credential is renewed and the mirror workflow is
-run for them.
+token shows before a release. The credential was renewed in November 2026, and
+the mirror workflow was then run for `v0.1.0-alpha.6` to `v0.1.0-alpha.9`.
 
 Retry the `Mirror containers to Docker Hub` workflow on `main` with an existing
 image version. Its input accepts the version with or without a leading `v`.
