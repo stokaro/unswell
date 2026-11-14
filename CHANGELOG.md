@@ -1,6 +1,11 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-alpha.11
+
+This release makes `unswell fix` leave alone the pages that the index calls
+low, and it carries two more measurements of the command on pages that no
+earlier one had read. One claim of alpha.10 did not hold up there and is
+withdrawn.
 
 `unswell fix` now leaves a page at the level `low` as it is. `unswell check`
 lists no marks on such a page, and the command was measured only on pages with
