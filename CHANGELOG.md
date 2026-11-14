@@ -1,6 +1,13 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-alpha.10
+
+This release turns the tool toward its purpose. `unswell check` gives each
+Markdown page an index of the marks that people remove when they clean
+AI-sounding wording out of documentation, `unswell fix` removes those marks
+without a model, and six rules of lean wording that report on pages people
+wrote leave the defaults. The review asks the reviewer for a verdict on every
+item.
 
 `unswell check` now gives every Markdown page of 150 prose words or more an
 AI-sounding index from 0 to 100, with the levels `low`, `elevated`, and
