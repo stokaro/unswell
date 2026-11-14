@@ -49,7 +49,8 @@ a mechanical replacement, without a model. On 250 pages that no earlier
 measurement had read, blind model judges found the page after `unswell fix`
 the less AI-sounding one against the original on 231 of 233 decisive pages,
 and against a page fixed with the findings of a third-party linter on
-146 of 209.
+146 of 209. A model that follows the report of `unswell check` gave
+111 of 113 and 73 of 108 on 131 more such pages.
 
 `unswell review` gives a document to a model you name. The model reads it in
 context and flags sentences to tighten. Unswell binds each flag to the exact

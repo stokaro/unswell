@@ -249,3 +249,33 @@ The bars, for the panel:
 - The index is lower after `unswell fix` on at least 90% of the pages: 247 of 250, holds.
 - The page after `unswell fix` is the less AI-sounding one on more than half of the decisive pages, with the lower end of the interval above 50%. Against the original: holds. Against the page fixed with write-good's findings: holds.
 - The same bar for all three judges together: against the original holds, against write-good's page holds. For the third judge alone: against the original holds, against write-good's page holds.
+
+## Fixing by a report that names the replacement, on a fourth sample
+
+For a model that follows the report of `unswell check`, the bar against write-good's page held on the first sample
+and failed on the second. That report gave the place of each mark and general advice, and the fixer chose its own
+punctuation. The report now names the replacement at each mark, the one that `unswell fix` would make. This run tests
+the fix by that report on the 131 pages of the third search's selection that no run had fixed or judged, with the bars
+written on issue 525 first.
+
+| Fixed by | Pages fixed | Failed | Index lower | Index higher | High before | High after | Median share of tokens changed |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| A model that follows the report | 131 | 0 | 131 | 0 | 97 | 2 | 1.6% |
+| The same model with write-good's findings | 128 | 3 | 6 | 13 | 95 | 95 | 1.0% |
+| `unswell fix`, no model | 131 | 0 | 130 | 0 | 97 | 0 | 1.5% |
+
+| Version under test | Against | Panel, of the decisive pages | Panel: no verdict | All three judges, of the decisive pages | Third judge alone, of its decisive answers | Third judge: the same |
+| --- | --- | --- | ---: | --- | --- | ---: |
+| after `unswell fix` | fixed with write-good's findings | 73 of 107, 68.2% (58.9% to 76.3%) | 24 | not read | not read |  |
+| after `unswell fix` | the original | 113 of 115, 98.3% (93.9% to 99.5%) | 16 | not read | not read |  |
+| fixed by unswell's report | the original | 111 of 113, 98.2% (93.8% to 99.5%) | 18 | 122 of 123, 99.2% (95.5% to 99.9%) | 73 of 74, 98.6% (92.7% to 99.8%) | 57 |
+| fixed with write-good's findings | the original | 76 of 110, 69.1% (59.9% to 77.0%) | 21 | 78 of 115, 67.8% (58.8% to 75.7%) | 37 of 55, 67.3% (54.1% to 78.2%) | 71 |
+| fixed by unswell's report | fixed with write-good's findings | 73 of 108, 67.6% (58.3% to 75.7%) | 23 | 87 of 122, 71.3% (62.7% to 78.6%) | 81 of 89, 91.0% (83.3% to 95.4%) | 39 |
+
+The bars, for the panel:
+
+- The index is lower after the fix by the report on at least 90% of the pages: 131 of 131, holds.
+- The report version is the less AI-sounding one on more than half of the decisive pages, with the lower end of the interval above 50%. Against the original: holds. Against the page fixed with write-good's findings: holds.
+- The same bar for all three judges together: against the original holds, against write-good's page holds. For the third judge alone: against the original holds, against write-good's page holds.
+
+The rows of `unswell fix` have no bar in this run.

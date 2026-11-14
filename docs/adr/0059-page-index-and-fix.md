@@ -156,7 +156,26 @@ Every bar against the original holds in every run. Against the best
 third-party linter the result differs by version. For the command it holds
 on the third run, where it had a bar, and the two earlier readings without a
 bar point the same way. For a model that follows unswell's report it held in
-the first run and did not in the second, so that claim is not made.
+the first run and did not in the second.
+
+A fourth run tested the fix by the report again, after the report began to
+name the replacement at each mark. On 131 more pages that nothing had fixed or
+judged, with the bars written first: the index is lower after the fix by the
+report on 131 of 131 pages; the panel finds the report version the less
+AI-sounding one against the original on 111 of 113, 98.2% (93.8% to 99.5%),
+and against the page fixed with write-good's findings on
+73 of 108, 67.6% (58.3% to 75.7%). Both bars hold. All three judges
+together give 87 of 122, 71.3% (62.7% to 78.6%) against
+write-good's page, and the third judge alone 81 of 89 of its decisive answers.
+On 61 of the 131 pages the model's page is the same as the command's. On the same
+pages, without a bar, the page after `unswell fix` gives 73 of 107 against
+write-good's page.
+
+So both ways of fixing what unswell points at meet the bar against the best
+third-party linter on pages that nothing had read: the command on the third
+run, and a model that follows the report on the fourth. With the earlier
+report, which gave the place of a mark and general advice, the bar held once
+and failed once.
 
 In the third run all three judges together find the page after `unswell fix`
 the less AI-sounding one against write-good's page on 163 of 230, 70.9% (64.7% to 76.4%),
@@ -190,8 +209,10 @@ bar for its own answers in three comparisons and meets it in each.
 
 On the second run the bar of the report version against write-good's version
 does not hold, and on the third run the command has that bar and meets it.
-The decision stands for the command. No claim is made that a model guided by
-unswell's report beats one guided by a third-party linter.
+After that the report was changed to name the replacement at each mark, and
+on the fourth run the report version meets its bar again. The claim against
+a third-party linter is made for the command and for a model that follows
+the report as it is now.
 
 ## Consequences
 

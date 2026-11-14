@@ -705,6 +705,57 @@ def fix_third_section(add, third):
             f"{words[extra['original|fix']['holds']]}, against write-good's page {words[extra['fix|write-good']['holds']]}.")
 
 
+def fix_fourth_section(add, fourth):
+    arms, extra = fourth["arms"], fourth.get("extra_judge", {})
+    add("")
+    add("## Fixing by a report that names the replacement, on a fourth sample")
+    add("")
+    add("For a model that follows the report of `unswell check`, the bar against write-good's page held on the first sample")
+    add("and failed on the second. That report gave the place of each mark and general advice, and the fixer chose its own")
+    add("punctuation. The report now names the replacement at each mark, the one that `unswell fix` would make. This run tests")
+    add(f"the fix by that report on the {fourth['pages']} pages of the third search's selection that no run had fixed or judged, with the bars")
+    add("written on issue 525 first.")
+    add("")
+    add("| Fixed by | Pages fixed | Failed | Index lower | Index higher | High before | High after | Median share of tokens changed |")
+    add("| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |")
+    for name, label in (("report", "A model that follows the report"), ("write-good", "The same model with write-good's findings"),
+                        ("fix", "`unswell fix`, no model")):
+        arm = arms[name]
+        changed = f"{100 * arm['median_changed']:.1f}%" if arm["median_changed"] is not None else "n/a"
+        add(f"| {label} | {arm['fixed']} | {arm['failed']} | {arm['lower']} | {arm['higher']} | {arm['high_before']} "
+            f"| {arm['high_after']} | {changed} |")
+    add("")
+    add("| Version under test | Against | Panel, of the decisive pages | Panel: no verdict | All three judges, of the decisive pages "
+        "| Third judge alone, of its decisive answers | Third judge: the same |")
+    add("| --- | --- | --- | ---: | --- | --- | ---: |")
+    for key, entry in fourth["comparisons"].items():
+        first, _, second = key.partition("|")
+        tested, other = (second, first) if first == "original" else (first, second)
+        together = alone = "not read"
+        same = ""
+        if key in extra:
+            together, alone, same = verdict_cell(extra[key]["three_judges"]), verdict_cell(extra[key]), str(extra[key]["answers"]["same"])
+        add(f"| {FRESH_VERSION_NAMES[tested]} | {FRESH_VERSION_NAMES[other]} | {verdict_cell(entry)} | {entry['tie']} "
+            f"| {together} | {alone} | {same} |")
+    registered = fourth["registered"]
+    words = {True: "holds", False: "does not hold"}
+    add("")
+    add("The bars, for the panel:")
+    add("")
+    add(f"- The index is lower after the fix by the report on at least 90% of the pages: {arms['report']['lower']} of {fourth['pages']}, "
+        f"{words[registered['report_lowers_index']]}.")
+    add("- The report version is the less AI-sounding one on more than half of the decisive pages, with the lower end of the "
+        f"interval above 50%. Against the original: {words[registered['original|report']]}. Against the page fixed with "
+        f"write-good's findings: {words[registered['report|write-good']]}.")
+    if extra:
+        add("- The same bar for all three judges together: against the original "
+            f"{words[extra['original|report']['three_judges']['holds']]}, against write-good's page "
+            f"{words[extra['report|write-good']['three_judges']['holds']]}. For the third judge alone: against the original "
+            f"{words[extra['original|report']['holds']]}, against write-good's page {words[extra['report|write-good']['holds']]}.")
+    add("")
+    add("The rows of `unswell fix` have no bar in this run.")
+
+
 def fix_section(add, fix):
     add("")
     add("## Fixing what unswell points at")
@@ -993,7 +1044,7 @@ def has_words(results):
 
 
 def has_index(results):
-    return any(results.get(name) for name in ("page_index", "fix", "judges_of_edits", "fix_fresh", "fix_third"))
+    return any(results.get(name) for name in ("page_index", "fix", "judges_of_edits", "fix_fresh", "fix_third", "fix_fourth"))
 
 
 def render_words(results):
@@ -1039,6 +1090,8 @@ def render_index(results):
         fix_fresh_section(add, results["fix_fresh"])
     if results.get("fix_third"):
         fix_third_section(add, results["fix_third"])
+    if results.get("fix_fourth"):
+        fix_fourth_section(add, results["fix_fourth"])
     return "\n".join(lines) + "\n"
 
 
