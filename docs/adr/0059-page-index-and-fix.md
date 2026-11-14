@@ -141,8 +141,9 @@ selected the same way. The bars were written on issue 525 before each run.
 The second run used the published `v0.1.0-alpha.10` binary on 89 pages. The
 third used the build of `main` that became `v0.1.0-alpha.11` on 250 pages; that
 build leaves pages at the level `low` alone and otherwise writes the same
-bytes. The published binary of `v0.1.0-alpha.11` writes, byte for byte, every
-fixed page that the judges read in the three runs.
+bytes. The published binary of `v0.1.0-alpha.12` writes, byte for byte, every
+page after `unswell fix` that the judges read in the four runs, and prints the
+same report that the fixer model was given in the fourth.
 
 | Measure, for the panel | First run, 83 pages | Second run, 89 new pages | Third run, 250 new pages |
 | --- | --- | --- | --- |
