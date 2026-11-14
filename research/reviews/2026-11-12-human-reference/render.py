@@ -427,6 +427,243 @@ def defaults_section(add, load, manual):
         + "; ".join(f"`{name}` " + ("is" if kept else "is not") for name, kept in manual["confirmed"].items()) + ".")
 
 
+def page_index_section(add, index, load):
+    human, held = index["human"], index["held_out"]
+    add("")
+    add("## Page index of AI-sounding documentation")
+    add("")
+    add("For a Markdown page of 150 prose words or more the product counts six marks per 1,000 prose words and combines the")
+    add("natural logarithm of one plus each rate with a fixed weight; the index is 100 times the logistic function of the sum,")
+    add("as a whole number. Level \"high\" is 70 or more, \"elevated\" 40 or more. The check recomputes the index of every page")
+    add("from its counts with the weights below and fails when it differs from what the product reported.")
+    add("")
+    add("| Signal | Weight |")
+    add("| --- | ---: |")
+    for name, weight in index["weights"].items():
+        add(f"| {name} | {weight:.2f} |")
+    add(f"| constant | {index['bias']:.2f} |")
+    add("")
+    add(f"Pages that people wrote: {human['pages']} README files as they were before November 2022, from repositories that had no")
+    add("part in fitting the weights. Pairs: one Markdown file before and after a commit whose message says that it removes")
+    add("AI-sounding wording, English, 150 words or more in both versions. The held-out pairs come from repositories with no")
+    add("pair in the main set: unused commits of the search and short one-file edits through GitHub's web flow. Nothing about")
+    add("them was used to choose a rule or to fit the index. The test part of the main set stands apart, because its pairs were")
+    add("used to admit two rules.")
+    add("")
+    add("| Pairs | Count | AUC against the pages that people wrote | Index lower after | Higher after | Same "
+        "| Lower among pairs that differ | High before | High after |")
+    add("| --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: |")
+    labels = (("held_out", "Held-out pairs"), ("held_out_web", "Held-out web-flow edits alone"),
+              ("web", "All web-flow edits, with repositories of the main set"), ("main_test", "Test part of the main set"))
+    for key, label in labels:
+        entry = index[key]
+        low, high = entry["interval"]
+        changed = entry["lower"] + entry["higher"]
+        add(f"| {label} | {entry['pairs']} | {entry['auc']:.3f} | {entry['lower']} | {entry['higher']} | {entry['pairs'] - changed} "
+            f"| {pct(entry['lower'], changed)} ({100 * low:.1f}% to {100 * high:.1f}%) "
+            f"| {pct(entry['high_before'], entry['pairs'])} | {pct(entry['high_after'], entry['pairs'])} |")
+    add("")
+    add(f"Of the pages that people wrote, {human['high']} are at level \"high\" ({pct(human['high'], human['pages'])}) and "
+        f"{human['elevated']} at \"elevated\" ({pct(human['elevated'], human['pages'])}).")
+    if load:
+        add("")
+        add(f"The rules that ship on, over the same {load['pages']} README files: {load['with_any_finding']} have a finding "
+            f"({pct(load['with_any_finding'], load['pages'])}). A default rule may report on at most one page in twenty.")
+        add("")
+        add("| Rule | Pages with a finding | Share |")
+        add("| --- | ---: | ---: |")
+        for name, count in sorted(load["rules"].items(), key=lambda item: (-item[1], item[0])):
+            add(f"| `{name}` | {count} | {pct(count, load['pages'])} |")
+        add("")
+        add("Every rule that reports is within the limit: " + ("yes." if not load["over_limit"] else "no, over it: "
+            + ", ".join(f"`{name}`" for name in load["over_limit"]) + "."))
+    add("")
+    registered = index["registered"]
+    words = {True: "holds", False: "does not hold"}
+    add("Registered on issue 525 before the index ran outside the development part: "
+        f"AUC of at least 0.80 on the held-out pairs {words[registered['auc']]}; "
+        f"index lower after the commit in at least 70% of the held-out pairs that differ {words[registered['pairs']]}; "
+        f"the same on the held-out web-flow edits alone {words[registered['web_pairs']]}; "
+        f"level \"high\" on at most 5% of the pages that people wrote {words[registered['human_high']]}.")
+    add("")
+    add(f"The index does not change in {held['pairs'] - held['lower'] - held['higher']} of the {held['pairs']} held-out pairs, so it is "
+        f"lower after the commit in {pct(held['lower'], held['pairs'])} of all of them. The web-flow reading rests on "
+        f"{index['held_out_web']['lower'] + index['held_out_web']['higher']} pairs that differ. The index is fitted on documentation "
+        "that someone set out to clean; it does not say who wrote a page.")
+
+
+FIX_ARM_NAMES = {"fix-comma": "`unswell fix` at the registered run, no model", "fix": "`unswell fix` as it ships, no model",
+                 "report": "A model that follows unswell's report",
+                 "google": "The same model with Vale's Google findings", "microsoft": "The same model with Vale's Microsoft findings",
+                 "write-good": "The same model with write-good's findings"}
+FIX_VERSION_NAMES = {"original": "the original", "fix-comma": "after `unswell fix` at the registered run",
+                     "fix": "after `unswell fix` as it ships", "report": "fixed by unswell's report",
+                     "google": "fixed by Vale's Google findings", "microsoft": "fixed by Vale's Microsoft findings",
+                     "write-good": "fixed by write-good's findings"}
+FIX_LINTER_NAMES = {"google": "Vale with the Google style", "microsoft": "Vale with the Microsoft style", "write-good": "write-good"}
+
+
+def judge_share(entry):
+    decisive = entry["before"] + entry["after"]
+    low, high = entry["interval"]
+    return f"{pct(entry['before'], decisive)} ({100 * low:.1f}% to {100 * high:.1f}%)"
+
+
+def judges_section(add, judges):
+    add("")
+    add("## The judges of the fix experiment")
+    add("")
+    add(f"{judges['pairs']} held-out pairs of one page before and after a de-slop edit by people (unused commits of the search and web-flow")
+    add("edits from repositories with no pair in the main set, one per repository, 150 to 1,500 words, at least 3% of the tokens")
+    add("changed). A judge sees the two versions as A and B in an order fixed by a hash and names the one that reads more like")
+    add("text written by a language model. A judge is admitted if it names the version before the edit in at least 70% of its")
+    add("decisive answers.")
+    add("")
+    add("| Judge | Before the edit named | After the edit named | Same | Share of decisive answers | Admitted |")
+    add("| --- | ---: | ---: | ---: | --- | --- |")
+    for judge, entry in judges["comparisons"]["edit"].items():
+        if entry["before"] + entry["after"]:
+            add(f"| `{judge}` | {entry['before']} | {entry['after']} | {entry['same']} | {judge_share(entry)} "
+                f"| {'yes' if judges['admitted'][judge] else 'no'} |")
+    both, fixed = judges["comparisons"]["edit_both_fixed"], judges["comparisons"]["fixed_against_edit"]
+    if not any(entry["before"] + entry["after"] for entry in both.values()):
+        return
+    add("")
+    add("The judges often give as their reason the marks that the index counts. So the same pairs were judged again with")
+    add("`unswell fix` applied to both versions, which leaves neither side a mark with a mechanical replacement. A pair that")
+    add("the engine cannot parse is left out.")
+    add("")
+    add("| Judge | Before the edit named | After the edit named | Same | Share of decisive answers |")
+    add("| --- | ---: | ---: | ---: | --- |")
+    for judge, entry in both.items():
+        if entry["before"] + entry["after"]:
+            add(f"| `{judge}` | {entry['before']} | {entry['after']} | {entry['same']} | {judge_share(entry)} |")
+    if not any(entry["before"] + entry["after"] for entry in fixed.values()):
+        return
+    add("")
+    add("The version before the edit after `unswell fix`, against the version as the person left it:")
+    add("")
+    add("| Judge | The fixed earlier version named | The person's version named | Same | Share naming the fixed earlier version |")
+    add("| --- | ---: | ---: | ---: | --- |")
+    for judge, entry in fixed.items():
+        if entry["before"] + entry["after"]:
+            add(f"| `{judge}` | {entry['before']} | {entry['after']} | {entry['same']} | {judge_share(entry)} |")
+
+
+def fix_extra_section(add, extra, judge):
+    add("")
+    add(f"A judge of another model family, `{judge}`, was registered after the run of the panel and judged four of the")
+    add("comparisons alone:")
+    add("")
+    add("| Version under test | Against | Named the other version | Named the version under test | Same | No answer "
+        "| Share for the version under test | With the two judges of the panel: for it, against it, tie |")
+    add("| --- | --- | ---: | ---: | ---: | ---: | --- | --- |")
+    for key, entry in extra.items():
+        first, _, second = key.partition("|")
+        tested, other = (second, first) if first == "original" else (first, second)
+        low, high = entry["interval"]
+        decisive = entry["tested_less"] + entry["other_less"]
+        three = entry["three_judges"]
+        ours, theirs = (three["second_less"], three["first_less"]) if first == "original" else (three["first_less"], three["second_less"])
+        add(f"| {FIX_VERSION_NAMES[tested]} | {FIX_VERSION_NAMES[other]} | {entry['tested_less']} | {entry['other_less']} "
+            f"| {entry['answers']['same']} | {entry['answers']['missing']} "
+            f"| {pct(entry['tested_less'], decisive)} ({100 * low:.1f}% to {100 * high:.1f}%) | {ours}, {theirs}, {three['tie']} |")
+    add("")
+    words = {True: "holds", False: "does not hold"}
+    add("Its bars, registered before its run: more than half of its decisive answers for the version of unswell, with the lower")
+    add("end of the interval above 50%. "
+        f"`unswell fix` at the registered run against the original: {words[extra['original|fix-comma']['holds']]}. "
+        f"The report version against the original: {words[extra['original|report']['holds']]}. "
+        f"The report version against write-good's: {words[extra['report|write-good']['holds']]}. "
+        f"On the second reading, `unswell fix` as it ships against the original: {words[extra['original|fix']['holds']]}.")
+
+
+def fix_section(add, fix):
+    add("")
+    add("## Fixing what unswell points at")
+    add("")
+    add(f"{fix['pages']} pages as they were before a de-slop commit, from the held-out pairs: English, 150 to 1,500 words, index 40")
+    add("or more, one page per repository. Each page has fixed versions. One is what `unswell fix --write` leaves, with no")
+    add("model. For the others one model gets the page and one report with the same instruction: resolve what the report")
+    add("points at, change nothing else, return the whole page. The report is the text report of `unswell check` with the")
+    add("configuration that ships, or the findings of a third-party linter. A model fix that returns less than half of the")
+    add("page, or leaves fewer than 150 prose words, counts as failed. A fixer call that returned nothing was repeated once.")
+    add("")
+    add("`unswell fix` changed after the registered run. It wrote a comma for an em dash between two full clauses, which is a")
+    add("comma splice; it now writes a period and a capital letter there. The registered bars are read on the version of the")
+    add("run. The comparisons of the version that ships were judged again on the same pages, which had been read once.")
+    add("")
+    add("| Fixed by | Pages fixed | Failed | Index lower | Index higher | High before | High after | Median share of tokens changed |")
+    add("| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |")
+    for name, label in FIX_ARM_NAMES.items():
+        arm = fix["arms"][name]
+        changed = f"{100 * arm['median_changed']:.1f}%" if arm["median_changed"] is not None else "n/a"
+        add(f"| {label} | {arm['fixed']} | {arm['failed']} | {arm['lower']} | {arm['higher']} | {arm['high_before']} "
+            f"| {arm['high_after']} | {changed} |")
+    add("")
+    add("Two judges see two versions of a page as A and B, in an order fixed by a hash, and name the one that reads more like")
+    add("text written by a language model. Both were admitted on held-out pairs before and after a de-slop edit by people; the")
+    add("section on the judges has their numbers. A page-level verdict adds the two judges: an answer counts for the version it")
+    add("did not name, and \"same\" counts for neither.")
+    add("")
+    add("| Version under test | Against | Pages where it is the less AI-sounding | The other | Tie | Share of decisive pages |")
+    add("| --- | --- | ---: | ---: | ---: | --- |")
+    for key, entry in fix["comparisons"].items():
+        first, _, second = key.partition("|")
+        tested, other = (second, first) if first == "original" else (first, second)
+        low, high = entry["interval"]
+        decisive = entry["tested_less"] + entry["other_less"]
+        add(f"| {FIX_VERSION_NAMES[tested]} | {FIX_VERSION_NAMES[other]} | {entry['tested_less']} | {entry['other_less']} | {entry['tie']} "
+            f"| {pct(entry['tested_less'], decisive)} ({100 * low:.1f}% to {100 * high:.1f}%) |")
+    add("")
+    add("Each judge alone, as answers naming the first version, the second, both the same, and no answer:")
+    add("")
+    judges = list(next(iter(fix["comparisons"].values()))["judges"])
+    add("| First version, then second | " + " | ".join(f"`{judge}`" for judge in judges) + " |")
+    add("| --- | " + " | ".join("---" for _ in judges) + " |")
+    for key, entry in fix["comparisons"].items():
+        first, _, second = key.partition("|")
+        cells = " | ".join("{first} / {second} / {same} / {missing}".format(**entry["judges"][judge]) for judge in judges)
+        add(f"| {FIX_VERSION_NAMES[first]}, then {FIX_VERSION_NAMES[second]} | {cells} |")
+    add("")
+    registered, best = fix["registered"], fix["best_linter"]
+    words = {True: "holds", False: "does not hold"}
+    add("Registered on issue 525 before a fixed version of a held-out page existed:")
+    add("")
+    for name, label, key in (("fix-comma", "`unswell fix`", "fix_lowers_index"), ("report", "the fix by unswell's report", "report_lowers_index")):
+        add(f"- The index is lower after {label} on at least 90% of the pages: {fix['arms'][name]['lower']} of {fix['pages']}, "
+            f"{words[registered[key]]}.")
+    rows = [("original|fix-comma", "The version after `unswell fix`", "the original", registered["original|fix"]),
+            ("original|report", "The version fixed by unswell's report", "the original", registered["original|report"]),
+            (f"report|{best}", "The version fixed by unswell's report", f"the version fixed by the findings of {FIX_LINTER_NAMES[best]}",
+             registered["report|best_linter"])]
+    second = fix["second_reading"]
+    for key, tested, other, held in rows:
+        entry = fix["comparisons"][key]
+        low, high = entry["interval"]
+        decisive = entry["tested_less"] + entry["other_less"]
+        add(f"- {tested} is the less AI-sounding one against {other} on more than half of the decisive pages, with the lower "
+            f"end of the interval above 50%: {entry['tested_less']} of {decisive}, {pct(entry['tested_less'], decisive)} "
+            f"({100 * low:.1f}% to {100 * high:.1f}%), {words[held]}.")
+    entry = fix["comparisons"]["original|fix"]
+    low, high = entry["interval"]
+    decisive = entry["tested_less"] + entry["other_less"]
+    add("")
+    add(f"The second reading, with `unswell fix` as it ships: the index is lower on {fix['arms']['fix']['lower']} of {fix['pages']} pages, "
+        f"which {words[second['fix_lowers_index']]}, and the fixed page is the less AI-sounding one against the original on "
+        f"{entry['tested_less']} of {decisive} decisive pages, {pct(entry['tested_less'], decisive)} ({100 * low:.1f}% to {100 * high:.1f}%), "
+        f"which {words[second['original|fix']]}.")
+    add("")
+    add(f"The best third-party linter is the one whose version does best against the original on these pages: {FIX_LINTER_NAMES[best]}.")
+    add("")
+    add("The fixer and the two judges of the panel are models of one family, and the fixer is one of the two. The versions")
+    add("fixed by a linter's findings come from the same fixer, so a judge that likes any rewrite by its own family would like")
+    add("them too; `unswell fix` involves no model. The judges often give the marks that the index counts as their reasons, so")
+    add("the panel and the index are not independent readings.")
+    if fix.get("extra_judge"):
+        fix_extra_section(add, fix["extra_judge"], "gpt-6-astra")
+
+
 def system_name(name):
     parts = name.split("-")
     if parts[0] == "rules":
@@ -615,12 +852,21 @@ def render(results):
         add("")
         add(f"The comparisons at the level of words are in [{WORDS_PAGE}]({WORDS_PAGE}): the words that trims remove, the")
         add("listed chat opener, and each rule against the words an editor changed.")
+    if has_index(results):
+        add("")
+        add("## Page index and fix")
+        add("")
+        add(f"The page index of AI-sounding documentation, the fix experiment, and its judges are in [{INDEX_PAGE}]({INDEX_PAGE}).")
     return "\n".join(lines) + "\n"
 
 
 def has_words(results):
     return any(results.get(name) for name in ("trims", "openers", "rule_words", "vocabulary", "deslop", "review_repeat",
                                               "default_load"))
+
+
+def has_index(results):
+    return any(results.get(name) for name in ("page_index", "fix", "judges_of_edits"))
 
 
 def render_words(results):
@@ -648,15 +894,34 @@ def render_words(results):
     return "\n".join(lines) + "\n"
 
 
-# Every generated page and its renderer. The second page exists only when the record has word-level results.
-WORDS_PAGE = "RESULTS-words.md"
-PAGES = {"RESULTS.md": render, WORDS_PAGE: render_words}
+def render_index(results):
+    """Render the page of the page index, the fix experiment, and its judges."""
+    lines = []
+    add = lines.append
+    add("# Results of the page index and of the fix")
+    add("")
+    add("Generated by `render.py` from `results.json`, which `verify.py` recounts from the data files.")
+    add("[RESULTS.md](RESULTS.md) and [RESULTS-words.md](RESULTS-words.md) have the other results.")
+    if results.get("page_index"):
+        page_index_section(add, results["page_index"], results.get("readme_load"))
+    if results.get("fix"):
+        fix_section(add, results["fix"])
+    if results.get("judges_of_edits"):
+        judges_section(add, results["judges_of_edits"])
+    return "\n".join(lines) + "\n"
+
+
+# Every generated page with its renderer, and whether a record with these results has the page. The second page
+# exists only when the record has word-level results, and the third only with the page index or the fix experiment.
+WORDS_PAGE, INDEX_PAGE = "RESULTS-words.md", "RESULTS-index.md"
+PAGES = {"RESULTS.md": render, WORDS_PAGE: render_words, INDEX_PAGE: render_index}
+PRESENT = {"RESULTS.md": lambda results: True, WORDS_PAGE: has_words, INDEX_PAGE: has_index}
 
 
 if __name__ == "__main__":
     root = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE
     loaded = json.loads((root / "results.json").read_text())
     for page, function in PAGES.items():
-        if page == "RESULTS.md" or has_words(loaded):
+        if PRESENT[page](loaded):
             (root / page).write_text(function(loaded))
             print("written", root / page)

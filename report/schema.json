@@ -867,6 +867,120 @@
       ],
       "type": "object"
     },
+    "unswell.AIMark": {
+      "additionalProperties": false,
+      "properties": {
+        "fix": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/unswell.AIMarkFix"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "signal": {
+          "type": "string"
+        },
+        "span": {
+          "$ref": "#/$defs/document.Span"
+        },
+        "start": {
+          "$ref": "#/$defs/document.Position"
+        },
+        "word": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "signal",
+        "span",
+        "start"
+      ],
+      "type": "object"
+    },
+    "unswell.AIMarkFix": {
+      "additionalProperties": false,
+      "properties": {
+        "span": {
+          "$ref": "#/$defs/document.Span"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "span",
+        "text"
+      ],
+      "type": "object"
+    },
+    "unswell.AISignal": {
+      "additionalProperties": false,
+      "properties": {
+        "advice": {
+          "type": "string"
+        },
+        "count": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "per_thousand_words": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "count",
+        "per_thousand_words",
+        "advice"
+      ],
+      "type": "object"
+    },
+    "unswell.AISounding": {
+      "additionalProperties": false,
+      "properties": {
+        "index": {
+          "type": "integer"
+        },
+        "level": {
+          "type": "string"
+        },
+        "marks": {
+          "items": {
+            "$ref": "#/$defs/unswell.AIMark"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "prose_words": {
+          "type": "integer"
+        },
+        "signals": {
+          "items": {
+            "$ref": "#/$defs/unswell.AISignal"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "index",
+        "prose_words"
+      ],
+      "type": "object"
+    },
     "unswell.Assessment": {
       "additionalProperties": false,
       "properties": {
@@ -1082,6 +1196,16 @@
     "unswell.DocumentResult": {
       "additionalProperties": false,
       "properties": {
+        "ai_sounding": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/unswell.AISounding"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "applied_overrides": {
           "items": {
             "type": "string"

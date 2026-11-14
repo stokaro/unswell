@@ -30,8 +30,56 @@ DATA = ("data/sentences.jsonl.gz", "data/preferences.jsonl.gz", "data/expert-pai
         "data/rule-words.jsonl.gz", "data/opener-load.jsonl.gz", "data/vocabulary.jsonl.gz",
         "data/vocabulary-phrases.jsonl.gz", "data/vocabulary-load.jsonl.gz", "data/deslop-pairs.jsonl.gz",
         "data/emoji-load.jsonl.gz", "data/frequency-load.jsonl.gz", "data/review-repeat.jsonl.gz",
-        "data/default-load.jsonl.gz", "data/manual-pairs.jsonl.gz")
+        "data/default-load.jsonl.gz", "data/manual-pairs.jsonl.gz", "data/page-index.jsonl.gz",
+        "data/readme-load.jsonl.gz", "data/fix-panel.jsonl.gz", "data/judge-pairs.jsonl.gz")
 DEFAULT_LOAD, MANUAL = "data/default-load.jsonl.gz", "data/manual-pairs.jsonl.gz"
+PAGE_INDEX = "data/page-index.jsonl.gz"
+# The fix experiment: one page before a de-slop commit in several fixed versions, and what blind judges say about two
+# versions of it. "fix" is what `unswell fix --write` leaves; "report" is a model that follows the text report of
+# `unswell check`; the others are the same model following the findings of a third-party linter. An answer names the
+# version that reads more like text written by a language model.
+FIX_PANEL = "data/fix-panel.jsonl.gz"
+FIX_KEYS = {"page", "repository", "commit", "path", "layer", "index", "arms", "answers"}
+# "fix-comma" is the command as it was at the registered run, when it wrote a comma for every dash that it now turns
+# into a period between two full clauses; "fix" is the command that ships. The registered bars are read on the first,
+# and the same pages were judged again for the second.
+FIX_FIRST = "fix-comma"
+FIX_OURS, FIX_LINTERS = ("fix", "report"), ("google", "microsoft", "write-good")
+FIX_ARMS = (FIX_FIRST, *FIX_OURS, *FIX_LINTERS)
+FIX_COMPARISONS = (*(("original", arm) for arm in FIX_ARMS),
+                   *((ours, linter) for ours in (FIX_FIRST, *FIX_OURS) for linter in FIX_LINTERS))
+FIX_JUDGES = ("private-host/Qwen3.6-35B-A3B", "private-host/Qwen3.8-27B")
+# A judge of another model family, registered after the run of the panel and reported beside it. It judged the
+# comparisons of FIX_EXTRA only, and its bars are the three of them that test a version of unswell.
+FIX_EXTRA_JUDGE = "gpt-6-astra"
+FIX_EXTRA = (("original", FIX_FIRST), ("original", "fix"), ("original", "report"), ("original", "write-good"),
+             ("report", "write-good"))
+# The pairs that admit a judge: one page before and after a de-slop edit by people. "edit" is the pair as it is,
+# "edit_both_fixed" the pair with `unswell fix` applied to both versions, and "fixed_against_edit" the version before
+# the edit after `unswell fix` against the version as the person left it. An answer names the side that reads more
+# like text written by a language model: "before", "after", or "same".
+JUDGE_PAIRS = "data/judge-pairs.jsonl.gz"
+JUDGE_PAIR_KEYS = {"pair", "repository", "commit", "path", "layer", "comparisons"}
+JUDGE_COMPARISONS = ("edit", "edit_both_fixed", "fixed_against_edit")
+JUDGE_ADMISSION = 0.70
+# Registered on issue 525 before a fixed version of a held-out page existed: the index falls on this share of the
+# pages after each of unswell's two fixes; each of the two is the less AI-sounding version against the original; and
+# the report version is the less AI-sounding one against the version of the best third-party linter, which is the
+# linter whose version does best against the original.
+FIX_INDEX_SHARE = 0.90
+# The same count as DEFAULT_LOAD on the README files of the page index, with the rules that ship on.
+README_LOAD = "data/readme-load.jsonl.gz"
+PAGE_INDEX_KEYS = {"group", "id", "side", "repository", "commit", "path", "outside_main", "words", "counts", "index"}
+# The signals of the page index with the weights that the product ships, and its constant term. A row's index must
+# follow from its counts with these, so the record and the product cannot part unnoticed.
+INDEX_WEIGHTS = {"em-dash": 0.94, "emoji-in-heading": 0.69, "emoji-at-list-item": 0.71, "arrow": 0.81, "stock-word": 0.62,
+                 "bold-label-in-list": 0.44}
+INDEX_BIAS = -1.23
+INDEX_HIGH, INDEX_ELEVATED, INDEX_MIN_WORDS = 70, 40, 150
+# Registered on issue 525 before the index ran on a page outside the development part: the AUC between pages before
+# a de-slop commit and pages that people wrote, the share of pairs in which the index is lower after the commit, and
+# the share of pages that people wrote at level "high".
+INDEX_AUC, INDEX_PAIR_SHARE, INDEX_HUMAN_HIGH = 0.80, 0.70, 0.05
 # Rules that ship disabled because they report on more than one in twenty pages that people wrote, or are not
 # confirmed on likely-manual edits. The strict profile turns them on.
 STRICT_ONLY = ("filler.wordy-phrase", "syntax.long-sentence", "filler.instruction-scaffolding", "hype.vague-praise",
@@ -1023,12 +1071,12 @@ def review_repeat_results(root):
     return result
 
 
-def default_load_results(root):
+def default_load_results(root, source=DEFAULT_LOAD):
     """Recount on how many pages that people wrote each rule reports, and which rules pass the limit for a default."""
-    if not (root / DEFAULT_LOAD).exists():
+    if not (root / source).exists():
         return {}
     pages, counts = set(), {}
-    for row in rows(root / DEFAULT_LOAD):
+    for row in rows(root / source):
         valid = set(row) == {"page", "words", "rules"} and row["page"] not in pages and isinstance(row["rules"], list)
         if not valid or not isinstance(row["words"], int) or row["words"] <= 0 or len(set(row["rules"])) != len(row["rules"]):
             fail(f"invalid load row: {row.get('page')}")
@@ -1038,7 +1086,7 @@ def default_load_results(root):
     result = {"pages": len(pages), "rules": dict(sorted(counts.items())),
               "over_limit": sorted(name for name, count in counts.items() if count * HUMAN_PAGE_LIMIT > len(pages)),
               "with_default_finding": 0, "with_any_finding": 0}
-    for row in rows(root / DEFAULT_LOAD):
+    for row in rows(root / source):
         result["with_any_finding"] += bool(row["rules"])
         result["with_default_finding"] += any(name not in STRICT_ONLY for name in row["rules"])
     # Every rule over the limit must be one that ships disabled.
@@ -1080,6 +1128,229 @@ def manual_results(root):
     return result
 
 
+def page_index(words, counts):
+    """The index of a page from its prose words and signal counts, as the product computes it."""
+    score = INDEX_BIAS + sum(weight * math.log1p(1000 * counts[name] / words) for name, weight in INDEX_WEIGHTS.items())
+    return math.floor(100 / (1 + math.exp(-score)) + 0.5)
+
+
+def auc(positive, negative):
+    """Share of pairs of one positive and one negative value in which the positive one is higher; a tie counts as half."""
+    if not positive or not negative:
+        return None
+    below, total = {}, 0.0
+    ordered = sorted(negative)
+    for value in sorted(set(positive)):
+        lower = sum(1 for other in ordered if other < value)
+        equal = sum(1 for other in ordered if other == value)
+        below[value] = lower + equal / 2
+    for value in positive:
+        total += below[value]
+    return round(total / (len(positive) * len(negative)), 4)
+
+
+def index_pairs(pairs, human):
+    """How the index reads a set of pairs: against the pages that people wrote, and after the commit against before it."""
+    before = [first["index"] for first, _ in pairs]
+    lower = sum(second["index"] < first["index"] for first, second in pairs)
+    higher = sum(second["index"] > first["index"] for first, second in pairs)
+    return {"pairs": len(pairs), "auc": auc(before, human), "lower": lower, "higher": higher,
+            "interval": wilson(lower, lower + higher),
+            "high_before": sum(value >= INDEX_HIGH for value in before),
+            "high_after": sum(second["index"] >= INDEX_HIGH for _, second in pairs)}
+
+
+def page_index_row(row, seen):
+    key = (row.get("group"), row.get("id"), row.get("side"))
+    sides = ("page",) if row.get("group") == "human" else ("before", "after")
+    valid = (set(row) == PAGE_INDEX_KEYS and key not in seen and row["group"] in ("human", "reserve", "web", "main")
+             and row["side"] in sides and isinstance(row["words"], int) and row["words"] >= INDEX_MIN_WORDS
+             and isinstance(row["counts"], dict) and set(row["counts"]) == set(INDEX_WEIGHTS)
+             and all(isinstance(value, int) and value >= 0 for value in row["counts"].values()))
+    if not valid:
+        fail(f"invalid page index row: {key}")
+    if page_index(row["words"], row["counts"]) != row["index"]:
+        fail(f"index of {key} differs from its counts")
+    seen.add(key)
+    return key
+
+
+def page_index_results(root):
+    """Recount the registered reading of the page index: the pages that people wrote and the pairs outside its fitting."""
+    if not (root / PAGE_INDEX).exists():
+        return {}
+    human, sides, seen = [], {}, set()
+    for row in rows(root / PAGE_INDEX):
+        group, identifier, side = page_index_row(row, seen)
+        if group == "human":
+            human.append(row["index"])
+        else:
+            sides.setdefault((group, identifier), {})[side] = row
+    for key, pair in sides.items():
+        if len(pair) != 2:
+            fail(f"pair without both versions: {key}")
+    pairs = {key: (pair["before"], pair["after"]) for key, pair in sorted(sides.items())}
+    outside = [pair for (group, _), pair in pairs.items() if group != "main" and pair[0]["outside_main"]]
+    web = [pair for (group, _), pair in pairs.items() if group == "web"]
+    result = {"weights": INDEX_WEIGHTS, "bias": INDEX_BIAS,
+              "human": {"pages": len(human), "high": sum(value >= INDEX_HIGH for value in human),
+                        "elevated": sum(INDEX_ELEVATED <= value < INDEX_HIGH for value in human)},
+              "held_out": index_pairs(outside, human),
+              "held_out_web": index_pairs([pair for pair in web if pair[0]["outside_main"]], human),
+              "web": index_pairs(web, human),
+              "main_test": index_pairs([pair for (group, _), pair in pairs.items() if group == "main"], human)}
+
+    def share(entry):
+        changed = entry["lower"] + entry["higher"]
+        return bool(changed) and entry["lower"] >= INDEX_PAIR_SHARE * changed
+
+    held = result["held_out"]
+    result["registered"] = {"auc": held["auc"] is not None and held["auc"] >= INDEX_AUC, "pairs": share(held),
+                            "web_pairs": share(result["held_out_web"]),
+                            "human_high": bool(human) and result["human"]["high"] <= INDEX_HUMAN_HIGH * len(human)}
+    return result
+
+
+def fix_row(row, seen):
+    """Check one page of the fix experiment and return it."""
+    valid = (set(row) == FIX_KEYS and row["page"] not in seen and isinstance(row["index"], int)
+             and isinstance(row["arms"], dict) and set(row["arms"]) == set(FIX_ARMS) and isinstance(row["answers"], dict))
+    if not valid:
+        fail(f"invalid fix row: {row.get('page')}")
+    for name, arm in row["arms"].items():
+        if arm is not None and (set(arm) != {"index", "changed"} or not isinstance(arm["index"], int)
+                                or not isinstance(arm["changed"], (int, float)) or not 0 <= arm["changed"] <= 1):
+            fail(f"invalid arm {name} of fix page {row['page']}")
+    for comparison, answers in row["answers"].items():
+        first, _, second = comparison.partition("|")
+        judges = (*FIX_JUDGES, FIX_EXTRA_JUDGE) if (first, second) in FIX_EXTRA else FIX_JUDGES
+        known = (first, second) in FIX_COMPARISONS and set(answers) <= set(judges)
+        if not known or not all(answer in ("first", "second", "same") for answer in answers.values()):
+            fail(f"invalid answers for {comparison} of fix page {row['page']}")
+        if any(version != "original" and row["arms"][version] is None for version in (first, second)):
+            fail(f"answer about a failed fix: {comparison} of fix page {row['page']}")
+    seen.add(row["page"])
+    return row
+
+
+def fix_comparison(pages, first, second):
+    """Count what the judges said about two versions, per judge and per page."""
+    key = f"{first}|{second}"
+    judges = {judge: collections.Counter() for judge in FIX_JUDGES}
+    verdicts = collections.Counter()
+    for row in pages:
+        answers = {judge: answer for judge, answer in row["answers"].get(key, {}).items() if judge in FIX_JUDGES}
+        for judge in FIX_JUDGES:
+            judges[judge][answers.get(judge, "missing")] += 1
+        # A judge names the version that reads more like a language model, which counts for the other one.
+        score = sum((answer == "first") - (answer == "second") for answer in answers.values())
+        verdicts["second_less" if score > 0 else "first_less" if score < 0 else "tie"] += 1
+    entry = {"judges": {judge: {name: tally[name] for name in ("first", "second", "same", "missing")} for judge, tally in judges.items()},
+             "first_less": verdicts["first_less"], "second_less": verdicts["second_less"], "tie": verdicts["tie"]}
+    # The version under test is the fixed one against the original, and unswell's against a linter's.
+    tested = entry["second_less"] if first == "original" else entry["first_less"]
+    decisive = entry["first_less"] + entry["second_less"]
+    entry.update(tested_less=tested, other_less=decisive - tested, interval=wilson(tested, decisive))
+    entry["holds"] = tested > decisive - tested and entry["interval"][0] > 0.5
+    return entry
+
+
+def fix_extra_judge(pages):
+    """Count the answers of the judge of another family, alone and together with the two judges of the panel."""
+    result = {}
+    for first, second in FIX_EXTRA:
+        key = f"{first}|{second}"
+        tally, together = collections.Counter(), collections.Counter()
+        for row in pages:
+            answers = row["answers"].get(key, {})
+            tally[answers.get(FIX_EXTRA_JUDGE, "missing")] += 1
+            score = sum((answer == "first") - (answer == "second") for answer in answers.values())
+            together["second_less" if score > 0 else "first_less" if score < 0 else "tie"] += 1
+        # The version under test is named less often: the second against the original, the first against a linter's.
+        tested, other = (tally["first"], tally["second"]) if first == "original" else (tally["second"], tally["first"])
+        entry = {"answers": {name: tally[name] for name in ("first", "second", "same", "missing")},
+                 "tested_less": tested, "other_less": other, "interval": wilson(tested, tested + other),
+                 "three_judges": {name: together[name] for name in ("first_less", "second_less", "tie")}}
+        entry["holds"] = tested > other and entry["interval"][0] > 0.5
+        result[key] = entry
+    return result
+
+
+def judge_results(root):
+    """Recount how each judge reads pairs before and after a de-slop edit by people, with and without their marks."""
+    if not (root / JUDGE_PAIRS).exists():
+        return {}
+    judges = (*FIX_JUDGES, FIX_EXTRA_JUDGE)
+    counts = {name: {judge: collections.Counter() for judge in judges} for name in JUDGE_COMPARISONS}
+    seen = set()
+    for row in rows(root / JUDGE_PAIRS):
+        valid = (set(row) == JUDGE_PAIR_KEYS and row["pair"] not in seen and isinstance(row["comparisons"], dict)
+                 and set(row["comparisons"]) <= set(JUDGE_COMPARISONS)
+                 and all(set(answers) <= set(judges) and all(answer in ("before", "after", "same") for answer in answers.values())
+                         for answers in row["comparisons"].values()))
+        if not valid:
+            fail(f"invalid judge pair: {row.get('pair')}")
+        seen.add(row["pair"])
+        for name, answers in row["comparisons"].items():
+            for judge, answer in answers.items():
+                counts[name][judge][answer] += 1
+    result = {"pairs": len(seen), "comparisons": {}, "admitted": {}}
+    for name in JUDGE_COMPARISONS:
+        result["comparisons"][name] = {}
+        for judge in judges:
+            tally = counts[name][judge]
+            decisive = tally["before"] + tally["after"]
+            result["comparisons"][name][judge] = {"before": tally["before"], "after": tally["after"], "same": tally["same"],
+                                                  "interval": wilson(tally["before"], decisive)}
+    for judge in judges:
+        entry = result["comparisons"]["edit"][judge]
+        decisive = entry["before"] + entry["after"]
+        result["admitted"][judge] = bool(decisive) and entry["before"] >= JUDGE_ADMISSION * decisive
+    return result
+
+
+def fix_results(root):
+    """Recount the fix experiment: the index after each fix, and which version the blind judges call less AI-sounding."""
+    if not (root / FIX_PANEL).exists():
+        return {}
+    seen = set()
+    pages = [fix_row(row, seen) for row in rows(root / FIX_PANEL)]
+    result = {"pages": len(pages), "arms": {}, "comparisons": {}}
+    for name in FIX_ARMS:
+        fixed = [(row["index"], row["arms"][name]) for row in pages if row["arms"][name] is not None]
+        changed = sorted(arm["changed"] for _, arm in fixed)
+        result["arms"][name] = {"fixed": len(fixed), "failed": len(pages) - len(fixed),
+                                "lower": sum(arm["index"] < before for before, arm in fixed),
+                                "higher": sum(arm["index"] > before for before, arm in fixed),
+                                "high_before": sum(before >= INDEX_HIGH for before, _ in fixed),
+                                "high_after": sum(arm["index"] >= INDEX_HIGH for _, arm in fixed),
+                                "median_changed": changed[len(changed) // 2] if changed else None}
+    for first, second in FIX_COMPARISONS:
+        result["comparisons"][f"{first}|{second}"] = fix_comparison(pages, first, second)
+
+    def against_original(linter):
+        entry = result["comparisons"][f"original|{linter}"]
+        decisive = entry["tested_less"] + entry["other_less"]
+        return entry["tested_less"] / decisive if decisive else 0.0
+
+    # The first linter in the fixed order wins a tie.
+    best = max(FIX_LINTERS, key=against_original)
+    result["best_linter"] = best
+    def lowers(name):
+        return bool(pages) and result["arms"][name]["lower"] >= FIX_INDEX_SHARE * len(pages)
+
+    # The registered bars of the command are read on the version of the registered run.
+    result["registered"] = {"fix_lowers_index": lowers(FIX_FIRST), "report_lowers_index": lowers("report"),
+                            "original|fix": result["comparisons"][f"original|{FIX_FIRST}"]["holds"],
+                            "original|report": result["comparisons"]["original|report"]["holds"],
+                            "report|best_linter": result["comparisons"][f"report|{best}"]["holds"]}
+    # The same bars on the second reading of the same pages, with the command that ships.
+    result["second_reading"] = {"fix_lowers_index": lowers("fix"), "original|fix": result["comparisons"]["original|fix"]["holds"]}
+    if any(FIX_EXTRA_JUDGE in answers for row in pages for answers in row["answers"].values()):
+        result["extra_judge"] = fix_extra_judge(pages)
+    return result
+
+
 def summarize(root):
     documents = load_documents(root)
     preferences = preference_results(root)
@@ -1089,7 +1360,9 @@ def summarize(root):
             "trims": trim_results(root, documents), "openers": opener_results(root, documents),
             "rule_words": rule_word_results(root, documents), "vocabulary": vocabulary_results(root, documents),
             "deslop": deslop_results(root), "review_repeat": review_repeat_results(root),
-            "default_load": default_load_results(root), "manual": manual_results(root)}
+            "default_load": default_load_results(root), "manual": manual_results(root),
+            "page_index": page_index_results(root), "readme_load": default_load_results(root, README_LOAD),
+            "fix": fix_results(root), "judges_of_edits": judge_results(root)}
 
 
 def normalized(value):
@@ -1108,7 +1381,7 @@ def verify(root=HERE):
         rendered = root / page
         if rendered.exists() and rendered.read_text() != function(published):
             fail(f"{page} differs from the rendering of the results")
-        if page == render.WORDS_PAGE and render.has_words(published) and (root / "RESULTS.md").exists() and not rendered.exists():
+        if page != "RESULTS.md" and render.PRESENT[page](published) and (root / "RESULTS.md").exists() and not rendered.exists():
             fail(f"{page} is missing")
     return published
 
@@ -1122,7 +1395,7 @@ def main(arguments):
         results = summarize(root)
         (root / RESULTS).write_text(json.dumps(results, indent=1, sort_keys=True) + "\n")
         for page, function in render.PAGES.items():
-            if page == "RESULTS.md" or render.has_words(results):
+            if render.PRESENT[page](results):
                 (root / page).write_text(function(normalized(results)))
         write_digests(root)
     results = verify(root)

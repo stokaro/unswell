@@ -2,6 +2,30 @@
 
 ## Unreleased
 
+`unswell check` now gives every Markdown page of 150 prose words or more an
+AI-sounding index from 0 to 100, with the levels `low`, `elevated`, and
+`high`. It counts em dashes, emoji in headings and at the start of list
+items, arrows, stock words, and bold labels in lists, per 1,000 prose words,
+and the report lists the place of each mark and how to remove it. On held-out
+pages the index separates pages before a de-slop commit from README files
+written before November 2022 with an AUC of 0.867, and 3.2% of those README
+files are `high`. The index has no gate and is not a probability
+([ADR 0059](docs/adr/0059-page-index-and-fix.md),
+[documentation](docs/ai-sounding-index.md)). The JSON report gains
+`documents[].ai_sounding`.
+
+The new command `unswell fix` removes the marks that have a mechanical
+replacement: an em dash becomes a comma, a period between two full clauses,
+or a colon after a short list label; an emoji leaves a heading or the start
+of a list item; an arrow becomes `->`; a bold label at the start of a list
+item loses its asterisks. It calls no model and writes only with `--write`.
+On 83 held-out pages the index fell on 83, and a panel of two blind model
+judges found the fixed page the less AI-sounding one against the original on
+72 of 73, 98.6% (92.6% to 99.8%) of the decisive pages. The judges
+often name these marks as their reason, and nobody judged the grammar of the
+fixed text: read the change before you keep it. In Go,
+`unswell.RemoveAIMarks` applies the fixes that each `AIMark` carries.
+
 Six rules of `unswell check` now ship off: `filler.wordy-phrase`,
 `syntax.long-sentence`, `filler.instruction-scaffolding`, `hype.vague-praise`,
 `repetition.adjacent-word`, and `format.decorative-emoji`. Each reports on more

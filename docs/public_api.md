@@ -185,6 +185,12 @@ access and never imports Unswell internals. Default diagnostics reflect engine
 gate failures; `ReportAll` explicitly includes advisory and accepted findings.
 All raw results remain available to dependent analyzers as `unswell.RunResult`.
 
+The page index of AI-sounding documentation adds `DocumentResult.AISounding`
+with the types `AISounding`, `AISignal`, `AIMark`, and `AIMarkFix` to the root
+package. `RemoveAIMarks` applies the fixes that the marks carry to the source
+they were found in; it reads nothing but its arguments. See
+[the index and the fix command](ai-sounding-index.md).
+
 Shared block measurements add the public `feature` package, optional
 `rule.Descriptor.SharedFeatures`, and `rule.View.Features`. Enabled consumers
 receive one immutable set per enriched document. Public callers can also use

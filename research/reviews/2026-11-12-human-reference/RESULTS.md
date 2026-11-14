@@ -206,3 +206,7 @@ The command meets the registered rule.
 
 The comparisons at the level of words are in [RESULTS-words.md](RESULTS-words.md): the words that trims remove, the
 listed chat opener, and each rule against the words an editor changed.
+
+## Page index and fix
+
+The page index of AI-sounding documentation, the fix experiment, and its judges are in [RESULTS-index.md](RESULTS-index.md).

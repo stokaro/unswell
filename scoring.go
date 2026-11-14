@@ -34,6 +34,9 @@ func (e *Engine) assess(result *RunResult, doc document.Document, estimates, ori
 		}
 	}
 	e.summarize(result)
+	if len(result.Documents) > 0 {
+		result.Documents[0].AISounding = aiSounding(doc)
+	}
 }
 
 // assessedUnit names one scored target without widening the scoring signature.
