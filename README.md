@@ -45,7 +45,11 @@ words, bold labels in lists. On pages from before a commit that removes
 AI-sounding wording, set against README files written before November 2022,
 the index separates the two with an AUC of 0.87, and 3.2% of those
 README files reach its high level. `unswell fix` removes the marks that have
-a mechanical replacement, without a model.
+a mechanical replacement, without a model. On 250 pages that no earlier
+measurement had read, blind model judges found the page after `unswell fix`
+the less AI-sounding one against the original on 231 of 233 decisive pages,
+and against a page fixed with the findings of a third-party linter on
+146 of 209.
 
 `unswell review` gives a document to a model you name. The model reads it in
 context and flags sentences to tighten. Unswell binds each flag to the exact

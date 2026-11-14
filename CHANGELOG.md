@@ -9,6 +9,19 @@ that had an index. `--include-low` restores that. On pages with an index of 40
 or more the command writes what it wrote before. The JSON report gains
 `left_at_low` on a document and in the summary.
 
+Two more measurements on pages that no earlier run had read. On 89 pages
+with the published alpha.10 binary and on 250 with the build of this
+release, the index is lower after `unswell fix` on 85 and 247 pages, and
+blind model judges find its page the less AI-sounding one against the
+original on 67 of 68 and 231 of 233 decisive pages. Against a page that a model
+fixed with the findings of write-good, the best third-party linter in these
+runs, the page after `unswell fix` is the less AI-sounding one on
+146 of 209, 69.9% (63.3% to 75.7%), with the bar written
+before the run. One earlier claim does not hold up: that a model following
+the report of `unswell check` beats the same model following write-good held
+on the first sample (48 of 70) and not on the second (39 of 72). The
+documentation no longer makes it.
+
 ## 0.1.0-alpha.10
 
 This release turns the tool toward its purpose. `unswell check` gives each

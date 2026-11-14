@@ -587,6 +587,124 @@ def fix_extra_section(add, extra, judge):
         f"On the second reading, `unswell fix` as it ships against the original: {words[extra['original|fix']['holds']]}.")
 
 
+FRESH_VERSION_NAMES = {"original": "the original", "fix": "after `unswell fix`", "report": "fixed by unswell's report",
+                       "write-good": "fixed with write-good's findings"}
+
+
+def fix_fresh_section(add, fresh):
+    arms = fresh["arms"]
+    add("")
+    add("## The released binary on new pages")
+    add("")
+    add("`unswell fix` changed after the registered run above, and its second reading used pages that had been read once.")
+    add(f"This run measures the published `v0.1.0-alpha.10` binary on {fresh['pages']} pages that no earlier run had read. They come from a")
+    add("new search of commits whose message states the removal of AI-sounding wording, without the commits that an earlier")
+    add("search returned and without any repository of an earlier set, and they are selected as before: English, 150 to 1,500")
+    add("words, index 40 or more, one page per repository. The versions are the page after `unswell fix`, the page fixed by a")
+    add("model with the report of `unswell check`, and the page fixed by the same model with the findings of write-good, the")
+    add("best third-party linter of the registered run. The bars are those of the registered run and were written on issue 525")
+    add("before a fixed version of these pages existed.")
+    add("")
+    add("| Fixed by | Pages fixed | Failed | Index lower | Index higher | High before | High after | Median share of tokens changed |")
+    add("| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |")
+    for name, label in (("fix", "`unswell fix`, no model"), ("report", "A model that follows unswell's report"),
+                        ("write-good", "The same model with write-good's findings")):
+        arm = arms[name]
+        changed = f"{100 * arm['median_changed']:.1f}%" if arm["median_changed"] is not None else "n/a"
+        add(f"| {label} | {arm['fixed']} | {arm['failed']} | {arm['lower']} | {arm['higher']} | {arm['high_before']} "
+            f"| {arm['high_after']} | {changed} |")
+    extra = fresh.get("extra_judge", {})
+    add("")
+    add("| Version under test | Against | Panel: the less AI-sounding one on, of the decisive pages | Panel: pages without a verdict "
+        "| Third judge alone, of its decisive answers | Third judge: pages it calls the same |")
+    add("| --- | --- | --- | ---: | --- | ---: |")
+    for key, entry in fresh["comparisons"].items():
+        first, _, second = key.partition("|")
+        tested, other = (second, first) if first == "original" else (first, second)
+        low, high = entry["interval"]
+        decisive = entry["tested_less"] + entry["other_less"]
+        alone, same = "not read", ""
+        if key in extra:
+            alone = f"{extra[key]['tested_less']} of {extra[key]['tested_less'] + extra[key]['other_less']}"
+            same = str(extra[key]["answers"]["same"])
+        add(f"| {FRESH_VERSION_NAMES[tested]} | {FRESH_VERSION_NAMES[other]} | {entry['tested_less']} of {decisive}, "
+            f"{pct(entry['tested_less'], decisive)} ({100 * low:.1f}% to {100 * high:.1f}%) | {entry['tie']} | {alone} | {same} |")
+    registered = fresh["registered"]
+    words = {True: "holds", False: "does not hold"}
+    add("")
+    add("The bars:")
+    add("")
+    add(f"- The index is lower after `unswell fix` on at least 90% of the pages: {arms['fix']['lower']} of {fresh['pages']}, "
+        f"{words[registered['fix_lowers_index']]}. After the fix by the report: {arms['report']['lower']} of {fresh['pages']}, "
+        f"{words[registered['report_lowers_index']]}.")
+    add("- The version is the less AI-sounding one on more than half of the decisive pages, with the lower end of the interval "
+        f"above 50%. `unswell fix` against the original: {words[registered['original|fix']]}. The report version against the "
+        f"original: {words[registered['original|report']]}. The report version against write-good's version: "
+        f"{words[registered['report|write-good']]}.")
+    if extra:
+        add("- The third judge alone, with the same bar on its decisive answers: `unswell fix` against the original "
+            f"{words[extra['original|fix']['holds']]}, the report version against the original {words[extra['original|report']['holds']]}, "
+            f"the report version against write-good's version {words[extra['report|write-good']['holds']]}.")
+
+
+def verdict_cell(entry):
+    decisive = entry["tested_less"] + entry["other_less"]
+    low, high = entry["interval"]
+    return f"{entry['tested_less']} of {decisive}, {pct(entry['tested_less'], decisive)} ({100 * low:.1f}% to {100 * high:.1f}%)"
+
+
+def fix_third_section(add, third):
+    arms, extra = third["arms"], third.get("extra_judge", {})
+    add("")
+    add("## `unswell fix` against the best third-party linter, on a third sample")
+    add("")
+    add("In both runs above the page after `unswell fix` was the less AI-sounding one against the page fixed with write-good's")
+    add("findings, and in neither did that comparison have a bar. The comparison that had one, for the page fixed by a model")
+    add("with unswell's report, held in the first run and not in the second. This run tests the command, with the bar written")
+    add(f"on issue 525 first, on {third['pages']} more pages that no earlier run had read: the rest of the same new search, without any")
+    add("repository of an earlier set, selected as before. `unswell fix` is the build of the commit that the next release")
+    add("tags; on every page of the two earlier runs it writes the same bytes as `v0.1.0-alpha.10`.")
+    add("")
+    add("| Fixed by | Pages fixed | Failed | Index lower | Index higher | High before | High after | Median share of tokens changed |")
+    add("| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |")
+    for name, label in (("fix", "`unswell fix`, no model"), ("write-good", "A model with write-good's findings")):
+        arm = arms[name]
+        changed = f"{100 * arm['median_changed']:.1f}%" if arm["median_changed"] is not None else "n/a"
+        add(f"| {label} | {arm['fixed']} | {arm['failed']} | {arm['lower']} | {arm['higher']} | {arm['high_before']} "
+            f"| {arm['high_after']} | {changed} |")
+    add("")
+    add("The panel is the two judges of the earlier runs. All three admitted judges together and the third judge alone are")
+    add("read with the same bar and reported beside it.")
+    add("")
+    add("| Version under test | Against | Panel, of the decisive pages | Panel: no verdict | All three judges, of the decisive pages "
+        "| Third judge alone, of its decisive answers | Third judge: the same |")
+    add("| --- | --- | --- | ---: | --- | --- | ---: |")
+    for key, entry in third["comparisons"].items():
+        first, _, second = key.partition("|")
+        tested, other = (second, first) if first == "original" else (first, second)
+        together = alone = "not read"
+        same = ""
+        if key in extra:
+            together, alone, same = verdict_cell(extra[key]["three_judges"]), verdict_cell(extra[key]), str(extra[key]["answers"]["same"])
+        add(f"| {FRESH_VERSION_NAMES[tested]} | {FRESH_VERSION_NAMES[other]} | {verdict_cell(entry)} | {entry['tie']} "
+            f"| {together} | {alone} | {same} |")
+    registered = third["registered"]
+    words = {True: "holds", False: "does not hold"}
+    add("")
+    add("The bars, for the panel:")
+    add("")
+    add(f"- The index is lower after `unswell fix` on at least 90% of the pages: {arms['fix']['lower']} of {third['pages']}, "
+        f"{words[registered['fix_lowers_index']]}.")
+    add("- The page after `unswell fix` is the less AI-sounding one on more than half of the decisive pages, with the lower end "
+        f"of the interval above 50%. Against the original: {words[registered['original|fix']]}. Against the page fixed with "
+        f"write-good's findings: {words[registered['fix|write-good']]}.")
+    if extra:
+        add("- The same bar for all three judges together: against the original "
+            f"{words[extra['original|fix']['three_judges']['holds']]}, against write-good's page "
+            f"{words[extra['fix|write-good']['three_judges']['holds']]}. For the third judge alone: against the original "
+            f"{words[extra['original|fix']['holds']]}, against write-good's page {words[extra['fix|write-good']['holds']]}.")
+
+
 def fix_section(add, fix):
     add("")
     add("## Fixing what unswell points at")
@@ -875,7 +993,7 @@ def has_words(results):
 
 
 def has_index(results):
-    return any(results.get(name) for name in ("page_index", "fix", "judges_of_edits"))
+    return any(results.get(name) for name in ("page_index", "fix", "judges_of_edits", "fix_fresh", "fix_third"))
 
 
 def render_words(results):
@@ -917,6 +1035,10 @@ def render_index(results):
         fix_section(add, results["fix"])
     if results.get("judges_of_edits"):
         judges_section(add, results["judges_of_edits"])
+    if results.get("fix_fresh"):
+        fix_fresh_section(add, results["fix_fresh"])
+    if results.get("fix_third"):
+        fix_third_section(add, results["fix_third"])
     return "\n".join(lines) + "\n"
 
 

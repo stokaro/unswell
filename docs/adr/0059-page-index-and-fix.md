@@ -131,6 +131,41 @@ the earlier version (72 of 73 decisive pages against the original). The rows
 of `unswell fix` above are a second reading of the same pages with the
 version that ships.
 
+**Two more runs on new pages.**
+
+`unswell fix` changed after the first run, and its numbers above are a second
+reading of pages that had been read once. Two more runs used pages that no
+earlier run had read, from a new search of commits whose message states the
+removal of AI-sounding wording, without any repository of an earlier set and
+selected the same way. The bars were written on issue 525 before each run.
+The second run used the published `v0.1.0-alpha.10` binary on 89 pages. The
+third used the build that the next release carries on 250 pages; that build
+leaves pages at the level `low` alone and otherwise writes the same bytes.
+
+| Measure, for the panel | First run, 83 pages | Second run, 89 new pages | Third run, 250 new pages |
+| --- | --- | --- | --- |
+| Index lower after `unswell fix` | 83 of 83 | 85 of 89 | 247 of 250 |
+| Page after `unswell fix`, against the original | 72 of 73, 98.6% (92.6% to 99.8%) | 67 of 68, 98.5% (92.1% to 99.7%) | 231 of 233, 99.1% (96.9% to 99.8%) |
+| Page after `unswell fix`, against the page fixed with write-good's findings | 45 of 72, 62.5% (51.0% to 72.8%); no bar | 47 of 72, 65.3% (53.8% to 75.2%); no bar | 146 of 209, 69.9% (63.3% to 75.7%); **bar holds** |
+| Page fixed by a model with unswell's report, against the original | 64 of 68, 94.1% (85.8% to 97.7%) | 60 of 72, 83.3% (73.1% to 90.2%) | not run |
+| Page fixed by a model with unswell's report, against the page fixed with write-good's findings | 48 of 70, 68.6% (57.0% to 78.2%); bar holds | 39 of 72, 54.2% (42.7% to 65.2%); **bar does not hold** | not run |
+
+Every bar against the original holds in every run. Against the best
+third-party linter the result differs by version. For the command it holds
+on the third run, where it had a bar, and the two earlier readings without a
+bar point the same way. For a model that follows unswell's report it held in
+the first run and did not in the second, so that claim is not made.
+
+In the third run all three judges together find the page after `unswell fix`
+the less AI-sounding one against write-good's page on 163 of 230, 70.9% (64.7% to 76.4%),
+and the third judge alone in 144 of 174, 82.8% (76.5% to 87.6%) of its decisive answers,
+calling the two the same on 67 pages. Against the original the third judge
+names the original in 136 of 136 decisive answers and calls the two the same on
+112 pages.
+
+In the second run the command refused 1 of the 89 pages: two of its blocks do
+not parse as Markdown.
+
 The judges often give the marks that the index counts as their reasons. With
 `unswell fix` applied to both versions of the pairs that admit a judge, so
 that neither side has such a mark, the three judges still name the version
@@ -150,6 +185,11 @@ version of the best third-party linter. All of them hold on the versions of
 the registered run, and the two bars of `unswell fix` hold again on the
 second reading with the command as it ships. The third judge had the same
 bar for its own answers in three comparisons and meets it in each.
+
+On the second run the bar of the report version against write-good's version
+does not hold, and on the third run the command has that bar and meets it.
+The decision stands for the command. No claim is made that a model guided by
+unswell's report beats one guided by a third-party linter.
 
 ## Consequences
 
