@@ -206,9 +206,10 @@ to were posted on issue 525 before any test document ran.
     does not change in 84 of the 189 pairs, and 43.4% of the pages are still
     `high` after the commit.
 
-16. **Removing the marks makes a page read less AI-sounding to model judges,
-    and unswell's report guides a fixer better than a third-party linter's
-    findings.** On 83 held-out pages `unswell fix`, which uses no model,
+16. **Removing the marks makes a page read less AI-sounding to model judges
+    than the original and than a page fixed with a third-party linter's
+    findings. That a model guided by unswell's report beats one guided by
+    such a linter is not replicated.** On 83 held-out pages `unswell fix`, which uses no model,
     lowers the index on 83, and two blind model judges find its page the
     less AI-sounding one against the original on
     72 of 73, 98.6% (92.6% to 99.8%) of the decisive pages.
@@ -233,6 +234,19 @@ to were posted on issue 525 before any test document ran.
     registered run (a period between two full clauses in place of a comma);
     its numbers here are a second reading of the same pages, and the first
     was 72 of 73 against the original.
+
+17. **The result of 16 holds for the command on new pages, and fails there
+    for the report.** A second run, on 89 pages that no run had read and with
+    the published `v0.1.0-alpha.10` binary, repeats every bar against the
+    original: the index lower after `unswell fix` on 85 pages, its page
+    preferred on 67 of 68, 98.5% (92.1% to 99.7%). The page fixed
+    by a model with unswell's report against the page fixed with write-good's
+    findings gives 39 of 72, 54.2% (42.7% to 65.2%), which does
+    not meet its bar. A third run, on 250 more new pages, gave the command the
+    bar that it had lacked: against write-good's page its page is the less
+    AI-sounding one on 146 of 209, 69.9% (63.3% to 75.7%), and
+    against the original on 231 of 233, 99.1% (96.9% to 99.8%); the
+    index is lower on 247 pages.
 
 ## Decisions
 
@@ -326,6 +340,13 @@ Each rule was registered on issue 525 before its result was read.
     [ADR 0059](../../../docs/adr/0059-page-index-and-fix.md) records both
     decisions.
 
+17. *On new pages, keep each claim of 16 only if its bar holds again; give
+    `unswell fix` the bar against the best third-party linter that it lacked.*
+    The bars against the original hold again. The bar of the report version
+    against write-good's version does not, and that claim is withdrawn. The
+    command meets its new bar on the third sample, so the claim against a
+    third-party linter is made for `unswell fix` only.
+
 ## Limits
 
 - An unedited sentence is not a clean sentence. A person changed what they
@@ -378,8 +399,12 @@ Each rule was registered on issue 525 before its result was read.
   the marks that the index counts. A judge of another family read part of the
   comparisons; no person took part, and nobody judged the grammar of the
   fixed text.
-- The version of `unswell fix` that ships was judged on pages that had been
-  read once with its earlier version.
+- The version of `unswell fix` that ships was judged in result 16 on pages
+  that had been read once with its earlier version. Result 17 reads it on
+  new pages.
+- The pages of results 16 and 17 have an index of 40 or more. The command
+  leaves pages below that alone unless it is told otherwise, and nothing here
+  measures it on them.
 - The pages of result 16 are the held-out pages with an index of 40 or more.
   On the others the report lists no mark and the result says nothing.
 
@@ -401,6 +426,8 @@ Each rule was registered on issue 525 before its result was read.
 | `data/default-load.jsonl.gz` | Per page that people wrote before November 2022: its words and the rules that report on it |
 | `data/page-index.jsonl.gz` | Per page behind the reading of the page index (README files as they were before November 2022, and both versions of de-slop pairs outside the main set and in its test part): repository, commit, path, prose words, the count of each signal, and the index that the product reported |
 | `data/fix-panel.jsonl.gz` | Per page of the fix experiment: repository, commit, path, the index of the original, for each fixed version its index and the share of tokens changed, and each judge's answer per pair of versions. No page text and no model output |
+| `data/fix-fresh.jsonl.gz` | Per page of the run of the released binary on new pages: repository, commit, path, the index of the original, for each fixed version its index and the share of tokens changed, and each judge's answer per pair of versions. No page text and no model output |
+| `data/fix-third.jsonl.gz` | Per page of the third sample: the same fields as `data/fix-fresh.jsonl.gz`, for the page after `unswell fix` and the page fixed with write-good's findings |
 | `data/judge-pairs.jsonl.gz` | Per held-out pair before and after a de-slop edit by people: repository, commit, path, and each judge's answer for the pair as it is, for the pair with `unswell fix` applied to both versions, and for the fixed earlier version against the person's version |
 | `data/readme-load.jsonl.gz` | Per README file of the page index: its words and the rules that report on it with the configuration that ships |
 | `data/manual-pairs.jsonl.gz` | Per likely-manual de-slop edit (a short one-file commit through GitHub's web flow): repository, commit, path, words, and findings per rule in both versions |

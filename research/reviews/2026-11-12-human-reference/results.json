@@ -1219,7 +1219,14 @@
     "tested_less": 43,
     "three_judges": {
      "first_less": 1,
+     "holds": true,
+     "interval": [
+      0.9300363315482386,
+      0.9977038418278451
+     ],
+     "other_less": 1,
      "second_less": 76,
+     "tested_less": 76,
      "tie": 6
     }
    },
@@ -1239,7 +1246,14 @@
     "tested_less": 42,
     "three_judges": {
      "first_less": 1,
+     "holds": true,
+     "interval": [
+      0.9300363315482386,
+      0.9977038418278451
+     ],
+     "other_less": 1,
      "second_less": 76,
+     "tested_less": 76,
      "tie": 6
     }
    },
@@ -1259,7 +1273,14 @@
     "tested_less": 51,
     "three_judges": {
      "first_less": 4,
+     "holds": true,
+     "interval": [
+      0.8707382679518444,
+      0.9790669110399569
+     ],
+     "other_less": 4,
      "second_less": 71,
+     "tested_less": 71,
      "tie": 8
     }
    },
@@ -1279,7 +1300,14 @@
     "tested_less": 21,
     "three_judges": {
      "first_less": 27,
+     "holds": true,
+     "interval": [
+      0.5213160229966365,
+      0.7356160030665482
+     ],
+     "other_less": 27,
      "second_less": 47,
+     "tested_less": 47,
      "tie": 9
     }
    },
@@ -1299,7 +1327,14 @@
     "tested_less": 56,
     "three_judges": {
      "first_less": 53,
+     "holds": true,
+     "interval": [
+      0.5866558660798696,
+      0.7890881069868022
+     ],
+     "other_less": 23,
      "second_less": 23,
+     "tested_less": 53,
      "tie": 7
     }
    }
@@ -1314,6 +1349,478 @@
   },
   "second_reading": {
    "fix_lowers_index": true,
+   "original|fix": true
+  }
+ },
+ "fix_fresh": {
+  "arms": {
+   "fix": {
+    "failed": 1,
+    "fixed": 88,
+    "high_after": 1,
+    "high_before": 71,
+    "higher": 0,
+    "lower": 85,
+    "median_changed": 0.0141
+   },
+   "report": {
+    "failed": 1,
+    "fixed": 88,
+    "high_after": 3,
+    "high_before": 71,
+    "higher": 0,
+    "lower": 88,
+    "median_changed": 0.0174
+   },
+   "write-good": {
+    "failed": 3,
+    "fixed": 86,
+    "high_after": 69,
+    "high_before": 69,
+    "higher": 7,
+    "lower": 2,
+    "median_changed": 0.0114
+   }
+  },
+  "comparisons": {
+   "fix|write-good": {
+    "first_less": 47,
+    "holds": true,
+    "interval": [
+     0.5376108847085543,
+     0.7524673836824078
+    ],
+    "judges": {
+     "private-host/Qwen3.6-35B-A3B": {
+      "first": 31,
+      "missing": 3,
+      "same": 5,
+      "second": 50
+     },
+     "private-host/Qwen3.8-27B": {
+      "first": 31,
+      "missing": 3,
+      "same": 0,
+      "second": 55
+     }
+    },
+    "other_less": 25,
+    "second_less": 25,
+    "tested_less": 47,
+    "tie": 17
+   },
+   "original|fix": {
+    "first_less": 1,
+    "holds": true,
+    "interval": [
+     0.9212883963845384,
+     0.9973993833976493
+    ],
+    "judges": {
+     "private-host/Qwen3.6-35B-A3B": {
+      "first": 53,
+      "missing": 4,
+      "same": 14,
+      "second": 18
+     },
+     "private-host/Qwen3.8-27B": {
+      "first": 84,
+      "missing": 4,
+      "same": 0,
+      "second": 1
+     }
+    },
+    "other_less": 1,
+    "second_less": 67,
+    "tested_less": 67,
+    "tie": 21
+   },
+   "original|report": {
+    "first_less": 12,
+    "holds": true,
+    "interval": [
+     0.730890790978952,
+     0.9020072491467838
+    ],
+    "judges": {
+     "private-host/Qwen3.6-35B-A3B": {
+      "first": 52,
+      "missing": 1,
+      "same": 11,
+      "second": 25
+     },
+     "private-host/Qwen3.8-27B": {
+      "first": 75,
+      "missing": 1,
+      "same": 0,
+      "second": 13
+     }
+    },
+    "other_less": 12,
+    "second_less": 60,
+    "tested_less": 60,
+    "tie": 17
+   },
+   "original|write-good": {
+    "first_less": 25,
+    "holds": false,
+    "interval": [
+     0.486916942944024,
+     0.7194461145310355
+    ],
+    "judges": {
+     "private-host/Qwen3.6-35B-A3B": {
+      "first": 39,
+      "missing": 9,
+      "same": 8,
+      "second": 33
+     },
+     "private-host/Qwen3.8-27B": {
+      "first": 50,
+      "missing": 9,
+      "same": 0,
+      "second": 30
+     }
+    },
+    "other_less": 25,
+    "second_less": 39,
+    "tested_less": 39,
+    "tie": 25
+   },
+   "report|write-good": {
+    "first_less": 39,
+    "holds": false,
+    "interval": [
+     0.42739664196707616,
+     0.6517156130486407
+    ],
+    "judges": {
+     "private-host/Qwen3.6-35B-A3B": {
+      "first": 43,
+      "missing": 4,
+      "same": 2,
+      "second": 40
+     },
+     "private-host/Qwen3.8-27B": {
+      "first": 35,
+      "missing": 4,
+      "same": 0,
+      "second": 50
+     }
+    },
+    "other_less": 33,
+    "second_less": 33,
+    "tested_less": 39,
+    "tie": 17
+   }
+  },
+  "extra_judge": {
+   "original|fix": {
+    "answers": {
+     "first": 52,
+     "missing": 4,
+     "same": 33,
+     "second": 0
+    },
+    "holds": true,
+    "interval": [
+     0.9312054095871178,
+     1.0
+    ],
+    "other_less": 0,
+    "tested_less": 52,
+    "three_judges": {
+     "first_less": 1,
+     "holds": true,
+     "interval": [
+      0.9300363315482386,
+      0.9977038418278451
+     ],
+     "other_less": 1,
+     "second_less": 76,
+     "tested_less": 76,
+     "tie": 12
+    }
+   },
+   "original|report": {
+    "answers": {
+     "first": 50,
+     "missing": 1,
+     "same": 36,
+     "second": 2
+    },
+    "holds": true,
+    "interval": [
+     0.8701857125563401,
+     0.9893885116779224
+    ],
+    "other_less": 2,
+    "tested_less": 50,
+    "three_judges": {
+     "first_less": 13,
+     "holds": true,
+     "interval": [
+      0.7385413250068678,
+      0.9012338604072236
+     ],
+     "other_less": 13,
+     "second_less": 66,
+     "tested_less": 66,
+     "tie": 10
+    }
+   },
+   "original|write-good": {
+    "answers": {
+     "first": 18,
+     "missing": 9,
+     "same": 45,
+     "second": 17
+    },
+    "holds": false,
+    "interval": [
+     0.35568539626711626,
+     0.6700601960874726
+    ],
+    "other_less": 17,
+    "tested_less": 18,
+    "three_judges": {
+     "first_less": 29,
+     "holds": false,
+     "interval": [
+      0.4753857081544497,
+      0.6983144799762155
+     ],
+     "other_less": 29,
+     "second_less": 42,
+     "tested_less": 42,
+     "tie": 18
+    }
+   },
+   "report|write-good": {
+    "answers": {
+     "first": 7,
+     "missing": 4,
+     "same": 26,
+     "second": 52
+    },
+    "holds": true,
+    "interval": [
+     0.7747612422658494,
+     0.94132491722086
+    ],
+    "other_less": 7,
+    "tested_less": 52,
+    "three_judges": {
+     "first_less": 46,
+     "holds": false,
+     "interval": [
+      0.46569091970838705,
+      0.6774361198519266
+     ],
+     "other_less": 34,
+     "second_less": 34,
+     "tested_less": 46,
+     "tie": 9
+    }
+   }
+  },
+  "pages": 89,
+  "registered": {
+   "fix_lowers_index": true,
+   "original|fix": true,
+   "original|report": true,
+   "report_lowers_index": true,
+   "report|write-good": false
+  }
+ },
+ "fix_third": {
+  "arms": {
+   "fix": {
+    "failed": 0,
+    "fixed": 250,
+    "high_after": 1,
+    "high_before": 190,
+    "higher": 0,
+    "lower": 247,
+    "median_changed": 0.0173
+   },
+   "write-good": {
+    "failed": 9,
+    "fixed": 241,
+    "high_after": 182,
+    "high_before": 183,
+    "higher": 28,
+    "lower": 14,
+    "median_changed": 0.0104
+   }
+  },
+  "comparisons": {
+   "fix|write-good": {
+    "first_less": 146,
+    "holds": true,
+    "interval": [
+     0.633227283535196,
+     0.7567340774017637
+    ],
+    "judges": {
+     "private-host/Qwen3.6-35B-A3B": {
+      "first": 75,
+      "missing": 9,
+      "same": 10,
+      "second": 156
+     },
+     "private-host/Qwen3.8-27B": {
+      "first": 79,
+      "missing": 9,
+      "same": 0,
+      "second": 162
+     }
+    },
+    "other_less": 63,
+    "second_less": 63,
+    "tested_less": 146,
+    "tie": 41
+   },
+   "original|fix": {
+    "first_less": 2,
+    "holds": true,
+    "interval": [
+     0.9692480247785785,
+     0.9976429268110073
+    ],
+    "judges": {
+     "private-host/Qwen3.6-35B-A3B": {
+      "first": 169,
+      "missing": 2,
+      "same": 66,
+      "second": 13
+     },
+     "private-host/Qwen3.8-27B": {
+      "first": 244,
+      "missing": 2,
+      "same": 2,
+      "second": 2
+     }
+    },
+    "other_less": 2,
+    "second_less": 231,
+    "tested_less": 231,
+    "tie": 17
+   },
+   "original|write-good": {
+    "first_less": 64,
+    "holds": true,
+    "interval": [
+     0.6265701019423365,
+     0.751070550318598
+    ],
+    "judges": {
+     "private-host/Qwen3.6-35B-A3B": {
+      "first": 127,
+      "missing": 18,
+      "same": 44,
+      "second": 61
+     },
+     "private-host/Qwen3.8-27B": {
+      "first": 156,
+      "missing": 18,
+      "same": 1,
+      "second": 75
+     }
+    },
+    "other_less": 64,
+    "second_less": 144,
+    "tested_less": 144,
+    "tie": 42
+   }
+  },
+  "extra_judge": {
+   "fix|write-good": {
+    "answers": {
+     "first": 30,
+     "missing": 9,
+     "same": 67,
+     "second": 144
+    },
+    "holds": true,
+    "interval": [
+     0.7645430141264318,
+     0.8764768597388506
+    ],
+    "other_less": 30,
+    "tested_less": 144,
+    "three_judges": {
+     "first_less": 163,
+     "holds": true,
+     "interval": [
+      0.6469293814728321,
+      0.76360492893216
+     ],
+     "other_less": 67,
+     "second_less": 67,
+     "tested_less": 163,
+     "tie": 20
+    }
+   },
+   "original|fix": {
+    "answers": {
+     "first": 136,
+     "missing": 2,
+     "same": 112,
+     "second": 0
+    },
+    "holds": true,
+    "interval": [
+     0.9725289184334275,
+     0.9999999999999999
+    ],
+    "other_less": 0,
+    "tested_less": 136,
+    "three_judges": {
+     "first_less": 2,
+     "holds": true,
+     "interval": [
+      0.9697580794906996,
+      0.997682761294281
+     ],
+     "other_less": 2,
+     "second_less": 235,
+     "tested_less": 235,
+     "tie": 13
+    }
+   },
+   "original|write-good": {
+    "answers": {
+     "first": 72,
+     "missing": 18,
+     "same": 117,
+     "second": 43
+    },
+    "holds": true,
+    "interval": [
+     0.5349246898224094,
+     0.7090976054008122
+    ],
+    "other_less": 43,
+    "tested_less": 72,
+    "three_judges": {
+     "first_less": 68,
+     "holds": true,
+     "interval": [
+      0.6171151963425776,
+      0.7409431359502443
+     ],
+     "other_less": 68,
+     "second_less": 146,
+     "tested_less": 146,
+     "tie": 36
+    }
+   }
+  },
+  "pages": 250,
+  "registered": {
+   "fix_lowers_index": true,
+   "fix|write-good": true,
    "original|fix": true
   }
  },

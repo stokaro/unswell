@@ -189,3 +189,63 @@ The version before the edit after `unswell fix`, against the version as the pers
 | --- | ---: | ---: | ---: | --- |
 | `private-host/Qwen3.6-35B-A3B` | 44 | 30 | 5 | 59.5% (48.1% to 69.9%) |
 | `private-host/Qwen3.8-27B` | 50 | 28 | 1 | 64.1% (53.0% to 73.9%) |
+
+## The released binary on new pages
+
+`unswell fix` changed after the registered run above, and its second reading used pages that had been read once.
+This run measures the published `v0.1.0-alpha.10` binary on 89 pages that no earlier run had read. They come from a
+new search of commits whose message states the removal of AI-sounding wording, without the commits that an earlier
+search returned and without any repository of an earlier set, and they are selected as before: English, 150 to 1,500
+words, index 40 or more, one page per repository. The versions are the page after `unswell fix`, the page fixed by a
+model with the report of `unswell check`, and the page fixed by the same model with the findings of write-good, the
+best third-party linter of the registered run. The bars are those of the registered run and were written on issue 525
+before a fixed version of these pages existed.
+
+| Fixed by | Pages fixed | Failed | Index lower | Index higher | High before | High after | Median share of tokens changed |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| `unswell fix`, no model | 88 | 1 | 85 | 0 | 71 | 1 | 1.4% |
+| A model that follows unswell's report | 88 | 1 | 88 | 0 | 71 | 3 | 1.7% |
+| The same model with write-good's findings | 86 | 3 | 2 | 7 | 69 | 69 | 1.1% |
+
+| Version under test | Against | Panel: the less AI-sounding one on, of the decisive pages | Panel: pages without a verdict | Third judge alone, of its decisive answers | Third judge: pages it calls the same |
+| --- | --- | --- | ---: | --- | ---: |
+| after `unswell fix` | fixed with write-good's findings | 47 of 72, 65.3% (53.8% to 75.2%) | 17 | not read |  |
+| after `unswell fix` | the original | 67 of 68, 98.5% (92.1% to 99.7%) | 21 | 52 of 52 | 33 |
+| fixed by unswell's report | the original | 60 of 72, 83.3% (73.1% to 90.2%) | 17 | 50 of 52 | 36 |
+| fixed with write-good's findings | the original | 39 of 64, 60.9% (48.7% to 71.9%) | 25 | 18 of 35 | 45 |
+| fixed by unswell's report | fixed with write-good's findings | 39 of 72, 54.2% (42.7% to 65.2%) | 17 | 52 of 59 | 26 |
+
+The bars:
+
+- The index is lower after `unswell fix` on at least 90% of the pages: 85 of 89, holds. After the fix by the report: 88 of 89, holds.
+- The version is the less AI-sounding one on more than half of the decisive pages, with the lower end of the interval above 50%. `unswell fix` against the original: holds. The report version against the original: holds. The report version against write-good's version: does not hold.
+- The third judge alone, with the same bar on its decisive answers: `unswell fix` against the original holds, the report version against the original holds, the report version against write-good's version holds.
+
+## `unswell fix` against the best third-party linter, on a third sample
+
+In both runs above the page after `unswell fix` was the less AI-sounding one against the page fixed with write-good's
+findings, and in neither did that comparison have a bar. The comparison that had one, for the page fixed by a model
+with unswell's report, held in the first run and not in the second. This run tests the command, with the bar written
+on issue 525 first, on 250 more pages that no earlier run had read: the rest of the same new search, without any
+repository of an earlier set, selected as before. `unswell fix` is the build of the commit that the next release
+tags; on every page of the two earlier runs it writes the same bytes as `v0.1.0-alpha.10`.
+
+| Fixed by | Pages fixed | Failed | Index lower | Index higher | High before | High after | Median share of tokens changed |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| `unswell fix`, no model | 250 | 0 | 247 | 0 | 190 | 1 | 1.7% |
+| A model with write-good's findings | 241 | 9 | 14 | 28 | 183 | 182 | 1.0% |
+
+The panel is the two judges of the earlier runs. All three admitted judges together and the third judge alone are
+read with the same bar and reported beside it.
+
+| Version under test | Against | Panel, of the decisive pages | Panel: no verdict | All three judges, of the decisive pages | Third judge alone, of its decisive answers | Third judge: the same |
+| --- | --- | --- | ---: | --- | --- | ---: |
+| after `unswell fix` | fixed with write-good's findings | 146 of 209, 69.9% (63.3% to 75.7%) | 41 | 163 of 230, 70.9% (64.7% to 76.4%) | 144 of 174, 82.8% (76.5% to 87.6%) | 67 |
+| after `unswell fix` | the original | 231 of 233, 99.1% (96.9% to 99.8%) | 17 | 235 of 237, 99.2% (97.0% to 99.8%) | 136 of 136, 100.0% (97.3% to 100.0%) | 112 |
+| fixed with write-good's findings | the original | 144 of 208, 69.2% (62.7% to 75.1%) | 42 | 146 of 214, 68.2% (61.7% to 74.1%) | 72 of 115, 62.6% (53.5% to 70.9%) | 117 |
+
+The bars, for the panel:
+
+- The index is lower after `unswell fix` on at least 90% of the pages: 247 of 250, holds.
+- The page after `unswell fix` is the less AI-sounding one on more than half of the decisive pages, with the lower end of the interval above 50%. Against the original: holds. Against the page fixed with write-good's findings: holds.
+- The same bar for all three judges together: against the original holds, against write-good's page holds. For the third judge alone: against the original holds, against write-good's page holds.

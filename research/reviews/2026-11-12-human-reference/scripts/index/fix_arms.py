@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Build fixed versions of pages: by a model that follows a linter's report, and mechanically for unswell's marks.
 
-usage: fix_arms.py <workspace> <unswell binary> <model kind> <sample jsonl> <linter results jsonl> <out jsonl> [--workers N]
+usage: fix_arms.py <workspace> <unswell binary> <model kind> <sample jsonl> <linter results jsonl> <out jsonl> [--workers N] [--arms a,b]
+
+--arms names the model arms to build; the default is all four.
 
 A sample row holds "id" and "text" (the page before a de-slop commit). Arms:
   unswell     a model gets the page and the text report of `unswell check` (findings, the page index, and the places
@@ -18,6 +20,7 @@ from pathlib import Path
 
 W, binary, kind, sample_path, linters_path, out = sys.argv[1].rstrip("/") + "/", sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], Path(sys.argv[6])
 workers = int(sys.argv[sys.argv.index("--workers") + 1]) if "--workers" in sys.argv else 8
+wanted = set(sys.argv[sys.argv.index("--arms") + 1].split(",")) if "--arms" in sys.argv else None
 ASK, CACHE = W + "ask_model.py", str(out) + ".cache"
 EMOJI = "[\U0001F300-\U0001FAFF☀-➿⭐✨⚡][️‍]*"
 INSTRUCTION = ("Below is a Markdown page and the report of a prose linter about it. Revise the page so that what the report points at "
@@ -77,10 +80,11 @@ def mechanical(text):
 
 def reports_of(row):
     identifier, text = row["id"], row["text"]
-    return {"unswell": unswell_report(text),
-            "google": linter_report(text, linters.get(("vale:Google", identifier), [])),
-            "microsoft": linter_report(text, linters.get(("vale:Microsoft", identifier), [])),
-            "write-good": linter_report(text, linters.get(("write-good", identifier), []))}
+    builders = {"unswell": lambda: unswell_report(text),
+                "google": lambda: linter_report(text, linters.get(("vale:Google", identifier), [])),
+                "microsoft": lambda: linter_report(text, linters.get(("vale:Microsoft", identifier), [])),
+                "write-good": lambda: linter_report(text, linters.get(("write-good", identifier), []))}
+    return {name: build() for name, build in builders.items() if wanted is None or name in wanted}
 
 
 def fix(task):

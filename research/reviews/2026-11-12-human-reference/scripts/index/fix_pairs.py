@@ -21,9 +21,8 @@ def product_fix(text):
         page = Path(scratch) / "page.md"
         page.write_text(text)
         done = subprocess.run([PRODUCT, "fix", "page.md", "--write", "--quiet"], cwd=scratch, capture_output=True)
-        if done.returncode != 0:
-            raise SystemExit("fix failed: " + done.stderr.decode()[:300])
-        return page.read_text()
+        # A page that the command refuses, such as one with a block that the Markdown grammar rejects, is a failed fix.
+        return page.read_text() if done.returncode == 0 else None
 
 
 rows = [json.loads(line) for line in open(sys.argv[1])]

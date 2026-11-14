@@ -31,7 +31,8 @@ DATA = ("data/sentences.jsonl.gz", "data/preferences.jsonl.gz", "data/expert-pai
         "data/vocabulary-phrases.jsonl.gz", "data/vocabulary-load.jsonl.gz", "data/deslop-pairs.jsonl.gz",
         "data/emoji-load.jsonl.gz", "data/frequency-load.jsonl.gz", "data/review-repeat.jsonl.gz",
         "data/default-load.jsonl.gz", "data/manual-pairs.jsonl.gz", "data/page-index.jsonl.gz",
-        "data/readme-load.jsonl.gz", "data/fix-panel.jsonl.gz", "data/judge-pairs.jsonl.gz")
+        "data/readme-load.jsonl.gz", "data/fix-panel.jsonl.gz", "data/judge-pairs.jsonl.gz", "data/fix-fresh.jsonl.gz",
+        "data/fix-third.jsonl.gz")
 DEFAULT_LOAD, MANUAL = "data/default-load.jsonl.gz", "data/manual-pairs.jsonl.gz"
 PAGE_INDEX = "data/page-index.jsonl.gz"
 # The fix experiment: one page before a de-slop commit in several fixed versions, and what blind judges say about two
@@ -54,6 +55,24 @@ FIX_JUDGES = ("private-host/Qwen3.6-35B-A3B", "private-host/Qwen3.8-27B")
 FIX_EXTRA_JUDGE = "gpt-6-astra"
 FIX_EXTRA = (("original", FIX_FIRST), ("original", "fix"), ("original", "report"), ("original", "write-good"),
              ("report", "write-good"))
+FIX_SPEC = {"arms": FIX_ARMS, "comparisons": FIX_COMPARISONS, "extra": FIX_EXTRA}
+# The released binary on pages that no earlier run had read: `unswell fix`, a model with the report of `unswell
+# check`, and the same model with the findings of write-good, which the registered run found to be the best
+# third-party linter. The bars are those of the registered run, written on issue 525 before this run.
+FIX_FRESH = "data/fix-fresh.jsonl.gz"
+FRESH_SPEC = {"arms": ("fix", "report", "write-good"),
+              "comparisons": (("original", "fix"), ("original", "report"), ("original", "write-good"), ("report", "write-good"),
+                              ("fix", "write-good")),
+              "extra": (("original", "fix"), ("original", "report"), ("original", "write-good"), ("report", "write-good"))}
+# A third sample of new pages, for the one comparison that had no bar before: the page after `unswell fix` against the
+# page that the fixer model wrote from write-good's findings. The third judge reads every comparison of this run.
+FIX_THIRD = "data/fix-third.jsonl.gz"
+THIRD_SPEC = {"arms": ("fix", "write-good"),
+              "comparisons": (("original", "fix"), ("original", "write-good"), ("fix", "write-good"))}
+THIRD_SPEC["extra"] = THIRD_SPEC["comparisons"]
+# Each later run with its data, its versions, the versions whose index must fall, and the comparisons with a bar.
+FRESH_RUNS = {"fix_fresh": (FIX_FRESH, FRESH_SPEC, ("fix", "report"), ("original|fix", "original|report", "report|write-good")),
+              "fix_third": (FIX_THIRD, THIRD_SPEC, ("fix",), ("original|fix", "fix|write-good"))}
 # The pairs that admit a judge: one page before and after a de-slop edit by people. "edit" is the pair as it is,
 # "edit_both_fixed" the pair with `unswell fix` applied to both versions, and "fixed_against_edit" the version before
 # the edit after `unswell fix` against the version as the person left it. An answer names the side that reads more
@@ -1211,10 +1230,11 @@ def page_index_results(root):
     return result
 
 
-def fix_row(row, seen):
-    """Check one page of the fix experiment and return it."""
+def fix_row(row, seen, spec=None):
+    """Check one page of a fix experiment and return it."""
+    spec = spec or FIX_SPEC
     valid = (set(row) == FIX_KEYS and row["page"] not in seen and isinstance(row["index"], int)
-             and isinstance(row["arms"], dict) and set(row["arms"]) == set(FIX_ARMS) and isinstance(row["answers"], dict))
+             and isinstance(row["arms"], dict) and set(row["arms"]) == set(spec["arms"]) and isinstance(row["answers"], dict))
     if not valid:
         fail(f"invalid fix row: {row.get('page')}")
     for name, arm in row["arms"].items():
@@ -1223,8 +1243,8 @@ def fix_row(row, seen):
             fail(f"invalid arm {name} of fix page {row['page']}")
     for comparison, answers in row["answers"].items():
         first, _, second = comparison.partition("|")
-        judges = (*FIX_JUDGES, FIX_EXTRA_JUDGE) if (first, second) in FIX_EXTRA else FIX_JUDGES
-        known = (first, second) in FIX_COMPARISONS and set(answers) <= set(judges)
+        judges = (*FIX_JUDGES, FIX_EXTRA_JUDGE) if (first, second) in spec["extra"] else FIX_JUDGES
+        known = (first, second) in spec["comparisons"] and set(answers) <= set(judges)
         if not known or not all(answer in ("first", "second", "same") for answer in answers.values()):
             fail(f"invalid answers for {comparison} of fix page {row['page']}")
         if any(version != "original" and row["arms"][version] is None for version in (first, second)):
@@ -1255,10 +1275,10 @@ def fix_comparison(pages, first, second):
     return entry
 
 
-def fix_extra_judge(pages):
+def fix_extra_judge(pages, comparisons=FIX_EXTRA):
     """Count the answers of the judge of another family, alone and together with the two judges of the panel."""
     result = {}
-    for first, second in FIX_EXTRA:
+    for first, second in comparisons:
         key = f"{first}|{second}"
         tally, together = collections.Counter(), collections.Counter()
         for row in pages:
@@ -1272,6 +1292,11 @@ def fix_extra_judge(pages):
                  "tested_less": tested, "other_less": other, "interval": wilson(tested, tested + other),
                  "three_judges": {name: together[name] for name in ("first_less", "second_less", "tie")}}
         entry["holds"] = tested > other and entry["interval"][0] > 0.5
+        # The verdict of all three judges together, with the same bar.
+        ours, theirs = ((together["second_less"], together["first_less"]) if first == "original"
+                        else (together["first_less"], together["second_less"]))
+        entry["three_judges"].update(tested_less=ours, other_less=theirs, interval=wilson(ours, ours + theirs))
+        entry["three_judges"]["holds"] = ours > theirs and entry["three_judges"]["interval"][0] > 0.5
         result[key] = entry
     return result
 
@@ -1320,22 +1345,45 @@ def judge_results(root):
     return result
 
 
+def fix_arms(pages, names):
+    """Count for each fixed version how the index moved and how much of the page changed."""
+    result = {}
+    for name in names:
+        fixed = [(row["index"], row["arms"][name]) for row in pages if row["arms"][name] is not None]
+        changed = sorted(arm["changed"] for _, arm in fixed)
+        result[name] = {"fixed": len(fixed), "failed": len(pages) - len(fixed),
+                        "lower": sum(arm["index"] < before for before, arm in fixed),
+                        "higher": sum(arm["index"] > before for before, arm in fixed),
+                        "high_before": sum(before >= INDEX_HIGH for before, _ in fixed),
+                        "high_after": sum(arm["index"] >= INDEX_HIGH for _, arm in fixed),
+                        "median_changed": changed[len(changed) // 2] if changed else None}
+    return result
+
+
+def fix_fresh_results(root, name):
+    """Recount a run on pages that no earlier run had read."""
+    path, spec, lowering, bars = FRESH_RUNS[name]
+    if not (root / path).exists():
+        return {}
+    seen = set()
+    pages = [fix_row(row, seen, spec) for row in rows(root / path)]
+    result = {"pages": len(pages), "arms": fix_arms(pages, spec["arms"]),
+              "comparisons": {f"{first}|{second}": fix_comparison(pages, first, second) for first, second in spec["comparisons"]}}
+    result["registered"] = {
+        **{f"{arm}_lowers_index": bool(pages) and result["arms"][arm]["lower"] >= FIX_INDEX_SHARE * len(pages) for arm in lowering},
+        **{key: result["comparisons"][key]["holds"] for key in bars}}
+    if any(FIX_EXTRA_JUDGE in answers for row in pages for answers in row["answers"].values()):
+        result["extra_judge"] = fix_extra_judge(pages, spec["extra"])
+    return result
+
+
 def fix_results(root):
     """Recount the fix experiment: the index after each fix, and which version the blind judges call less AI-sounding."""
     if not (root / FIX_PANEL).exists():
         return {}
     seen = set()
     pages = [fix_row(row, seen) for row in rows(root / FIX_PANEL)]
-    result = {"pages": len(pages), "arms": {}, "comparisons": {}}
-    for name in FIX_ARMS:
-        fixed = [(row["index"], row["arms"][name]) for row in pages if row["arms"][name] is not None]
-        changed = sorted(arm["changed"] for _, arm in fixed)
-        result["arms"][name] = {"fixed": len(fixed), "failed": len(pages) - len(fixed),
-                                "lower": sum(arm["index"] < before for before, arm in fixed),
-                                "higher": sum(arm["index"] > before for before, arm in fixed),
-                                "high_before": sum(before >= INDEX_HIGH for before, _ in fixed),
-                                "high_after": sum(arm["index"] >= INDEX_HIGH for _, arm in fixed),
-                                "median_changed": changed[len(changed) // 2] if changed else None}
+    result = {"pages": len(pages), "arms": fix_arms(pages, FIX_ARMS), "comparisons": {}}
     for first, second in FIX_COMPARISONS:
         result["comparisons"][f"{first}|{second}"] = fix_comparison(pages, first, second)
 
@@ -1373,7 +1421,7 @@ def summarize(root):
             "deslop": deslop_results(root), "review_repeat": review_repeat_results(root),
             "default_load": default_load_results(root), "manual": manual_results(root),
             "page_index": page_index_results(root), "readme_load": default_load_results(root, README_LOAD),
-            "fix": fix_results(root), "judges_of_edits": judge_results(root)}
+            "fix": fix_results(root), "judges_of_edits": judge_results(root), "fix_fresh": fix_fresh_results(root, "fix_fresh"), "fix_third": fix_fresh_results(root, "fix_third")}
 
 
 def normalized(value):

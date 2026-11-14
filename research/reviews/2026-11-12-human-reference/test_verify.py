@@ -1069,7 +1069,9 @@ class FixCase(RecordCase):
         self.assertTrue(extra["report|write-good"]["holds"])
         # Its answers do not move the verdict of the registered panel, and the three judges together are counted apart.
         self.assertEqual(fix["comparisons"]["original|write-good"]["second_less"], 20)
-        self.assertEqual(extra["original|write-good"]["three_judges"], {"first_less": 0, "second_less": 20, "tie": 0})
+        together = extra["original|write-good"]["three_judges"]
+        self.assertEqual((together["first_less"], together["second_less"], together["tie"]), (0, 20, 0))
+        self.assertEqual((together["tested_less"], together["other_less"], together["holds"]), (20, 0, True))
         self.assertEqual(fix["registered"]["report|best_linter"], True)
 
     def test_bar_of_the_other_judge_is_recounted(self):
@@ -1082,6 +1084,139 @@ class FixCase(RecordCase):
         self.rewrite("data/fix-panel.jsonl.gz", lambda rows: rows[0]["answers"]["original|google"].update({EXTRA: "first"}))
         self.seal_digests_only()
         self.rejects("invalid answers")
+
+
+def fresh_page(name, against_linter="second", fix_index=30):
+    """A new page on which both of unswell's fixes lower the index and both judges prefer them to the original."""
+    answers = {"original|fix": "first", "original|report": "first", "original|write-good": "first",
+               "report|write-good": against_linter, "fix|write-good": "second"}
+    return {"page": name, "repository": "owner/" + name, "commit": "c" * 40, "path": "README.md", "layer": "search", "index": 90,
+            "arms": {"fix": {"index": fix_index, "changed": 0.02}, "report": {"index": 30, "changed": 0.02},
+                     "write-good": {"index": 90, "changed": 0.01}},
+            "answers": {key: dict.fromkeys(JUDGES, value) for key, value in answers.items()}}
+
+
+class FreshCase(RecordCase):
+    def setUp(self):
+        super().setUp()
+        write_rows(self.root / "data/fix-fresh.jsonl.gz", [fresh_page(f"n{number:02}") for number in range(20)])
+        self.seal()
+
+    def results(self):
+        return verify.verify(self.root)["fix_fresh"]
+
+    def test_reading(self):
+        fresh = self.results()
+        self.assertEqual((fresh["pages"], fresh["arms"]["fix"]["lower"], fresh["arms"]["write-good"]["lower"]), (20, 20, 0))
+        entry = fresh["comparisons"]["report|write-good"]
+        self.assertEqual((entry["tested_less"], entry["other_less"]), (20, 0))
+        self.assertEqual(fresh["registered"], {"fix_lowers_index": True, "report_lowers_index": True, "original|fix": True,
+                                               "original|report": True, "report|write-good": True})
+        self.assertNotIn("extra_judge", fresh)
+
+    def test_bars_are_recounted(self):
+        pages = [fresh_page(f"n{number:02}", "first" if number < 9 else "second", 90 if number < 3 else 30) for number in range(20)]
+        write_rows(self.root / "data/fix-fresh.jsonl.gz", pages)
+        self.seal()
+        fresh = self.results()
+        # Eleven of twenty against the linter leaves the interval below 50%, and seventeen of twenty pages is below nine in ten.
+        self.assertFalse(fresh["registered"]["report|write-good"])
+        self.assertFalse(fresh["registered"]["fix_lowers_index"])
+        self.assertTrue(fresh["registered"]["report_lowers_index"])
+
+    def test_third_judge_is_read_alone(self):
+        def answer(rows):
+            for number, row in enumerate(rows):
+                row["answers"]["original|fix"][EXTRA] = "first" if number < 12 else "same"
+                row["answers"]["report|write-good"][EXTRA] = "second"
+
+        self.rewrite("data/fix-fresh.jsonl.gz", answer)
+        self.seal()
+        extra = self.results()["extra_judge"]
+        self.assertEqual(extra["original|fix"]["answers"], {"first": 12, "second": 0, "same": 8, "missing": 0})
+        self.assertTrue(extra["original|fix"]["holds"])
+        self.assertEqual(extra["report|write-good"]["tested_less"], 20)
+
+    def test_bar_cannot_be_declared(self):
+        pages = [fresh_page(f"n{number:02}", "first" if number < 9 else "second") for number in range(20)]
+        write_rows(self.root / "data/fix-fresh.jsonl.gz", pages)
+        self.seal()
+        results = json.loads((self.root / "results.json").read_text())
+        results["fix_fresh"]["registered"]["report|write-good"] = True
+        (self.root / "results.json").write_text(json.dumps(results))
+        verify.write_digests(self.root)
+        self.rejects("results differ from the data files")
+
+    def test_unknown_version_is_refused(self):
+        self.rewrite("data/fix-fresh.jsonl.gz", lambda rows: rows[0]["arms"].update(google={"index": 90, "changed": 0.05}))
+        self.seal_digests_only()
+        self.rejects("invalid fix row")
+
+    def test_third_judge_did_not_read_the_command_against_the_linter(self):
+        self.rewrite("data/fix-fresh.jsonl.gz", lambda rows: rows[0]["answers"]["fix|write-good"].update({EXTRA: "first"}))
+        self.seal_digests_only()
+        self.rejects("invalid answers")
+
+
+def third_page(name, against_linter="second", fix_index=30, extra=None):
+    """A page of the third sample: the command lowers the index, and both panel judges prefer its page."""
+    answers = {"original|fix": "first", "original|write-good": "first", "fix|write-good": against_linter}
+    row = {"page": name, "repository": "owner/" + name, "commit": "c" * 40, "path": "README.md", "layer": "search", "index": 90,
+           "arms": {"fix": {"index": fix_index, "changed": 0.02}, "write-good": {"index": 90, "changed": 0.01}},
+           "answers": {key: dict.fromkeys(JUDGES, value) for key, value in answers.items()}}
+    for key, value in (extra or {}).items():
+        row["answers"][key][EXTRA] = value
+    return row
+
+
+class ThirdCase(RecordCase):
+    def write(self, pages):
+        write_rows(self.root / "data/fix-third.jsonl.gz", pages)
+        self.seal()
+        return verify.verify(self.root)["fix_third"]
+
+    def test_reading(self):
+        third = self.write([third_page(f"t{number:02}") for number in range(20)])
+        self.assertEqual((third["pages"], third["arms"]["fix"]["lower"]), (20, 20))
+        entry = third["comparisons"]["fix|write-good"]
+        self.assertEqual((entry["tested_less"], entry["other_less"]), (20, 0))
+        self.assertEqual(third["registered"], {"fix_lowers_index": True, "original|fix": True, "fix|write-good": True})
+
+    def test_bar_against_the_linter_is_recounted(self):
+        third = self.write([third_page(f"t{number:02}", "first" if number < 9 else "second", 90 if number < 3 else 30)
+                            for number in range(20)])
+        # Eleven of twenty leaves the interval below 50%, and seventeen of twenty pages is below nine in ten.
+        self.assertEqual((third["comparisons"]["fix|write-good"]["tested_less"], third["comparisons"]["fix|write-good"]["other_less"]), (11, 9))
+        self.assertEqual(third["registered"], {"fix_lowers_index": False, "original|fix": True, "fix|write-good": False})
+
+    def test_three_judges_together_have_the_same_bar(self):
+        # The panel splits nine to eleven against the linter; the third judge sides with the command on every page.
+        pages = [third_page(f"t{number:02}", "first" if number < 11 else "second", extra={"fix|write-good": "second"})
+                 for number in range(20)]
+        for page in pages[:11]:
+            page["answers"]["fix|write-good"][JUDGES[1]] = "same"
+        third = self.write(pages)
+        self.assertFalse(third["registered"]["fix|write-good"])
+        together = third["extra_judge"]["fix|write-good"]["three_judges"]
+        # On the eleven pages one panel judge names the command's page, one calls them the same, and the third names
+        # the linter's page: no verdict. On the other nine all three name the linter's page.
+        self.assertEqual((together["tested_less"], together["other_less"], together["tie"]), (9, 0, 11))
+        self.assertTrue(together["holds"])
+        self.assertTrue(third["extra_judge"]["fix|write-good"]["holds"])
+
+    def test_bar_cannot_be_declared(self):
+        self.write([third_page(f"t{number:02}", "first" if number < 9 else "second") for number in range(20)])
+        results = json.loads((self.root / "results.json").read_text())
+        results["fix_third"]["registered"]["fix|write-good"] = True
+        (self.root / "results.json").write_text(json.dumps(results))
+        verify.write_digests(self.root)
+        self.rejects("results differ from the data files")
+
+    def test_report_version_is_not_part_of_the_third_run(self):
+        self.write([third_page(f"t{number:02}") for number in range(20)])
+        self.rewrite("data/fix-third.jsonl.gz", lambda rows: rows[0]["arms"].update(report={"index": 30, "changed": 0.02}))
+        self.seal_digests_only()
+        self.rejects("invalid fix row")
 
 
 def judge_pair(name, edit, both_fixed=None, fixed=None):
