@@ -40,30 +40,25 @@ The lines of the index in the text report of `unswell check docs/guide.md`:
 
 ```text
 AI-sounding index: 100 of 100 (high) in docs/guide.md: 4 em dashes, 1 emoji in a heading, 1 list item that starts with an emoji, 2 arrows, 1 stock word, 2 list items that start with a bold label.
-  docs/guide.md:1:3: emoji in a heading
-  docs/guide.md:3:17: stock word "seamless"
-  docs/guide.md:3:50: em dash
-  docs/guide.md:3:84: em dash
-  docs/guide.md:7:3: list item that starts with a bold label
-  docs/guide.md:7:15: em dash
-  docs/guide.md:8:3: list item that starts with a bold label
-  docs/guide.md:8:16: em dash
-  docs/guide.md:9:3: list item that starts with an emoji
-  docs/guide.md:13:21: arrow
-  docs/guide.md:13:29: arrow
-To lower the index, remove its marks:
-  em dash: Use a comma, a period, a colon, or parentheses, whichever the sentence needs.
-  emoji in a heading: Remove the emoji and keep the words of the heading.
-  list item that starts with an emoji: Remove the emoji and start the item with its words.
-  arrow: Write the step in words, such as "then" or "gives". In a menu path, write ">".
-  stock word: Say what the thing does, with a fact, or drop the word.
-  list item that starts with a bold label: Remove the bold and keep the words, or make the label part of the sentence.
+  docs/guide.md:1:3: emoji in a heading; remove it
+  docs/guide.md:3:17: stock word "seamless"; say what the thing does, or drop the word
+  docs/guide.md:3:50: em dash; write a comma
+  docs/guide.md:3:84: em dash; write a comma
+  docs/guide.md:7:3: list item that starts with a bold label; remove the bold
+  docs/guide.md:7:15: em dash; write a colon
+  docs/guide.md:8:3: list item that starts with a bold label; remove the bold
+  docs/guide.md:8:16: em dash; write a colon
+  docs/guide.md:9:3: list item that starts with an emoji; remove it
+  docs/guide.md:13:21: arrow; write "->"
+  docs/guide.md:13:29: arrow; write "->"
+`unswell fix --write` makes the replacements named above. A stock word needs your own words.
 The index counts marks that people remove when they clean AI-sounding wording out of documentation. It is not a probability and does not say who wrote a page.
 ```
 
 The text and Markdown reports name each page above `low`, the most marked
-first. They list the place of up to 60 marks in a run and say once how to
-remove each kind of mark. The JSON report holds the index of every page under
+first. They list the place of up to 60 marks in a run, and each line says what
+to do with its mark: the replacement that `unswell fix` would make, or, for a
+stock word, that only you can say what the thing does. The JSON report holds the index of every page under
 `documents[].ai_sounding`:
 
 | Field | Content |
