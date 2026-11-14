@@ -6,7 +6,8 @@ auditor. This record measures the tool against what people did. It uses three
 public sources of human edits and one public study of human preferences, and
 it keeps coordinates and choices only. No text of any source is stored here.
 
-[RESULTS.md](RESULTS.md) and [RESULTS-words.md](RESULTS-words.md) hold every
+[RESULTS.md](RESULTS.md), [RESULTS-words.md](RESULTS-words.md), and
+[RESULTS-index.md](RESULTS-index.md) hold every
 number. They are generated from `results.json`, and `verify.py` recounts
 `results.json` from the data files.
 
@@ -193,6 +194,42 @@ to were posted on issue 525 before any test document ran.
     prose; on the 500 English ones both rules still meet the bar and the
     defaults fire in 300 pairs against 141.
 
+15. **A page index of six surface marks separates pages that someone later
+    cleaned from pages that people wrote, and stays low on the latter.** The
+    index counts em dashes, emoji in headings and at the start of list items,
+    arrows, stock words, and bold labels in lists per 1,000 prose words. On
+    189 held-out pairs and 566 README files as they were before November
+    2022 its AUC is 0.867. It is lower after the commit in
+    82 of 105, 78.1% (69.3% to 84.9%) of the pairs that differ, and
+    in 31 of 44, 70.5% (55.8% to 81.8%) on the web-flow edits among
+    them. 18 of the README files (3.2%) reach the level `high`. The index
+    does not change in 84 of the 189 pairs, and 43.4% of the pages are still
+    `high` after the commit.
+
+16. **Removing the marks makes a page read less AI-sounding to model judges,
+    and unswell's report guides a fixer better than a third-party linter's
+    findings.** On 83 held-out pages `unswell fix`, which uses no model,
+    lowers the index on 83, and two blind model judges find its page the
+    less AI-sounding one against the original on
+    72 of 73, 98.6% (92.6% to 99.8%) of the decisive pages.
+    A model that follows the report of `unswell check` gives
+    64 of 68, 94.1% (85.8% to 97.7%) against the original. The
+    same model with the findings of write-good, the best of three third-party
+    linters by this measure, gives 45 of 71, 63.4% (51.8% to 73.6%),
+    and against its page the page fixed with unswell's report is the less
+    AI-sounding one on 48 of 70, 68.6% (57.0% to 78.2%).
+    With Vale's two styles the same model makes pages that the judges find
+    more AI-sounding than the original. A judge of another model family,
+    added afterwards, never prefers the original or the linter's page where
+    it decides, and calls the two versions the same on 40 of the 83 pages
+    for `unswell fix` and on 31 for the report version. With the marks
+    removed from both versions of a pair, all three judges still name the
+    version before a person's edit in 75.3%, 72.7%, 77.3% of their decisive
+    answers, so they hear more than the marks. `unswell fix` changed after the
+    registered run (a period between two full clauses in place of a comma);
+    its numbers here are a second reading of the same pages, and the first
+    was 72 of 73 against the original.
+
 ## Decisions
 
 Each rule was registered on issue 525 before its result was read.
@@ -270,6 +307,21 @@ Each rule was registered on issue 525 before its result was read.
     profile. [ADR 0056](../../../docs/adr/0056-rules-tested-on-de-slop-commits.md)
     records the reference and the bar.
 
+15. *Ship the page index if, on held-out pairs, its AUC against README files
+    written before November 2022 is at least 0.80, it is lower after the
+    commit in at least 70% of the pairs that differ, the same holds on the
+    web-flow edits alone, and at most 5% of the README files are `high`.*
+    All four hold, the third by one pair. The index ships in `unswell check`.
+
+16. *Say that fixing what unswell points at lowers AI-sounding if the index
+    falls on at least 90% of the pages after `unswell fix` and after the fix
+    by unswell's report, each version is the less AI-sounding one against the
+    original on more than half of the decisive pages with the lower end of
+    the interval above 50%, and the report version meets the same bar against
+    the version of the best third-party linter.* All hold. `unswell fix` ships.
+    [ADR 0059](../../../docs/adr/0059-page-index-and-fix.md) records both
+    decisions.
+
 ## Limits
 
 - An unedited sentence is not a clean sentence. A person changed what they
@@ -283,8 +335,10 @@ Each rule was registered on issue 525 before its result was read.
 - Agreement between editors was measured on fiction only. No set gives it for
   documentation.
 - Open-source linters for model-style wording were registered as a comparison
-  and were not run: installing and executing third-party packages was not
-  permitted in the session that made this record. One of them publishes an
+  for results 1 to 13 and were not run there: installing and executing
+  third-party packages was not permitted in the session that made that part
+  of the record. For result 16 Vale and write-good ran over the pages in a
+  container without network. One of them publishes an
   audit of its own in which its phrase sets fired more often on text written
   by people than on model text.
 - Each configuration ran once. A model's answers differ between runs.
@@ -315,6 +369,16 @@ Each rule was registered on issue 525 before its result was read.
   deleted some of them. The trim-only comparison and the command never delete
   a sentence.
 
+- The fixer and the two judges of the panel of result 16 are models of one
+  family, and the fixer is one of them. The judges often give as their reason
+  the marks that the index counts. A judge of another family read part of the
+  comparisons; no person took part, and nobody judged the grammar of the
+  fixed text.
+- The version of `unswell fix` that ships was judged on pages that had been
+  read once with its earlier version.
+- The pages of result 16 are the held-out pages with an index of 40 or more.
+  On the others the report lists no mark and the result says nothing.
+
 ## Files
 
 | Path | Content |
@@ -331,12 +395,16 @@ Each rule was registered on issue 525 before its result was read.
 | `data/vocabulary.jsonl.gz`, `data/vocabulary-phrases.jsonl.gz`, `data/vocabulary-load.jsonl.gz` | The wide phrase list, the phrases that the selection part dropped, per unused answer the findings of the list with the index of the phrase and the byte spans of the flagged words, and the count of findings of the kept phrases on pages of public repositories |
 | `data/deslop-pairs.jsonl.gz`, `data/emoji-load.jsonl.gz`, `data/frequency-load.jsonl.gz` | Per file before and after a commit that removes AI-sounding wording: repository, commit, path, words, and findings per rule in both versions; and the reports of the two new rules on four kinds of documentation |
 | `data/default-load.jsonl.gz` | Per page that people wrote before November 2022: its words and the rules that report on it |
+| `data/page-index.jsonl.gz` | Per page behind the reading of the page index (README files as they were before November 2022, and both versions of de-slop pairs outside the main set and in its test part): repository, commit, path, prose words, the count of each signal, and the index that the product reported |
+| `data/fix-panel.jsonl.gz` | Per page of the fix experiment: repository, commit, path, the index of the original, for each fixed version its index and the share of tokens changed, and each judge's answer per pair of versions. No page text and no model output |
+| `data/judge-pairs.jsonl.gz` | Per held-out pair before and after a de-slop edit by people: repository, commit, path, and each judge's answer for the pair as it is, for the pair with `unswell fix` applied to both versions, and for the fixed earlier version against the person's version |
+| `data/readme-load.jsonl.gz` | Per README file of the page index: its words and the rules that report on it with the configuration that ships |
 | `data/manual-pairs.jsonl.gz` | Per likely-manual de-slop edit (a short one-file commit through GitHub's web flow): repository, commit, path, words, and findings per rule in both versions |
 | `data/review-repeat.jsonl.gz` | Per file before a de-slop commit and per answer form of the review: findings, flagged words, flagged words that the commit changed, and flagged sentences in each of two runs; the sentences flagged in both; and what the commit did to the flagged sentences |
 | `data/rule-words.jsonl.gz` | Per document and rule of the run with every rule: the words under the rule's findings and how many the editor changed |
-| `results.json`, `RESULTS.md`, `RESULTS-words.md` | Every published number, recounted and rendered; the second page holds the comparisons at the level of words |
+| `results.json`, `RESULTS.md`, `RESULTS-words.md`, `RESULTS-index.md` | Every published number, recounted and rendered; the second page holds the comparisons at the level of words, the third the page index, the fix experiment, and its judges |
 | `verify.py`, `test_verify.py`, `render.py` | The check, its negative tests, and the renderer |
-| `scripts/` | The scripts that fetched, prepared, ran, and measured, as they ran |
+| `scripts/` | The scripts that fetched, prepared, ran, and measured, as they ran. `scripts/index/` holds those of the page index and of the fix experiment; `fix_pairs.py` there takes the path of the binary as an argument, where the runs had it as a constant. The judge `gpt-6-astra` ran through Codex with the settings of `annotate.py` in the assistant-panel corpus and the reasoning effort set to low |
 
 ```sh
 make check-human-reference

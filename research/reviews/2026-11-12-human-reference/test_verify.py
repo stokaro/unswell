@@ -108,7 +108,7 @@ class RecordCase(unittest.TestCase):
         import render
         results = json.loads((self.root / "results.json").read_text())
         for page, function in render.PAGES.items():
-            if page == "RESULTS.md" or render.has_words(results):
+            if render.PRESENT[page](results):
                 (self.root / page).write_text(function(results))
 
     def test_edited_results_page_is_rejected(self):
@@ -793,6 +793,372 @@ class DefaultsCase(RecordCase):
         self.rewrite("data/manual-pairs.jsonl.gz", lambda rows: rows[0].update(words_after=0))
         self.seal_digests_only()
         self.rejects("invalid counts in manual pair")
+
+
+def index_page(group, name, side, counts=None, words=1000, outside=True):
+    counts = {**dict.fromkeys(verify.INDEX_WEIGHTS, 0), **(counts or {})}
+    return {"group": group, "id": name, "side": side, "repository": "owner/" + name, "commit": "c" * 40, "path": "README.md",
+            "outside_main": outside, "words": words, "counts": counts, "index": verify.page_index(words, counts)}
+
+
+def index_pair(group, name, before, after, outside=True):
+    return [index_page(group, name, "before", before, outside=outside), index_page(group, name, "after", after, outside=outside)]
+
+
+class PageIndexCase(RecordCase):
+    def setUp(self):
+        super().setUp()
+        dashes = {"em-dash": 20}
+        # Forty pages that people wrote: one full of dashes, the others plain.
+        pages = [index_page("human", f"h{n:02}", "page", dashes if n == 0 else None) for n in range(40)]
+        for n in range(8):
+            pages += index_pair("reserve", f"r{n}", dashes, {"em-dash": 2} if n < 7 else {"em-dash": 40})
+        pages += index_pair("web", "w0", dashes, None)
+        pages += index_pair("web", "w1", dashes, None, outside=False)
+        pages += index_pair("main", "m0", None, None)
+        write_rows(self.root / "data/page-index.jsonl.gz", pages)
+        self.seal()
+
+    def results(self):
+        return verify.verify(self.root)["page_index"]
+
+    def test_reading(self):
+        index = self.results()
+        self.assertEqual(index["human"], {"pages": 40, "high": 1, "elevated": 0})
+        held = index["held_out"]
+        # Nine pairs from outside the main set: eight from the reserve and one web-flow edit.
+        self.assertEqual((held["pairs"], held["lower"], held["higher"]), (9, 8, 1))
+        # Each page before a commit is above 39 of the 40 pages that people wrote and level with one.
+        self.assertEqual(held["auc"], round(39.5 / 40, 4))
+        self.assertEqual((index["held_out_web"]["pairs"], index["web"]["pairs"], index["main_test"]["pairs"]), (1, 2, 1))
+        self.assertEqual((held["high_before"], held["high_after"]), (9, 1))
+        self.assertEqual(index["registered"], {"auc": True, "pairs": True, "web_pairs": True, "human_high": True})
+
+    def test_bars_are_recounted(self):
+        def more_dashes(rows):
+            for row in rows:
+                if row["group"] == "human" and row["id"] in ("h01", "h02"):
+                    row["counts"]["em-dash"] = 20
+                    row["index"] = verify.page_index(row["words"], row["counts"])
+                if row["group"] == "reserve" and row["side"] == "after" and row["id"] in ("r0", "r1", "r2"):
+                    row["counts"]["em-dash"] = 40
+                    row["index"] = verify.page_index(row["words"], row["counts"])
+
+        self.rewrite("data/page-index.jsonl.gz", more_dashes)
+        self.seal()
+        index = self.results()
+        # Three of forty pages that people wrote are above one in twenty, and five of nine pairs are below 70%.
+        self.assertEqual(index["human"]["high"], 3)
+        self.assertFalse(index["registered"]["human_high"])
+        self.assertEqual((index["held_out"]["lower"], index["held_out"]["higher"]), (5, 4))
+        self.assertFalse(index["registered"]["pairs"])
+
+    def test_bar_cannot_be_declared(self):
+        results = json.loads((self.root / "results.json").read_text())
+        results["page_index"]["held_out"]["auc"] = 0.99
+        (self.root / "results.json").write_text(json.dumps(results))
+        verify.write_digests(self.root)
+        self.rejects("results differ from the data files")
+
+    def test_index_follows_from_the_counts(self):
+        self.rewrite("data/page-index.jsonl.gz", lambda rows: rows[0].update(index=rows[0]["index"] - 30))
+        self.seal_digests_only()
+        self.rejects("differs from its counts")
+
+    def test_pair_needs_both_versions(self):
+        self.rewrite("data/page-index.jsonl.gz", lambda rows: rows.pop())
+        self.seal_digests_only()
+        self.rejects("pair without both versions")
+
+    def test_page_cannot_repeat(self):
+        self.rewrite("data/page-index.jsonl.gz", lambda rows: rows.append(dict(rows[0])))
+        self.seal_digests_only()
+        self.rejects("invalid page index row")
+
+    def test_default_rules_on_the_same_pages(self):
+        pages = [{"page": f"h{n:02}", "words": 1000, "rules": ["filler.nominal-support"] if n < 2 else []} for n in range(40)]
+        write_rows(self.root / "data/readme-load.jsonl.gz", pages)
+        self.seal()
+        load = verify.verify(self.root)["readme_load"]
+        self.assertEqual((load["pages"], load["rules"], load["over_limit"]), (40, {"filler.nominal-support": 2}, []))
+        # A third page takes the rule over one in twenty, and a rule that ships on may not be there.
+        self.rewrite("data/readme-load.jsonl.gz", lambda rows: rows[2].update(rules=["filler.nominal-support"]))
+        self.seal()
+        load = verify.verify(self.root)["readme_load"]
+        self.assertEqual(load["over_limit"], ["filler.nominal-support"])
+        self.assertFalse(load["defaults_within_limit"])
+
+    def test_short_page_is_refused(self):
+        def shorten(rows):
+            rows[0].update(words=100, index=verify.page_index(100, rows[0]["counts"]))
+
+        self.rewrite("data/page-index.jsonl.gz", shorten)
+        self.seal_digests_only()
+        self.rejects("invalid page index row")
+
+
+JUDGES = verify.FIX_JUDGES
+EXTRA = verify.FIX_EXTRA_JUDGE
+
+
+def fix_page(name, arms=None, **answers):
+    """A page whose index falls after both of unswell's fixes, with both judges giving the same answers.
+
+    By default each of unswell's versions is the less AI-sounding one against the original, write-good's version is
+    too, Vale's versions are not, and the report version is the less AI-sounding one against every linter's.
+    """
+    fixed = {"index": 30, "changed": 0.03}
+    named = {"original|fix": "first", "original|fix-comma": "first", "original|report": "first", "original|write-good": "first",
+             "original|google": "second",
+             "original|microsoft": "second", **{f"report|{linter}": "second" for linter in verify.FIX_LINTERS},
+             **{key.replace("_", "|", 1).replace("_", "-"): value for key, value in answers.items()}}
+    return {"page": name, "repository": "owner/" + name, "commit": "c" * 40, "path": "README.md", "layer": "reserve", "index": 90,
+            "arms": {**{arm: dict(fixed, index=90) for arm in verify.FIX_LINTERS}, "fix": dict(fixed), "fix-comma": dict(fixed),
+                     "report": dict(fixed), **(arms or {})},
+            "answers": {key: dict.fromkeys(JUDGES, value) for key, value in named.items()}}
+
+
+class FixCase(RecordCase):
+    def setUp(self):
+        super().setUp()
+        write_rows(self.root / "data/fix-panel.jsonl.gz", [fix_page(f"f{n:02}") for n in range(20)])
+        self.seal()
+
+    def results(self):
+        return verify.verify(self.root)["fix"]
+
+    def test_reading(self):
+        fix = self.results()
+        self.assertEqual((fix["pages"], fix["arms"]["fix"]["lower"], fix["arms"]["report"]["lower"], fix["arms"]["google"]["lower"]),
+                         (20, 20, 20, 0))
+        self.assertEqual((fix["arms"]["fix"]["high_before"], fix["arms"]["fix"]["high_after"]), (20, 0))
+        against_original = fix["comparisons"]["original|fix"]
+        # Both judges name the original as the one that reads more like a model, which counts for the fixed version.
+        self.assertEqual((against_original["second_less"], against_original["tested_less"], against_original["other_less"]), (20, 20, 0))
+        against_linter = fix["comparisons"]["report|write-good"]
+        self.assertEqual((against_linter["first_less"], against_linter["tested_less"]), (20, 20))
+        # Only write-good's version beats the original, so it is the best third-party linter.
+        self.assertEqual(fix["best_linter"], "write-good")
+        self.assertEqual(fix["registered"], {"fix_lowers_index": True, "report_lowers_index": True, "original|fix": True,
+                                             "original|report": True, "report|best_linter": True})
+        self.assertEqual(fix["second_reading"], {"fix_lowers_index": True, "original|fix": True})
+
+    def test_registered_bars_are_read_on_the_first_version(self):
+        def second_differs(rows):
+            for row in rows[:12]:
+                # The command that ships loses to the original on twelve pages and leaves the index where it was.
+                row["answers"]["original|fix"] = dict.fromkeys(JUDGES, "second")
+                row["arms"]["fix"]["index"] = 90
+
+        self.rewrite("data/fix-panel.jsonl.gz", second_differs)
+        self.seal()
+        fix = self.results()
+        self.assertEqual((fix["registered"]["fix_lowers_index"], fix["registered"]["original|fix"]), (True, True))
+        self.assertEqual(fix["second_reading"], {"fix_lowers_index": False, "original|fix": False})
+
+    def test_bars_are_recounted(self):
+        def worse(rows):
+            for row in rows[:9]:
+                # The best linter's version is named less often than unswell's on nine pages.
+                row["answers"]["report|write-good"] = dict.fromkeys(JUDGES, "first")
+            for row in rows[:3]:
+                row["arms"]["fix-comma"]["index"] = 90
+
+        self.rewrite("data/fix-panel.jsonl.gz", worse)
+        self.seal()
+        fix = self.results()
+        against_linter = fix["comparisons"]["report|write-good"]
+        # Eleven of twenty is more than half, but the interval reaches below 50%.
+        self.assertEqual((against_linter["tested_less"], against_linter["other_less"]), (11, 9))
+        self.assertFalse(fix["registered"]["report|best_linter"])
+        # Seventeen of twenty pages is below nine in ten, for the fix that changed and not for the other.
+        self.assertEqual(fix["arms"]["fix-comma"]["lower"], 17)
+        self.assertFalse(fix["registered"]["fix_lowers_index"])
+        self.assertTrue(fix["registered"]["report_lowers_index"])
+
+    def test_best_linter_follows_the_panel(self):
+        def other_linter(rows):
+            for row in rows:
+                # Now Vale's Google version beats the original everywhere, write-good's nowhere, and unswell's
+                # report version loses to Google's.
+                row["answers"]["original|google"] = dict.fromkeys(JUDGES, "first")
+                row["answers"]["original|write-good"] = dict.fromkeys(JUDGES, "second")
+                row["answers"]["report|google"] = dict.fromkeys(JUDGES, "first")
+
+        self.rewrite("data/fix-panel.jsonl.gz", other_linter)
+        self.seal()
+        fix = self.results()
+        self.assertEqual(fix["best_linter"], "google")
+        self.assertFalse(fix["registered"]["report|best_linter"])
+        self.assertTrue(fix["comparisons"]["report|write-good"]["holds"])
+
+    def test_judges_that_disagree_give_no_verdict(self):
+        def split(rows):
+            rows[0]["answers"]["original|fix"] = {JUDGES[0]: "first", JUDGES[1]: "second"}
+            rows[1]["answers"]["original|fix"] = {JUDGES[0]: "first", JUDGES[1]: "same"}
+            del rows[2]["answers"]["original|fix"][JUDGES[1]]
+
+        self.rewrite("data/fix-panel.jsonl.gz", split)
+        self.seal()
+        entry = self.results()["comparisons"]["original|fix"]
+        self.assertEqual((entry["second_less"], entry["first_less"], entry["tie"]), (19, 0, 1))
+        self.assertEqual(entry["judges"][JUDGES[1]], {"first": 17, "second": 1, "same": 1, "missing": 1})
+
+    def test_failed_fix_counts_against_the_index_bar(self):
+        def fail_some(rows):
+            for row in rows[:3]:
+                row["arms"]["report"] = None
+                row["answers"] = {key: value for key, value in row["answers"].items() if "report" not in key}
+
+        self.rewrite("data/fix-panel.jsonl.gz", fail_some)
+        self.seal()
+        fix = self.results()
+        self.assertEqual((fix["arms"]["report"]["fixed"], fix["arms"]["report"]["failed"]), (17, 3))
+        self.assertFalse(fix["registered"]["report_lowers_index"])
+        self.assertTrue(fix["registered"]["fix_lowers_index"])
+
+    def test_bar_cannot_be_declared(self):
+        results = json.loads((self.root / "results.json").read_text())
+        results["fix"]["registered"]["report|best_linter"] = False
+        (self.root / "results.json").write_text(json.dumps(results))
+        verify.write_digests(self.root)
+        self.rejects("results differ from the data files")
+
+    def test_answer_about_a_failed_fix_is_refused(self):
+        self.rewrite("data/fix-panel.jsonl.gz", lambda rows: rows[0]["arms"].update(google=None))
+        self.seal_digests_only()
+        self.rejects("answer about a failed fix")
+
+    def test_unknown_judge_is_refused(self):
+        self.rewrite("data/fix-panel.jsonl.gz", lambda rows: rows[0]["answers"]["original|fix"].update(another="first"))
+        self.seal_digests_only()
+        self.rejects("invalid answers")
+
+    def test_unknown_comparison_is_refused(self):
+        self.rewrite("data/fix-panel.jsonl.gz", lambda rows: rows[0]["answers"].update({"google|fix": {JUDGES[0]: "first"}}))
+        self.seal_digests_only()
+        self.rejects("invalid answers")
+
+    def test_page_cannot_repeat(self):
+        self.rewrite("data/fix-panel.jsonl.gz", lambda rows: rows.append(json.loads(json.dumps(rows[0]))))
+        self.seal_digests_only()
+        self.rejects("invalid fix row")
+
+    def add_extra_judge(self, against_linter):
+        def answer(rows):
+            for number, row in enumerate(rows):
+                row["answers"]["original|fix"][EXTRA] = "first"
+                row["answers"]["original|report"][EXTRA] = "first" if number < 19 else "same"
+                row["answers"]["original|write-good"][EXTRA] = "second"
+                row["answers"]["report|write-good"][EXTRA] = against_linter(number)
+
+        self.rewrite("data/fix-panel.jsonl.gz", answer)
+        self.seal()
+        return self.results()
+
+    def test_judge_of_another_family_is_read_alone(self):
+        fix = self.add_extra_judge(lambda number: "second" if number < 16 else "first")
+        extra = fix["extra_judge"]
+        self.assertEqual(set(extra), {"original|fix-comma", "original|fix", "original|report", "original|write-good",
+                                      "report|write-good"})
+        self.assertEqual((extra["original|fix"]["tested_less"], extra["original|fix"]["other_less"], extra["original|fix"]["holds"]),
+                         (20, 0, True))
+        self.assertEqual(extra["original|report"]["answers"], {"first": 19, "second": 0, "same": 1, "missing": 0})
+        # Against the linter's version the judge names unswell's as the less AI-sounding one on 16 of 20 pages.
+        self.assertEqual((extra["report|write-good"]["tested_less"], extra["report|write-good"]["other_less"]), (16, 4))
+        self.assertTrue(extra["report|write-good"]["holds"])
+        # Its answers do not move the verdict of the registered panel, and the three judges together are counted apart.
+        self.assertEqual(fix["comparisons"]["original|write-good"]["second_less"], 20)
+        self.assertEqual(extra["original|write-good"]["three_judges"], {"first_less": 0, "second_less": 20, "tie": 0})
+        self.assertEqual(fix["registered"]["report|best_linter"], True)
+
+    def test_bar_of_the_other_judge_is_recounted(self):
+        fix = self.add_extra_judge(lambda number: "second" if number < 11 else "first")
+        entry = fix["extra_judge"]["report|write-good"]
+        self.assertEqual((entry["tested_less"], entry["other_less"]), (11, 9))
+        self.assertFalse(entry["holds"])
+
+    def test_other_judge_answers_only_its_comparisons(self):
+        self.rewrite("data/fix-panel.jsonl.gz", lambda rows: rows[0]["answers"]["original|google"].update({EXTRA: "first"}))
+        self.seal_digests_only()
+        self.rejects("invalid answers")
+
+
+def judge_pair(name, edit, both_fixed=None, fixed=None):
+    comparisons = {"edit": edit}
+    if both_fixed is not None:
+        comparisons["edit_both_fixed"] = both_fixed
+    if fixed is not None:
+        comparisons["fixed_against_edit"] = fixed
+    return {"pair": name, "repository": "owner/" + name, "commit": "c" * 40, "path": "README.md", "layer": "web",
+            "comparisons": comparisons}
+
+
+class JudgePairsCase(RecordCase):
+    def setUp(self):
+        super().setUp()
+        first, second = JUDGES
+        pairs = []
+        for number in range(20):
+            # The first judge names the version before the edit on 15 of 20 pairs, the second on 13, the third on 14 of
+            # its 19 decisive answers. With the marks gone from both versions the first falls to 10 of 20.
+            edit = {first: "before" if number < 15 else "after", second: "before" if number < 13 else "after",
+                    EXTRA: "same" if number == 19 else "before" if number < 14 else "after"}
+            pairs.append(judge_pair(f"j{number:02}", edit, {first: "before" if number < 10 else "after"},
+                                    {first: "before"} if number < 18 else None))
+        write_rows(self.root / "data/judge-pairs.jsonl.gz", pairs)
+        self.seal()
+
+    def results(self):
+        return verify.verify(self.root)["judges_of_edits"]
+
+    def test_reading(self):
+        first, second = JUDGES
+        judges = self.results()
+        self.assertEqual(judges["pairs"], 20)
+        edit = judges["comparisons"]["edit"]
+        self.assertEqual((edit[first]["before"], edit[first]["after"]), (15, 5))
+        self.assertEqual((edit[EXTRA]["before"], edit[EXTRA]["after"], edit[EXTRA]["same"]), (14, 5, 1))
+        # 15 of 20 and 14 of 19 are at least 70%; 13 of 20 is not.
+        self.assertEqual(judges["admitted"], {first: True, second: False, EXTRA: True})
+        both = judges["comparisons"]["edit_both_fixed"][first]
+        self.assertEqual((both["before"], both["after"]), (10, 10))
+        self.assertEqual(judges["comparisons"]["fixed_against_edit"][first]["before"], 18)
+        self.assertEqual(judges["comparisons"]["fixed_against_edit"][second]["before"], 0)
+
+    def test_admission_cannot_be_declared(self):
+        results = json.loads((self.root / "results.json").read_text())
+        results["judges_of_edits"]["admitted"][JUDGES[1]] = True
+        (self.root / "results.json").write_text(json.dumps(results))
+        verify.write_digests(self.root)
+        self.rejects("results differ from the data files")
+
+    def test_unknown_answer_is_refused(self):
+        self.rewrite("data/judge-pairs.jsonl.gz", lambda rows: rows[0]["comparisons"]["edit"].update({JUDGES[0]: "first"}))
+        self.seal_digests_only()
+        self.rejects("invalid judge pair")
+
+    def test_unknown_judge_is_refused(self):
+        self.rewrite("data/judge-pairs.jsonl.gz", lambda rows: rows[0]["comparisons"]["edit"].update(another="before"))
+        self.seal_digests_only()
+        self.rejects("invalid judge pair")
+
+    def test_pair_cannot_repeat(self):
+        self.rewrite("data/judge-pairs.jsonl.gz", lambda rows: rows.append(json.loads(json.dumps(rows[0]))))
+        self.seal_digests_only()
+        self.rejects("invalid judge pair")
+
+    def test_missing_index_page_is_rejected(self):
+        self.write_pages()
+        verify.verify(self.root)
+        (self.root / "RESULTS-index.md").unlink()
+        self.rejects("RESULTS-index.md is missing")
+
+    def test_edited_index_page_is_rejected(self):
+        self.write_pages()
+        page = self.root / "RESULTS-index.md"
+        page.write_text(page.read_text().replace("70%", "60%"))
+        self.rejects("RESULTS-index.md differs from the rendering")
 
 
 class OpenerRuleTest(unittest.TestCase):

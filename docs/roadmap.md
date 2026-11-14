@@ -92,6 +92,14 @@ revision under the same measure, trims for sentences with inline code, a human
 reference of documentation that models wrote and people edited, and the
 open-source linters that were registered as a comparison and not run.
 
+[ADR 0059](adr/0059-page-index-and-fix.md) adds a page index of AI-sounding
+documentation to `unswell check` and the command `unswell fix`, which removes
+the marks of the index that have a mechanical replacement. Open after it:
+people as judges of the fix, a check of the grammar of the fixed text, the
+dashes between two clauses that the command does not recognize and joins with
+a comma, the index for formats other than Markdown, and marks below the
+surface of a page, where most of a cleaning edit happens.
+
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on
 an explicit maintainer request, after the other implementation tasks have a

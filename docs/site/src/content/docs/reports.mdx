@@ -69,6 +69,21 @@ user text never becomes trusted markup.
 JSON and SARIF keep every finding regardless of display filters. `--max-findings`
 and `--min-severity` change the terminal, not the record and not the gate.
 
+## The AI-sounding index
+
+For a Markdown page of 150 prose words or more the text, Markdown and JSON
+reports carry an index from 0 to 100 with the levels `low`, `elevated` and
+`high`. It counts em dashes, emoji in headings and at the start of list items,
+arrows, stock words and bold labels in lists, and the report lists where each
+mark is. The index has no gate and is not a probability.
+
+`unswell fix` removes the marks that have a mechanical replacement, without a
+model, and writes only with `--write`:
+
+```sh
+unswell fix README.md docs --write
+```
+
 ## Exit codes
 
 | Code | Meaning |

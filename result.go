@@ -109,6 +109,9 @@ type DocumentResult struct {
 	Median           float64              `json:"paragraph_median"`
 	P90              float64              `json:"paragraph_p90"`
 	FlaggedFraction  float64              `json:"eligible_paragraph_flagged_fraction"`
+	// AISounding is the page-level index for a Markdown page and absent for
+	// other documents.
+	AISounding *AISounding `json:"ai_sounding,omitempty"`
 }
 
 // Manifest records the exact execution policy and feature versions, without time.

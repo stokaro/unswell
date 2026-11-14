@@ -38,6 +38,15 @@ constructions, long sentences, and emoji in headings. It explains each finding,
 gives the same result on every run, and can fail a build on wording your
 project has decided to refuse.
 
+`unswell check` also gives each Markdown page an
+[AI-sounding index](docs/ai-sounding-index.md) from 0 to 100 and lists the
+marks behind it: em dashes, emoji in headings and list items, arrows, stock
+words, bold labels in lists. On pages from before a commit that removes
+AI-sounding wording, set against README files written before November 2022,
+the index separates the two with an AUC of 0.87, and 3.2% of those
+README files reach its high level. `unswell fix` removes the marks that have
+a mechanical replacement, without a model.
+
 `unswell review` gives a document to a model you name. The model reads it in
 context and flags sentences to tighten. Unswell binds each flag to the exact
 place in the source and drops a flag that does not quote its sentence.
@@ -65,6 +74,7 @@ Build with the minimum Go version declared in [go.mod](go.mod):
 go build -o bin/unswell ./cmd/unswell
 bin/unswell config init --profile technical
 bin/unswell check README.md docs/
+bin/unswell fix README.md docs/
 ```
 
 Install the published alpha without Go through the
