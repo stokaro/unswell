@@ -1282,19 +1282,25 @@ def judge_results(root):
         return {}
     judges = (*FIX_JUDGES, FIX_EXTRA_JUDGE)
     counts = {name: {judge: collections.Counter() for judge in judges} for name in JUDGE_COMPARISONS}
-    seen = set()
+    # The pairs as they are, counted again on the web-flow edits alone, which a person most likely typed.
+    manual = {judge: collections.Counter() for judge in judges}
+    seen, layers = set(), collections.Counter()
     for row in rows(root / JUDGE_PAIRS):
         valid = (set(row) == JUDGE_PAIR_KEYS and row["pair"] not in seen and isinstance(row["comparisons"], dict)
-                 and set(row["comparisons"]) <= set(JUDGE_COMPARISONS)
+                 and set(row["comparisons"]) <= set(JUDGE_COMPARISONS) and row["layer"] in ("reserve", "web")
                  and all(set(answers) <= set(judges) and all(answer in ("before", "after", "same") for answer in answers.values())
                          for answers in row["comparisons"].values()))
         if not valid:
             fail(f"invalid judge pair: {row.get('pair')}")
         seen.add(row["pair"])
+        layers[row["layer"]] += 1
         for name, answers in row["comparisons"].items():
             for judge, answer in answers.items():
                 counts[name][judge][answer] += 1
-    result = {"pairs": len(seen), "comparisons": {}, "admitted": {}}
+                if name == "edit" and row["layer"] == "web":
+                    manual[judge][answer] += 1
+    result = {"pairs": len(seen), "likely_manual_pairs": layers["web"], "comparisons": {}, "admitted": {},
+              "likely_manual": {}, "admitted_on_likely_manual": {}}
     for name in JUDGE_COMPARISONS:
         result["comparisons"][name] = {}
         for judge in judges:
@@ -1306,6 +1312,11 @@ def judge_results(root):
         entry = result["comparisons"]["edit"][judge]
         decisive = entry["before"] + entry["after"]
         result["admitted"][judge] = bool(decisive) and entry["before"] >= JUDGE_ADMISSION * decisive
+        tally = manual[judge]
+        decisive = tally["before"] + tally["after"]
+        result["likely_manual"][judge] = {"before": tally["before"], "after": tally["after"], "same": tally["same"],
+                                          "interval": wilson(tally["before"], decisive)}
+        result["admitted_on_likely_manual"][judge] = bool(decisive) and tally["before"] >= JUDGE_ADMISSION * decisive
     return result
 
 

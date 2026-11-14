@@ -148,7 +148,9 @@ for a version when the two together name the other one more often. A judge of
 another family, `gpt-6-astra`, was added afterwards and read part of the
 comparisons alone. On 80 held-out pairs before and after a de-slop edit by
 people, the three judges name the version before the edit in 76.7%, 70.9%, 79.4%
-of their decisive answers; 70% admits a judge.
+of their decisive answers; 70% admits a judge. On the 38 of those pairs that are
+short one-file edits through GitHub's web flow, which a person most likely
+typed, the shares are 74.2%, 78.4%, 89.7%.
 
 After `unswell fix` the index is lower on 83 of the 83 pages, and 0 are still
 `high` where 65 were. After a model resolves what the report of
@@ -187,7 +189,8 @@ before the person's edit in 75.3%, 72.7%, 77.3% of their decisive answers.
 They tell a cleaned page apart without the marks, and a person's cleaning
 changes more than the marks. Against the page as the person left it, the
 earlier version after `unswell fix` is still named the more AI-sounding one
-in 59.5% and 64.1% of the panel's decisive answers: the command goes
+in 59.5% and 64.1% of the panel's decisive answers. That comparison does
+not admit a judge; it sets the command against a person, and the command goes
 part of the way that a person's cleaning goes.
 
 The [record](../research/reviews/2026-11-12-human-reference/RESULTS-index.md)

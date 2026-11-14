@@ -165,6 +165,14 @@ decisive answers.
 | `private-host/Qwen3.6-35B-A3B` | 56 | 17 | 7 | 76.7% (65.8% to 84.9%) | yes |
 | `private-host/Qwen3.8-27B` | 56 | 23 | 1 | 70.9% (60.1% to 79.7%) | yes |
 
+38 of the pairs are short one-file edits through GitHub's web flow, which a person most likely typed. On them alone:
+
+| Judge | Before the edit named | After the edit named | Same | Share of decisive answers | At least 70% |
+| --- | ---: | ---: | ---: | --- | --- |
+| `gpt-6-astra` | 26 | 3 | 9 | 89.7% (73.6% to 96.4%) | yes |
+| `private-host/Qwen3.6-35B-A3B` | 23 | 8 | 7 | 74.2% (56.8% to 86.3%) | yes |
+| `private-host/Qwen3.8-27B` | 29 | 8 | 1 | 78.4% (62.8% to 88.6%) | yes |
+
 The judges often give as their reason the marks that the index counts. So the same pairs were judged again with
 `unswell fix` applied to both versions, which leaves neither side a mark with a mechanical replacement. A pair that
 the engine cannot parse is left out.
