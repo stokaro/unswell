@@ -1,6 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-alpha.12
+
+This release makes the report of `unswell check` say what to do at each mark
+of the AI-sounding index, and it carries the measurement of a model that
+fixes a page by that report.
 
 The report of `unswell check` now says at each mark of the AI-sounding index
 what to do with it: the replacement that `unswell fix` would make, such as
