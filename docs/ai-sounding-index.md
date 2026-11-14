@@ -101,7 +101,11 @@ A replacement is mechanical. Read each one: a comma or a period is not always wh
 
 The command calls no model, and no text leaves the machine. It analyzes the
 page again after each pass, until nothing is left to replace, and reports the
-index before and after. Files change only with `--write`. The command keeps
+index before and after.
+
+A page at the level `low` is left as it is. `unswell check` lists no marks
+there, and every measurement below is on pages with an index of 40 or more.
+`--include-low` replaces the marks of such pages as well. Files change only with `--write`. The command keeps
 the mode of a file, and it does not write a read-only file or a file that
 changed during the run.
 
