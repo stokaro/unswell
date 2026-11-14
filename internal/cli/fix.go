@@ -27,9 +27,10 @@ const fixSchema = "unswell-fix-v1"
 const maxFixPasses = 8
 
 type fixOptions struct {
-	sources checkOptions
-	write   bool
-	quiet   bool
+	sources    checkOptions
+	write      bool
+	quiet      bool
+	includeLow bool
 }
 
 // fixCommand removes the marks of the AI-sounding index that have a
@@ -45,6 +46,7 @@ func fixCommand(environment Environment) *cobra.Command {
 			"An emoji leaves a heading or the start of a list item.\n" +
 			"An arrow becomes \"->\". A bold label at the start of a list item loses its asterisks.\n" +
 			"A stock word stays: only you can say what the thing does.\n" +
+			"A page at the level low is left as it is, because the check lists no marks there; --include-low changes it too.\n" +
 			"No model is called and no text leaves this machine. Files change only with --write.\n" +
 			"Read the change before you keep it: a comma or a period is not always what the sentence needs.",
 		RunE: func(command *cobra.Command, args []string) error {
@@ -59,6 +61,7 @@ func fixCommand(environment Environment) *cobra.Command {
 	flags.IntVar(&options.sources.jobs, "jobs", 2, "Documents handled at the same time (1–16)")
 	flags.DurationVar(&options.sources.timeout, "timeout", 10*time.Minute, "Timeout for the whole run")
 	flags.BoolVar(&options.write, "write", false, "Write the fixed pages into the selected files")
+	flags.BoolVar(&options.includeLow, "include-low", false, "Also replace the marks of pages at the level low")
 	flags.BoolVar(&options.quiet, "quiet", false, "Do not print progress to standard error")
 	return command
 }
@@ -75,6 +78,7 @@ type fixSummary struct {
 	Documents int `json:"documents"`
 	Failed    int `json:"failed"`
 	Unindexed int `json:"without_index"`
+	Low       int `json:"left_at_low"`
 	Changed   int `json:"changed"`
 	Removed   int `json:"marks_removed"`
 	Left      int `json:"marks_left"`
@@ -87,6 +91,7 @@ type fixedDocument struct {
 	Path       string         `json:"path"`
 	SourceHash string         `json:"source_hash,omitempty"`
 	Indexed    bool           `json:"indexed"`
+	LeftLow    bool           `json:"left_at_low"`
 	Before     int            `json:"index_before"`
 	After      int            `json:"index_after"`
 	Removed    map[string]int `json:"marks_removed"`
@@ -105,6 +110,8 @@ func (d fixedDocument) outcome() string {
 		return "failed: " + excerpt(d.Error, maxReasonText)
 	case !d.Indexed:
 		return "no index: not a Markdown page of 150 prose words or more"
+	case d.LeftLow:
+		return fmt.Sprintf("index %d, low: left as it is", d.Before)
 	}
 	return fmt.Sprintf("index %d -> %d, %s removed", d.Before, d.After, plural(d.removed(), "mark"))
 }
@@ -132,7 +139,7 @@ func runFix(ctx context.Context, environment Environment, options fixOptions, ar
 	}
 	progress := progressWriter(environment, options.quiet)
 	documents := eachSource(options.sources.jobs, sources, func(source document.Source) fixedDocument {
-		result := fixOne(ctx, engine, source)
+		result := fixOne(ctx, engine, source, options.includeLow)
 		progress("fix", result.Path, result.outcome())
 		return result
 	})
@@ -177,41 +184,52 @@ func fixSources(
 	return engine, sources, loaded.Root, targets, err
 }
 
-// fixOne analyzes one document, applies the fixes of its marks, and analyzes
-// the result again until no fix is left. A failure is recorded on the
-// document.
-func fixOne(ctx context.Context, engine *unswell.Engine, source document.Source) fixedDocument {
+// fixOne fixes one document and records what was done. A failure is recorded
+// on the document.
+func fixOne(ctx context.Context, engine *unswell.Engine, source document.Source, includeLow bool) fixedDocument {
 	sum := sha256.Sum256(source.Bytes)
 	result := fixedDocument{Path: source.Name, SourceHash: hex.EncodeToString(sum[:]), Removed: map[string]int{}, Left: map[string]int{}}
+	revised, err := result.fix(ctx, engine, source, includeLow)
+	if err != nil {
+		result.Error = err.Error()
+		return result
+	}
+	if result.removed() > 0 {
+		result.revised = revised
+	}
+	return result
+}
+
+// fix analyzes the document, applies the fixes of its marks, and analyzes the
+// result again until no fix is left. A page that starts at the level low is
+// left as it is unless includeLow is set: the check lists no marks there. It
+// returns the text after the last pass.
+func (d *fixedDocument) fix(ctx context.Context, engine *unswell.Engine, source document.Source, includeLow bool) ([]byte, error) {
 	current := source
 	for pass := 0; ; pass++ {
 		index, err := pageIndex(ctx, engine, current)
-		if err != nil {
-			result.Error = err.Error()
-			return result
-		}
-		if index == nil {
+		if err != nil || index == nil {
 			// A fix can take a short page below the words that the index needs.
-			break
+			return current.Bytes, err
 		}
 		if pass == 0 {
-			result.Indexed, result.Before = true, index.Index
+			d.Indexed, d.Before = true, index.Index
+			d.LeftLow = index.Level == unswell.AISoundingLow && !includeLow
 		}
-		result.After = index.Index
+		d.After = index.Index
+		if d.LeftLow {
+			return current.Bytes, nil
+		}
 		revised, applied := unswell.RemoveAIMarks(current.Bytes, index.Marks)
 		if applied == 0 || pass == maxFixPasses {
-			result.Left = markCounts(index.Marks, false)
-			break
+			d.Left = markCounts(index.Marks, false)
+			return current.Bytes, nil
 		}
 		for name, count := range markCounts(index.Marks, true) {
-			result.Removed[name] += count
+			d.Removed[name] += count
 		}
 		current.Bytes = revised
 	}
-	if result.removed() > 0 {
-		result.revised = current.Bytes
-	}
-	return result
 }
 
 // pageIndex returns the index of one document, or nil when it has none.
@@ -262,6 +280,8 @@ func newFixResult(documents []fixedDocument) fixResult {
 			result.Summary.Failed++
 		case !entry.Indexed:
 			result.Summary.Unindexed++
+		case entry.LeftLow:
+			result.Summary.Low++
 		case entry.revised != nil:
 			result.Summary.Changed++
 		}
@@ -350,6 +370,10 @@ func writeFixText(writer io.Writer, result fixResult, written bool) error {
 		plural(summary.Documents, "document"))
 	if summary.Unindexed > 0 {
 		fmt.Fprintf(&text, "Without an index (not a Markdown page of 150 prose words or more): %s.\n", plural(summary.Unindexed, "document"))
+	}
+	if summary.Low > 0 {
+		fmt.Fprintf(&text, "Left as they are at the level low: %s. Use --include-low to replace their marks too.\n",
+			plural(summary.Low, "page"))
 	}
 	switch {
 	case written:

@@ -52,7 +52,9 @@ people wrote, and says where the marks are.
    heading or the start of a list item.
    An arrow becomes `->`. A bold label at the start of a list item loses its
    asterisks. A stock word has no replacement. The command calls no model and
-   writes only with `--write`.
+   writes only with `--write`. It leaves a page at the level `low` as it is
+   unless `--include-low` is given: the check lists no marks there, and no
+   measurement covers such pages.
 
 5. **The index is an index.** It has no gate, does not change the exit code,
    and is never reported as a probability or as a statement about the author.

@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+`unswell fix` now leaves a page at the level `low` as it is. `unswell check`
+lists no marks on such a page, and the command was measured only on pages with
+an index of 40 or more, yet it replaced every em dash and arrow of any page
+that had an index. `--include-low` restores that. On pages with an index of 40
+or more the command writes what it wrote before. The JSON report gains
+`left_at_low` on a document and in the summary.
+
 ## 0.1.0-alpha.10
 
 This release turns the tool toward its purpose. `unswell check` gives each

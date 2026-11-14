@@ -30,6 +30,7 @@ type fixReport struct {
 		Documents int `json:"documents"`
 		Failed    int `json:"failed"`
 		Unindexed int `json:"without_index"`
+		Low       int `json:"left_at_low"`
 		Changed   int `json:"changed"`
 		Removed   int `json:"marks_removed"`
 		Left      int `json:"marks_left"`
@@ -38,6 +39,7 @@ type fixReport struct {
 	Documents []struct {
 		Path    string         `json:"path"`
 		Indexed bool           `json:"indexed"`
+		LeftLow bool           `json:"left_at_low"`
 		Before  int            `json:"index_before"`
 		After   int            `json:"index_after"`
 		Removed map[string]int `json:"marks_removed"`
@@ -134,6 +136,41 @@ func TestFixWritesOnRequest(t *testing.T) {
 	c.Assert(again.code, qt.Equals, 0)
 	c.Assert(again.stdout, qt.Matches, `draft\.md: AI-sounding index \d+; nothing to replace\. Left for you: 1 stock word\.\n`+
 		`0 marks removed in 0 pages of 1 document\.\nWritten to 0 files\. Review the change before you keep it\.\n(?s:.*)`)
+}
+
+func TestFixLeavesAPageAtTheLevelLow(t *testing.T) {
+	c := qt.New(t)
+	root := t.TempDir()
+	// One dash in a long page: the index is low, and the check lists no marks there.
+	low := "# Client\n\nIt connects — then it waits. " + strings.Repeat(fixPlain, 8) + "\n"
+	writeDraft(c, root, "low.md", low, 0o600)
+	outcome := runFix(t, root, "low.md", "--write", "--report", "json:-")
+	c.Assert(outcome.code, qt.Equals, 0, qt.Commentf("stderr: %s", outcome.stderr))
+	c.Assert(outcome.stderr, qt.Matches, `fix: low\.md: index \d+, low: left as it is\n`)
+	var report fixReport
+	c.Assert(json.Unmarshal([]byte(outcome.stdout), &report), qt.IsNil)
+	c.Assert(report.Summary.Low, qt.Equals, 1)
+	c.Assert(report.Summary.Changed, qt.Equals, 0)
+	c.Assert(report.Summary.Removed, qt.Equals, 0)
+	c.Assert(report.Documents[0].LeftLow, qt.IsTrue)
+	c.Assert(report.Documents[0].Before, qt.Equals, report.Documents[0].After)
+	text := runFix(t, root, "low.md", "--quiet")
+	c.Assert(text.stdout, qt.Matches, `0 marks removed in 0 pages of 1 document\.\n`+
+		`Left as they are at the level low: 1 page\. Use --include-low to replace their marks too\.\n(?s:.*)`)
+	data, err := fs.ReadFile(os.DirFS(root), "low.md")
+	c.Assert(err, qt.IsNil)
+	c.Assert(string(data), qt.Equals, low)
+
+	// With --include-low the same page is changed.
+	included := runFix(t, root, "low.md", "--write", "--quiet", "--include-low", "--report", "json:-")
+	c.Assert(included.code, qt.Equals, 0)
+	c.Assert(json.Unmarshal([]byte(included.stdout), &report), qt.IsNil)
+	c.Assert(report.Summary.Low, qt.Equals, 0)
+	c.Assert(report.Summary.Removed, qt.Equals, 1)
+	c.Assert(report.Documents[0].LeftLow, qt.IsFalse)
+	data, err = fs.ReadFile(os.DirFS(root), "low.md")
+	c.Assert(err, qt.IsNil)
+	c.Assert(string(data), qt.Equals, strings.Replace(low, " — then", ", then", 1))
 }
 
 func TestFixDoesNotWriteAReadOnlyFile(t *testing.T) {
