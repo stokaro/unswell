@@ -248,6 +248,17 @@ to were posted on issue 525 before any test document ran.
     against the original on 231 of 233, 99.1% (96.9% to 99.8%); the
     index is lower on 247 pages.
 
+18. **A report that names the replacement at each mark brings the fix by the
+    report back over its bar.** The report of the first two runs gave the
+    place of a mark and general advice; the fixer chose its own punctuation.
+    With a report that names the replacement `unswell fix` would make, a
+    fourth run on 131 pages that nothing had fixed or judged gives, for the
+    page fixed by a model with the report against write-good's page,
+    73 of 108, 67.6% (58.3% to 75.7%), and against the original
+    111 of 113, 98.2% (93.8% to 99.5%); the index is lower on
+    131 pages. On 61 of the pages the model's page is the same as the
+    command's.
+
 ## Decisions
 
 Each rule was registered on issue 525 before its result was read.
@@ -347,6 +358,12 @@ Each rule was registered on issue 525 before its result was read.
     command meets its new bar on the third sample, so the claim against a
     third-party linter is made for `unswell fix` only.
 
+18. *Make the claim for a model that follows the report again only if, with
+    the report that names the replacement, its bar against write-good's page
+    holds on pages that nothing has read.* It holds on the fourth sample. The
+    claim is made for the report as it is now, and the failure of the
+    earlier report stays in result 17.
+
 ## Limits
 
 - An unedited sentence is not a clean sentence. A person changed what they
@@ -428,6 +445,7 @@ Each rule was registered on issue 525 before its result was read.
 | `data/fix-panel.jsonl.gz` | Per page of the fix experiment: repository, commit, path, the index of the original, for each fixed version its index and the share of tokens changed, and each judge's answer per pair of versions. No page text and no model output |
 | `data/fix-fresh.jsonl.gz` | Per page of the run of the released binary on new pages: repository, commit, path, the index of the original, for each fixed version its index and the share of tokens changed, and each judge's answer per pair of versions. No page text and no model output |
 | `data/fix-third.jsonl.gz` | Per page of the third sample: the same fields as `data/fix-fresh.jsonl.gz`, for the page after `unswell fix` and the page fixed with write-good's findings |
+| `data/fix-fourth.jsonl.gz` | Per page of the fourth sample: the same fields as `data/fix-fresh.jsonl.gz`, for the page fixed by a model with the report that names the replacement, the page fixed with write-good's findings, and the page after `unswell fix` |
 | `data/judge-pairs.jsonl.gz` | Per held-out pair before and after a de-slop edit by people: repository, commit, path, and each judge's answer for the pair as it is, for the pair with `unswell fix` applied to both versions, and for the fixed earlier version against the person's version |
 | `data/readme-load.jsonl.gz` | Per README file of the page index: its words and the rules that report on it with the configuration that ships |
 | `data/manual-pairs.jsonl.gz` | Per likely-manual de-slop edit (a short one-file commit through GitHub's web flow): repository, commit, path, words, and findings per rule in both versions |

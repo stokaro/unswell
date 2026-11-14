@@ -206,7 +206,26 @@ Every bar against the original holds in every run. Against the best
 third-party linter the result differs by version. For the command it holds
 on the third run, where it had a bar, and the two earlier readings without a
 bar point the same way. For a model that follows unswell's report it held in
-the first run and did not in the second, so that claim is not made.
+the first run and did not in the second.
+
+A fourth run tested the fix by the report again, after the report began to
+name the replacement at each mark. On 131 more pages that nothing had fixed or
+judged, with the bars written first: the index is lower after the fix by the
+report on 131 of 131 pages; the panel finds the report version the less
+AI-sounding one against the original on 111 of 113, 98.2% (93.8% to 99.5%),
+and against the page fixed with write-good's findings on
+73 of 108, 67.6% (58.3% to 75.7%). Both bars hold. All three judges
+together give 87 of 122, 71.3% (62.7% to 78.6%) against
+write-good's page, and the third judge alone 81 of 89 of its decisive answers.
+On 61 of the 131 pages the model's page is the same as the command's. On the same
+pages, without a bar, the page after `unswell fix` gives 73 of 107 against
+write-good's page.
+
+So both ways of fixing what unswell points at meet the bar against the best
+third-party linter on pages that nothing had read: the command on the third
+run, and a model that follows the report on the fourth. With the earlier
+report, which gave the place of a mark and general advice, the bar held once
+and failed once.
 
 In the third run all three judges together find the page after `unswell fix`
 the less AI-sounding one against write-good's page on 163 of 230, 70.9% (64.7% to 76.4%),
@@ -242,8 +261,9 @@ recounts these numbers. The bars were written on issue 525 before each run.
   cleaning edit rewords is outside it, and so is most of what such edits
   change. Of the held-out pages before a commit, 41.8% are not `high`.
 - Against a page fixed with a third-party linter's findings, the advantage is
-  measured for `unswell fix`. For a model that follows unswell's report it
-  held in one run of two.
+  measured for `unswell fix` and for a model that follows the report as it is
+  now. With the earlier report, which did not name the replacement, it held
+  in one run of two.
 - The fixer and the two judges of the panel are models of one family. A judge
   of another family read part of the comparisons and heard no difference
   between the original and the page after `unswell fix` on 40 of the 83 pages.

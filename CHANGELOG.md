@@ -10,6 +10,13 @@ and general advice stood below the list, which left a person or a model
 that follows the report free to pick any punctuation. One line now says that
 `unswell fix --write` makes the replacements.
 
+With this report a model's fix was measured once more, on 131 pages that no
+earlier run had read and with the bars written first. Blind model judges
+find its page the less AI-sounding one against the original on 111 of 113
+decisive pages, and against a page that the same model fixed with the
+findings of write-good on 73 of 108, 67.6% (58.3% to 75.7%). With the
+earlier report that comparison held on one sample and failed on the next.
+
 ## 0.1.0-alpha.11
 
 This release makes `unswell fix` leave alone the pages that the index calls

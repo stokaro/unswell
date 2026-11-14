@@ -1219,6 +1219,41 @@ class ThirdCase(RecordCase):
         self.rejects("invalid fix row")
 
 
+class FourthCase(RecordCase):
+    def write(self, pages):
+        write_rows(self.root / "data/fix-fourth.jsonl.gz", pages)
+        self.seal()
+        return verify.verify(self.root)["fix_fourth"]
+
+    def test_reading(self):
+        fourth = self.write([fresh_page(f"q{number:02}") for number in range(20)])
+        self.assertEqual((fourth["pages"], fourth["arms"]["report"]["lower"]), (20, 20))
+        # The bars of this run are those of the report version; the command is judged without one.
+        self.assertEqual(fourth["registered"], {"report_lowers_index": True, "original|report": True, "report|write-good": True})
+        self.assertEqual(fourth["comparisons"]["fix|write-good"]["tested_less"], 20)
+
+    def test_bar_against_the_linter_is_recounted(self):
+        fourth = self.write([fresh_page(f"q{number:02}", "first" if number < 9 else "second") for number in range(20)])
+        self.assertEqual((fourth["comparisons"]["report|write-good"]["tested_less"], fourth["comparisons"]["report|write-good"]["other_less"]),
+                         (11, 9))
+        self.assertFalse(fourth["registered"]["report|write-good"])
+        self.assertTrue(fourth["registered"]["original|report"])
+
+    def test_bar_cannot_be_declared(self):
+        self.write([fresh_page(f"q{number:02}", "first" if number < 9 else "second") for number in range(20)])
+        results = json.loads((self.root / "results.json").read_text())
+        results["fix_fourth"]["registered"]["report|write-good"] = True
+        (self.root / "results.json").write_text(json.dumps(results))
+        verify.write_digests(self.root)
+        self.rejects("results differ from the data files")
+
+    def test_third_judge_did_not_read_the_command(self):
+        self.write([fresh_page(f"q{number:02}") for number in range(20)])
+        self.rewrite("data/fix-fourth.jsonl.gz", lambda rows: rows[0]["answers"]["original|fix"].update({EXTRA: "first"}))
+        self.seal_digests_only()
+        self.rejects("invalid answers")
+
+
 def judge_pair(name, edit, both_fixed=None, fixed=None):
     comparisons = {"edit": edit}
     if both_fixed is not None:

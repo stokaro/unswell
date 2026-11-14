@@ -32,7 +32,7 @@ DATA = ("data/sentences.jsonl.gz", "data/preferences.jsonl.gz", "data/expert-pai
         "data/emoji-load.jsonl.gz", "data/frequency-load.jsonl.gz", "data/review-repeat.jsonl.gz",
         "data/default-load.jsonl.gz", "data/manual-pairs.jsonl.gz", "data/page-index.jsonl.gz",
         "data/readme-load.jsonl.gz", "data/fix-panel.jsonl.gz", "data/judge-pairs.jsonl.gz", "data/fix-fresh.jsonl.gz",
-        "data/fix-third.jsonl.gz")
+        "data/fix-third.jsonl.gz", "data/fix-fourth.jsonl.gz")
 DEFAULT_LOAD, MANUAL = "data/default-load.jsonl.gz", "data/manual-pairs.jsonl.gz"
 PAGE_INDEX = "data/page-index.jsonl.gz"
 # The fix experiment: one page before a de-slop commit in several fixed versions, and what blind judges say about two
@@ -70,9 +70,17 @@ FIX_THIRD = "data/fix-third.jsonl.gz"
 THIRD_SPEC = {"arms": ("fix", "write-good"),
               "comparisons": (("original", "fix"), ("original", "write-good"), ("fix", "write-good"))}
 THIRD_SPEC["extra"] = THIRD_SPEC["comparisons"]
+# A fourth sample, for the fix by a model that follows the report, after the report began to name the replacement at
+# each mark. The page after `unswell fix` is judged on the same pages without a bar.
+FIX_FOURTH = "data/fix-fourth.jsonl.gz"
+FOURTH_SPEC = {"arms": ("fix", "report", "write-good"),
+               "comparisons": (("original", "fix"), ("original", "report"), ("original", "write-good"), ("report", "write-good"),
+                               ("fix", "write-good")),
+               "extra": (("original", "report"), ("original", "write-good"), ("report", "write-good"))}
 # Each later run with its data, its versions, the versions whose index must fall, and the comparisons with a bar.
 FRESH_RUNS = {"fix_fresh": (FIX_FRESH, FRESH_SPEC, ("fix", "report"), ("original|fix", "original|report", "report|write-good")),
-              "fix_third": (FIX_THIRD, THIRD_SPEC, ("fix",), ("original|fix", "fix|write-good"))}
+              "fix_third": (FIX_THIRD, THIRD_SPEC, ("fix",), ("original|fix", "fix|write-good")),
+              "fix_fourth": (FIX_FOURTH, FOURTH_SPEC, ("report",), ("original|report", "report|write-good"))}
 # The pairs that admit a judge: one page before and after a de-slop edit by people. "edit" is the pair as it is,
 # "edit_both_fixed" the pair with `unswell fix` applied to both versions, and "fixed_against_edit" the version before
 # the edit after `unswell fix` against the version as the person left it. An answer names the side that reads more
@@ -1421,7 +1429,8 @@ def summarize(root):
             "deslop": deslop_results(root), "review_repeat": review_repeat_results(root),
             "default_load": default_load_results(root), "manual": manual_results(root),
             "page_index": page_index_results(root), "readme_load": default_load_results(root, README_LOAD),
-            "fix": fix_results(root), "judges_of_edits": judge_results(root), "fix_fresh": fix_fresh_results(root, "fix_fresh"), "fix_third": fix_fresh_results(root, "fix_third")}
+            "fix": fix_results(root), "judges_of_edits": judge_results(root),
+            **{name: fix_fresh_results(root, name) for name in FRESH_RUNS}}
 
 
 def normalized(value):
