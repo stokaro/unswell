@@ -16,6 +16,7 @@ Sound: the revision reads less like a model's text. The judge named the page in 
     Text A states every step in a sentence of the same shape.
     Text B has one cadence from the first paragraph to the last.
 Facts: 41 of 41 statements kept.
+Sentences: each of the 58 compared sentences of the page has its counterpart in the revision.
 Numbers, code, and links: nothing lost.
 Em dashes: 0 in the page, 0 in the revision.
 Accepted.
@@ -25,7 +26,7 @@ The judge did not see which text is the revision. It is a model: name one other 
 
 ## What is checked
 
-A revision is accepted only if all four checks pass.
+A revision is accepted only if all five checks pass.
 
 **Sound.** The judge gets the opening of both texts, whole blocks up to about
 450 words, as text A and text B. It is asked which reads more like text
@@ -44,7 +45,28 @@ from is left out: the model worded it so that the page does not say it, and
 it would be missing from any revision. The model is then asked for the other
 statements in the revision, again with a quote for each. A statement counts as
 kept only when the quoted words stand in the revision; the command checks that
-itself. At least 98% of the statements have to be kept.
+itself. At least 98% of the statements have to be kept. When the model calls
+a statement kept and its quote is not in the revision, the command asks once
+more about that statement before it counts it as not kept.
+
+**Sentences.** Without a model, the command compares each sentence of the
+page with the revision. A sentence has its counterpart when one sentence of
+the revision near its place, or two or three in a row, carry at least six
+tenths of its content words. That share is counted twice: over all its
+content words, and over those that the sentences around it in the page do not
+have. The sentences around a removed sentence share its subject; they do not
+have its own words. A sentence is a suspect when it has no counterpart, or
+when its counterpart has fewer negations than it has. A sentence with fewer
+than three content words is not compared.
+
+Most suspects are harmless: a reviser may say "rather than" where the page
+said "not", or put a sentence in words of its own. So the model is asked
+about each suspect, with the sentence beside the sentences of the revision
+from its place, and nothing else of either text. It clears a suspect only
+with a quote that stands in that place. For a missing sentence the quote also
+has to carry one of the sentence's own words: a model that quotes the
+sentence beside the gap does not clear it. One suspect that is not cleared
+rejects the revision, and the report shows the sentence with its line.
 
 **Numbers, code, and links.** Without a model: every number of the page's
 prose, every code block and inline code, and every link has to occur in the
@@ -54,7 +76,7 @@ revision. A number that the revision writes as a word counts as lost.
 page. A model that rewrites a sentence often adds one, and the index counts
 it.
 
-The four parts stand in the report one by one, so a rejected revision says
+The five parts stand in the report one by one, so a rejected revision says
 which check it failed.
 
 ## Exit code
@@ -109,13 +131,18 @@ are read, as they do for [`unswell check`](inputs.md). A text larger than
 `--max-document-bytes` fails before anything is sent.
 
 `--report json:PATH` writes the complete result with schema
-`unswell-compare-v1`: the judge's answer to each order with its reason, every
+`unswell-compare-v2`: the judge's answer to each order with its reason, every
 statement with its outcome and the quoted words, the statements that were
-left out, what was lost, the em dashes of both texts, and the verdict with its
-reasons. `--report text:PATH` writes the text above.
+left out, the number of sentences that were compared and each suspect with
+the place it was looked for and what the judge said, what was lost, the em
+dashes of both texts, and the verdict with its reasons. `--report text:PATH`
+writes the text above.
 
-The command makes five calls: two for the sound and three for the facts. The
-three for the facts carry the whole text of the page or of the revision.
+The command makes five to seven calls: two for the sound, three for the
+facts, one more when a statement has to be asked again, and one when a
+sentence is a suspect. The three for the facts carry the whole text of the
+page or of the revision. The call about suspects carries only those sentences
+and their places.
 
 ## Measured behavior
 
@@ -198,7 +225,8 @@ revisions of one reviser and 1 of 86 of the other added an em dash.
 
 The `review` package holds the prompts, the parsers, and the rule, and makes
 no call itself. `review.NewRevision` pairs two prepared documents.
-`SoundPrompt`, `FactsPrompt`, `ControlPrompt`, and `KeptPrompt` return the text
-for a model; `ParseSound`, `ParseFacts`, and `ParseKept` read its answers;
-`SoundVerdict`, `Confirmed`, `BindFacts`, `Lost`, `EmDashes`, and `Judge`
-decide.
+`SoundPrompt`, `FactsPrompt`, `ControlPrompt`, `KeptPrompt`, and
+`SuspectsPrompt` return the text for a model; `ParseSound`, `ParseFacts`,
+`ParseKept`, and `ParseSuspects` read its answers; `SoundVerdict`,
+`Confirmed`, `BindFacts`, `Suspects`, `BindSuspects`, `Lost`, `EmDashes`, and
+`Judge` decide. `Suspects` needs no model.

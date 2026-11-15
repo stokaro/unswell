@@ -42,10 +42,14 @@ func compareCommand(environment Environment, code *int) *cobra.Command {
 		Long: "Compare sends a page and a revision of it to a model you name. The model reads the opening of both, about\n" +
 			"450 words, and is asked which reads more like text written by a language model, in both orders and\n" +
 			"without a hint of which is the revision.\n" +
-			"It is also asked for the statements of fact of the page, then for each of them in the page itself, and\n" +
-			"then for each that it found there in the revision.\n" +
+			"It is also asked for the statements of the page, then for each of them in the page itself, and then\n" +
+			"for each that it found there in the revision.\n" +
+			"Without a model the command compares each sentence of the page with the revision. A sentence that has\n" +
+			"no counterpart there, or whose counterpart has one negation less, goes to the model beside the place\n" +
+			"where it stood, and the model has to quote the words that still say it.\n" +
 			"A revision is accepted when the judge names the page in both orders, at least 98% of the statements are\n" +
-			"kept, no number, code, or link is lost, and no em dash is added. The page index plays no part.\n" +
+			"kept, every sentence is found, no number, code, or link is lost, and no em dash is added. The page\n" +
+			"index plays no part.\n" +
 			"Both texts leave this machine for the endpoint or program you name. Nothing else does.\n" +
 			"The judge is a model. Name one other than the model that made the revision.",
 		Args: cobra.ExactArgs(2),
@@ -258,7 +262,9 @@ func preparedRevision(
 	return review.NewRevision(before, after)
 }
 
-// judgeRevision runs the four questions and the checks that need no model.
+// judgeRevision asks the judge about the sound, the statements, and the
+// sentences that the revision may have lost, and runs the checks that need no
+// model.
 func judgeRevision(
 	ctx context.Context, client modelClient, options modelRunOptions, revision *review.Revision, result *compareResult,
 ) error {
