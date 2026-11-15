@@ -76,6 +76,24 @@ of the style-guide set with its three pairs against human posts.
 6. A model that revises the pages of the measured half by the final report, and
    the three judges on the result.
 
+## The build behind the numbers
+
+The counts, the readings, and the index of every page in `data/pages.jsonl.gz`
+come from the build of this change, and so does the reading of the earlier
+record.
+
+The revisers were given the report of a build one step earlier. It differs
+from the final one in one line of one page: the earlier build named runs of
+sentences in the index line also when the second reading was `low`, and the
+final build names them only above `low`. For that page, a post of the
+style-guide set with an index of 40 by its marks and a second reading of 29,
+the reviser read `8 list items that start with a bold label, 13 runs of plain
+sentences, 5 runs of sentences that open with their subject` where the final
+build prints `8 list items that start with a bold label`. The lines of its
+marks are the same. On the other 178 revised pages the final build prints the
+report that the reviser was given, byte for byte, and on all 179 it gives the
+page and its revision the index that the record holds.
+
 ## Data
 
 | File | Rows |
