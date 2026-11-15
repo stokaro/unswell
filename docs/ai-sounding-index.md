@@ -1,14 +1,19 @@
 # AI-sounding index and `unswell fix`
 
 `unswell check` gives every Markdown page of 150 prose words or more an index
-from 0 to 100. The index counts marks that people remove when they clean
-AI-sounding wording out of documentation, and the report lists where each
-mark is. `unswell fix` removes the marks that have a mechanical replacement.
+from 0 to 100. The index is the higher of two readings of the page. The first
+counts the marks that people remove when they clean AI-sounding wording out of
+documentation. The second reads the rhythm of the sentences: runs of
+sentences that look alike, which is what remains in a page that a model wrote
+under a style guide. The report lists where each mark is. `unswell fix`
+removes the marks that have a mechanical replacement.
 
 The index is not a probability, and it does not say who wrote a page. A page
 that a person wrote can be high, and a page that a model wrote can be low.
 
-## What the index counts
+## What the index reads
+
+The first reading, the marks:
 
 | Signal | A mark is |
 | --- | --- |
@@ -19,10 +24,24 @@ that a person wrote can be high, and a page that a model wrote can be low.
 | `stock-word` | a word of a fixed list of praise and stock verbs, such as `seamless`, `robust`, or `leverage` |
 | `bold-label-in-list` | a list item that starts with a bold label |
 
-Code, URLs, front matter, and quoted blocks are outside the count. Each count
-is taken per 1,000 prose words. The index is 100 times the logistic function
-of a constant plus the weighted natural logarithms of one plus each rate, as
-a whole number. [ADR 0059](adr/0059-page-index-and-fix.md) lists the weights.
+The second reading, the rhythm:
+
+| Signal | A mark is |
+| --- | --- |
+| `plain-sentence-run` | two or more plain statements in a row: five to twenty words each, with no question mark, exclamation mark, parenthesis, colon, semicolon, or em dash |
+| `subject-opener-run` | three or more sentences in a row whose first word is an article, a demonstrative, or a personal pronoun, such as The, This, It, or You |
+
+Code, URLs, front matter, and quoted blocks are outside the count. A run is
+counted over the sentences of running paragraphs in the order of the page. A
+heading, a list item, a table, a quote, and a code block end a run; a blank
+line between two paragraphs does not.
+
+Each count is taken per 1,000 prose words; for a run signal it is the
+sentences in its runs. A reading is 100 times the logistic function of a
+constant plus the weighted natural logarithms of one plus each rate, as a
+whole number. The index is the higher reading.
+[ADR 0059](adr/0059-page-index-and-fix.md) lists the weights of the first
+reading and [ADR 0060](adr/0060-rhythm-reading.md) those of the second.
 
 | Level | Index |
 | --- | --- |
@@ -36,38 +55,64 @@ words.
 
 ## In the report
 
-The lines of the index in the text report of `unswell check docs/guide.md`:
+The lines of the index in the text report of `unswell check docs/guide.md`,
+for a page with the marks of the first reading:
 
 ```text
-AI-sounding index: 100 of 100 (high) in docs/guide.md: 4 em dashes, 1 emoji in a heading, 1 list item that starts with an emoji, 2 arrows, 1 stock word, 2 list items that start with a bold label.
+AI-sounding index: 100 of 100 (high; marks 100, rhythm 0) in docs/guide.md: 4 em dashes, 1 emoji in a heading, 1 list item that starts with an emoji, 2 arrows, 1 stock word, 2 list items that start with a bold label.
   docs/guide.md:1:3: emoji in a heading; remove it
-  docs/guide.md:3:17: stock word "seamless"; say what the thing does, or drop the word
-  docs/guide.md:3:50: em dash; write a comma
-  docs/guide.md:3:84: em dash; write a comma
+  docs/guide.md:3:3: stock word "seamless"; say what the thing does, or drop the word
+  docs/guide.md:3:37: em dash; write a comma
+  docs/guide.md:3:67: em dash; write a comma
   docs/guide.md:7:3: list item that starts with a bold label; remove the bold
-  docs/guide.md:7:15: em dash; write a colon
+  docs/guide.md:7:16: em dash; write a colon
   docs/guide.md:8:3: list item that starts with a bold label; remove the bold
-  docs/guide.md:8:16: em dash; write a colon
+  docs/guide.md:8:15: em dash; write a colon
   docs/guide.md:9:3: list item that starts with an emoji; remove it
-  docs/guide.md:13:21: arrow; write "->"
-  docs/guide.md:13:29: arrow; write "->"
+  docs/guide.md:13:46: arrow; write "->"
+  docs/guide.md:13:54: arrow; write "->"
 `unswell fix --write` makes the replacements named above. A stock word needs your own words.
-The index counts marks that people remove when they clean AI-sounding wording out of documentation. It is not a probability and does not say who wrote a page.
+The index is the higher of two readings: the marks that people remove when they clean AI-sounding wording out of documentation, and runs of sentences that look alike. It is not a probability and does not say who wrote a page.
+```
+
+And for a page with none of those marks, whose sentences have one length and
+one shape:
+
+```text
+AI-sounding index: 99 of 100 (high; marks 23, rhythm 99) in docs/retry.md: 4 runs of plain sentences, 4 runs of sentences that open with their subject.
+  docs/retry.md:3:1: 5 plain sentences in a row; say it as you would to a colleague: join two of them, use a contraction, put an aside in parentheses, or start one with And or But
+  docs/retry.md:3:1: 5 sentences in a row open with their subject; open one of them with its condition, its time, or its reason
+  docs/retry.md:7:1: 5 plain sentences in a row; say it as you would to a colleague: join two of them, use a contraction, put an aside in parentheses, or start one with And or But
+  docs/retry.md:7:1: 5 sentences in a row open with their subject; open one of them with its condition, its time, or its reason
+A run of sentences has no replacement that a command can make. Rewrite one or two of its sentences, and keep what they say.
+The index is the higher of two readings: the marks that people remove when they clean AI-sounding wording out of documentation, and runs of sentences that look alike. It is not a probability and does not say who wrote a page.
 ```
 
 The text and Markdown reports name each page above `low`, the most marked
-first. They list the place of up to 60 marks in a run, and each line says what
-to do with its mark: the replacement that `unswell fix` would make, or, for a
-stock word, that only you can say what the thing does. The JSON report holds the index of every page under
+first, with its two readings. They list the place of up to 60 marks in a run,
+and each line says what to do with its mark: the replacement that
+`unswell fix` would make, the remedy of a run of sentences, or, for a stock
+word, that only you can say what the thing does.
+
+A report lists the marks of a reading only when that reading is above `low`.
+A few plain statements in a row are on nearly every page, and one em dash on a
+long page is ordinary. The index line names runs of sentences under the same
+condition.
+
+The JSON report holds the index of every page under
 `documents[].ai_sounding`:
 
 | Field | Content |
 | --- | --- |
 | `status` | `available`, or `too_short` for a page below 150 prose words |
 | `index`, `level` | the index and its level |
+| `readings` | the two readings, `marks` and `rhythm`, that the index is the higher of |
 | `prose_words` | the words that the rates are taken over |
-| `signals` | for each signal its count, its rate per 1,000 words, and the advice |
-| `marks` | up to 200 marks in source order: the signal, the byte span, the line and column, the word of a `stock-word` mark, and the `fix` where a mechanical replacement exists |
+| `signals` | for each signal its reading, its count, its rate per 1,000 words, and the advice; a run signal counts runs and gives the `sentences` in them, and its rate is of those sentences |
+| `marks` | up to 200 marks in source order: the signal, the byte span, the line and column, the word of a `stock-word` mark, the `sentences` of a run, and the `fix` where a mechanical replacement exists |
+
+`marks` holds the marks of both readings, also of a reading at `low`. In Go,
+`AISounding.Listed` returns the ones that a report lists.
 
 The MCP tool `unswell_check` returns the same result, so an assistant gets the
 places, the advice, and the fixes for a draft it checks.
@@ -80,7 +125,7 @@ unswell fix README.md docs --write
 ```
 
 ```text
-docs/guide.md: AI-sounding index 100 -> 45; removed 4 em dashes, 1 emoji in a heading, 1 emoji at the start of a list item, 2 arrows, 2 bold labels. Left for you: 1 stock word.
+docs/guide.md: AI-sounding index 100 -> 48; removed 4 em dashes, 1 emoji in a heading, 1 emoji at the start of a list item, 2 arrows, 2 bold labels. Left for you: 1 stock word.
 10 marks removed in 1 page of 1 document.
 Nothing was written. Use --write to apply these replacements.
 A replacement is mechanical. Read each one: a comma or a period is not always what the sentence needs, and a stock word needs your own words.
@@ -93,14 +138,17 @@ A replacement is mechanical. Read each one: a comma or a period is not always wh
 | Arrow | `->`, or `=>` for `⇒` |
 | Bold label at the start of a list item | The label without its asterisks |
 | Stock word | None. It is left for you, because only you can say what the thing does |
+| Run of sentences | None. It is left for you: it needs a rewrite of one or two sentences |
 
 The command calls no model, and no text leaves the machine. It analyzes the
 page again after each pass, until nothing is left to replace, and reports the
 index before and after.
 
-A page at the level `low` is left as it is. `unswell check` lists no marks
-there, and every measurement below is on pages with an index of 40 or more.
-`--include-low` replaces the marks of such pages as well. Files change only with `--write`. The command keeps
+A page whose first reading is `low` is left as it is, also when its index is
+high by the rhythm of its sentences. `unswell check` lists none of the marks
+with a replacement there, and every measurement of the command below is on
+pages whose marks are at 40 or more. `--include-low` replaces the marks of
+such pages as well. Files change only with `--write`. The command keeps
 the mode of a file, and it does not write a read-only file or a file that
 changed during the run.
 
@@ -123,6 +171,11 @@ that overlaps an earlier one waits for the next pass.
 
 ## Measured behavior
 
+The two readings were measured apart: the first on pages that people later
+cleaned, the second on text that a model wrote under a style guide.
+
+### The marks
+
 189 held-out pairs: one English Markdown file of 150 words or more, before
 and after a commit whose message says that it removes AI-sounding wording,
 from repositories that had no part in choosing a rule or fitting the index.
@@ -138,6 +191,11 @@ people wrote.
 | README files at level `high` | 18 of 566, 3.2% |
 | README files at level `elevated` | 69 of 566, 12.2% |
 | Pages at `high` before the commit, and after it | 58.2%, 43.4% |
+
+These are the numbers of the first reading alone, which was the whole index
+when they were measured. With both readings the AUC on the same pages is
+0.874, the index is lower after the commit in 85 of 113 pairs that differ
+(75.2%), and 22 of the 566 README files are `high` (3.9%).
 
 83 of the held-out pages: index 40 or more, 150 to 1,500 words, one per
 repository. Model judges compared two versions of a page without knowing
@@ -253,14 +311,86 @@ The [record](../research/reviews/2026-11-12-human-reference/RESULTS-index.md)
 holds the pages, the pairs, and the answers of the judges, and its check
 recounts these numbers. The bars were written on issue 525 before each run.
 
+### The rhythm
+
+The second reading was measured on text that a model wrote under a style
+guide: 70 posts of one product blog, written by a model under the blog's style
+guide and published without edits by a person, and posts that two models wrote
+from the outlines of human blog posts under one of two style guides. 151 blog
+posts from 11 public repositories, as they were before November 2022, stand
+for posts that people wrote. A hash split every set into a fitting half and a
+measured half, and the numbers below are on the measured half.
+
+Three blind model judges tell such text from human posts. They compare the
+openings of two posts and name the one that reads more like text written by a
+language model:
+
+| Comparison | The panel picks the model's text |
+| --- | --- |
+| Text written with no style guide, against the human post on the same subject | 154 of 154 |
+| The same against a human post on another subject | 76 of 77 |
+| Text written under a style guide, against the human post on the same subject | 153 of 153 |
+| A post of the product blog, over its three pairs against human posts | 22 of 30, 73.3% |
+
+The first two rows admit the panel. On the posts of the product blog the
+judges disagree: one picks the post on all 30, one on 21, and one picks the
+human post on 25.
+
+The index separates such text from the 77 human blog posts:
+
+| Set | AUC | With `v0.1.0-alpha.12` | `high`, `elevated`, `low` |
+| --- | --- | --- | --- |
+| Posts of the product blog, 30 | 0.870 | 0.247 | 13, 14, 3 |
+| Guided texts of `gpt-6-astra`, 77 | 0.979 | 0.279 | 66, 11, 0 |
+| Guided texts of `private-host/Qwen3.6-35B-A3B`, 76 | 0.988 | 0.265 | 74, 1, 1 |
+| Texts of the two writers with no style guide, 154 | 0.841 and 0.861 | 0.481 and 0.776 | 32, 108, 14 |
+
+Of 352 pages that people wrote before November 2022, the 77 blog posts and
+275 README files, 14 are `high`, 4.0% (2.4% to 6.6%). The earlier release puts
+10 of them at `high`; the four more are README files.
+
+A model that revises a page by the report makes it read less like a model's.
+`gpt-6-astra` revised the 179 pages of the measured half whose report lists a
+mark, with the instruction to resolve what the report points at and to change
+nothing else. The index is lower after the revision on 174, 97.2%. The judges
+find the page more like a model than its revision on 153 of 178 decisive
+pages, 86.0% (80.1% to 90.3%), and on 18 of 26 for the posts of the product
+blog. Each of the three judges alone points the same way.
+
+The reviser matters. `private-host/Qwen3.6-35B-A3B` revised the same pages by
+the same report and lowered the index on 174 of 178. The judges found the
+page more like a model than its revision on 124 of 177, 70.1% (62.9% to
+76.3%), and on 12 of 26 for the posts of the product blog, where its revision
+does not help. Its revisions add 192 em dashes, against 53 for the first
+reviser.
+
+The wording of the remedy decides this. On the fitting half a reviser that
+was told only to join sentences lowered the index and made the page read more
+like a model's: the judges then name stitched clauses and smoothed
+transitions. [ADR 0060](adr/0060-rhythm-reading.md) has those numbers.
+
+The [record](../research/reviews/2026-11-15-style-guide-text/RESULTS.md) holds
+the pages, the answers of the judges, and the revisions, and its check
+recounts these numbers. The bars were written on issue 577 before each run.
+
 ## Limits
 
-- The index was fitted and measured on English documentation that someone set
-  out to clean. It says how much a page carries the marks that such edits
-  remove. It does not say who wrote the page.
-- It counts six kinds of marks on the surface of a page. A sentence that a
-  cleaning edit rewords is outside it, and so is most of what such edits
-  change. Of the held-out pages before a commit, 41.8% are not `high`.
+- The first reading was fitted and measured on English documentation that
+  someone set out to clean. It says how much a page carries the marks that
+  such edits remove. The second was fitted and measured on blog posts. Neither
+  says who wrote the page.
+- The first reading counts six kinds of marks on the surface of a page. A
+  sentence that a cleaning edit rewords is outside it, and so is most of what
+  such edits change. Of the held-out pages before a commit, 41.8% are not
+  `high`.
+- The second reading counts sentences that look alike. A person who writes
+  short plain statements one after the other, as a careful style guide asks,
+  can be `high`. The human pages it was measured against are from before
+  November 2022 and mostly follow no such guide.
+- A run of sentences has no mechanical replacement. Whether a revision by the
+  report helps depends on who revises: with one model it did on every kind of
+  page, with another it did not on the posts of the product blog. Nobody
+  checked that a revision keeps every fact of its page.
 - Against a page fixed with a third-party linter's findings, the advantage is
   measured for `unswell fix` and for a model that follows the report as it is
   now. With the earlier report, which did not name the replacement, it held

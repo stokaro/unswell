@@ -46,7 +46,8 @@ func fixCommand(environment Environment) *cobra.Command {
 			"An emoji leaves a heading or the start of a list item.\n" +
 			"An arrow becomes \"->\". A bold label at the start of a list item loses its asterisks.\n" +
 			"A stock word stays: only you can say what the thing does.\n" +
-			"A page at the level low is left as it is, because the check lists no marks there; --include-low changes it too.\n" +
+			"A run of sentences stays too: it needs a rewrite.\n" +
+			"A page whose marks are at the level low is left as it is, because the check lists none of them; --include-low changes it too.\n" +
 			"No model is called and no text leaves this machine. Files change only with --write.\n" +
 			"Read the change before you keep it: a comma or a period is not always what the sentence needs.",
 		RunE: func(command *cobra.Command, args []string) error {
@@ -61,7 +62,7 @@ func fixCommand(environment Environment) *cobra.Command {
 	flags.IntVar(&options.sources.jobs, "jobs", 2, "Documents handled at the same time (1–16)")
 	flags.DurationVar(&options.sources.timeout, "timeout", 10*time.Minute, "Timeout for the whole run")
 	flags.BoolVar(&options.write, "write", false, "Write the fixed pages into the selected files")
-	flags.BoolVar(&options.includeLow, "include-low", false, "Also replace the marks of pages at the level low")
+	flags.BoolVar(&options.includeLow, "include-low", false, "Also replace the marks of pages whose marks are at the level low")
 	flags.BoolVar(&options.quiet, "quiet", false, "Do not print progress to standard error")
 	return command
 }
@@ -111,7 +112,7 @@ func (d fixedDocument) outcome() string {
 	case !d.Indexed:
 		return "no index: not a Markdown page of 150 prose words or more"
 	case d.LeftLow:
-		return fmt.Sprintf("index %d, low: left as it is", d.Before)
+		return fmt.Sprintf("index %d, marks low: left as it is", d.Before)
 	}
 	return fmt.Sprintf("index %d -> %d, %s removed", d.Before, d.After, plural(d.removed(), "mark"))
 }
@@ -201,7 +202,7 @@ func fixOne(ctx context.Context, engine *unswell.Engine, source document.Source,
 }
 
 // fix analyzes the document, applies the fixes of its marks, and analyzes the
-// result again until no fix is left. A page that starts at the level low is
+// result again until no fix is left. A page whose marks start at the level low is
 // left as it is unless includeLow is set: the check lists no marks there. It
 // returns the text after the last pass.
 func (d *fixedDocument) fix(ctx context.Context, engine *unswell.Engine, source document.Source, includeLow bool) ([]byte, error) {
@@ -214,7 +215,9 @@ func (d *fixedDocument) fix(ctx context.Context, engine *unswell.Engine, source 
 		}
 		if pass == 0 {
 			d.Indexed, d.Before = true, index.Index
-			d.LeftLow = index.Level == unswell.AISoundingLow && !includeLow
+			// The check lists the marks of a reading that is above the low
+			// level, and the marks with a replacement are the first reading's.
+			d.LeftLow = unswell.AILevel(index.Reading(unswell.AIReadingMarks)) == unswell.AISoundingLow && !includeLow
 		}
 		d.After = index.Index
 		if d.LeftLow {
@@ -222,7 +225,7 @@ func (d *fixedDocument) fix(ctx context.Context, engine *unswell.Engine, source 
 		}
 		revised, applied := unswell.RemoveAIMarks(current.Bytes, index.Marks)
 		if applied == 0 || pass == maxFixPasses {
-			d.Left = markCounts(index.Marks, false)
+			d.Left = markCounts(leftMarks(index, includeLow), false)
 			return current.Bytes, nil
 		}
 		for name, count := range markCounts(index.Marks, true) {
@@ -230,6 +233,16 @@ func (d *fixedDocument) fix(ctx context.Context, engine *unswell.Engine, source 
 		}
 		current.Bytes = revised
 	}
+}
+
+// leftMarks returns the marks that stay for a person: the marks that the check
+// lists, and with includeLow the marks of a reading at the low level too.
+func leftMarks(index *unswell.AISounding, includeLow bool) []unswell.AIMark {
+	if includeLow {
+		return index.Marks
+	}
+	listed, _ := index.Listed()
+	return listed
 }
 
 // pageIndex returns the index of one document, or nil when it has none.
@@ -326,6 +339,8 @@ var fixSignalNames = [][3]string{
 	{"arrow", "arrow", "arrows"},
 	{"stock-word", "stock word", "stock words"},
 	{"bold-label-in-list", "bold label", "bold labels"},
+	{"plain-sentence-run", "run of plain sentences", "runs of plain sentences"},
+	{"subject-opener-run", "run of sentences that open with their subject", "runs of sentences that open with their subject"},
 }
 
 // markText lists counted marks by signal, such as "3 em dashes, 1 arrow".
@@ -372,7 +387,7 @@ func writeFixText(writer io.Writer, result fixResult, written bool) error {
 		fmt.Fprintf(&text, "Without an index (not a Markdown page of 150 prose words or more): %s.\n", plural(summary.Unindexed, "document"))
 	}
 	if summary.Low > 0 {
-		fmt.Fprintf(&text, "Left as they are at the level low: %s. Use --include-low to replace their marks too.\n",
+		fmt.Fprintf(&text, "Left as they are, with their marks at the level low: %s. Use --include-low to replace those marks too.\n",
 			plural(summary.Low, "page"))
 	}
 	switch {

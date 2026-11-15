@@ -68,8 +68,9 @@ contexts, the rule catalog, the effective policy and its hash, and the build ver
 
 The result of a Markdown source holds its
 [AI-sounding index](ai-sounding-index.md) under `documents[].ai_sounding`:
-the place of each mark, the advice per kind of mark, and a mechanical fix
-where one exists.
+its two readings, the place of each mark, the advice per kind of mark, and a
+mechanical fix where one exists. A run of sentences has no fix; its advice
+says how to rewrite it.
 
 Send between 1 and 256 sources. Each `name` labels evidence and participates in
 exception matching; it is never opened as a file. Omit `format` to infer syntax

@@ -1,5 +1,46 @@
 # Changelog
 
+## Unreleased
+
+The AI-sounding index now reads a page a second way, by the rhythm of its
+sentences, and the index is the higher of the two readings. A page that a
+model wrote under a style guide has almost none of the six marks that the
+index counted, and `v0.1.0-alpha.12` gave such a page the level `low`. It
+still reads as a model's: three blind model judges pick it over a human blog
+post on 153 of 153 pairs for text that two models wrote under a style guide,
+and on 22 of 30 posts of a product blog that a model wrote. What they name is
+uniform sentences.
+
+Two signals make the second reading. `plain-sentence-run` is two or more
+plain statements of five to twenty words in a row, and `subject-opener-run` is
+three or more sentences in a row that open with their subject. Against 77
+human blog posts written before November 2022, the index now separates the
+posts of that blog with an AUC of 0.870 and the texts written under a style
+guide with 0.979 and 0.988, where `v0.1.0-alpha.12` gave 0.247 to 0.279. Of
+352 pages that people wrote before November 2022, 14 are `high`, 4.0%, against
+10 before. The earlier measurement of the index stands at an AUC of 0.874
+([ADR 0060](docs/adr/0060-rhythm-reading.md),
+[documentation](docs/ai-sounding-index.md)).
+
+The report lists each run with its place and a remedy, and it lists the marks
+of a reading only when that reading is above `low`. A model that revised 179
+such pages by the report lowered the index on 174, and the judges found the
+page more like a model than its revision on 153 of 178 decisive pages. The
+wording of the remedy matters: a reviser that was told only to join sentences
+made the pages read more like a model's on the fitting half. The reviser
+matters too: with another model the judges gave 124 of 177, and 12 of 26 on
+the posts of the product blog, where that revision did not help.
+
+`unswell fix` leaves a run of sentences for you, and it leaves a page as it is
+when the marks with a replacement are at the level `low`, also when the page
+is `high` by its rhythm. Its messages say "marks low" where they said "low".
+
+The JSON result gains `ai_sounding.readings`, `signals[].reading`,
+`signals[].sentences`, and `marks[].sentences`, and `signals` holds two more
+entries. The index line of the text report names both readings, as in
+`(high; marks 23, rhythm 99)`. In Go, `AISounding.Readings`,
+`AISounding.Reading`, `AISounding.Listed`, and `AILevel` are new.
+
 ## 0.1.0-alpha.12
 
 This release makes the report of `unswell check` say what to do at each mark

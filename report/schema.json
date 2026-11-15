@@ -880,6 +880,9 @@
             }
           ]
         },
+        "sentences": {
+          "type": "integer"
+        },
         "signal": {
           "type": "string"
         },
@@ -916,6 +919,22 @@
       ],
       "type": "object"
     },
+    "unswell.AIReadings": {
+      "additionalProperties": false,
+      "properties": {
+        "marks": {
+          "type": "integer"
+        },
+        "rhythm": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "marks",
+        "rhythm"
+      ],
+      "type": "object"
+    },
     "unswell.AISignal": {
       "additionalProperties": false,
       "properties": {
@@ -930,10 +949,17 @@
         },
         "per_thousand_words": {
           "type": "number"
+        },
+        "reading": {
+          "type": "string"
+        },
+        "sentences": {
+          "type": "integer"
         }
       },
       "required": [
         "name",
+        "reading",
         "count",
         "per_thousand_words",
         "advice"
@@ -960,6 +986,16 @@
         },
         "prose_words": {
           "type": "integer"
+        },
+        "readings": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/unswell.AIReadings"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "signals": {
           "items": {

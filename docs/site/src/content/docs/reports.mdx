@@ -73,12 +73,16 @@ and `--min-severity` change the terminal, not the record and not the gate.
 
 For a Markdown page of 150 prose words or more the text, Markdown and JSON
 reports carry an index from 0 to 100 with the levels `low`, `elevated` and
-`high`. It counts em dashes, emoji in headings and at the start of list items,
-arrows, stock words and bold labels in lists, and the report lists where each
-mark is. The index has no gate and is not a probability.
+`high`. It is the higher of two readings. One counts em dashes, emoji in
+headings and at the start of list items, arrows, stock words and bold labels in
+lists. The other counts runs of sentences that look alike: plain statements of
+one length in a row, and sentences in a row that open with their subject. The
+report lists where each mark is and what to do with it. The index has no gate
+and is not a probability.
 
 `unswell fix` removes the marks that have a mechanical replacement, without a
-model, and writes only with `--write`:
+model, and writes only with `--write`. A run of sentences has none and is left
+for you:
 
 ```sh
 unswell fix README.md docs --write

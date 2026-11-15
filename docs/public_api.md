@@ -188,8 +188,15 @@ All raw results remain available to dependent analyzers as `unswell.RunResult`.
 The page index of AI-sounding documentation adds `DocumentResult.AISounding`
 with the types `AISounding`, `AISignal`, `AIMark`, and `AIMarkFix` to the root
 package. `RemoveAIMarks` applies the fixes that the marks carry to the source
-they were found in; it reads nothing but its arguments. See
-[the index and the fix command](ai-sounding-index.md).
+they were found in; it reads nothing but its arguments. The index is the
+higher of two readings: `AISounding.Readings` holds them as `AIReadings`,
+`AISounding.Reading` returns one by its name (`AIReadingMarks`,
+`AIReadingRhythm`), and `AILevel` names the level of an index or of a reading.
+`AISignal.Reading` says which reading a signal belongs to. A signal of the
+second reading counts runs of sentences: `AISignal.Sentences` and
+`AIMark.Sentences` hold their lengths. `AISounding.Listed` returns the marks
+that a report lists, which are the marks of each reading above the level
+`low`. See [the index and the fix command](ai-sounding-index.md).
 
 Shared block measurements add the public `feature` package, optional
 `rule.Descriptor.SharedFeatures`, and `rule.View.Features`. Enabled consumers

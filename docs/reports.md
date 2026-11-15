@@ -24,7 +24,8 @@ saved reports can show highlighted paragraphs after originals change or disappea
 The text, Markdown, and JSON reports carry the
 [AI-sounding index](ai-sounding-index.md) of each Markdown page with the
 places of its marks. A mark holds its position and no source text, except that
-a `stock-word` mark holds its word of the fixed list.
+a `stock-word` mark holds its word of the fixed list. A run of sentences is
+one mark with the number of its sentences.
 
 Source [suppressions](suppressions.md) retain their reasons and audit records even
 without source inclusion. Raw findings link to the permissions that cover them.
