@@ -19,7 +19,7 @@ import (
 )
 
 // compareSchema names the JSON report of the compare command.
-const compareSchema = "unswell-compare-v1"
+const compareSchema = "unswell-compare-v2"
 
 // maxListedLosses bounds each list of lost numbers, code, and links in the
 // text report. The JSON report keeps them whole.
@@ -85,6 +85,7 @@ type compareResult struct {
 	Revision      comparedSource          `json:"revision"`
 	Sound         *comparedSound          `json:"sound,omitempty"`
 	Facts         *comparedFacts          `json:"facts,omitempty"`
+	Sentences     *comparedSentences      `json:"sentences,omitempty"`
 	Lost          *review.Lost            `json:"lost,omitempty"`
 	EmDashes      *comparedDashes         `json:"em_dashes,omitempty"`
 	Verdict       *review.RevisionVerdict `json:"verdict,omitempty"`
@@ -113,6 +114,17 @@ type comparedFacts struct {
 	Dropped    []string      `json:"dropped"`
 	Kept       int           `json:"kept"`
 	Statements []review.Fact `json:"statements"`
+}
+
+// comparedSentences holds the comparison of the sentences, which needs no
+// model. Compared counts the sentences of the page that were compared with
+// the revision, and Suspects are those of them that the revision may have
+// lost, each with what the judge said of it. Lost counts the suspects that
+// the judge did not clear.
+type comparedSentences struct {
+	Compared int              `json:"compared"`
+	Lost     int              `json:"lost"`
+	Suspects []review.Suspect `json:"suspects"`
 }
 
 type comparedDashes struct {
@@ -260,12 +272,16 @@ func judgeRevision(
 		return fmt.Errorf("statements of fact: %w", err)
 	}
 	result.Facts = &checked
-	facts := checked.Statements
+	sentences, err := askSentences(ctx, client, options, revision)
+	if err != nil {
+		return fmt.Errorf("sentences of the page: %w", err)
+	}
+	result.Sentences = &sentences
 	lost := revision.Lost()
 	result.Lost = &lost
 	page, revised := revision.EmDashes()
 	result.EmDashes = &comparedDashes{Page: page, Revision: revised}
-	verdict := revision.Judge(sound.Verdict, facts)
+	verdict := revision.Judge(sound.Verdict, checked.Statements, sentences.Suspects)
 	result.Verdict = &verdict
 	return nil
 }
@@ -317,9 +333,67 @@ func askFacts(ctx context.Context, client modelClient, options modelRunOptions, 
 	if verdicts, err = lookup(revision.KeptPrompt(confirmed), len(confirmed)); err != nil {
 		return comparedFacts{}, err
 	}
-	result.Statements, err = revision.BindFacts(confirmed, verdicts)
+	if result.Statements, err = revision.BindFacts(confirmed, verdicts); err != nil {
+		return comparedFacts{}, err
+	}
+	if err = askUnquoted(revision, lookup, result.Statements); err != nil {
+		return comparedFacts{}, err
+	}
 	result.Kept = review.KeptFacts(result.Statements)
-	return result, err
+	return result, nil
+}
+
+// askUnquoted asks once more about the statements that the model called kept
+// with words that are not in the revision. A model that paraphrases a quote
+// would otherwise turn a kept statement into one that is not kept.
+func askUnquoted(
+	revision *review.Revision, lookup func(prompt string, count int) ([]review.FactVerdict, error), statements []review.Fact,
+) error {
+	var again []string
+	var places []int
+	for index, fact := range statements {
+		if fact.Outcome == review.FactUnquoted {
+			again, places = append(again, fact.Text), append(places, index)
+		}
+	}
+	if len(again) == 0 {
+		return nil
+	}
+	verdicts, err := lookup(revision.KeptPrompt(again), len(again))
+	if err != nil {
+		return err
+	}
+	bound, err := revision.BindFacts(again, verdicts)
+	if err != nil {
+		return err
+	}
+	for index, fact := range bound {
+		statements[places[index]] = fact
+	}
+	return nil
+}
+
+// askSentences compares the sentences of the page with the revision, which
+// needs no model, and asks the judge about each suspect.
+func askSentences(ctx context.Context, client modelClient, options modelRunOptions, revision *review.Revision) (comparedSentences, error) {
+	suspects, compared := revision.Suspects()
+	result := comparedSentences{Compared: compared, Suspects: suspects}
+	if len(suspects) == 0 {
+		return result, nil
+	}
+	var verdicts []review.FactVerdict
+	err := askModel(ctx, client, review.SuspectsPrompt(suspects), options, func(answer string) (parseErr error) {
+		verdicts, parseErr = review.ParseSuspects(answer, len(suspects))
+		return parseErr
+	})
+	if err != nil {
+		return comparedSentences{}, err
+	}
+	if result.Suspects, err = review.BindSuspects(suspects, verdicts); err != nil {
+		return comparedSentences{}, err
+	}
+	result.Lost = review.LostSentences(result.Suspects)
+	return result, nil
 }
 
 func writeCompareReports(environment Environment, targets []reportTarget, result compareResult) error {
@@ -353,6 +427,9 @@ func writeCompareText(writer io.Writer, result compareResult) error {
 	}
 	if result.Facts != nil {
 		text.WriteString(factsText(*result.Facts))
+	}
+	if result.Sentences != nil {
+		text.WriteString(sentencesText(*result.Sentences))
 	}
 	if result.Lost != nil {
 		text.WriteString(lostText(*result.Lost))
@@ -408,6 +485,35 @@ func factsText(facts comparedFacts) string {
 		}
 	}
 	return text.String()
+}
+
+func sentencesText(sentences comparedSentences) string {
+	var text strings.Builder
+	switch {
+	case len(sentences.Suspects) == 0:
+		fmt.Fprintf(&text, "Sentences: each of the %s of the page has its counterpart in the revision.\n",
+			plural(sentences.Compared, "compared sentence"))
+	case sentences.Lost == 0:
+		fmt.Fprintf(&text, "Sentences: %s had no counterpart or one negation less; the judge found each in the revision.\n",
+			plural(len(sentences.Suspects), "sentence"))
+	default:
+		fmt.Fprintf(&text, "Sentences: %d of %s of the page not found in the revision as it was.\n", sentences.Lost,
+			plural(sentences.Compared, "compared sentence"))
+	}
+	for _, suspect := range sentences.Suspects {
+		if suspect.Outcome != review.FactKept {
+			fmt.Fprintf(&text, "    line %d, %s: %s\n", suspect.Line, suspectLabel(suspect), excerpt(suspect.Text, maxReasonText))
+		}
+	}
+	return text.String()
+}
+
+// suspectLabel says what happened to a sentence that the judge did not find.
+func suspectLabel(suspect review.Suspect) string {
+	if suspect.Reason == review.SentenceNegation {
+		return "a negation is gone"
+	}
+	return "not in the revision"
 }
 
 func lostText(lost review.Lost) string {
