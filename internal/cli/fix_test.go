@@ -15,7 +15,16 @@ import (
 	"github.com/stokaro/unswell/internal/cli"
 )
 
-var fixPlain = strings.Repeat("The server reads the request and sends the response to the client. ", 16)
+// fixPlain is ordinary documentation without any mark that the index counts:
+// its sentences differ in length and in how they start.
+var fixPlain = "When a request arrives, the server checks the token before anything else, because an expired token is the most common " +
+	"reason for a rejection and the check costs almost nothing. Why first? Everything after it needs a read from the database. " +
+	"If the token is valid, the handler loads the account, compares its plan with the limits of the endpoint, and only then " +
+	"reads the body, which can be several megabytes for an upload. Small bodies stay in memory. A larger one goes to a " +
+	"temporary file (the handler removes it once the response is sent), so that a slow client cannot hold the memory of a " +
+	"worker for minutes. Does the order matter? It does: on a busy day about one request in fifty fails the first check, and " +
+	"none of those reach the database or the disk. After the body is read, the handler validates each field, writes the row " +
+	"inside one transaction, and answers with the identifier of the new record together with the time the server stored it. "
 
 // fixDraft has marks with a mechanical replacement and one stock word.
 var fixDraft = "# \U0001F680 Client\n\nA seamless client — it retries → then it waits.\n\n" +
@@ -146,7 +155,7 @@ func TestFixLeavesAPageAtTheLevelLow(t *testing.T) {
 	writeDraft(c, root, "low.md", low, 0o600)
 	outcome := runFix(t, root, "low.md", "--write", "--report", "json:-")
 	c.Assert(outcome.code, qt.Equals, 0, qt.Commentf("stderr: %s", outcome.stderr))
-	c.Assert(outcome.stderr, qt.Matches, `fix: low\.md: index \d+, low: left as it is\n`)
+	c.Assert(outcome.stderr, qt.Matches, `fix: low\.md: index \d+, marks low: left as it is\n`)
 	var report fixReport
 	c.Assert(json.Unmarshal([]byte(outcome.stdout), &report), qt.IsNil)
 	c.Assert(report.Summary.Low, qt.Equals, 1)
@@ -156,7 +165,7 @@ func TestFixLeavesAPageAtTheLevelLow(t *testing.T) {
 	c.Assert(report.Documents[0].Before, qt.Equals, report.Documents[0].After)
 	text := runFix(t, root, "low.md", "--quiet")
 	c.Assert(text.stdout, qt.Matches, `0 marks removed in 0 pages of 1 document\.\n`+
-		`Left as they are at the level low: 1 page\. Use --include-low to replace their marks too\.\n(?s:.*)`)
+		`Left as they are, with their marks at the level low: 1 page\. Use --include-low to replace those marks too\.\n(?s:.*)`)
 	data, err := fs.ReadFile(os.DirFS(root), "low.md")
 	c.Assert(err, qt.IsNil)
 	c.Assert(string(data), qt.Equals, low)
@@ -171,6 +180,36 @@ func TestFixLeavesAPageAtTheLevelLow(t *testing.T) {
 	data, err = fs.ReadFile(os.DirFS(root), "low.md")
 	c.Assert(err, qt.IsNil)
 	c.Assert(string(data), qt.Equals, strings.Replace(low, " — then", ", then", 1))
+}
+
+func TestFixLeavesTheRunsOfSentencesToAPerson(t *testing.T) {
+	c := qt.New(t)
+	root := t.TempDir()
+	even := strings.Repeat("The server reads the request and sends the response to the client. ", 16)
+	// High by its marks and by its rhythm: the dashes are replaced, and the runs stay for a person.
+	page := "# Client\n\nIt connects — then it waits — and it closes — on a timeout.\n\n" + even + "\n"
+	writeDraft(c, root, "draft.md", page, 0o600)
+	outcome := runFix(t, root, "draft.md", "--write", "--quiet")
+	c.Assert(outcome.code, qt.Equals, 0, qt.Commentf("stderr: %s", outcome.stderr))
+	c.Assert(outcome.stdout, qt.Matches, `draft\.md: AI-sounding index \d+ -> \d+; removed 3 em dashes\. `+
+		`Left for you: 1 run of plain sentences, 1 run of sentences that open with their subject\.\n(?s:.*)`)
+	data, err := fs.ReadFile(os.DirFS(root), "draft.md")
+	c.Assert(err, qt.IsNil)
+	c.Assert(string(data), qt.Equals, strings.ReplaceAll(page, " —", ","))
+
+	// High by its rhythm alone: the one arrow of a long page is not listed by the check, so the page is left as it is.
+	rhythm := "# Client\n\n" + strings.Repeat(even, 5) + "\n\nThe request goes to the proxy → the server.\n"
+	writeDraft(c, root, "even.md", rhythm, 0o600)
+	left := runFix(t, root, "even.md", "--write", "--report", "json:-")
+	c.Assert(left.code, qt.Equals, 0, qt.Commentf("stderr: %s", left.stderr))
+	c.Assert(left.stderr, qt.Matches, `fix: even\.md: index \d+, marks low: left as it is\n`)
+	var report fixReport
+	c.Assert(json.Unmarshal([]byte(left.stdout), &report), qt.IsNil)
+	c.Assert(report.Documents[0].LeftLow, qt.IsTrue)
+	c.Assert(report.Documents[0].Before >= 70, qt.IsTrue, qt.Commentf("%d", report.Documents[0].Before))
+	data, err = fs.ReadFile(os.DirFS(root), "even.md")
+	c.Assert(err, qt.IsNil)
+	c.Assert(string(data), qt.Equals, rhythm)
 }
 
 func TestFixDoesNotWriteAReadOnlyFile(t *testing.T) {

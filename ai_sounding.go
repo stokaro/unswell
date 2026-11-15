@@ -21,8 +21,12 @@ type AISounding struct {
 	// Status is "available", or says why there is no index: "too_short" for a
 	// page with fewer prose words than the measurement covers.
 	Status string `json:"status"`
-	// Index is 0 to 100 and meaningful only when Status is "available".
+	// Index is 0 to 100 and meaningful only when Status is "available". It
+	// is the higher of the two readings.
 	Index int `json:"index"`
+	// Readings are the two readings of the page that the index is the higher
+	// of.
+	Readings *AIReadings `json:"readings,omitempty"`
 	// Level is "low", "elevated", or "high". At most one in twenty pages that
 	// people wrote before language models reach "high".
 	Level string `json:"level,omitempty"`
@@ -36,10 +40,33 @@ type AISounding struct {
 	Marks []AIMark `json:"marks,omitempty"`
 }
 
+// AIReadings are the two readings of a page, each 0 to 100. Marks reads the
+// characters, words, and labels that people remove when they clean a model's
+// text. Rhythm reads the runs of sentences that look alike, which is what
+// remains in a page that a model wrote under a style guide.
+type AIReadings struct {
+	Marks  int `json:"marks"`
+	Rhythm int `json:"rhythm"`
+}
+
+// Names of the two readings.
+const (
+	AIReadingMarks  = "marks"
+	AIReadingRhythm = "rhythm"
+)
+
 // AISignal is one counted mark of an AISounding index.
 type AISignal struct {
-	Name        string  `json:"name"`
-	Count       int     `json:"count"`
+	Name string `json:"name"`
+	// Reading names the reading that the signal belongs to: "marks" or
+	// "rhythm".
+	Reading string `json:"reading"`
+	Count   int    `json:"count"`
+	// Sentences is set for a signal whose marks are runs of sentences: the
+	// sentences in all its runs. Count is then the number of runs.
+	Sentences int `json:"sentences,omitempty"`
+	// PerThousand is the rate that the index weighs: the marks per 1,000
+	// prose words, or for a signal of runs the sentences in its runs.
 	PerThousand float64 `json:"per_thousand_words"`
 	// Advice says how to remove a mark of this signal.
 	Advice string `json:"advice"`
@@ -55,6 +82,8 @@ type AIMark struct {
 	// Word is the matched word of the fixed list, in lower case, for a
 	// stock-word mark. Other marks carry no text.
 	Word string `json:"word,omitempty"`
+	// Sentences is the length of a run of sentences, for a mark that is one.
+	Sentences int `json:"sentences,omitempty"`
 	// Fix is the replacement that removes the mark without a rewrite of the
 	// sentence. A stock word has none: only a person or a model can say what
 	// the thing does. A dash between two numbers has none either.
@@ -233,23 +262,81 @@ func aiSounding(doc document.Document) *AISounding {
 		return result
 	}
 	score := aiSoundingBias
-	result.Signals = make([]AISignal, 0, len(aiSignals))
+	result.Signals = make([]AISignal, 0, len(aiSignals)+len(aiRunSignals))
 	for index, signal := range aiSignals {
 		rate := 1000 * float64(counts[index]) / float64(words)
 		score += signal.weight * math.Log1p(rate)
-		result.Signals = append(result.Signals, AISignal{Name: signal.name, Count: counts[index], PerThousand: rate, Advice: signal.advice})
+		result.Signals = append(result.Signals,
+			AISignal{Name: signal.name, Reading: AIReadingMarks, Count: counts[index], PerThousand: rate, Advice: signal.advice})
 	}
+	rhythm := aiRhythmBias
+	stretches := paragraphStretches(doc)
+	for _, signal := range aiRunSignals {
+		runs, sentences := sentenceRuns(stretches, signal)
+		rate := 1000 * float64(sentences) / float64(words)
+		rhythm += signal.weight * math.Log1p(rate)
+		result.Signals = append(result.Signals, AISignal{Name: signal.name, Reading: AIReadingRhythm, Count: len(runs),
+			Sentences: sentences, PerThousand: rate, Advice: signal.advice})
+		marks = appendMarks(marks, signal.name, runs, doc.Source)
+	}
+	result.Readings = &AIReadings{Marks: aiIndexOf(score), Rhythm: aiIndexOf(rhythm)}
 	slices.SortStableFunc(marks, func(a, b AIMark) int { return a.Span.Start - b.Span.Start })
 	result.Marks = marks
 	result.Status = "available"
-	result.Index = int(math.Round(100 / (1 + math.Exp(-score))))
-	result.Level = AISoundingLow
-	if result.Index >= aiSoundingHighAt {
-		result.Level = AISoundingHigh
-	} else if result.Index >= aiSoundingElevatedAt {
-		result.Level = AISoundingElevated
-	}
+	result.Index = max(result.Readings.Marks, result.Readings.Rhythm)
+	result.Level = AILevel(result.Index)
 	return result
+}
+
+// AILevel returns the level of an index, or of one of its readings.
+func AILevel(index int) string {
+	switch {
+	case index >= aiSoundingHighAt:
+		return AISoundingHigh
+	case index >= aiSoundingElevatedAt:
+		return AISoundingElevated
+	}
+	return AISoundingLow
+}
+
+// Reading returns one reading of the page by its name, or 0 for a page
+// without an index.
+func (index AISounding) Reading(name string) int {
+	switch {
+	case index.Readings == nil:
+		return 0
+	case name == AIReadingRhythm:
+		return index.Readings.Rhythm
+	}
+	return index.Readings.Marks
+}
+
+// Listed returns the marks that a report lists and the number of marks they
+// stand for. A reading at the level low has too few marks to tell the page
+// from one that a person wrote, so its marks are left out: a few plain
+// sentences in a row are ordinary, and so is one em dash on a long page. The
+// number counts the marks of the listed readings past the bound of Marks too.
+func (index AISounding) Listed() ([]AIMark, int) {
+	reading := map[string]string{}
+	total := 0
+	for _, signal := range index.Signals {
+		reading[signal.Name] = signal.Reading
+		if AILevel(index.Reading(signal.Reading)) != AISoundingLow {
+			total += signal.Count
+		}
+	}
+	var listed []AIMark
+	for _, mark := range index.Marks {
+		if AILevel(index.Reading(reading[mark.Signal])) != AISoundingLow {
+			listed = append(listed, mark)
+		}
+	}
+	return listed, total
+}
+
+// aiIndexOf turns the score of one reading into an index of 0 to 100.
+func aiIndexOf(score float64) int {
+	return int(math.Round(100 / (1 + math.Exp(-score))))
 }
 
 // appendMarks adds the found marks of one signal with their positions, up to

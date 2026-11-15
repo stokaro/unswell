@@ -100,6 +100,14 @@ dashes between two clauses that the command does not recognize and joins with
 a comma, the index for formats other than Markdown, and marks below the
 surface of a page, where most of a cleaning edit happens.
 
+[ADR 0060](adr/0060-rhythm-reading.md) gives the index a second reading, the
+rhythm of the sentences, for a page that a model wrote under a style guide.
+Open after it: people as judges, pages that a person wrote under such a style
+guide, genres other than blog posts, a remedy that a reviser of any model can
+follow without making the page read more like a model's, a remedy that does
+not bring in em dashes, and a check that a revision keeps the facts of its
+page.
+
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on
 an explicit maintainer request, after the other implementation tasks have a

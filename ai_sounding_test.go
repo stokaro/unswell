@@ -13,8 +13,20 @@ import (
 	"github.com/stokaro/unswell/document"
 )
 
-// plainProse is ordinary documentation without any mark that the index counts.
-var plainProse = strings.Repeat("The server reads the request and sends the response to the client. ", 16)
+// plainProse is ordinary documentation without any mark that the index counts:
+// its sentences differ in length and in how they start, as a person's do.
+var plainProse = "When a request arrives, the server checks the token before anything else, because an expired token is the most common " +
+	"reason for a rejection and the check costs almost nothing. Why first? Everything after it needs a read from the database. " +
+	"If the token is valid, the handler loads the account, compares its plan with the limits of the endpoint, and only then " +
+	"reads the body, which can be several megabytes for an upload. Small bodies stay in memory. A larger one goes to a " +
+	"temporary file (the handler removes it once the response is sent), so that a slow client cannot hold the memory of a " +
+	"worker for minutes. Does the order matter? It does: on a busy day about one request in fifty fails the first check, and " +
+	"none of those reach the database or the disk. After the body is read, the handler validates each field, writes the row " +
+	"inside one transaction, and answers with the identifier of the new record together with the time the server stored it. "
+
+// evenProse is the page that the second reading is for: plain statements of
+// the same length, one after the other, each opening with its subject.
+var evenProse = strings.Repeat("The server reads the request and sends the response to the client. ", 16)
 
 func aiSounding(c *qt.C, t *testing.T, name string, format document.Format, text string) *unswell.AISounding {
 	c.Helper()
@@ -25,10 +37,17 @@ func aiSounding(c *qt.C, t *testing.T, name string, format document.Format, text
 	return result.Documents[0].AISounding
 }
 
+// counts returns the count of each signal of the first reading, the marks.
 func counts(index *unswell.AISounding) map[string]int {
+	return countsOf(index, unswell.AIReadingMarks)
+}
+
+func countsOf(index *unswell.AISounding, reading string) map[string]int {
 	result := map[string]int{}
 	for _, signal := range index.Signals {
-		result[signal.Name] = signal.Count
+		if signal.Reading == reading {
+			result[signal.Name] = signal.Count
+		}
 	}
 	return result
 }
@@ -47,8 +66,12 @@ func TestAISoundingIndexCountsItsMarks(t *testing.T) {
 	c.Assert(index.Level, qt.Equals, unswell.AISoundingHigh)
 	c.Assert(index.Index >= 70 && index.Index <= 100, qt.IsTrue)
 	for _, signal := range index.Signals {
-		c.Assert(signal.PerThousand, qt.Equals, 1000*float64(signal.Count)/float64(index.Words))
+		if signal.Reading == unswell.AIReadingMarks {
+			c.Assert(signal.PerThousand, qt.Equals, 1000*float64(signal.Count)/float64(index.Words))
+		}
 	}
+	c.Assert(index.Index, qt.Equals, index.Readings.Marks)
+	c.Assert(countsOf(index, unswell.AIReadingRhythm), qt.DeepEquals, map[string]int{"plain-sentence-run": 0, "subject-opener-run": 0})
 	// Every counted mark is listed in source order with the bytes it covers.
 	var listed []string
 	for _, mark := range index.Marks {
@@ -129,11 +152,15 @@ func TestAISoundingIndexUsesTheWeightsOfItsRecord(t *testing.T) {
 		c.Assert(counts(index)[name], qt.Equals, 3, qt.Commentf(name))
 		score := record.PageIndex.Bias
 		for _, signal := range index.Signals {
+			if signal.Reading != unswell.AIReadingMarks {
+				continue
+			}
 			weight, known := record.PageIndex.Weights[signal.Name]
 			c.Assert(known, qt.IsTrue, qt.Commentf(signal.Name))
 			score += weight * math.Log1p(signal.PerThousand)
 		}
 		expected := int(math.Round(100 / (1 + math.Exp(-score))))
+		c.Assert(index.Readings.Marks, qt.Equals, expected, qt.Commentf(name))
 		c.Assert(index.Index, qt.Equals, expected, qt.Commentf(name))
 		// The page sits in the middle of the scale, where a changed weight moves the index.
 		c.Assert(expected > 40 && expected < 90, qt.IsTrue, qt.Commentf("%s: %d", name, expected))
