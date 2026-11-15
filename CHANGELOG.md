@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased
+
+`unswell compare` now compares the sentences of the page with the revision
+itself, without a model. A sentence that has no counterpart in the revision,
+or whose counterpart has one negation less, goes to the judge beside the
+place where it stood, and the judge has to quote the words that still say
+it. For a missing sentence the quote also has to carry a word of the sentence
+that the sentences around it do not have. One sentence that is not found
+rejects the revision. The command also asks once more about the statements
+that the judge did not find the first time, in a list of those only. The JSON
+report has the schema `unswell-compare-v2`, and `review.Judge` takes the
+suspects as a third argument
+([documentation](docs/compare.md),
+[ADR 0062](docs/adr/0062-sentences-of-a-revision.md)).
+
+MEASURED
+
 ## 0.1.0-alpha.14
 
 This release adds a blind check of a revision and says plainly what a

@@ -342,23 +342,26 @@ func askFacts(ctx context.Context, client modelClient, options modelRunOptions, 
 	if result.Statements, err = revision.BindFacts(confirmed, verdicts); err != nil {
 		return comparedFacts{}, err
 	}
-	if err = askUnquoted(revision, lookup, result.Statements); err != nil {
+	if err = askAgain(revision, lookup, result.Statements); err != nil {
 		return comparedFacts{}, err
 	}
 	result.Kept = review.KeptFacts(result.Statements)
 	return result, nil
 }
 
-// askUnquoted asks once more about the statements that the model called kept
-// with words that are not in the revision. A model that paraphrases a quote
-// would otherwise turn a kept statement into one that is not kept.
-func askUnquoted(
+// askAgain asks once more about the statements that the first answer did not
+// count as kept, and about those only. A statement is kept when the second
+// answer finds it with words that stand in the revision; otherwise it keeps
+// its first outcome. A model errs on a long list: it paraphrases a quote, or
+// calls the last statements of the list changed in a row. The same statements
+// in a short list show whether the revision lost them.
+func askAgain(
 	revision *review.Revision, lookup func(prompt string, count int) ([]review.FactVerdict, error), statements []review.Fact,
 ) error {
 	var again []string
 	var places []int
 	for index, fact := range statements {
-		if fact.Outcome == review.FactUnquoted {
+		if fact.Outcome != review.FactKept {
 			again, places = append(again, fact.Text), append(places, index)
 		}
 	}
@@ -374,7 +377,9 @@ func askUnquoted(
 		return err
 	}
 	for index, fact := range bound {
-		statements[places[index]] = fact
+		if fact.Outcome == review.FactKept {
+			statements[places[index]] = fact
+		}
 	}
 	return nil
 }

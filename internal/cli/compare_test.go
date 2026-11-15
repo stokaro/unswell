@@ -521,20 +521,47 @@ func TestCompareClearsASuspectOnlyWithWordsOfItsPassage(t *testing.T) {
 	}
 }
 
-func TestCompareAsksOnceMoreAboutAStatementWithoutItsWords(t *testing.T) {
-	c := qt.New(t)
-	unquoted := strings.Replace(comparedKept, "A request that the server rejected is not retried", "the server never retries", 1)
-	again := `{"facts": [{"fact": 1, "kept": "yes", "quote": "A request that the server rejected is not retried"}]}`
-	script := judgeScript{sound: pageNamed, facts: comparedFacts, control: comparedControl, kept: unquoted, again: again}
-	model := newFakeModel(t, script.answer)
-	report, outcome := compareJSON(c, t, comparedFiles(c, t, comparedRevision), model)
-	c.Assert(outcome.code, qt.Equals, 0, qt.Commentf("stderr: %s", outcome.stderr))
-	c.Assert(report.Facts.Kept, qt.Equals, 3)
-	calls := model.received()
-	c.Assert(calls, qt.HasLen, 6)
-	// Only the statement without its words is asked again, in the revision.
-	c.Assert(calls[5].User, qt.Contains, "===== STATEMENTS =====\n1. The client does not retry a request that the server rejected.\n\n"+
-		"===== PAGE =====\n"+comparedRevision)
+func TestCompareAsksOnceMoreAboutAStatementThatWasNotFound(t *testing.T) {
+	rejected := `{"fact": 3, "kept": "yes", "quote": "A request that the server rejected is not retried"}`
+	found := `{"facts": [{"fact": 1, "kept": "yes", "quote": "A request that the server rejected is not retried"}]}`
+	cases := []struct {
+		name, first, again string
+		kept, code         int
+	}{
+		{
+			"a quote that is not in the revision, then the words", strings.Replace(comparedKept, "A request that the server rejected is not retried",
+				"the server never retries", 1), found, 3, 0,
+		},
+		{"called changed, then found", strings.Replace(comparedKept, rejected, `{"fact": 3, "kept": "changed", "quote": ""}`, 1), found, 3, 0},
+		{"called missing, then found", strings.Replace(comparedKept, rejected, `{"fact": 3, "kept": "missing", "quote": ""}`, 1), found, 3, 0},
+		{
+			"called changed both times", strings.Replace(comparedKept, rejected, `{"fact": 3, "kept": "changed", "quote": ""}`, 1),
+			`{"facts": [{"fact": 1, "kept": "changed", "quote": ""}]}`, 2, 1,
+		},
+		{
+			// The first outcome stays when the second answer does not find the statement either.
+			"called changed, then missing", strings.Replace(comparedKept, rejected, `{"fact": 3, "kept": "changed", "quote": ""}`, 1),
+			`{"facts": [{"fact": 1, "kept": "missing", "quote": ""}]}`, 2, 1,
+		},
+	}
+	for _, test := range cases {
+		t.Run(test.name, func(t *testing.T) {
+			c := qt.New(t)
+			script := judgeScript{sound: pageNamed, facts: comparedFacts, control: comparedControl, kept: test.first, again: test.again}
+			model := newFakeModel(t, script.answer)
+			report, outcome := compareJSON(c, t, comparedFiles(c, t, comparedRevision), model)
+			c.Assert(outcome.code, qt.Equals, test.code, qt.Commentf("stderr: %s", outcome.stderr))
+			c.Assert(report.Facts.Kept, qt.Equals, test.kept)
+			if test.code == 1 {
+				c.Assert(report.Facts.Statements[2].Outcome, qt.Equals, "changed")
+			}
+			calls := model.received()
+			c.Assert(calls, qt.HasLen, 6)
+			// Only the statement that was not found is asked again, in the revision.
+			c.Assert(calls[5].User, qt.Contains, "===== STATEMENTS =====\n1. The client does not retry a request that the server rejected.\n\n"+
+				"===== PAGE =====\n"+comparedRevision)
+		})
+	}
 }
 
 func TestCompareWithoutAnAnswerAboutASuspectIsAnError(t *testing.T) {

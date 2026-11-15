@@ -39,9 +39,9 @@ OUTCOME
   quote that stands in that place; for a missing sentence the quote also has
   to carry one of the sentence's own words. One suspect that is not cleared
   rejects the revision.
-- **A second question about a statement.** When the judge calls a statement
-  kept and its quote is not in the revision, the command asks once more about
-  that statement.
+- **A second question about a statement.** Before a statement counts as not
+  kept, the command asks once more about it, in a list of those statements
+  only.
 
 ## Texts
 
@@ -69,11 +69,16 @@ The rule was fitted on the 40 posts of the fitting half and on nothing else.
   judge, and on the ordinary revisions with the judge of the other family
   than the reviser.
 
-The check of the fitting half ran with a build that did not yet ask a
-clearing quote for a word of the sentence. One judge then cleared a removed
-sentence with words of the sentence beside it, and the rule was added. The
-fitting rows of this record have that rule applied to the kept answers, so
-they say what the final build decides.
+The damaged copies of the fitting half were checked with a build that did
+not yet ask a clearing quote for a word of the sentence. One judge then
+cleared a removed sentence with words of the sentence beside it, and the rule
+was added. The rows of those copies have that rule applied to the kept
+answers, so their sentences say what the final build decides. That build
+also asked again only about a statement whose quote was not in the revision.
+On the ordinary revisions one judge then called 22 of the 90 statements of
+one revision changed, the last twenty of the list among them. The final build
+asks again about every statement that was not found, and the ordinary
+revisions of the fitting half were checked with it.
 
 ## The measured part, and what had been read before
 

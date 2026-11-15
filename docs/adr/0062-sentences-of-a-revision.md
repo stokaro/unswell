@@ -66,9 +66,13 @@ statements allows 2% of losses, because a model that lists and looks up
 statements errs. A sentence that the command cannot find and the judge cannot
 quote is a concrete loss, and the report shows it with its line.
 
-**A statement with a quote that is not in the revision is asked again.** The
-command repeats the question for those statements only. A statement that is
-quoted properly the second time is kept.
+**A statement that was not found is asked again.** The command repeats the
+question for those statements only, and a statement that is quoted properly
+the second time is kept. A model errs on a long list. One judge quoted words
+that are not in the revision for 53 statements of the earlier record. On the
+fitting half the same judge called 22 of the 90 statements of one revision
+changed, the last twenty of the list among them; the other 15 revisions it
+had read by then kept every statement.
 
 ## What the fitting half showed
 

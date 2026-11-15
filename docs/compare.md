@@ -45,9 +45,10 @@ from is left out: the model worded it so that the page does not say it, and
 it would be missing from any revision. The model is then asked for the other
 statements in the revision, again with a quote for each. A statement counts as
 kept only when the quoted words stand in the revision; the command checks that
-itself. At least 98% of the statements have to be kept. When the model calls
-a statement kept and its quote is not in the revision, the command asks once
-more about that statement before it counts it as not kept.
+itself. At least 98% of the statements have to be kept. Before a statement
+counts as not kept, the command asks once more about it, in a list of those
+statements only. A model errs on a long list: it paraphrases a quote, or
+calls the last statements of the list changed in a row.
 
 **Sentences.** Without a model, the command compares each sentence of the
 page with the revision. A sentence has its counterpart when one sentence of
@@ -139,8 +140,8 @@ dashes of both texts, and the verdict with its reasons. `--report text:PATH`
 writes the text above.
 
 The command makes five to seven calls: two for the sound, three for the
-facts, one more when a statement has to be asked again, and one when a
-sentence is a suspect. The three for the facts carry the whole text of the
+facts, one more when a statement was not found the first time, and one when
+a sentence is a suspect. The three for the facts carry the whole text of the
 page or of the revision. The call about suspects carries only those sentences
 and their places.
 
