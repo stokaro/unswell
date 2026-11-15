@@ -336,6 +336,23 @@ func TestLostFindsWhatTheRevisionNoLongerCarries(t *testing.T) {
 	}
 }
 
+func TestLostReadsCodeSpansOfAnyLength(t *testing.T) {
+	c := qt.New(t)
+	page := "# Notes\n\nA span of two backticks holds a backtick: ``a ` b``. After it `first` and `second` are spans, and the words " +
+		"between them are prose. An unclosed ` backtick opens nothing.\n"
+	prepared := prepare(c, t, "page.md", page)
+	// The revision keeps every span and rewrites the prose between them.
+	kept, err := review.NewRevision(prepared, prepare(c, t, "revised.md",
+		"# Notes\n\nTwo backticks hold one: ``a ` b``. Then come `first` and `second`, with prose around them. A lone ` opens nothing.\n"))
+	c.Assert(err, qt.IsNil)
+	c.Assert(kept.Lost().Code, qt.HasLen, 0)
+	// A revision that drops one span loses that span and nothing else.
+	dropped, err := review.NewRevision(prepared, prepare(c, t, "revised.md",
+		"# Notes\n\nTwo backticks hold one: ``a ` b``. Then comes `first`, with prose around it. A lone ` opens nothing.\n"))
+	c.Assert(err, qt.IsNil)
+	c.Assert(dropped.Lost().Code, qt.DeepEquals, []string{"second"})
+}
+
 func TestEmDashesAreCountedInProseOnly(t *testing.T) {
 	c := qt.New(t)
 	revised := strings.Replace(serviceRevision, "failure, and the delay", "failure—the delay", 1)

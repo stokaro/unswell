@@ -1,9 +1,9 @@
 ---
-title: Two commands that ask a model you name.
+title: Three commands that ask a model you name.
 accent: you
-eyebrow: Review and trim
-lead: The check applies fixed rules offline. Review and trim give each selected document to a model you choose, and deterministic code decides what of its answer you see. Both are advisory and neither touches the gate.
-description: Use unswell review to flag wording in context and unswell trim to propose sentences with empty words removed, through a model endpoint or a local program you name.
+eyebrow: Review, trim, compare
+lead: The check applies fixed rules offline. Review and trim give each selected document to a model you choose, and deterministic code decides what of its answer you see. Compare has such a model judge a revision blind. None of them touches the gate of the check.
+description: Use unswell review to flag wording in context, unswell trim to propose sentences with empty words removed, and unswell compare to check a revision blind, through a model endpoint or a local program you name.
 ---
 
 import Note from '../../components/Note.astro';
@@ -11,12 +11,12 @@ import Note from '../../components/Note.astro';
 ## What leaves the machine
 
 `unswell check`, the Go library, the GitHub Action and the MCP server send nothing
-anywhere. `unswell review` and `unswell trim` send the complete text of every
-selected document to the endpoint or the local program you name, and to nothing
-else. An API key goes to that endpoint in the `Authorization` header. It is not
+anywhere. `unswell review`, `unswell trim`, and `unswell compare` send the
+complete text of every selected document to the endpoint or the local program
+you name, and to nothing else. An API key goes to that endpoint in the `Authorization` header. It is not
 written to a report or to an error message.
 
-Without a named model both commands fail before they read a document.
+Without a named model these commands fail before they read a document.
 
 <Note>
   Run them only where your policy lets that text reach that model.

@@ -106,7 +106,6 @@ const minQuoteWords = 3
 
 var (
 	numberPattern = regexp.MustCompile(`\d+(?:[.,:]\d+)*%?`)
-	codePattern   = regexp.MustCompile("`([^`\n]+)`")
 	linkPattern   = regexp.MustCompile(`https?://[^\s)>\]"'` + "`" + `]+`)
 )
 
@@ -491,12 +490,63 @@ func lostCode(page, revised string) []string {
 			lost = appendOnce(lost, first)
 		}
 	}
-	for _, match := range codePattern.FindAllStringSubmatch(outsideFences(page), -1) {
-		if !strings.Contains(revised, match[1]) {
-			lost = appendOnce(lost, match[1])
+	for _, code := range inlineCode(outsideFences(page)) {
+		if !strings.Contains(revised, code) {
+			lost = appendOnce(lost, code)
 		}
 	}
 	return lost
+}
+
+// inlineCode returns the content of each code span of a source without fenced
+// blocks. A span opens with a run of backticks and closes with the next run
+// of the same length on the same line, so a span of two backticks around a
+// backtick does not shift the spans after it.
+func inlineCode(source string) []string {
+	var spans []string
+	for line := range strings.SplitSeq(source, "\n") {
+		for at := 0; at < len(line); {
+			open := strings.IndexByte(line[at:], '`')
+			if open < 0 {
+				break
+			}
+			start := at + open
+			length := backticks(line[start:])
+			content, after, closed := codeSpan(line[start+length:], length)
+			if !closed {
+				at = start + length
+				continue
+			}
+			if content = strings.TrimSpace(content); content != "" {
+				spans = append(spans, content)
+			}
+			at = start + length + after
+		}
+	}
+	return spans
+}
+
+// backticks counts the backticks at the start of a text.
+func backticks(text string) int {
+	return len(text) - len(strings.TrimLeft(text, "`"))
+}
+
+// codeSpan finds the run of exactly length backticks that closes a span. It
+// returns the content before it and the offset after it.
+func codeSpan(text string, length int) (content string, after int, closed bool) {
+	for at := 0; at < len(text); {
+		next := strings.IndexByte(text[at:], '`')
+		if next < 0 {
+			return "", 0, false
+		}
+		start := at + next
+		run := backticks(text[start:])
+		if run == length {
+			return text[:start], start + run, true
+		}
+		at = start + run
+	}
+	return "", 0, false
 }
 
 func lostLinks(page, revised string) []string {
