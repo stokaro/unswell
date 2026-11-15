@@ -133,6 +133,11 @@ and 171 pairs ended without a verdict. Issue 589 set one retry for such pairs
 while the run was in progress. After it every pair has a verdict; the record
 shows both counts.
 
+The published binary of `v0.1.0-alpha.15` names the same suspects on all 421
+copies of the record, and it reaches the recorded verdict on the 30 pairs
+that could be replayed from kept answers of a judge; see the
+[alpha.15 evidence](../release/v0.1.0-alpha.15.md).
+
 ## Consequences
 
 - The JSON report of `unswell compare` has the schema `unswell-compare-v2`
