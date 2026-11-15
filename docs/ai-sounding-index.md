@@ -88,6 +88,7 @@ AI-sounding index: 99 of 100 (high; marks 23, rhythm 99) in docs/retry.md: 4 run
   docs/retry.md:7:1: 5 plain sentences in a row; say it as you would to a colleague: join two of them, use a contraction, put an aside in parentheses, or start one with And or But
   docs/retry.md:7:1: 5 sentences in a row open with their subject; open one of them with its condition, its time, or its reason
 A run of sentences has no replacement that a command can make. Rewrite one or two of its sentences, and keep what they say.
+Do not add an em dash anywhere: an em dash is one of the marks that this report counts.
 The index is the higher of two readings: the marks that people remove when they clean AI-sounding wording out of documentation, and runs of sentences that look alike. It is not a probability and does not say who wrote a page.
 ```
 

@@ -81,6 +81,7 @@ func Run(ctx context.Context, args []string, environment Environment) int {
 		reviewCommand(environment),
 		trimCommand(environment),
 		fixCommand(environment),
+		compareCommand(environment, &code),
 	)
 	root.AddCommand(
 		&cobra.Command{
