@@ -1,6 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-alpha.14
+
+This release adds a blind check of a revision and says plainly what a
+revision by the report does: it lowers the index, and it does not make a post
+read as a person's.
 
 The new command `unswell compare <page> <revision>` checks one revision with
 a model you name. The judge reads the opening of both texts without a hint of
