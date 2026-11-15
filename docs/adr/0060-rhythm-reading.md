@@ -126,6 +126,11 @@ like a model than its revision on 124 of 177, 70.1% (62.9% to 76.3%), and on
 12 of 26 for the posts of the product blog: there its revision does not help.
 Its revisions add 192 em dashes, where the first reviser adds 53.
 
+The published binary of `v0.1.0-alpha.13` reproduces the counts, the readings,
+and the index of every page of the record, and the report that a reviser was
+given on all but one page; see the
+[alpha.13 evidence](../release/v0.1.0-alpha.13.md).
+
 ## What the fitting half showed about the remedy
 
 The wording of the remedy decides whether a revision helps. A reviser that only

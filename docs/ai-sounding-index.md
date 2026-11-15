@@ -372,6 +372,10 @@ transitions. [ADR 0060](adr/0060-rhythm-reading.md) has those numbers.
 The [record](../research/reviews/2026-11-15-style-guide-text/RESULTS.md) holds
 the pages, the answers of the judges, and the revisions, and its check
 recounts these numbers. The bars were written on issue 577 before each run.
+The published binary of `v0.1.0-alpha.13` gives every page of the record the
+counts, the readings, and the index that the record holds, and it prints the
+report that a reviser was given on all but one of the revised pages; the
+[alpha.13 evidence](release/v0.1.0-alpha.13.md) has the detail.
 
 ## Limits
 

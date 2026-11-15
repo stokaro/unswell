@@ -94,6 +94,11 @@ marks are the same. On the other 178 revised pages the final build prints the
 report that the reviser was given, byte for byte, and on all 179 it gives the
 page and its revision the index that the record holds.
 
+The published binary of `v0.1.0-alpha.13` was run on the same texts after the
+release. It writes `data/pages.jsonl.gz` and `data/earlier.jsonl.gz` byte for
+byte, and it agrees with the final build on every report and every index
+above; `scripts/reproduce.py` is that check.
+
 ## Data
 
 | File | Rows |
