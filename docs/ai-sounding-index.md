@@ -5,11 +5,14 @@ from 0 to 100. The index is the higher of two readings of the page. The first
 counts the marks that people remove when they clean AI-sounding wording out of
 documentation. The second reads the rhythm of the sentences: runs of
 sentences that look alike, which is what remains in a page that a model wrote
-under a style guide. The report lists where each mark is. `unswell fix`
+under a style guide. In effect it measures how many sentences of the page are
+short plain statements. The report lists where each mark is. `unswell fix`
 removes the marks that have a mechanical replacement.
 
-The index is not a probability, and it does not say who wrote a page. A page
-that a person wrote can be high, and a page that a model wrote can be low.
+The index is not a probability, and it does not say who wrote a page. Both
+readings are counted from the text, so a page gets the same index whoever
+wrote it. A page that a person wrote can be high, and a page that a model
+wrote can be low.
 
 ## What the index reads
 
@@ -377,6 +380,58 @@ counts, the readings, and the index that the record holds, and it prints the
 report that a reviser was given on all but one of the revised pages; the
 [alpha.13 evidence](release/v0.1.0-alpha.13.md) has the detail.
 
+### People who write under a style guide
+
+A style guide asks for plain statements, and the second reading counts runs
+of them. A control, run after the release, asks whether the reading rises on
+any text that follows a style guide. It reads 339 pages that people wrote
+before November 2022 in nine public repositories whose projects publish a
+style guide for their writers. Four hold articles: `GoogleChrome/web.dev`,
+`GoogleChrome/developer.chrome.com`, `GoogleCloudPlatform/community`, and
+`istio/istio.io`. Five hold documentation: `gitlabhq/gitlabhq`,
+`mdn/content`, `kubernetes/website`, `dotnet/docs`, and `alphagov/gds-way`.
+
+A run forms only in paragraphs, so a page of lists and code is quiet whoever
+wrote it. The bars are therefore on the 128 articles that have as much of
+their prose in paragraphs as nine in ten posts of the product blog.
+
+| Measure | Result |
+| --- | --- |
+| Second reading at `high`, of the 128 matched articles | 1, 0.8% (0.1% to 4.3%) |
+| Index of the 30 posts of the product blog against those articles | AUC 0.861 |
+| Second reading at `high`, of all 339 pages | 1 |
+
+The reading does not rise on these people's pages. Their sentences show why:
+
+| Pages | Words per sentence | Sentences over 20 words | Plain sentences | Plain sentences in runs | In runs by chance |
+| --- | --- | --- | --- | --- | --- |
+| Posts of the product blog, 30 | 12.5 | 7.9% | 68.1% | 58.3% | 52.0% |
+| Matched articles of people, 128 | 17.6 | 32.4% | 47.6% | 30.6% | 26.8% |
+| Matched documentation of people, 48 | 17.1 | 28.5% | 53.8% | 37.5% | 32.1% |
+
+Each figure is the median over the pages of a group, for the sentences of
+running paragraphs. The last column is what a page would have if its plain
+sentences stood at random places among its sentences.
+
+People who write under these guides write longer sentences, and about a third
+of their sentences have more than 20 words. The runs follow from the share of
+plain sentences: a group has 1.07 to 1.11 times as many sentences in runs as
+chance gives. So the second reading is in effect a measure of how many
+sentences of a page are short plain statements. The average length of a
+sentence alone tells the posts of the product blog from the matched pages
+with an AUC of 0.933, where the second reading gives 0.939.
+
+The control does not show that the reading tells a model from a person who
+writes in that manner. The reading is counted from the sentences, so such a
+person gets the same reading. Of the 176 matched pages, 28 have as many plain
+sentences as the lower quartile of the product blog's posts. Their sentences
+are still longer, 15.3 words at the median, and one of the 28 is `high`.
+
+The same [record](../research/reviews/2026-11-15-style-guide-text/RESULTS.md)
+holds these pages and recounts their numbers. The figures about the sentences
+of the product blog are counted on its posts; the record states them and does
+not recount them. The two bars were written on issue 577 before the run.
+
 ## Limits
 
 - The first reading was fitted and measured on English documentation that
@@ -387,10 +442,12 @@ report that a reviser was given on all but one of the revised pages; the
   sentence that a cleaning edit rewords is outside it, and so is most of what
   such edits change. Of the held-out pages before a commit, 41.8% are not
   `high`.
-- The second reading counts sentences that look alike. A person who writes
-  short plain statements one after the other, as a careful style guide asks,
-  can be `high`. The human pages it was measured against are from before
-  November 2022 and mostly follow no such guide.
+- The second reading counts sentences that look alike. In effect it measures
+  how many sentences of a page are short plain statements, and a person who
+  writes in that manner gets the same reading as a model. People who write
+  under nine published style guides do not write in that manner: the reading
+  is `high` on one of 339 of their pages. The control holds few pages of
+  people who do.
 - A run of sentences has no mechanical replacement. Whether a revision by the
   report helps depends on who revises: with one model it did on every kind of
   page, with another it did not on the posts of the product blog. Nobody

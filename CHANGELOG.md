@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased
+
+The documentation now says what the second reading of the page index
+measures. A control read 339 pages that people wrote under a published style
+guide before November 2022. The second reading is `high` on one of them, and
+the index tells the posts of a product blog that a model wrote from the
+people's articles with an AUC of 0.861. The sentences of those pages show
+why: the people write longer sentences, and a page has about as many
+sentences in runs as chance gives for its share of plain sentences. So the
+second reading is in effect a measure of how many sentences of a page are
+short plain statements, and a person who writes in that manner gets the same
+reading as a model
+([ADR 0060](docs/adr/0060-rhythm-reading.md),
+[documentation](docs/ai-sounding-index.md)).
+
 ## 0.1.0-alpha.13
 
 This release makes the AI-sounding index see a page that a model wrote under

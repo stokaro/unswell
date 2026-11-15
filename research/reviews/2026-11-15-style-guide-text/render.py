@@ -150,6 +150,90 @@ def revisions_section(result):
     return lines
 
 
+def plainly(value):
+    """A number without a trailing .0."""
+    return "n/a" if value is None else f"{value:g}"
+
+
+def control_section(result):
+    control, bars = result["control"], result["bars"]
+    groups, set_s, held_set = control["groups"], control["set_s"], control["sentences"]["set_s"]
+    articles = groups["matched articles"]
+    row = lambda label, entry: (
+        f"| {label} | {entry['pages']} | {entry['rhythm_high']} | {entry['rhythm_elevated']} | {entry['index']['high']} | "
+        f"{entry['marks_above_low']} | {plainly(entry['index']['median'])} | {plainly(entry['median_rate'])} | {entry['auc_index']:.3f} | "
+        f"{entry['auc_rhythm']:.3f} |")
+    lines = ["## Does the second reading rise on text that people wrote under a style guide", "",
+             "A control that was run after the release. The human pages above follow no style guide, and a style guide asks for",
+             "plain statements, which the second reading counts. These pages are from nine public repositories whose projects",
+             "publish a style guide for their writers, each read at its last commit before November 2022: "
+             f"{groups['all articles']['pages']} articles and {groups['all documentation']['pages']} pages of documentation in the measured half.",
+             f"A page is matched when at least {percent(control['match'])} of its prose words stand in paragraphs, as in nine of ten posts of the",
+             "style-guide set. A run of sentences forms only in paragraphs, so a page of lists and code is quiet whoever wrote it.",
+             "Both bars are on the matched articles.", "",
+             "| Bar | Result | |", "| --- | --- | --- |",
+             f"| Second reading at `high` on at most {percent(bars['control_quiet'])} of the matched articles | {articles['rhythm_high']} of "
+             f"{articles['pages']}, {percent(articles['rhythm_high_share'])}{interval(articles['rhythm_high_interval'])} | "
+             f"{held(result, 'control, second reading quiet on people' + chr(39) + 's articles')} |",
+             f"| Index of the style-guide set against the matched articles, an AUC of {bars['control_separation']:.2f} or more | "
+             f"{articles['auc_index']:.3f} | {held(result, 'control, the style-guide set apart from people' + chr(39) + 's articles')} |", "",
+             "| Pages | Number | Second reading `high` | Second reading `elevated` | Index `high` | First reading above `low` | Median index |"
+             " Sentences in runs of plain statements per 1,000 words, median | AUC of the index, style-guide set against them |"
+             " AUC of the second reading |",
+             "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+             f"| Style-guide set | {set_s['posts']} | {set_s['rhythm_high']} | {set_s['rhythm_elevated']} | {set_s['index']['high']} | "
+             f"{set_s['marks_above_low']} | {plainly(set_s['index']['median'])} | {plainly(held_set['runs_per_thousand_words'])} | | |",
+             row("Matched articles", articles), row("Matched documentation", groups["matched documentation"]),
+             row("All articles", groups["all articles"]), row("All documentation", groups["all documentation"]), "",
+             "By source, all pages of the measured half:", "",
+             "| Source | Kind | Style guide | Pages | Matched | Second reading `high` | Second reading `elevated` | Index `high` |"
+             " Sentences in runs per 1,000 words, median |",
+             "| --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
+    for repo, entry in control["sources"].items():
+        lines.append(f"| {code(repo)} | {entry['kind']} | {entry['guide']} | {entry['pages']} | {entry['matched']} | {entry['rhythm_high']} | "
+                     f"{entry['rhythm_elevated']} | {entry['index']['high']} | {plainly(entry['median_rate'])} |")
+    people = groups["people"]
+    lines += ["", f"Of the {people['pages']} pages, {people['index']['high']} are `high` by the index, and {people['high_by_marks']} of those by the first "
+              "reading, which counts the em dashes that some of these writers use.", ""]
+    return lines
+
+
+def sentences_section(result):
+    control = result["control"]
+    figures, rebuild, like = control["sentences"], control["rebuild"], control["as_plain_as_set_s"]
+    set_s = figures["set_s"]
+    row = lambda label, pages, entry: (
+        f"| {label} | {pages} | {entry['words_per_sentence']} | {percent(entry['over_20_words'])} | {percent(entry['plain'])} | "
+        f"{percent(entry['in_runs'])} | {percent(entry['by_chance'])} | {entry['runs_to_chance']:.2f} | {entry['paragraph_sentences_per_thousand_words']} |")
+    return ["## What the second reading follows", "",
+            "The sentences of the same pages, counted after the control and not registered beforehand. A sentence counts when it",
+            "stands in a running paragraph, and it is plain by the rule of the build: five to twenty words, and none of `? ! ( ) ; :` and",
+            "the em dash among what a reader sees of it. Each figure is the median over the pages of a group; a page with fewer than",
+            f"{control_fewest(result)} such sentences is left out.", "",
+            "| Pages | Number | Words per sentence | Sentences over 20 words | Plain sentences | Plain sentences in runs | In runs by chance |"
+            " Runs to chance | Paragraph sentences per 1,000 words |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+            row("Style-guide set", set_s["posts"], set_s), row("Matched articles", figures["matched articles"]["pages"], figures["matched articles"]),
+            row("Matched documentation", figures["matched documentation"]["pages"], figures["matched documentation"]), "",
+            "\"In runs by chance\" is what the same page would have if its plain sentences stood at random places among its sentences.",
+            "\"Runs to chance\" divides the plain sentences in runs of a whole group by that. It is close to one in every group: a page has",
+            "about as many sentences in runs as its share of plain sentences gives. The second reading is in effect a measure of how many",
+            "sentences of a page are short plain statements, for each 1,000 words.", "",
+            f"The average length of a sentence alone tells the style-guide set from the matched pages with an AUC of "
+            f"{set_s['auc_words_per_sentence']:.3f}, and the share of plain sentences with {set_s['auc_plain']:.3f}. The second reading gives "
+            f"{control['groups']['matched']['auc_rhythm']:.3f} against the same pages.", "",
+            f"{like['pages']} of the {like['of']} matched pages have at least as many plain sentences as the lower quartile of the style-guide set, "
+            f"{percent(like['floor'])}. Their sentences still have {like['words_per_sentence']} words at the median, their second readings run from "
+            f"{like['rhythm_lowest']} to {like['rhythm_highest']}, and {like['rhythm_high']} of them is `high`.", "",
+            "The row of the style-guide set is counted on its posts and is not recounted here: the record holds nothing of a post but its",
+            f"readings. The sentences of the other pages are rebuilt from the result of the build. The rebuilt count of sentences in runs equals the "
+            f"build's own on {rebuild['equal']} of {rebuild['pages']} pages, {rebuild['rebuilt']:,} against {rebuild['build']:,} in all.", ""]
+
+
+def control_fewest(result):
+    return result["control"].get("fewest_sentences", 10)
+
+
 def page(result):
     readings = result["readings"]
     weights = lambda entry: ", ".join(f"`{name}` {value}" for name, value in entry["weights"].items()) + f", constant {entry['bias']}"
@@ -160,4 +244,5 @@ def page(result):
              "logarithms of one plus a rate per 1,000 prose words. First reading, the marks: " + weights(readings["marks"]) + ".",
              "Second reading, the rhythm, over the sentences in runs: " + weights(readings["rhythm"]) + ".", ""]
     lines += judges_section(result) + pages_section(result) + earlier_section(result) + revisions_section(result)
+    lines += control_section(result) + sentences_section(result)
     return "\n".join(lines).rstrip("\n") + "\n"

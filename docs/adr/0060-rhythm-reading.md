@@ -148,6 +148,42 @@ like a model, then the revision, then the ties:
 Two judges read each pair, and three the second cell of the first row. The
 last remedy ships.
 
+## A control after the release: people who write under a style guide
+
+The human pages above follow no style guide, and a model's text has a higher
+index under a style guide than without one. A control, with its bars written
+on issue 577 first, read 339 pages that people wrote before November 2022 in
+nine public repositories whose projects publish a style guide: 205 articles
+and 134 pages of documentation. The published binary of `v0.1.0-alpha.13`
+read them.
+
+- The second reading is `high` on 1 of the 128 articles that have as much of
+  their prose in paragraphs as the posts of the product blog, 0.8% (0.1% to
+  4.3%), and on 1 of all 339 pages. The bar was 5%.
+- The index tells the 30 posts of the product blog from those 128 articles
+  with an AUC of 0.861. The bar was 0.75.
+
+The sentences of the same pages were counted afterwards, without a bar. The
+posts of the product blog have 12.5 words per sentence at the median, and 7.9%
+of their sentences have more than 20 words. The people's articles have 17.6
+words, and 32.4%. In the posts 68.1% of the sentences are plain statements by
+the rule of the signal, and in the articles 47.6%.
+
+A page has about as many sentences in runs as chance gives for its share of
+plain sentences: 1.07 times that in the posts of the product blog, 1.09 in the
+people's articles, and 1.11 in their documentation. The runs add little to the
+share. The second reading is in effect a measure of how many sentences of a
+page are short plain statements for each 1,000 words. The average length of a
+sentence alone tells the posts from the matched pages with an AUC of 0.933,
+and the second reading with 0.939.
+
+So the control shows that people who write under these style guides do not
+write the short uniform sentences of the product blog. It does not show that
+the reading tells a model from a person who writes in that manner: the
+reading is counted from the sentences, and such a person gets the same
+reading. The name of the reading stays. Its documentation says what it
+measures.
+
 ## Consequences
 
 - A page can be `high` with none of the six marks. Its report lists runs of
@@ -162,10 +198,12 @@ last remedy ships.
 
 ## Limits
 
-- The second reading was fitted on blog posts and README files. A person who
-  writes short plain statements one after the other, as a careful style guide
-  asks, can be `high`. The human pages of the record are from before November
-  2022 and mostly follow no such guide.
+- The second reading was fitted on blog posts and README files. In effect it
+  measures how many sentences of a page are short plain statements. A person
+  who writes in that manner gets the same reading as a model. The control
+  above found one such page at `high` among 339 pages of people who write
+  under a published style guide, and it holds few pages written in that
+  manner.
 - The judges are models. On the posts of the product blog they disagree, and
   with 30 posts the interval of the panel reaches down to 55.6%.
 - Whether a revision by the report helps depends on the reviser. The bar was
