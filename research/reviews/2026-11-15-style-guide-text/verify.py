@@ -4,8 +4,8 @@
 usage: verify.py [--write]
 
 The record holds no text. Its data are what the build counted on each page, the answers of the judges on the
-measured half, the index of each revised page before and after, and the pages of the earlier record of the index
-as the build reads them. This program recounts every number of results.json and of RESULTS.md from those data and
+measured half, the index of each revised page before and after, the pages of the earlier record of the index
+as the build reads them, and the pages of a control: text that people wrote under a style guide. This program recounts every number of results.json and of RESULTS.md from those data and
 fails when one of them differs, when a row is malformed, or when a data file is not the one that files.sha256
 names. With --write it writes results.json, RESULTS.md, and files.sha256 again.
 """
@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-DATA = ("pages", "judgments", "revisions", "earlier")
+DATA = ("pages", "judgments", "revisions", "earlier", "control")
 
 # The two readings of the index, as the product computes them. A Go test compares the product with these values
 # through results.json.
@@ -33,7 +33,20 @@ WRITERS = ("gpt-6-astra", "private-host/Qwen3.6-35B-A3B")
 SETS = ("human-blog", "readme", "set-s", "guided", "plain")
 HALVES = ("fitting", "measured")
 # The bars, as they were written on issue 577 before each run.
-BARS = {"admission": 0.70, "tells": 0.65, "separation": 0.75, "quiet": 0.05, "earlier": 0.80, "index_lower": 0.90}
+BARS = {"admission": 0.70, "tells": 0.65, "separation": 0.75, "quiet": 0.05, "earlier": 0.80, "index_lower": 0.90,
+        "control_quiet": 0.05, "control_separation": 0.75}
+
+# The control. A page is matched when at least this share of its prose words stands in paragraphs: the tenth
+# percentile of the posts of the style-guide set.
+KINDS = ("articles", "documentation")
+MATCH = 0.732
+FEWEST_SENTENCES = 10
+# What the sentences of the posts of the style-guide set are like, in the measured half. These figures are counted on
+# the posts. The record holds nothing of a post but its readings, so they are stated here and not recounted.
+SET_S_SENTENCES = {"posts": 30, "matched": 27, "words_per_sentence": 12.5, "over_20_words": 0.079, "plain": 0.681,
+                   "plain_lower_quartile": 0.618, "in_runs": 0.583, "by_chance": 0.52, "runs_to_chance": 1.07,
+                   "paragraph_sentences_per_thousand_words": 71.8, "runs_per_thousand_words": 42.3,
+                   "auc_words_per_sentence": 0.933, "auc_plain": 0.9}
 
 
 class Malformed(Exception):
@@ -82,6 +95,15 @@ def share(k, n):
     return round(k / n, 3) if n else None
 
 
+def median(values):
+    """The middle value, or the mean of the two middle values."""
+    values = sorted(values)
+    if not values:
+        return None
+    middle = len(values) // 2
+    return values[middle] if len(values) % 2 else (values[middle - 1] + values[middle]) / 2
+
+
 # ---------------------------------------------------------------------------------------------------------------
 # Pages
 # ---------------------------------------------------------------------------------------------------------------
@@ -113,7 +135,7 @@ def checked_pages(rows):
     return rows
 
 
-def recount_readings(row, key):
+def recount_readings(row, key, earlier=True):
     words, signals = row.get("words"), row.get("signals")
     if not isinstance(words, int) or words < 150 or not isinstance(signals, dict) or set(signals) != set(MARKS) | set(RHYTHM):
         fail(f"page without its words or without every signal: {key}")
@@ -121,7 +143,7 @@ def recount_readings(row, key):
     rhythm = RHYTHM_BIAS + sum(weight * math.log1p(1000 * signals[name][1] / words) for name, weight in RHYTHM.items())
     if index_of(marks) != row["marks"] or index_of(rhythm) != row["rhythm"]:
         fail(f"readings that do not follow from the counts: {key}")
-    if index_of(marks) != row["earlier"]:
+    if earlier and index_of(marks) != row["earlier"]:
         fail(f"earlier index that is not the first reading: {key}")
 
 
@@ -300,6 +322,147 @@ def earlier_results(rows):
 
 
 # ---------------------------------------------------------------------------------------------------------------
+# The control: text that people wrote under a style guide
+# ---------------------------------------------------------------------------------------------------------------
+
+
+def checked_control(rows):
+    """Check every page of the control. Its readings have to follow from its counts, as on the other pages."""
+    seen = set()
+    for row in rows:
+        key = (row.get("repo"), row.get("id"))
+        if row.get("kind") not in KINDS or not all(isinstance(row.get(name), str) and row[name] for name in ("repo", "path", "commit", "guide")):
+            fail(f"control page without its kind or its source: {key}")
+        if key in seen:
+            fail(f"control page listed twice: {key}")
+        seen.add(key)
+        for field in ("index", "marks", "rhythm"):
+            if not isinstance(row.get(field), int) or not 0 <= row[field] <= 100:
+                fail(f"control page without a whole {field} of 0 to 100: {key}")
+        if row["index"] != max(row["marks"], row["rhythm"]):
+            fail(f"index that is not the higher of its two readings: {key}")
+        recount_readings(row, key, earlier=False)
+        if not isinstance(row.get("paragraphs"), (int, float)) or not 0 <= row["paragraphs"] <= 1:
+            fail(f"control page without its share of prose in paragraphs: {key}")
+        sentences = row.get("sentences")
+        if not isinstance(sentences, list) or not all(well_formed_sentence(sentence) for sentence in sentences):
+            fail(f"control page with a malformed sentence: {key}")
+        if any(first[0] > second[0] for first, second in zip(sentences, sentences[1:])):
+            fail(f"control page whose stretches are out of order: {key}")
+    return rows
+
+
+def well_formed_sentence(sentence):
+    """A sentence is [stretch, words, plain]; a plain one has five to twenty words."""
+    if not isinstance(sentence, list) or len(sentence) != 3 or not all(isinstance(value, int) for value in sentence):
+        return False
+    stretch, words, plain = sentence
+    return stretch >= 1 and words >= 1 and plain in (0, 1) and (not plain or 5 <= words <= 20)
+
+
+def in_runs(sentences):
+    """Count the plain sentences that stand in runs of two or more inside one stretch of paragraphs."""
+    total, run, last = 0, 0, None
+    for stretch, _, plain in sentences + [[None, 0, 0]]:
+        if plain and stretch == last:
+            run += 1
+        else:
+            total += run if run >= 2 else 0
+            run = 1 if plain else 0
+        last = stretch
+    return total
+
+
+def by_chance(sentences):
+    """The expected count of plain sentences in runs when the plain ones are placed at random among the sentences."""
+    n, k = len(sentences), sum(sentence[2] for sentence in sentences)
+    if n < 2 or k < 2:
+        return 0.0
+    one = (k - 1) / (n - 1)
+    two = 1 - ((n - k) / (n - 1)) * ((n - k - 1) / (n - 2)) if n > 2 else one
+    expected = 0.0
+    for at, (stretch, _, _) in enumerate(sentences):
+        neighbors = (at > 0 and sentences[at - 1][0] == stretch) + (at + 1 < n and sentences[at + 1][0] == stretch)
+        expected += (k / n) * (one if neighbors == 1 else two if neighbors == 2 else 0.0)
+    return expected
+
+
+def control_group(rows, set_s):
+    """The levels of a group of pages of the control, and how well each reading tells the style-guide set from them."""
+    pages = len(rows)
+    high = sum(row["rhythm"] >= HIGH for row in rows)
+    rate = median(1000 * row["signals"]["plain-sentence-run"][1] / row["words"] for row in rows)
+    by_index = levels(rows)
+    by_index["median"] = median(row["index"] for row in rows)
+    return {"pages": pages, "rhythm_high": high, "rhythm_high_share": share(high, pages), "rhythm_high_interval": wilson(high, pages),
+            "rhythm_elevated": sum(ELEVATED <= row["rhythm"] < HIGH for row in rows), "index": by_index,
+            "marks_above_low": sum(row["marks"] >= ELEVATED for row in rows),
+            "high_by_marks": sum(row["marks"] >= HIGH for row in rows),
+            "median_rhythm": median(row["rhythm"] for row in rows), "median_rate": None if rate is None else round(rate, 1),
+            "auc_index": auc([post["index"] for post in set_s], [row["index"] for row in rows]),
+            "auc_rhythm": auc([post["rhythm"] for post in set_s], [row["rhythm"] for row in rows])}
+
+
+def sentence_figures(row):
+    sentences = row["sentences"]
+    count = len(sentences)
+    return {"count": count, "words": sum(sentence[1] for sentence in sentences) / count,
+            "long": sum(sentence[1] > 20 for sentence in sentences) / count, "plain": sum(sentence[2] for sentence in sentences) / count,
+            "runs": in_runs(sentences), "chance": by_chance(sentences), "per_thousand": 1000 * count / row["words"]}
+
+
+def sentences_group(rows):
+    """What the sentences of a group of pages are like. A page with too few sentences in paragraphs is left out."""
+    figures = [sentence_figures(row) for row in rows if len(row["sentences"]) >= FEWEST_SENTENCES]
+    if not figures:
+        return {"pages": 0}
+    chance = sum(figure["chance"] for figure in figures)
+    return {"pages": len(figures), "words_per_sentence": round(median(figure["words"] for figure in figures), 1),
+            "over_20_words": round(median(figure["long"] for figure in figures), 3),
+            "plain": round(median(figure["plain"] for figure in figures), 3),
+            "in_runs": round(median(figure["runs"] / figure["count"] for figure in figures), 3),
+            "by_chance": round(median(figure["chance"] / figure["count"] for figure in figures), 3),
+            "runs_to_chance": round(sum(figure["runs"] for figure in figures) / chance, 2) if chance else None,
+            "paragraph_sentences_per_thousand_words": round(median(figure["per_thousand"] for figure in figures), 1)}
+
+
+def control_results(rows, pages):
+    set_s = [row for row in pages if row["set"] == "set-s" and row["half"] == "measured"]
+    matched = [row for row in rows if row["paragraphs"] >= MATCH]
+    of = lambda group, kind: [row for row in group if row["kind"] == kind]
+    result = {"match": MATCH, "fewest_sentences": FEWEST_SENTENCES, "pages": len(rows),
+              "groups": {"people": control_group(rows, set_s), "matched": control_group(matched, set_s)}, "sources": {}}
+    for label, group in (("matched", matched), ("all", rows)):
+        for kind in KINDS:
+            result["groups"][f"{label} {kind}"] = control_group(of(group, kind), set_s)
+    for repo in sorted({row["repo"] for row in rows}):
+        mine = [row for row in rows if row["repo"] == repo]
+        entry = control_group(mine, set_s)
+        entry.update(kind=mine[0]["kind"], guide=mine[0]["guide"], commit=mine[0]["commit"], matched=sum(row["paragraphs"] >= MATCH for row in mine))
+        result["sources"][repo] = entry
+    by_set = levels(set_s)
+    by_set["median"] = median(post["index"] for post in set_s)
+    result["set_s"] = {"posts": len(set_s), "rhythm_high": sum(post["rhythm"] >= HIGH for post in set_s),
+                       "rhythm_elevated": sum(ELEVATED <= post["rhythm"] < HIGH for post in set_s), "index": by_set,
+                       "marks_above_low": sum(post["marks"] >= ELEVATED for post in set_s)}
+    rebuilt = [in_runs(row["sentences"]) for row in rows]
+    built = [row["signals"]["plain-sentence-run"][1] for row in rows]
+    result["rebuild"] = {"pages": len(rows), "equal": sum(mine == theirs for mine, theirs in zip(rebuilt, built)),
+                         "rebuilt": sum(rebuilt), "build": sum(built)}
+    result["sentences"] = {"set_s": SET_S_SENTENCES, "matched articles": sentences_group(of(matched, "articles")),
+                           "matched documentation": sentences_group(of(matched, "documentation")), "matched": sentences_group(matched)}
+    counted = [row for row in matched if len(row["sentences"]) >= FEWEST_SENTENCES]
+    floor = SET_S_SENTENCES["plain_lower_quartile"]
+    like = [row for row in counted if sentence_figures(row)["plain"] >= floor]
+    result["as_plain_as_set_s"] = {"floor": floor, "pages": len(like), "of": len(counted),
+                                   "rhythm_lowest": min((row["rhythm"] for row in like), default=None),
+                                   "rhythm_highest": max((row["rhythm"] for row in like), default=None),
+                                   "rhythm_high": sum(row["rhythm"] >= HIGH for row in like),
+                                   "words_per_sentence": round(median(sentence_figures(row)["words"] for row in like), 1) if like else None}
+    return result
+
+
+# ---------------------------------------------------------------------------------------------------------------
 # The whole record
 # ---------------------------------------------------------------------------------------------------------------
 
@@ -310,7 +473,8 @@ def results(root):
     result = {"readings": {"marks": {"weights": MARKS, "bias": MARKS_BIAS}, "rhythm": {"weights": RHYTHM, "bias": RHYTHM_BIAS},
                            "elevated_at": ELEVATED, "high_at": HIGH},
               "bars": BARS, "pages": pages_results(pages), "judges": judges_results(judgments),
-              "revisions": revisions_results(read(root, "revisions"), judgments), "earlier": earlier_results(read(root, "earlier"))}
+              "revisions": revisions_results(read(root, "revisions"), judgments), "earlier": earlier_results(read(root, "earlier")),
+              "control": control_results(checked_control(read(root, "control")), pages)}
     result["registered"] = registered(result)
     return result
 
@@ -337,6 +501,10 @@ def registered(result):
         for name, group in reviser["groups"].items():
             if name != "all":
                 held["revision less like a model, " + name] = (group["panel"]["decisive"] or 0) > 0.5
+    articles = result["control"]["groups"]["matched articles"]
+    if articles["pages"]:
+        held["control, second reading quiet on people's articles"] = articles["rhythm_high_share"] <= BARS["control_quiet"]
+        held["control, the style-guide set apart from people's articles"] = articles["auc_index"] >= BARS["control_separation"]
     return held
 
 

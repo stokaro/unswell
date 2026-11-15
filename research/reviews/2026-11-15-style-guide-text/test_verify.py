@@ -33,6 +33,19 @@ def page(kind, half, identifier, even=0, openers=0, dashes=0, words=400, writer=
     return row
 
 
+def control_page(kind, identifier, even=0, paragraphs=0.9, sentences=None):
+    """A page of the control whose readings follow from its counts."""
+    counted = page("human-blog", "measured", identifier, even=even)
+    row = {name: counted[name] for name in ("id", "index", "marks", "rhythm", "words", "signals")}
+    # Twelve sentences in two stretches: eight plain ones, four of them in runs of two.
+    default = [[1, 12, 1], [1, 12, 1], [1, 30, 0], [1, 12, 1], [1, 30, 0], [1, 12, 1]] * 2
+    for at in range(6, 12):
+        default[at] = [2] + default[at][1:]
+    row.update(kind=kind, repo="example/" + kind, path=f"content/{identifier}.md", commit="c" * 40, guide="a style guide",
+               paragraphs=paragraphs, sentences=default if sentences is None else sentences)
+    return row
+
+
 def votes(comparison, unit, picked, **more):
     """One answer of each judge on one pair."""
     return [{"comparison": comparison, "unit": unit, "judge": judge, "vote": vote, **more} for judge, vote in zip(verify.JUDGES, picked)]
@@ -73,7 +86,10 @@ def record():
     for number in range(5):
         for side, value in (("before", 70 + number), ("after", 60)):
             earlier.append({"group": "reserve", "id": f"d{number}", "side": side, "outside_main": True, "index": value, "marks": value, "rhythm": 10})
-    return {"pages": pages, "judgments": judgments, "revisions": revisions, "earlier": earlier}
+    control = [control_page("articles", f"a{number}", even=2 * number) for number in range(6)]
+    control += [control_page("articles", f"list{number}", paragraphs=0.4) for number in range(2)]
+    control += [control_page("documentation", f"d{number}", even=number) for number in range(4)]
+    return {"pages": pages, "judgments": judgments, "revisions": revisions, "earlier": earlier, "control": control}
 
 
 def write(root, data):
@@ -219,6 +235,51 @@ class RecountTest(unittest.TestCase):
             verify.verify(self.root)
         self.assertIn("RESULTS.md differs", str(caught.exception))
 
+    def test_the_control_is_recounted(self):
+        control = verify.verify(self.root)["control"]
+        articles = control["groups"]["matched articles"]
+        # Two articles are mostly lists: they are counted with all articles and not with the matched ones.
+        self.assertEqual((articles["pages"], control["groups"]["all articles"]["pages"], control["groups"]["matched documentation"]["pages"]), (6, 8, 4))
+        self.assertEqual((articles["rhythm_high"], articles["rhythm_high_share"], articles["auc_index"]), (0, 0.0, 1.0))
+        self.assertEqual(control["sources"]["example/articles"]["matched"], 6)
+        self.assertEqual(control["set_s"]["posts"], 6)
+        figures = control["sentences"]["matched articles"]
+        self.assertEqual((figures["pages"], figures["words_per_sentence"], figures["plain"], figures["in_runs"]), (6, 18.0, 0.667, 0.333))
+        self.assertEqual(control["sentences"]["set_s"], verify.SET_S_SENTENCES)
+
+    def test_runs_and_what_chance_gives(self):
+        sentences = [[1, 10, 1], [1, 10, 1], [1, 30, 0], [2, 10, 1], [3, 10, 1], [3, 10, 1], [3, 10, 1]]
+        # The lone plain sentence of the second stretch is in no run: a run does not cross from one stretch to the next.
+        self.assertEqual(verify.in_runs(sentences), 5)
+        # Two plain sentences among three: two of the three placements put them side by side.
+        self.assertAlmostEqual(verify.by_chance([[1, 10, 1], [1, 10, 1], [1, 30, 0]]), 4 / 3)
+        self.assertEqual(verify.by_chance([[1, 10, 1], [2, 10, 1]]), 0.0)
+        self.assertEqual(verify.median([3, 1, 2]), 2)
+        self.assertEqual(verify.median([4, 1, 2, 3]), 2.5)
+
+    def test_a_control_bar_that_fails_is_reported(self):
+        rows = json.loads(json.dumps(self.data["control"]))
+        for row in rows:
+            if row["kind"] == "articles" and row["paragraphs"] >= verify.MATCH:
+                row.update({name: value for name, value in control_page("articles", row["id"], even=60).items() if name != "sentences"})
+        write(self.root, {"control": rows})
+        result = verify.verify(self.root, write=True)
+        self.assertFalse(result["registered"]["control, second reading quiet on people's articles"])
+        self.assertFalse(result["registered"]["control, the style-guide set apart from people's articles"])
+        self.assertIn("**does not hold**", (self.root / "RESULTS.md").read_text())
+
+    def test_a_control_page_has_to_be_well_formed(self):
+        self.assertIn("listed twice", self.damaged("control", lambda rows: rows.append(dict(rows[0]))))
+        self.assertIn("its kind or its source", self.damaged("control", lambda rows: rows[0].update(kind="forum")))
+        self.assertIn("its kind or its source", self.damaged("control", lambda rows: rows[0].pop("commit")))
+        self.assertIn("higher of its two readings", self.damaged("control", lambda rows: rows[0].update(index=rows[0]["index"] + 1)))
+        self.assertIn("do not follow from the counts", self.damaged("control", lambda rows: rows[1]["signals"]["plain-sentence-run"].__setitem__(1, 99)))
+        self.assertIn("share of prose in paragraphs", self.damaged("control", lambda rows: rows[0].update(paragraphs=1.5)))
+        # A plain sentence has five to twenty words.
+        self.assertIn("malformed sentence", self.damaged("control", lambda rows: rows[0]["sentences"].append([2, 30, 1])))
+        self.assertIn("malformed sentence", self.damaged("control", lambda rows: rows[0]["sentences"].append([2, 12])))
+        self.assertIn("out of order", self.damaged("control", lambda rows: rows[0]["sentences"].append([1, 12, 0])))
+
     def test_a_missing_data_file_is_an_error(self):
         (self.root / "data" / "revisions.jsonl.gz").unlink()
         with self.assertRaises(verify.Malformed) as caught:
@@ -237,6 +298,15 @@ class RecordTest(unittest.TestCase):
             if row["set"] == "set-s":
                 self.assertRegex(row["id"], r"^s-\d\d$")
                 self.assertEqual(set(row), {"set", "half", "id", "index", "marks", "rhythm", "earlier"})
+
+    def test_the_control_holds_pages_of_public_repositories_only(self):
+        rows = verify.read(HERE, "control")
+        self.assertEqual(len(rows), 339)
+        for row in rows:
+            self.assertRegex(row["repo"], r"^[A-Za-z0-9.-]+/[A-Za-z0-9._-]+$")
+            self.assertRegex(row["commit"], r"^[0-9a-f]{40}$")
+            self.assertEqual(set(row), {"id", "kind", "repo", "path", "commit", "guide", "paragraphs", "words", "signals", "index", "marks",
+                                        "rhythm", "sentences"})
 
 
 if __name__ == "__main__":
