@@ -18,7 +18,7 @@ judge only about the sentences that it could not find.
 
 [RESULTS.md](RESULTS.md) holds the numbers, and `make check-sentence-check`
 recounts every one of them from the data here. The bars were written on
-[issue ISSUE](https://github.com/stokaro/unswell/issues/ISSUE) before the run
+[issue 589](https://github.com/stokaro/unswell/issues/589) before the run
 on the measured part.
 
 ## Outcome

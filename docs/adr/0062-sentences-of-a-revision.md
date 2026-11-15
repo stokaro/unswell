@@ -49,8 +49,8 @@ them can go and the item still carries most of its words.
 **The model is asked about the suspects, and only about them.** Most suspects
 in an ordinary revision are harmless. A reviser writes "rather than" where
 the page said "not", or says a sentence in words of its own. Rejecting on a
-suspect alone would reject SUSPECTREVISIONS of the ordinary revisions of
-the fitting half. So the judge gets each suspect beside the sentences of the
+suspect alone would reject 9 of 40 and 17 of 40 ordinary revisions of the
+fitting half. So the judge gets each suspect beside the sentences of the
 revision from its place and says whether they still say it. It sees two
 short texts, where the search for statements shows it two pages.
 
@@ -76,7 +76,30 @@ had read by then kept every statement.
 
 ## What the fitting half showed
 
-FITTING
+The rule was fitted on the 40 posts of the fitting half of the style-guide
+set and on nothing else. The
+[record](../../research/reviews/2026-11-15-sentence-check/RESULTS.md) recounts
+these numbers.
+
+**Without a model.** Each post got a copy with one sentence removed and a
+copy with the word "not" removed from one sentence, twice, so that the second
+copies damage other sentences than the first. The removed sentence is a
+suspect on 39 of 40 and on 38 of 40 copies, and the sentence without its
+"not" on 38 of 38 and on 34 of 34. On harmless copies the comparison named no
+suspect: none of 40 copies with two sentences joined, and none of 35 with the
+negations written as contractions.
+
+**With a judge.** On the first damaged copies the damaged sentence is a
+suspect that the judge does not clear on 77 of 78 copies with either judge,
+and neither accepted a damaged copy. The search for statements alone reported
+a statement as not kept on 75 of those copies with one judge and on 47 with
+the other.
+
+**On ordinary revisions.** The check finds 1,798 of 1,803 statements kept for
+the 40 revisions of one reviser and 3,657 of 3,664 for the 40 of the other.
+Of the 18 suspects in the revisions of the first reviser the judge cleared 7,
+and of the 47 in those of the second it cleared 38. A sentence alone rejects
+5 revisions of each.
 
 ## What was measured
 
