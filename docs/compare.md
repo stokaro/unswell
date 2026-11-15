@@ -198,7 +198,9 @@ statement answer that. A second measurement, with the bars written on issue
 589 before the run, read them; its
 [record](../research/reviews/2026-11-15-sentence-check/RESULTS.md) recounts
 the numbers, and [ADR 0062](adr/0062-sentences-of-a-revision.md) has the
-decisions.
+decisions. The published binary of `v0.1.0-alpha.15` names the same suspects
+on all 421 copies of the record; see the
+[alpha.15 evidence](release/v0.1.0-alpha.15.md).
 
 The style-guide set has no post that no run had read: its 30 measured posts
 were read once by the first measurement. So every bar was read on those posts

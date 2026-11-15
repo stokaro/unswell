@@ -149,6 +149,14 @@ check of the repository had read the one long string as stacked hedges. The
 lists hold the same words, and the final build names the same suspects on
 all 421 copies of this record. And it carries the version of the release.
 
+The published binary of `v0.1.0-alpha.15` was run on the same texts after the
+release. It names the same suspects on all 421 copies; `scripts/audit.py` is
+that check. From the kept answers of one judge it reaches the same verdict,
+sound, statements, sentences, losses, and em dashes on the 30 revisions whose
+pages had no damaged copy; `scripts/reproduce.py` is that check. A page with
+damaged copies had its kept answers replaced by the later runs on those
+copies, and the answers of the endpoint judge were not kept.
+
 ## Data
 
 | File | Rows |
