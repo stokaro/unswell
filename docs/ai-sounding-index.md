@@ -88,6 +88,7 @@ AI-sounding index: 99 of 100 (high; marks 23, rhythm 99) in docs/retry.md: 4 run
   docs/retry.md:7:1: 5 plain sentences in a row; say it as you would to a colleague: join two of them, use a contraction, put an aside in parentheses, or start one with And or But
   docs/retry.md:7:1: 5 sentences in a row open with their subject; open one of them with its condition, its time, or its reason
 A run of sentences has no replacement that a command can make. Rewrite one or two of its sentences, and keep what they say.
+Do not add an em dash anywhere: an em dash is one of the marks that this report counts.
 The index is the higher of two readings: the marks that people remove when they clean AI-sounding wording out of documentation, and runs of sentences that look alike. It is not a probability and does not say who wrote a page.
 ```
 
@@ -432,6 +433,53 @@ holds these pages and recounts their numbers. The figures about the sentences
 of the product blog are counted on its posts; the record states them and does
 not recount them. The two bars were written on issue 577 before the run.
 
+### A revised post against human text
+
+The measurements above compare a page with its own revision. A later one
+asks the harder question: after a revision by the report, can a post of the
+product blog still be told from text that a person wrote? It also measures
+[`unswell compare`](compare.md), which checks one revision.
+
+On the measured half, each of the 30 posts stands against three human blog
+posts and against three articles that people wrote under a style guide. Three
+blind judges name the text that reads more like a model's. A writer who
+follows the product publishes a revision only when `unswell compare` accepts
+it; the check accepted the revision of 2 posts for one reviser and of 3 for
+the other.
+
+| What is published | Human text | Panel picks the post | `gpt-6-astra` alone |
+| --- | --- | --- | --- |
+| The post as it is | human blog posts | 22 of 30 | 30 of 30 |
+| The post as it is | articles under a style guide | 19 of 30 | 30 of 30 |
+| Accepted revisions of `gpt-6-astra` | human blog posts | 22 of 30 | 29 of 30 |
+| Accepted revisions of `gpt-6-astra` | articles under a style guide | 21 of 30 | 30 of 30 |
+| Accepted revisions of `private-host/Qwen3.6-35B-A3B` | human blog posts | 22 of 30 | 29 of 30 |
+| Accepted revisions of `private-host/Qwen3.6-35B-A3B` | articles under a style guide | 21 of 30 | 30 of 30 |
+| Every revision of `gpt-6-astra`, without the check | human blog posts | 19 of 30 | 29 of 30 |
+| Every revision of `private-host/Qwen3.6-35B-A3B`, without the check | human blog posts | 22 of 30 | 29 of 30 |
+
+The bars were a panel rate of at most 55% and at most 65% for `gpt-6-astra`
+alone, the judge that told every post before. Neither holds for any reviser
+or kind of human text.
+
+**A revision by the report lowers the index and does not make a post read as
+a person's.** The median index of the 27 revised posts fell from 68 to 23
+with either reviser, and one judge still tells 29 of 30 posts from a human
+blog post. On the fitting half the same judge told 40 of 40 posts after a
+revision by the report of `v0.1.0-alpha.13` with either reviser, after a
+revision by a report with sentence lengths, and after a free rewrite that was
+asked to sound like an engineer writing for colleagues.
+
+The index cannot tell whether one revision helped. On the fitting half a
+report that asked for longer sentences took the median index of 40 posts from
+69 to 23, and all three judges found the revision more like a model's text
+than the post, on 23, 30, and 24 of the 40. That advice is not in the report.
+
+The [record](../research/reviews/2026-11-15-revision-check/RESULTS.md) holds
+these answers and recounts the numbers, and
+[ADR 0061](adr/0061-blind-check-of-a-revision.md) has the decisions. The bars
+were written on issue 583 before the run.
+
 ## Limits
 
 - The first reading was fitted and measured on English documentation that
@@ -450,8 +498,11 @@ not recount them. The two bars were written on issue 577 before the run.
   people who do.
 - A run of sentences has no mechanical replacement. Whether a revision by the
   report helps depends on who revises: with one model it did on every kind of
-  page, with another it did not on the posts of the product blog. Nobody
-  checked that a revision keeps every fact of its page.
+  page, with another it did not on the posts of the product blog.
+- A lower index after a revision does not show that the revision helped. The
+  index falls after almost any edit of a run. [`unswell compare`](compare.md)
+  checks one revision blind and looks for the statements of the page in it.
+- A revised post is still told from human text: one judge tells 29 of 30.
 - Against a page fixed with a third-party linter's findings, the advantage is
   measured for `unswell fix` and for a model that follows the report as it is
   now. With the earlier report, which did not name the replacement, it held

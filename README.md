@@ -10,9 +10,9 @@ reaches a commit or a published document.
 
 The checks apply to text regardless of its author. They enforce a chosen editorial
 policy through concrete findings and explainable scores. The checker runs locally as
-a Go library and CLI and sends source text nowhere. Two further commands,
-`unswell review` and `unswell trim`, read a document with a model you name; see
-[Review and trim with a model](#review-and-trim-with-a-model).
+a Go library and CLI and sends source text nowhere. Three further commands,
+`unswell review`, `unswell trim`, and `unswell compare`, read a document with a
+model you name; see [Review and trim with a model](#review-and-trim-with-a-model).
 
 Unswell is not an authorship detector. A clean scan of a generated text is a
 correct result, and a finding on a human-written text is a finding about the
@@ -148,9 +148,24 @@ replaced, or moved, at least half of the sentence remains, and no negation,
 number, modal word, code, or link is removed. `--write` applies the trims to the
 files.
 
-Both commands send the selected documents to the model you name and to nothing
-else. Their output is advisory and never fails a build. See
-[review in context](docs/review.md) and [trim](docs/trim.md).
+`unswell compare` checks a revision of a page. A judge reads the opening of the
+page and of the revision without a hint of which is which, in both orders. The
+revision is accepted only when the judge names the page both times, the
+statements of the page are still in the revision, no number, code, or link is
+lost, and no em dash is added:
+
+```sh
+bin/unswell compare docs/guide.md docs/guide.revised.md \
+  --endpoint https://api.example.com/v1/chat/completions \
+  --model example-model --api-key-env REVIEW_API_KEY
+```
+
+It exits with 1 for a rejected revision. The page index plays no part in it.
+
+The three commands send the texts you select to the model you name and to
+nothing else. The output of review and trim is advisory and never fails a
+build. See [review in context](docs/review.md), [trim](docs/trim.md), and
+[compare](docs/compare.md).
 
 ## Reports and gate
 

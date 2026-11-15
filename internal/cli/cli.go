@@ -17,7 +17,7 @@ import (
 
 // Environment makes the working directory and streams explicit in CLI tests.
 // Getenv reads one environment variable; nil means the process environment.
-// Only the review command uses it, to read an API key the user names.
+// The commands that ask a model use it, to read an API key the user names.
 type Environment struct {
 	Dir    string
 	In     io.Reader
@@ -81,6 +81,7 @@ func Run(ctx context.Context, args []string, environment Environment) int {
 		reviewCommand(environment),
 		trimCommand(environment),
 		fixCommand(environment),
+		compareCommand(environment, &code),
 	)
 	root.AddCommand(
 		&cobra.Command{

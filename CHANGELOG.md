@@ -2,6 +2,33 @@
 
 ## Unreleased
 
+The new command `unswell compare <page> <revision>` checks one revision with
+a model you name. The judge reads the opening of both texts without a hint of
+which is which, in both orders, and the revision counts as better only when
+the judge names the page both times. The command also has the model list the
+statements of the page and look for each in the revision, with a quote that
+the command verifies, and it checks without a model that no number, code, or
+link is lost and that no em dash is added. It exits with 1 for a rejected
+revision. The page index plays no part: it falls after almost any edit of a
+run of sentences, also after one that makes the page read more like a
+model's ([documentation](docs/compare.md),
+[ADR 0061](docs/adr/0061-blind-check-of-a-revision.md)).
+
+The report of `unswell check` has one more line when it lists a run of
+sentences: do not add an em dash. Without it two revisers added 27 and 94 em
+dashes to the posts of the fitting half, and with it 0 and 1.
+
+A revision by the report lowers the index and does not make a post read as a
+person's. On the measured half the median index of 27 revised posts of a
+product blog fell from 68 to 23, and one blind judge still told 29 of 30
+posts from a human blog post. The check accepted 15 of 86 and 15 of 57
+revisions; a third model found the page more like a model's text than the
+revision on 21 of the 30 accepted ones and on 57 of 110 rejected ones. Its
+search for statements is the weak part: it missed a sentence or a "not" that
+was removed on purpose on 10 to 19 of 58 copies, depending on the judge, and
+the check accepted 2 or 3 of those copies
+([record](research/reviews/2026-11-15-revision-check/RESULTS.md)).
+
 The documentation now says what the second reading of the page index
 measures. A control read 339 pages that people wrote under a published style
 guide before November 2022. The second reading is `high` on one of them, and

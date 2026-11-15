@@ -102,11 +102,18 @@ surface of a page, where most of a cleaning edit happens.
 
 [ADR 0060](adr/0060-rhythm-reading.md) gives the index a second reading, the
 rhythm of the sentences, for a page that a model wrote under a style guide.
-Open after it: people as judges, pages that a person wrote under such a style
-guide, genres other than blog posts, a remedy that a reviser of any model can
-follow without making the page read more like a model's, a remedy that does
-not bring in em dashes, and a check that a revision keeps the facts of its
-page.
+Open after it: people as judges, genres other than blog posts, and a remedy
+that a reviser of any model can follow without making the page read more like
+a model's.
+
+[ADR 0061](adr/0061-blind-check-of-a-revision.md) adds `unswell compare`, a
+blind check of one revision, and records that a revision by the report lowers
+the index and does not make a post read as a person's. Open after it: a
+remedy after which a post is not told from human text, which no report or
+rewrite that was tried gives; a search for statements that notices a removed
+sentence or a removed "not"
+([#584](https://github.com/stokaro/unswell/issues/584)); a comparison that
+reads more than the opening of a page; and people as judges.
 
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on

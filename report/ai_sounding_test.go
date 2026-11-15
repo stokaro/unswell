@@ -112,6 +112,7 @@ func TestTextReportListsTheRunsOfSentences(t *testing.T) {
 		"use a contraction, put an aside in parentheses, or start one with And or But\n"+
 		"  guide.md:3:1: 16 sentences in a row open with their subject; open one of them with its condition, its time, or its reason\n"+
 		"A run of sentences has no replacement that a command can make. Rewrite one or two of its sentences, and keep what they say.\n"+
+		"Do not add an em dash anywhere: an em dash is one of the marks that this report counts.\n"+
 		"The index is the higher of two readings")
 	c.Assert(text, qt.Not(qt.Contains), "unswell fix --write")
 

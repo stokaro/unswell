@@ -1,9 +1,9 @@
 ---
-title: Two commands that ask a model you name.
+title: Three commands that ask a model you name.
 accent: you
-eyebrow: Review and trim
-lead: The check applies fixed rules offline. Review and trim give each selected document to a model you choose, and deterministic code decides what of its answer you see. Both are advisory and neither touches the gate.
-description: Use unswell review to flag wording in context and unswell trim to propose sentences with empty words removed, through a model endpoint or a local program you name.
+eyebrow: Review, trim, compare
+lead: The check applies fixed rules offline. Review and trim give each selected document to a model you choose, and deterministic code decides what of its answer you see. Compare has such a model judge a revision blind. None of them touches the gate of the check.
+description: Use unswell review to flag wording in context, unswell trim to propose sentences with empty words removed, and unswell compare to check a revision blind, through a model endpoint or a local program you name.
 ---
 
 import Note from '../../components/Note.astro';
@@ -11,12 +11,12 @@ import Note from '../../components/Note.astro';
 ## What leaves the machine
 
 `unswell check`, the Go library, the GitHub Action and the MCP server send nothing
-anywhere. `unswell review` and `unswell trim` send the complete text of every
-selected document to the endpoint or the local program you name, and to nothing
-else. An API key goes to that endpoint in the `Authorization` header. It is not
+anywhere. `unswell review`, `unswell trim`, and `unswell compare` send the
+complete text of every selected document to the endpoint or the local program
+you name, and to nothing else. An API key goes to that endpoint in the `Authorization` header. It is not
 written to a report or to an error message.
 
-Without a named model both commands fail before they read a document.
+Without a named model these commands fail before they read a document.
 
 <Note>
   Run them only where your policy lets that text reach that model.
@@ -104,17 +104,50 @@ in your version control before you keep it.
   adjective can be the point of a sentence, so read each trim.
 </Note>
 
+## Compare a revision
+
+`unswell compare` checks a revision of a page. The judge reads the opening of the
+page and of the revision, about 450 words each, as text A and text B. It is
+not told that one is a revision of the other, and it is asked in both orders which reads
+more like text written by a language model. The revision is accepted only if all
+of this holds:
+
+- The judge names the page in both orders. A judge that follows the order of the
+  texts names a different text each time, and that counts as no difference.
+- At least 98% of the statements of fact of the page are still in the revision.
+  The model lists the statements and quotes the words that keep each one, and the
+  command checks that those words stand in the revision. A statement that the
+  model does not find in the page itself is left out.
+- No number, code, or link of the page is missing from the revision.
+- The revision has no more em dashes than the page.
+
+```text
+docs/guide.md against its revision docs/guide.revised.md
+Sound: the revision reads less like a model's text. The judge named the page in both orders.
+Facts: 41 of 41 statements kept.
+Numbers, code, and links: nothing lost.
+Em dashes: 0 in the page, 0 in the revision.
+Accepted.
+```
+
+The page index plays no part. Name a judge other than the model that made the
+revision.
+
 ## Reports and exit codes
 
-`--report json:PATH` writes the complete result, with schema `unswell-review-v1`
-or `unswell-trim-v1`: byte spans, the accepted items, and the rejected ones with
-the reason. `--report text:PATH` writes the text shown above. SARIF and HTML are
-not produced.
+`--report json:PATH` writes the complete result, with schema `unswell-review-v1`,
+`unswell-trim-v1`, or `unswell-compare-v1`: byte spans, the accepted items, and
+the rejected ones with the reason. `--report text:PATH` writes the text shown
+above. SARIF and HTML are not produced.
 
-Both commands exit with `0` when every selected document was processed, with or
+Review and trim exit with `0` when every selected document was processed, with or
 without findings, `2` when a document could not be processed or the options were
 invalid, and `130` when the run was interrupted. There is no exit code for
 findings: a model's answer differs between runs, so it cannot fail a build.
+
+Compare exits with `0` for an accepted revision, `1` for a rejected one, and `2`
+when the comparison did not complete. A comparison without a verdict is never a
+pass.
 
 ## How they were measured
 

@@ -171,7 +171,8 @@ func aiAdviceLines(measured []unswell.DocumentResult) []string {
 	}
 	if runs {
 		lines = append(lines, "A run of sentences has no replacement that a command can make. Rewrite one or two of its sentences, "+
-			"and keep what they say.")
+			"and keep what they say.",
+			"Do not add an em dash anywhere: an em dash is one of the marks that this report counts.")
 	}
 	return lines
 }
