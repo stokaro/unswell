@@ -114,10 +114,14 @@ of this holds:
 
 - The judge names the page in both orders. A judge that follows the order of the
   texts names a different text each time, and that counts as no difference.
-- At least 98% of the statements of fact of the page are still in the revision.
-  The model lists the statements and quotes the words that keep each one, and the
+- At least 98% of the statements of the page are still in the revision. The
+  model lists the statements and quotes the words that keep each one, and the
   command checks that those words stand in the revision. A statement that the
   model does not find in the page itself is left out.
+- Every sentence of the page is found in the revision. The command compares
+  the sentences itself, without a model. A sentence without a counterpart, or
+  with one negation less, goes to the judge beside the place where it stood,
+  and the judge has to quote the words that still say it.
 - No number, code, or link of the page is missing from the revision.
 - The revision has no more em dashes than the page.
 
@@ -125,6 +129,7 @@ of this holds:
 docs/guide.md against its revision docs/guide.revised.md
 Sound: the revision reads less like a model's text. The judge named the page in both orders.
 Facts: 41 of 41 statements kept.
+Sentences: each of the 58 compared sentences of the page has its counterpart in the revision.
 Numbers, code, and links: nothing lost.
 Em dashes: 0 in the page, 0 in the revision.
 Accepted.
@@ -136,7 +141,7 @@ revision.
 ## Reports and exit codes
 
 `--report json:PATH` writes the complete result, with schema `unswell-review-v1`,
-`unswell-trim-v1`, or `unswell-compare-v1`: byte spans, the accepted items, and
+`unswell-trim-v1`, or `unswell-compare-v2`: byte spans, the accepted items, and
 the rejected ones with the reason. `--report text:PATH` writes the text shown
 above. SARIF and HTML are not produced.
 
