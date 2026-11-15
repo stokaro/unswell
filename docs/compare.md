@@ -36,10 +36,13 @@ twice, which is a different text each time; that counts as no difference, and
 the revision is rejected.
 
 **Facts.** The model lists the statements of fact of the page. It is then
-asked, for each statement, whether the revision still states it, and it has to
-quote the words of the revision that do. A statement counts as kept only when
-those words stand in the revision; the command checks that itself. At least
-98% of the statements have to be kept.
+asked for each statement in the page itself, and it has to quote the words
+that state it. A statement that the model does not find in the page it took it
+from is left out: the model worded it so that the page does not say it, and
+it would be missing from any revision. The model is then asked for the other
+statements in the revision, again with a quote for each. A statement counts as
+kept only when the quoted words stand in the revision; the command checks that
+itself. At least 98% of the statements have to be kept.
 
 **Numbers, code, and links.** Without a model: every number of the page's
 prose, every code block and inline code, and every link has to occur in the
@@ -105,17 +108,19 @@ are read, as they do for [`unswell check`](inputs.md). A text larger than
 
 `--report json:PATH` writes the complete result with schema
 `unswell-compare-v1`: the judge's answer to each order with its reason, every
-statement with its outcome and the quoted words, what was lost, the em dashes
-of both texts, and the verdict with its reasons. `--report text:PATH` writes
+statement with its outcome and the quoted words, the statements that were
+left out, what was lost, the em dashes of both texts, and the verdict with its
+reasons. `--report text:PATH` writes
 the text above.
 
-The command makes four calls: two for the sound and two for the facts. The
-two for the facts carry the whole text of the page or of the revision.
+The command makes five calls: two for the sound and three for the facts. The
+three for the facts carry the whole text of the page or of the revision.
 
 ## From Go
 
 The `review` package holds the prompts, the parsers, and the rule, and makes
 no call itself. `review.NewRevision` pairs two prepared documents.
-`SoundPrompt`, `FactsPrompt`, and `KeptPrompt` return the text for a model;
-`ParseSound`, `ParseFacts`, and `ParseKept` read its answers; `SoundVerdict`,
-`BindFacts`, `Lost`, `EmDashes`, and `Judge` decide.
+`SoundPrompt`, `FactsPrompt`, `ControlPrompt`, and `KeptPrompt` return the text
+for a model; `ParseSound`, `ParseFacts`, and `ParseKept` read its answers;
+`SoundVerdict`, `Confirmed`, `BindFacts`, `Lost`, `EmDashes`, and `Judge`
+decide.

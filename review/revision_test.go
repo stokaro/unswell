@@ -154,6 +154,7 @@ func TestFactsAreListedFromThePageAndLookedForInTheRevision(t *testing.T) {
 	c := qt.New(t)
 	revision := revisionOf(c, t, serviceRevision)
 	c.Assert(revision.FactsPrompt(), qt.Contains, "===== PAGE =====\n"+servicePage)
+	c.Assert(revision.FactsPrompt(), qt.Contains, "its facts and its instructions to the reader")
 	c.Assert(revision.FactsPrompt(), qt.Not(qt.Contains), "is **not** retried")
 	prompt := revision.KeptPrompt([]string{"The delay doubles after every attempt.", "The protocol has version 2.1."})
 	c.Assert(prompt, qt.Contains, "===== STATEMENTS =====\n1. The delay doubles after every attempt.\n2. The protocol has version 2.1.\n")
@@ -251,11 +252,43 @@ func TestBindFactsKeepsOnlyAFactThatIsQuotedFromTheRevision(t *testing.T) {
 	c.Assert(outcomes, qt.DeepEquals, []string{review.FactKept, review.FactKept, review.FactUnquoted, review.FactUnquoted,
 		review.FactMissing, review.FactChanged})
 	c.Assert(facts[0].Quote, qt.Equals, "the delay doubles after every attempt, up to 30 seconds")
-	c.Assert(facts[2].Quote, qt.Equals, "")
+	// An unquoted fact keeps the words that the model gave, so that a reader can see what was claimed.
+	c.Assert(facts[2].Quote, qt.Equals, "the protocol is at version 2.1")
+	c.Assert(facts[4].Quote, qt.Equals, "")
 	c.Assert(review.KeptFacts(facts), qt.Equals, 2)
 
 	_, err = revision.BindFacts(statements, nil)
 	c.Assert(err, qt.ErrorMatches, "6 statements have 0 verdicts")
+
+	// A quote reads a link as its words, without the address.
+	linked, err := revision.BindFacts(statements[2:3], []review.FactVerdict{{Fact: 1, Kept: "yes", Quote: "The protocol has version 2.1"}})
+	c.Assert(err, qt.IsNil)
+	c.Assert(linked[0].Outcome, qt.Equals, review.FactKept)
+}
+
+func TestConfirmedKeepsOnlyStatementsThatThePageItselfStates(t *testing.T) {
+	c := qt.New(t)
+	revision := revisionOf(c, t, serviceRevision)
+	statements := []string{
+		"The client does not retry a request that the server rejected.",
+		"The delay doubles after every attempt and never exceeds one minute.",
+		"The server rejects a request after 30 seconds.",
+	}
+	c.Assert(revision.ControlPrompt(statements), qt.Contains, "===== PAGE =====\n"+servicePage)
+	c.Assert(revision.KeptPrompt(statements), qt.Contains, "===== PAGE =====\n"+serviceRevision)
+	confirmed, dropped, err := revision.Confirmed(statements, []review.FactVerdict{
+		// The words stand in the page and not in the revision: the control reads the page.
+		{Fact: 1, Kept: "yes", Quote: "The client does not retry a request"},
+		// The model worded the statement so that the page does not state it.
+		{Fact: 2, Kept: review.FactChanged},
+		// The model calls it stated and quotes words that are not in the page.
+		{Fact: 3, Kept: "yes", Quote: "the server rejects a request after 30 seconds"},
+	})
+	c.Assert(err, qt.IsNil)
+	c.Assert(confirmed, qt.DeepEquals, statements[:1])
+	c.Assert(dropped, qt.DeepEquals, statements[1:])
+	_, _, err = revision.Confirmed(statements, nil)
+	c.Assert(err, qt.ErrorMatches, "3 statements have 0 verdicts")
 }
 
 func TestLostFindsWhatTheRevisionNoLongerCarries(t *testing.T) {

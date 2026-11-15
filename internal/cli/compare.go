@@ -42,7 +42,8 @@ func compareCommand(environment Environment, code *int) *cobra.Command {
 		Long: "Compare sends a page and a revision of it to a model you name. The model reads the opening of both, about\n" +
 			"450 words, and is asked which reads more like text written by a language model, in both orders and\n" +
 			"without a hint of which is the revision.\n" +
-			"It is also asked for the statements of fact of the page, and then for each of them in the revision.\n" +
+			"It is also asked for the statements of fact of the page, then for each of them in the page itself, and\n" +
+			"then for each that it found there in the revision.\n" +
 			"A revision is accepted when the judge names the page in both orders, at least 98% of the statements are\n" +
 			"kept, no number, code, or link is lost, and no em dash is added. The page index plays no part.\n" +
 			"Both texts leave this machine for the endpoint or program you name. Nothing else does.\n" +
@@ -103,8 +104,13 @@ type comparedSound struct {
 	RevisionFirst review.SoundAnswer `json:"revision_first"`
 }
 
+// comparedFacts counts the statements. Listed are those that the model named
+// for the page. Dropped are those of them that the same model did not find in
+// the page itself; they are not looked for in the revision. Statements are the
+// others, with their outcome in the revision.
 type comparedFacts struct {
 	Listed     int           `json:"listed"`
+	Dropped    []string      `json:"dropped"`
 	Kept       int           `json:"kept"`
 	Statements []review.Fact `json:"statements"`
 }
@@ -249,11 +255,12 @@ func judgeRevision(
 		return fmt.Errorf("blind comparison: %w", err)
 	}
 	result.Sound = &sound
-	facts, err := askFacts(ctx, client, options, revision)
+	checked, err := askFacts(ctx, client, options, revision)
 	if err != nil {
 		return fmt.Errorf("statements of fact: %w", err)
 	}
-	result.Facts = &comparedFacts{Listed: len(facts), Kept: review.KeptFacts(facts), Statements: facts}
+	result.Facts = &checked
+	facts := checked.Statements
 	lost := revision.Lost()
 	result.Lost = &lost
 	page, revised := revision.EmDashes()
@@ -277,24 +284,42 @@ func askSound(ctx context.Context, client modelClient, options modelRunOptions, 
 	return comparedSound{Verdict: review.SoundVerdict(answers[0], answers[1]), PageFirst: answers[0], RevisionFirst: answers[1]}, nil
 }
 
-func askFacts(ctx context.Context, client modelClient, options modelRunOptions, revision *review.Revision) ([]review.Fact, error) {
+// askFacts lists the statements of the page, keeps those that the model finds
+// in the page itself, and looks for them in the revision.
+func askFacts(ctx context.Context, client modelClient, options modelRunOptions, revision *review.Revision) (comparedFacts, error) {
 	var statements []string
 	err := askModel(ctx, client, revision.FactsPrompt(), options, func(answer string) (parseErr error) {
 		statements, parseErr = review.ParseFacts(answer)
 		return parseErr
 	})
 	if err != nil {
-		return nil, err
+		return comparedFacts{}, err
 	}
-	var verdicts []review.FactVerdict
-	err = askModel(ctx, client, revision.KeptPrompt(statements), options, func(answer string) (parseErr error) {
-		verdicts, parseErr = review.ParseKept(answer, len(statements))
-		return parseErr
-	})
+	lookup := func(prompt string, count int) (verdicts []review.FactVerdict, err error) {
+		err = askModel(ctx, client, prompt, options, func(answer string) (parseErr error) {
+			verdicts, parseErr = review.ParseKept(answer, count)
+			return parseErr
+		})
+		return verdicts, err
+	}
+	verdicts, err := lookup(revision.ControlPrompt(statements), len(statements))
 	if err != nil {
-		return nil, err
+		return comparedFacts{}, err
 	}
-	return revision.BindFacts(statements, verdicts)
+	confirmed, dropped, err := revision.Confirmed(statements, verdicts)
+	if err != nil {
+		return comparedFacts{}, err
+	}
+	result := comparedFacts{Listed: len(statements), Dropped: dropped, Statements: []review.Fact{}}
+	if len(confirmed) == 0 {
+		return result, nil
+	}
+	if verdicts, err = lookup(revision.KeptPrompt(confirmed), len(confirmed)); err != nil {
+		return comparedFacts{}, err
+	}
+	result.Statements, err = revision.BindFacts(confirmed, verdicts)
+	result.Kept = review.KeptFacts(result.Statements)
+	return result, err
 }
 
 func writeCompareReports(environment Environment, targets []reportTarget, result compareResult) error {
@@ -372,7 +397,11 @@ func soundText(sound comparedSound) string {
 
 func factsText(facts comparedFacts) string {
 	var text strings.Builder
-	fmt.Fprintf(&text, "Facts: %d of %s kept.\n", facts.Kept, plural(facts.Listed, "statement"))
+	fmt.Fprintf(&text, "Facts: %d of %s kept.", facts.Kept, plural(len(facts.Statements), "statement"))
+	if len(facts.Dropped) > 0 {
+		fmt.Fprintf(&text, " Not counted: %s that the judge did not find in the page itself.", plural(len(facts.Dropped), "statement"))
+	}
+	text.WriteString("\n")
 	for _, fact := range facts.Statements {
 		if fact.Outcome != review.FactKept {
 			fmt.Fprintf(&text, "    %s: %s\n", fact.Outcome, excerpt(fact.Text, maxReasonText))

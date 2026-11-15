@@ -29,6 +29,12 @@ const comparedKept = `{"facts": [
 	{"fact": 2, "kept": "yes", "quote": "the delay doubles after every attempt, up to 30 seconds"},
 	{"fact": 3, "kept": "yes", "quote": "A request that the server rejected is not retried"}]}`
 
+// comparedControl finds each statement in the page itself.
+const comparedControl = `{"facts": [
+	{"fact": 1, "kept": "yes", "quote": "The client retries a request after a connection failure"},
+	{"fact": 2, "kept": "yes", "quote": "The delay doubles after every attempt, up to 30 seconds"},
+	{"fact": 3, "kept": "yes", "quote": "The client does not retry a request that the server rejected"}]}`
+
 // pageNamed answers the blind comparison as a judge that hears the page as
 // the one more like a model's text, whichever letter it has.
 func pageNamed(call chatCall) string {
@@ -40,14 +46,22 @@ func pageNamed(call chatCall) string {
 }
 
 // revisionJudge scripts the model behind compare: the answer to the blind
-// comparison, to the request for statements, and to the search for them.
+// comparison, to the request for statements, and to the search for them in the
+// revision. In the page itself it finds every statement.
 func revisionJudge(sound func(chatCall) string, facts, kept string) func(chatCall, int) (int, string) {
+	return scriptedJudge(sound, facts, comparedControl, kept)
+}
+
+func scriptedJudge(sound func(chatCall) string, facts, control, kept string) func(chatCall, int) (int, string) {
 	return func(call chatCall, _ int) (int, string) {
+		_, searched, _ := strings.Cut(call.User, "===== PAGE =====")
 		switch {
 		case strings.Contains(call.User, "Which version reads MORE like text written by a language model?"):
 			return http.StatusOK, sound(call)
-		case strings.Contains(call.User, "List the statements of fact"):
+		case strings.Contains(call.User, "List the statements of the technical page"):
 			return http.StatusOK, facts
+		case strings.Contains(call.User, "===== STATEMENTS =====") && strings.Contains(searched, "The client does not retry"):
+			return http.StatusOK, control
 		case strings.Contains(call.User, "===== STATEMENTS ====="):
 			return http.StatusOK, kept
 		}
@@ -74,8 +88,9 @@ type compareReport struct {
 		} `json:"revision_first"`
 	} `json:"sound"`
 	Facts *struct {
-		Listed     int `json:"listed"`
-		Kept       int `json:"kept"`
+		Listed     int      `json:"listed"`
+		Dropped    []string `json:"dropped"`
+		Kept       int      `json:"kept"`
 		Statements []struct {
 			Text, Outcome, Quote string
 		} `json:"statements"`
@@ -131,7 +146,7 @@ func TestCompareAcceptsARevisionThatPassesEveryCheck(t *testing.T) {
 	c.Assert(report.Verdict.Reasons, qt.HasLen, 0)
 
 	calls := model.received()
-	c.Assert(calls, qt.HasLen, 4)
+	c.Assert(calls, qt.HasLen, 5)
 	// The comparison is asked in both orders, and no prompt says which version is the revision.
 	c.Assert(calls[0].User, qt.Contains, "===== VERSION A =====\n"+comparedPage)
 	c.Assert(calls[1].User, qt.Contains, "===== VERSION A =====\n"+comparedRevision)
@@ -139,9 +154,12 @@ func TestCompareAcceptsARevisionThatPassesEveryCheck(t *testing.T) {
 		instructions, _, _ := strings.Cut(call.User, "===== VERSION A =====")
 		c.Assert(strings.ToLower(instructions), qt.Not(qt.Contains), "revis")
 	}
-	// The statements come from the page and are looked for in the revision.
+	// The statements come from the page, are looked for in the page itself, and then in the revision.
 	c.Assert(calls[2].User, qt.Contains, "===== PAGE =====\n"+comparedPage)
-	c.Assert(calls[3].User, qt.Contains, "===== PAGE =====\n"+comparedRevision)
+	c.Assert(calls[3].User, qt.Contains, "===== STATEMENTS =====\n1. The client retries a request after a connection failure.\n")
+	c.Assert(calls[3].User, qt.Contains, "===== PAGE =====\n"+comparedPage)
+	c.Assert(calls[4].User, qt.Contains, "===== PAGE =====\n"+comparedRevision)
+	c.Assert(report.Facts.Dropped, qt.HasLen, 0)
 }
 
 func TestCompareTextReportNamesEachCheck(t *testing.T) {
@@ -238,6 +256,44 @@ func TestCompareRejectsARevisionForEachKindOfDamage(t *testing.T) {
 			c.Assert(text.stdout, qt.Contains, "Rejected: "+test.reason+".\n")
 		})
 	}
+}
+
+func TestCompareLeavesOutAStatementThatThePageItselfDoesNotState(t *testing.T) {
+	c := qt.New(t)
+	// The model lists a statement and then does not find it in the page it took it from. It is not looked for in the
+	// revision, where it would be missing whatever the revision changed.
+	control := strings.Replace(comparedControl,
+		`{"fact": 2, "kept": "yes", "quote": "The delay doubles after every attempt, up to 30 seconds"}`,
+		`{"fact": 2, "kept": "changed", "quote": ""}`, 1)
+	kept := `{"facts": [
+		{"fact": 1, "kept": "yes", "quote": "The client retries a request after a connection failure"},
+		{"fact": 2, "kept": "yes", "quote": "A request that the server rejected is not retried"}]}`
+	model := newFakeModel(t, scriptedJudge(pageNamed, comparedFacts, control, kept))
+	root := comparedFiles(c, t, comparedRevision)
+	report, outcome := compareJSON(c, t, root, model)
+	c.Assert(outcome.code, qt.Equals, 0, qt.Commentf("stderr: %s", outcome.stderr))
+	c.Assert(report.Facts.Listed, qt.Equals, 3)
+	c.Assert(report.Facts.Dropped, qt.DeepEquals, []string{"The delay doubles after every attempt, up to 30 seconds."})
+	c.Assert(report.Facts.Statements, qt.HasLen, 2)
+	c.Assert(report.Facts.Kept, qt.Equals, 2)
+	calls := model.received()
+	c.Assert(calls[4].User, qt.Contains, "===== STATEMENTS =====\n1. The client retries a request after a connection failure.\n"+
+		"2. The client does not retry a request that the server rejected.\n\n===== PAGE")
+	text := runCommand(t, "compare", root, "", "page.md", "revised.md", "--quiet", "--endpoint", model.server.URL, "--model", "judge")
+	c.Assert(text.stdout, qt.Contains,
+		"Facts: 2 of 2 statements kept. Not counted: 1 statement that the judge did not find in the page itself.\n")
+}
+
+func TestCompareRejectsWhenThePageItselfStatesNoListedStatement(t *testing.T) {
+	c := qt.New(t)
+	control := `{"facts": [{"fact": 1, "kept": "missing"}, {"fact": 2, "kept": "missing"}, {"fact": 3, "kept": "changed"}]}`
+	model := newFakeModel(t, scriptedJudge(pageNamed, comparedFacts, control, comparedKept))
+	report, outcome := compareJSON(c, t, comparedFiles(c, t, comparedRevision), model)
+	// Nothing was checked, and an unchecked revision does not pass.
+	c.Assert(outcome.code, qt.Equals, 1)
+	c.Assert(report.Facts.Dropped, qt.HasLen, 3)
+	c.Assert(report.Verdict.Reasons, qt.DeepEquals, []string{"no statement of the page was checked"})
+	c.Assert(model.received(), qt.HasLen, 4)
 }
 
 func TestCompareWithoutAnAnswerIsAnErrorAndNoVerdict(t *testing.T) {
