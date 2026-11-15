@@ -4,7 +4,8 @@ GPT, QWEN35 = "gpt-6-astra", "private-host/Qwen3.6-35B-A3B"
 JUDGES = (GPT, QWEN35)
 COPY_PARTS = ("fitting, first copies", "fitting, second copies", "measured")
 PAGES = {"set-s": "posts of the style-guide set", "fresh": "texts that no earlier run read"}
-REVISION_PARTS = {"fitting": "fitting half", "read": "measured half, the revisions of the earlier record", "fresh": "texts that no earlier run read"}
+REVISION_PARTS = {"fitting, earlier build": "fitting half, before every statement that was not found was asked again", "fitting": "fitting half",
+                  "read": "measured half, the revisions of the earlier record", "fresh": "texts that no earlier run read"}
 
 
 def percent(value):
@@ -100,7 +101,7 @@ def revisions_section(result):
         lines.append(f"| {name} | {code(reviser)} | {of(entry['with_a_suspect'], entry['verdicts'])} | {entry['suspects']} | {entry['cleared']} | "
                      f"{entry['with_a_lost_sentence']} | {entry['lost']['missing']}, {entry['lost']['negation']} | "
                      f"{entry['rejected_by_sentences_alone']} |")
-    measured = [(part, name, reviser) for part, name, reviser, _ in rows if part != "fitting"]
+    measured = [(part, name, reviser) for part, name, reviser, _ in rows if part in ("read", "fresh")]
     lines += ["", "\"Rejected by a sentence alone\" counts the revisions that keep at least 98% of their statements and have a sentence that was "
               "not cleared. No bar was set for it.", "",
               f"Bars. The check finds at least {percent(bars['statements_kept'])} of the statements kept: "

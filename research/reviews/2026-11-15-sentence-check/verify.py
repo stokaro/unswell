@@ -31,8 +31,10 @@ DAMAGE, HARMLESS = ("sentence", "negation"), ("join", "contract")
 # style-guide set and of texts that no earlier run had read.
 COPY_PARTS = ("fitting, first copies", "fitting, second copies", "measured")
 PAGES = ("set-s", "fresh")
-# Revisions: of the fitting half, of the measured half as the earlier record checked them, and of the fresh texts.
-REVISION_PARTS = ("fitting", "read", "fresh")
+# Revisions: of the fitting half under the build that asked again only about a quote that was not in the revision,
+# of the fitting half under the final build, of the measured half as the earlier record checked them, and of the
+# fresh texts.
+REVISION_PARTS = ("fitting, earlier build", "fitting", "read", "fresh")
 MEASURED_REVISIONS = ("read", "fresh")
 # The bars, as they were written on issue 589 before the run.
 BARS = {"damage_reported": 0.90, "damaged_accepted": 1, "harmless_suspected": 0.05, "statements_kept": 0.98, "verdicts": 0.95}
