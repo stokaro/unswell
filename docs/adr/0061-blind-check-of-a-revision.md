@@ -146,6 +146,11 @@ post on the same subject stands in the place of the revision. With
 text in both orders on 26, over the bar of 60%, and the second text both
 times on the other 4.
 
+The published binary of `v0.1.0-alpha.14` prints the report that each reviser
+was given on every page, and it reaches the recorded verdict on the 30 pairs
+that could be replayed from kept answers of the judge; see the
+[alpha.14 evidence](../release/v0.1.0-alpha.14.md).
+
 ## Consequences
 
 - A fourth command sends text to a model that the user names, beside

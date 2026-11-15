@@ -150,6 +150,15 @@ both revisers. Both revisions were rejected for their sound as well, so no
 verdict depends on it. The count of revisions that lost something includes
 it.
 
+The published binary of `v0.1.0-alpha.14` was run on the same texts after
+the release. It prints the report that each reviser was given on all 86
+pages, and gives every page and revision the index that the data hold. From
+the kept answers of the judge it reaches the same verdict, sound, statements,
+losses, and em dashes on 30 of 30 pairs; `scripts/reproduce.py` is that
+check. The other pairs could not be replayed: the answers about the posts of
+the style-guide set were replaced by the later run on damaged copies, and the
+answers of the endpoint judge were not kept.
+
 The trials of the fitting half used earlier builds of the branch. The first
 ones compared whole pages, where a judge named the second text on every pair
 that was tried, and asked about "two versions of one page". The command now

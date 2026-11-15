@@ -126,7 +126,10 @@ other model family ran the check. The numbers are on the measured half, with
 the bars written on issue 583 before the run. The
 [record](../research/reviews/2026-11-15-revision-check/RESULTS.md) recounts
 them, and [ADR 0061](adr/0061-blind-check-of-a-revision.md) has the
-decisions.
+decisions. The published binary of `v0.1.0-alpha.14` prints the report that
+each reviser was given, and it reaches the recorded verdict on the 30 pairs
+that could be replayed from kept answers of the judge; see the
+[alpha.14 evidence](release/v0.1.0-alpha.14.md).
 
 **It accepts few revisions.**
 
