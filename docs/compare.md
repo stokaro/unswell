@@ -13,8 +13,8 @@ makes the page read more like a model's; see
 ```text
 docs/guide.md against its revision docs/guide.revised.md
 Sound: the revision reads less like a model's text. The judge named the page in both orders.
-    Version A states every step in a sentence of the same shape.
-    Version B has one cadence from the first paragraph to the last.
+    Text A states every step in a sentence of the same shape.
+    Text B has one cadence from the first paragraph to the last.
 Facts: 41 of 41 statements kept.
 Numbers, code, and links: nothing lost.
 Em dashes: 0 in the page, 0 in the revision.
@@ -28,9 +28,10 @@ The judge did not see which text is the revision. It is a model: name one other 
 A revision is accepted only if all four checks pass.
 
 **Sound.** The judge gets the opening of both texts, whole blocks up to about
-450 words, as version A and version B. It is asked which reads more like text
+450 words, as text A and text B. It is asked which reads more like text
 written by a language model. The question is asked twice: once with the page
-as version A and once with the revision as version A. The revision is better only when the judge names the page both
+as text A and once with the revision as text A. The question does not say
+that one text is a revision of the other. The revision is better only when the judge names the page both
 times. A judge that follows the order of the texts names the same letter
 twice, which is a different text each time; that counts as no difference, and
 the revision is rejected.

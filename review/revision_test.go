@@ -47,15 +47,16 @@ func TestSoundPromptHidesWhichVersionIsTheRevision(t *testing.T) {
 	c := qt.New(t)
 	revision := revisionOf(c, t, serviceRevision)
 	pageFirst, revisionFirst := revision.SoundPrompt(false), revision.SoundPrompt(true)
-	c.Assert(pageFirst, qt.Contains, "===== VERSION A =====\n"+servicePage+"\n===== VERSION B =====\n"+serviceRevision)
-	c.Assert(revisionFirst, qt.Contains, "===== VERSION A =====\n"+serviceRevision+"\n===== VERSION B =====\n"+servicePage)
-	c.Assert(pageFirst, qt.Contains, "Below are the openings of two versions of one technical page, A and B.")
+	c.Assert(pageFirst, qt.Contains, "===== TEXT A =====\n"+servicePage+"\n===== TEXT B =====\n"+serviceRevision)
+	c.Assert(revisionFirst, qt.Contains, "===== TEXT A =====\n"+serviceRevision+"\n===== TEXT B =====\n"+servicePage)
+	c.Assert(pageFirst, qt.Contains, "Below are the openings of two technical texts, A and B.")
 	for _, prompt := range []string{pageFirst, revisionFirst} {
-		instructions, _, found := strings.Cut(prompt, "===== VERSION A =====")
+		instructions, _, found := strings.Cut(prompt, "===== TEXT A =====")
 		c.Assert(found, qt.IsTrue)
 		c.Assert(strings.ToLower(instructions), qt.Not(qt.Contains), "revis")
 		c.Assert(strings.ToLower(instructions), qt.Not(qt.Contains), "original")
-		c.Assert(prompt, qt.Contains, `{"more_like_a_model": "A" | "B" | "same", "reason": "<one sentence>"}`)
+		// The form of the answer stands before the texts, as in the measured protocol.
+		c.Assert(instructions, qt.Contains, `{"more_like_a_model": "A" | "B" | "same", "reason": "<one sentence>"}`)
 	}
 }
 
@@ -136,7 +137,7 @@ func TestSoundVerdictNeedsTheSameTextInBothOrders(t *testing.T) {
 	}{
 		{"the page twice", review.NamedPage, review.NamedPage, review.SoundBetter},
 		{"the revision twice", review.NamedRevision, review.NamedRevision, review.SoundWorse},
-		// A judge that always names version A names the page and then the revision.
+		// A judge that always names text A names the page and then the revision.
 		{"the first letter twice", review.NamedPage, review.NamedRevision, review.SoundSame},
 		{"the second letter twice", review.NamedRevision, review.NamedPage, review.SoundSame},
 		{"once the page, once neither", review.NamedPage, review.NamedNeither, review.SoundSame},

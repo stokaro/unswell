@@ -56,7 +56,7 @@ func scriptedJudge(sound func(chatCall) string, facts, control, kept string) fun
 	return func(call chatCall, _ int) (int, string) {
 		_, searched, _ := strings.Cut(call.User, "===== PAGE =====")
 		switch {
-		case strings.Contains(call.User, "Which version reads MORE like text written by a language model?"):
+		case strings.Contains(call.User, "Which text reads MORE like text written by a language model?"):
 			return http.StatusOK, sound(call)
 		case strings.Contains(call.User, "List the statements of the technical page"):
 			return http.StatusOK, facts
@@ -147,11 +147,11 @@ func TestCompareAcceptsARevisionThatPassesEveryCheck(t *testing.T) {
 
 	calls := model.received()
 	c.Assert(calls, qt.HasLen, 5)
-	// The comparison is asked in both orders, and no prompt says which version is the revision.
-	c.Assert(calls[0].User, qt.Contains, "===== VERSION A =====\n"+comparedPage)
-	c.Assert(calls[1].User, qt.Contains, "===== VERSION A =====\n"+comparedRevision)
+	// The comparison is asked in both orders, and no prompt says which text is the revision.
+	c.Assert(calls[0].User, qt.Contains, "===== TEXT A =====\n"+comparedPage)
+	c.Assert(calls[1].User, qt.Contains, "===== TEXT A =====\n"+comparedRevision)
 	for _, call := range calls[:2] {
-		instructions, _, _ := strings.Cut(call.User, "===== VERSION A =====")
+		instructions, _, _ := strings.Cut(call.User, "===== TEXT A =====")
 		c.Assert(strings.ToLower(instructions), qt.Not(qt.Contains), "revis")
 	}
 	// The statements come from the page, are looked for in the page itself, and then in the revision.
@@ -185,7 +185,7 @@ func TestCompareTextReportNamesEachCheck(t *testing.T) {
 
 func TestCompareRejectsWhenTheJudgeFollowsTheOrder(t *testing.T) {
 	c := qt.New(t)
-	// A judge that always names version A names the page first and the revision second.
+	// A judge that always names text A names the page first and the revision second.
 	alwaysFirst := func(chatCall) string { return `{"more_like_a_model": "A", "reason": "The first one."}` }
 	model := newFakeModel(t, revisionJudge(alwaysFirst, comparedFacts, comparedKept))
 	root := comparedFiles(c, t, comparedRevision)
@@ -304,7 +304,7 @@ func TestCompareWithoutAnAnswerIsAnErrorAndNoVerdict(t *testing.T) {
 	}{
 		{
 			"the judge does not choose",
-			revisionJudge(func(chatCall) string { return "Both versions read well." }, comparedFacts, comparedKept),
+			revisionJudge(func(chatCall) string { return "Both texts read well." }, comparedFacts, comparedKept),
 			"blind comparison: the answer contains no JSON object",
 		},
 		{
