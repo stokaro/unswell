@@ -1,6 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-alpha.13
+
+This release makes the AI-sounding index see a page that a model wrote under
+a style guide. Such a page has almost none of the marks that the index
+counted, and the index now also reads the rhythm of its sentences.
 
 The AI-sounding index now reads a page a second way, by the rhythm of its
 sentences, and the index is the higher of the two readings. A page that a
