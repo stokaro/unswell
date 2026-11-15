@@ -18,6 +18,30 @@ recounts every one of them from the data here. The bars were written on
 [issue 583](https://github.com/stokaro/unswell/issues/583) before the run on
 the measured half.
 
+## Outcome
+
+Of the 18 bars, 8 hold.
+
+- **A revised post is still told from human text.** None of the 8 bars on
+  this holds. The panel picks the post on 22 of 30 as it is and on 22 of 30
+  when the accepted revisions are published; with every revision published
+  it picks 19 and 22 of 30. One judge alone tells 29 or 30 of 30 in every
+  case. The median index of the revised posts fell from 68 to 23. A revision
+  by the report lowers the index and does not make a post read as a person's.
+- **The check sorts revisions.** It reached a verdict on every pair and
+  accepted 15 of 86 and 15 of 57. The third model named the page as more like
+  a model's text on 21 of the 30 accepted revisions and on 57 of the 113
+  rejected ones. On 30 pairs with a known difference the comparison found it
+  on 26.
+- **The search for statements is the weak part.** With one judge it found
+  97.8% of the statements kept, under the bar of 98%; 53 of the 77 that it
+  did not count as kept are ones that the judge called kept with words that
+  are not in the revision. That judge noticed damage made on purpose on 39 of
+  58 copies, under the bar of 80%, and the other judge on 48 of 58. The check
+  accepted 3 and 2 damaged copies.
+- **Em dashes.** None of 86 revisions of one reviser and 1 of 86 of the other
+  added one.
+
 ## What the product gained
 
 `unswell compare <page> <revision>` checks one revision with a model that the
@@ -103,13 +127,43 @@ copies, as on the fitting half. The check runs on a post and its copy with
 under a style guide stands as the page, and the human post on the same
 subject as its revision. Only the blind comparison of the check is read.
 
+**Added after the bars were written.** Two runs have no bar.
+
+Every revision stands in the place of its post, against the human blog
+posts. The published text is the post as it was for all but 2 and 3 of the 30
+posts, so the published rows say little about what a revision does. This
+comparison does.
+
+The damaged copies were checked a second time, with `gpt-6-astra` as the
+judge. The bar names `private-host/Qwen3.6-35B-A3B`, and the first run showed
+that it does not hold; the second run shows how much of that is the judge.
+
+## The build behind the numbers
+
+The revisions, the verdicts of the check, and the answers of the measured
+half come from the build of commit `0eb2bf5b` of the branch of this change.
+
+The final build differs from it in one thing. A code span written with two
+backticks shifted the spans after it, and the build reported a code span as
+lost that the revision had kept. That happened on one post, in the check of
+both revisers. Both revisions were rejected for their sound as well, so no
+verdict depends on it. The count of revisions that lost something includes
+it.
+
+The trials of the fitting half used earlier builds of the branch. The first
+ones compared whole pages, where a judge named the second text on every pair
+that was tried, and asked about "two versions of one page". The command now
+reads openings and asks with the wording of the earlier record. The search
+for statements had no pass over the page itself at first, and it did not list
+instructions to the reader; both were added after trials on the fitting half.
+
 ## Data
 
 | File | Rows |
 | --- | --- |
-| `data/published.jsonl.gz` | one answer of one judge on one pair: a post as it is published against a human text, with the reviser, or `none` for the post as it was |
-| `data/revisions.jsonl.gz` | each page that a reviser was given: the index and the em dashes before and after, the verdict of the check with the sound, what the judge named in each order, the statements and how many were kept, what was lost, and the answer of the third model |
-| `data/damage.jsonl.gz` | each damaged copy: the kind of damage and how many statements the check did not find |
+| `data/published.jsonl.gz` | one answer of one judge on one pair: a post as it is published against a human text, with the reviser, or `none` for the post as it was; rows with `kept` set to `every revision` publish every revision without the check |
+| `data/revisions.jsonl.gz` | each page that a reviser was given: the index and the em dashes before and after, the verdict of the check with the sound, what the judge named in each order, the statements, how many were kept and how the others failed, what was lost, and the answer of the third model |
+| `data/damage.jsonl.gz` | each damaged copy and judge: the kind of damage, the sound, what the judge named in each order, and how many statements the check did not find |
 | `data/known.jsonl.gz` | each pair with a known difference: the sound and what the judge named in each order |
 | `data/fitting.jsonl.gz` | the runs of the fitting half: answers of the judges, both orders of one pair, votes by section, and the index and the em dashes of each revision |
 

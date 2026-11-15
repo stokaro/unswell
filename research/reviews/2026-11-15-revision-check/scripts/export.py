@@ -73,6 +73,10 @@ for reviser in ("gpt", "qwen"):
     for human in ("blog", "styled"):
         published += against_human(f"pairs-pub14-{reviser}-{human}.jsonl", f"judge-pub14-{reviser}-{human}-{{judge}}.jsonl",
                                    reviser=MODELS[reviser], human=human)
+# Every revision in the place of its post, whatever the check said: what a writer who does not run the check publishes.
+for reviser in ("gpt", "qwen"):
+    published += against_human(f"pairs-all14-{reviser}-blog.jsonl", f"judge-all14-{reviser}-blog-{{judge}}.jsonl",
+                               reviser=MODELS[reviser], human="blog", kept="every revision")
 write("published", published)
 
 revisions = []
@@ -97,22 +101,27 @@ for reviser in ("gpt", "qwen"):
             else:
                 check.update(verdict="accepted" if result["accepted"] else "rejected", sound=result["sound"], named=result["named"],
                              statements=len(result["facts"]), kept=sum(f[0] == "kept" for f in result["facts"]),
+                             not_kept={kind: sum(f[0] == kind for f in result["facts"]) for kind in ("changed", "missing", "unquoted")},
                              lost={kind: len(values) for kind, values in result["lost"].items()}, reasons=len(result["reasons"]))
             entry["check"] = check
         revisions.append(entry)
 write("revisions", revisions)
 
+# The bar names the first judge. The second one checked the same copies after the bars were written.
 damage = []
-copies = {(r["set"], r["id"]): r for r in load("compare-test14-damage.jsonl")}
-for row in load("damage-test.jsonl"):
-    result = copies.get((row["set"], row["id"]))
-    entry = {"unit": set_id[row["id"]], "kind": row["set"].removeprefix("damage-")}
-    if result is None or "error" in result:
-        entry["verdict"] = "no verdict"
-    else:
-        entry.update(verdict="accepted" if result["accepted"] else "rejected", statements=len(result["facts"]),
-                     not_kept=sum(f[0] != "kept" for f in result["facts"]))
-    damage.append(entry)
+for judge, name in (("qwen35", "compare-test14-damage.jsonl"), ("gpt", "compare-test14-damage-gpt.jsonl")):
+    copies = {(r["set"], r["id"]): r for r in load(name)}
+    if not copies:
+        continue
+    for row in load("damage-test.jsonl"):
+        result = copies.get((row["set"], row["id"]))
+        entry = {"unit": set_id[row["id"]], "kind": row["set"].removeprefix("damage-"), "judge": MODELS[judge]}
+        if result is None or "error" in result:
+            entry["verdict"] = "no verdict"
+        else:
+            entry.update(verdict="accepted" if result["accepted"] else "rejected", statements=len(result["facts"]),
+                         not_kept=sum(f[0] != "kept" for f in result["facts"]), sound=result["sound"], named=result["named"])
+        damage.append(entry)
 write("damage", damage)
 
 known = []
@@ -127,9 +136,9 @@ fitting = []
 for variant, reviser, human, pairs_name, prefix in (
         ("as it is", "none", "blog", "pairs-dev-set.jsonl", None),
         ("as it is", "none", "styled", "pairs-dev-styled.jsonl", "judge-dev-styled-{judge}.jsonl"),
-        ("report of alpha.13", "gpt", "blog", "pairs-rev13-dev-gpt.jsonl", "judge-rev13-dev-gpt-{judge}.jsonl"),
-        ("report of alpha.13", "qwen", "blog", "pairs-rev13-dev-qwen.jsonl", "judge-rev13-dev-qwen-{judge}.jsonl"),
-        ("report with sentence lengths", "gpt", "blog", "pairs-lengths-dev.jsonl", "judge-lengths-dev-{judge}.jsonl"),
+        ("report of alpha.13, instruction of the record", "gpt", "blog", "pairs-rev13-dev-gpt.jsonl", "judge-rev13-dev-gpt-{judge}.jsonl"),
+        ("report of alpha.13, instruction of the record", "qwen", "blog", "pairs-rev13-dev-qwen.jsonl", "judge-rev13-dev-qwen-{judge}.jsonl"),
+        ("report with sentence lengths, shorter instruction", "gpt", "blog", "pairs-lengths-dev.jsonl", "judge-lengths-dev-{judge}.jsonl"),
         ("free rewrite", "gpt", "blog", "pairs-ceiling-dev.jsonl", "judge-ceiling-dev-{judge}.jsonl"),
         ("free rewrite", "gpt", "styled", "pairs-ceiling-dev-styled.jsonl", "judge-ceiling-dev-styled-{judge}.jsonl")):
     labels = {"experiment": "against human text", "variant": variant, "reviser": MODELS.get(reviser, "none"), "human": human}
@@ -143,11 +152,13 @@ for variant, reviser, human, pairs_name, prefix in (
     else:
         fitting += against_human(pairs_name, prefix, **labels)
 
-VERSUS = (("report of alpha.13", "gpt", "fix-dev13-gpt", JUDGES), ("report of alpha.13", "qwen", "fix-dev13-qwen", JUDGES),
-          ("report with sentence lengths", "gpt", "fix-dev-lengths-gpt", JUDGES),
-          ("report with the line on em dashes", "gpt", "fix-dev-nodash-gpt", JUDGES), ("report with the line on em dashes", "qwen", "fix-dev-nodash-qwen", JUDGES),
-          ("the same, instruction of the record", "gpt", "fix-dev-nodash2-gpt", ("qwen35",)),
-          ("the same, instruction of the record", "qwen", "fix-dev-nodash2-qwen", ("qwen27",)))
+VERSUS = (("report of alpha.13, instruction of the record", "gpt", "fix-dev13-gpt", JUDGES),
+          ("report of alpha.13, instruction of the record", "qwen", "fix-dev13-qwen", JUDGES),
+          ("report with sentence lengths, shorter instruction", "gpt", "fix-dev-lengths-gpt", JUDGES),
+          ("report with the line on em dashes, shorter instruction", "gpt", "fix-dev-nodash-gpt", JUDGES),
+          ("report with the line on em dashes, shorter instruction", "qwen", "fix-dev-nodash-qwen", JUDGES),
+          ("report with the line on em dashes, instruction of the record", "gpt", "fix-dev-nodash2-gpt", ("qwen35",)),
+          ("report with the line on em dashes, instruction of the record", "qwen", "fix-dev-nodash2-qwen", ("qwen27",)))
 for variant, reviser, name, judges in VERSUS:
     units = [json.loads(line)["unit"] for line in open(G / f"pairs-vs-{name}.jsonl")]
     for label in judges:

@@ -46,7 +46,8 @@ def compare(row):
     kept.update(accepted=result["verdict"]["accepted"], reasons=result["verdict"]["reasons"], sound=result["sound"]["verdict"],
                 named=[result["sound"]["page_first"]["named"], result["sound"]["revision_first"]["named"]],
                 reason=[result["sound"]["page_first"]["reason"], result["sound"]["revision_first"]["reason"]],
-                facts=[[f["outcome"], f["text"]] for f in result["facts"]["statements"]], lost=result["lost"],
+                facts=[[f["outcome"], f["text"], f.get("quote", "")] for f in result["facts"]["statements"]], dropped=len(result["facts"].get("dropped") or []),
+                lost=result["lost"],
                 dashes=[result["em_dashes"]["page"], result["em_dashes"]["revision"]])
     return kept
 

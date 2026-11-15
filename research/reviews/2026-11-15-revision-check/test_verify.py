@@ -23,7 +23,7 @@ def answers(unit, votes, **labels):
 def revision(reviser, number, named=("revision", "page"), kept=50, dashes=(0, 0), third="page", kind="set-s", lost=0):
     """A revised page with the verdict that follows from its parts."""
     check = {"judge": verify.CHECK_JUDGE[reviser], "sound": verify.sound_of(list(named)), "named": list(named), "statements": 50, "kept": kept,
-             "lost": {"numbers": lost, "code": 0, "links": 0}}
+             "not_kept": {"changed": 50 - kept, "missing": 0, "unquoted": 0}, "lost": {"numbers": lost, "code": 0, "links": 0}}
     check["verdict"] = "accepted" if verify.accepted(check, list(dashes)) else "rejected"
     row = {"reviser": reviser, "set": kind, "id": f"s-{number:02d}" if kind == "set-s" else f"g{number}", "outcome": "revised",
            "index": [80, 30], "em_dashes": list(dashes), "third": third, "check": check}
@@ -43,6 +43,9 @@ def record():
             # After a revision by the first reviser the panel picks three of six, and after the second two of six.
             published += answers(unit, ("post" if number < 3 else "human", "post" if number < 3 else "human", "human"), reviser=GPT, human=human)
             published += answers(unit, ("post" if number < 2 else "human", "human", "human"), reviser=QWEN35, human=human)
+        # Without the check every revision is published: the strict judge still picks five of six.
+        published += answers(unit, ("post" if number < 5 else "human", "post" if number < 5 else "human", "human"), reviser=GPT, human="blog",
+                             kept="every revision")
     # The first reviser: twelve revisions, eleven of them accepted; the third model names the page on ten of the accepted.
     for number in range(11):
         revisions.append(revision(GPT, number, named=("page", "page"), third="page" if number < 10 else "revision"))
@@ -55,7 +58,8 @@ def record():
     revisions.append(revision(QWEN35, 3, named=("page", "page"), lost=1, third="revision", kind="guided"))
     revisions.append(revision(QWEN35, 4, named=("page", "page"), dashes=(0, 2), third="revision", kind="guided"))
     revisions.append({"reviser": QWEN35, "set": "set-s", "id": "s-91", "outcome": "no revision"})
-    damage = [{"unit": f"s-{number:02d}", "kind": kind, "verdict": "rejected", "statements": 40, "not_kept": 0 if (number, kind) == (0, "sentence") else 1}
+    damage = [{"unit": f"s-{number:02d}", "kind": kind, "judge": QWEN35, "verdict": "rejected", "statements": 40,
+               "not_kept": 0 if (number, kind) == (0, "sentence") else 1, "sound": "no difference", "named": ["revision", "page"]}
               for number in range(5) for kind in ("sentence", "negation")]
     known = [{"id": f"k{number}", "sound": "better" if number < 4 else "no difference", "named": ["page", "page"] if number < 4 else ["revision", "page"]}
              for number in range(5)]
@@ -113,13 +117,23 @@ class RecountTest(unittest.TestCase):
         self.assertEqual((after["panel"]["post"], after["panel"]["rate"], after["judges"][GPT]["post"]), (3, 0.5, 3))
         # One judge of three picks the post on two of six: the panel follows the two that pick the human text.
         self.assertEqual(result["published"][QWEN35]["styled"]["panel"]["post"], 0)
+        # The rows without the check are counted apart and do not change the published ones.
+        self.assertEqual(result["published"]["every revision"][GPT]["panel"]["post"], 5)
+        self.assertNotIn(QWEN35, result["published"]["every revision"])
         first, second = result["revisions"][GPT], result["revisions"][QWEN35]
         self.assertEqual((first["pages"], first["revised"], first["no_mark_listed"], first["check"]["accepted"]), (13, 12, 1, 11))
         self.assertEqual(first["check"]["second_text_both_times"], 1)
+        self.assertEqual(first["set_s"], {"revised": 12, "index_lower": 12, "median_index": [80, 30], "high": [12, 0]})
+        self.assertEqual(second["set_s"]["revised"], 3)
         self.assertEqual((second["check"]["accepted"], second["check"]["rejected"], second["no_revision"]), (1, 4, 1))
         self.assertEqual((second["check"]["under_the_bar"], second["check"]["lost_something"], second["add_em_dash"]), (1, 1, 1))
+        self.assertEqual(second["check"]["not_kept"], {"changed": 2, "missing": 0, "unquoted": 0})
         self.assertEqual(result["revisions"]["together"]["third_on_accepted"]["page"], 11)
-        self.assertEqual((result["damage"]["noticed"], result["damage"]["sentence"]["noticed"], result["damage"]["noticed_share"]), (9, 4, 0.9))
+        damage = result["damage"][QWEN35]
+        self.assertEqual(list(result["damage"]), [QWEN35])
+        self.assertEqual((damage["noticed"], damage["sentence"]["noticed"], damage["noticed_share"]), (9, 4, 0.9))
+        self.assertEqual(damage["sound"], {"better": 0, "no difference": 10, "worse": 0})
+        self.assertEqual(damage["better"], {"sentence": 0, "negation": 0})
         self.assertEqual((result["known"]["better"], result["known"]["orders"]["second text both times"]), (4, 1))
         fitting = result["fitting"]
         self.assertEqual(fitting["page_against_revision"][0]["panel"], {"page": 1, "revision": 0, "tie": 3})
@@ -167,6 +181,17 @@ class RecountTest(unittest.TestCase):
         result = self.changed("known", lambda rows: [row.update(sound="no difference", named=["revision", "page"]) for row in rows[:3]])
         self.assertFalse(result["registered"]["D, a known difference is found"])
 
+    def test_a_second_judge_of_damage_has_no_bar(self):
+        def second(rows):
+            for row in rows[:4]:
+                row.update(not_kept=0)
+            rows.extend({**row, "judge": GPT, "not_kept": 1} for row in json.loads(json.dumps(rows)))
+        result = self.changed("damage", second)
+        self.assertEqual(list(result["damage"]), [GPT, QWEN35])
+        self.assertEqual((result["damage"][GPT]["noticed"], result["damage"][QWEN35]["noticed"]), (10, 6))
+        self.assertFalse(result["registered"]["C3, damage is noticed"])
+        self.assertIn("was added after the bars were written", (self.root / "RESULTS.md").read_text())
+
         def no_verdicts(rows):
             for row in rows:
                 if row["reviser"] == GPT and "check" in row and row["id"] < "s-03":
@@ -190,6 +215,7 @@ class RecountTest(unittest.TestCase):
         self.assertIn("before and after", self.damaged("revisions", lambda rows: rows[0].update(em_dashes=[0])))
         self.assertIn("third model", self.damaged("revisions", lambda rows: rows[0].pop("third")))
         self.assertIn("without its statements", self.damaged("revisions", lambda rows: rows[0]["check"].update(kept=51)))
+        self.assertIn("do not add up", self.damaged("revisions", lambda rows: rows[0]["check"]["not_kept"].update(unquoted=1)))
         self.assertIn("what was lost", self.damaged("revisions", lambda rows: rows[0]["check"]["lost"].pop("code")))
         self.assertIn("named in each order", self.damaged("revisions", lambda rows: rows[0]["check"].update(named=["page"])))
 
@@ -197,6 +223,7 @@ class RecountTest(unittest.TestCase):
         self.assertIn("one answer of each judge", self.damaged("published", lambda rows: rows.pop(0)))
         self.assertIn("malformed answer", self.damaged("published", lambda rows: rows[0].update(vote="maybe")))
         self.assertIn("known reviser or kind", self.damaged("published", lambda rows: rows[0].update(human="forum")))
+        self.assertIn("known reviser or kind", self.damaged("published", lambda rows: rows[0].update(kept="some revisions")))
 
         def without(rows):
             rows[:] = [row for row in rows if not (row["reviser"] == QWEN35 and row["human"] == "styled")]
@@ -205,6 +232,13 @@ class RecountTest(unittest.TestCase):
     def test_the_other_files_have_to_be_well_formed(self):
         self.assertIn("malformed damaged copy", self.damaged("damage", lambda rows: rows[0].update(kind="paragraph")))
         self.assertIn("without its statements", self.damaged("damage", lambda rows: rows[0].pop("not_kept")))
+        self.assertIn("without a known judge", self.damaged("damage", lambda rows: rows[0].update(judge="someone")))
+        self.assertIn("damaged copy listed twice", self.damaged("damage", lambda rows: rows.append(json.loads(json.dumps(rows[0])))))
+        self.assertIn("judge of the bar", self.damaged("damage", lambda rows: [row.update(judge=GPT) for row in rows]))
+        self.assertIn("sound does not follow", self.damaged("damage", lambda rows: rows[0].update(sound="better")))
+        self.assertIn("verdict does not follow", self.damaged("damage", lambda rows: rows[0].update(verdict="accepted")))
+        missed = lambda rows: rows[1].update(verdict="accepted", sound="better", named=["page", "page"])
+        self.assertIn("verdict does not follow", self.damaged("damage", missed))
         self.assertIn("unknown sound", self.damaged("known", lambda rows: rows[0].update(sound="louder")))
         self.assertIn("does not follow from the two answers", self.damaged("known", lambda rows: rows[0].update(named=["revision", "page"])))
         self.assertIn("unknown experiment", self.damaged("fitting", lambda rows: rows[0].update(experiment="guess")))

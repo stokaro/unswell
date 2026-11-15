@@ -1,0 +1,1484 @@
+{
+  "bars": {
+    "accepted_better": 0.7,
+    "damage_noticed": 0.8,
+    "em_dash_revisions": 0.05,
+    "fewest_accepted": 10,
+    "known_difference": 0.6,
+    "panel": 0.55,
+    "statements_kept": 0.98,
+    "strict_judge": 0.65,
+    "verdicts": 0.95
+  },
+  "damage": {
+    "gpt-6-astra": {
+      "accepted": 2,
+      "better": {
+        "negation": 0,
+        "sentence": 3
+      },
+      "copies": 58,
+      "negation": {
+        "copies": 28,
+        "noticed": 26
+      },
+      "no_verdict": 0,
+      "noticed": 48,
+      "noticed_share": 0.828,
+      "sentence": {
+        "copies": 30,
+        "noticed": 22
+      },
+      "sound": {
+        "better": 3,
+        "no difference": 54,
+        "worse": 1
+      }
+    },
+    "private-host/Qwen3.6-35B-A3B": {
+      "accepted": 3,
+      "better": {
+        "negation": 0,
+        "sentence": 5
+      },
+      "copies": 58,
+      "negation": {
+        "copies": 28,
+        "noticed": 20
+      },
+      "no_verdict": 0,
+      "noticed": 39,
+      "noticed_share": 0.672,
+      "sentence": {
+        "copies": 30,
+        "noticed": 19
+      },
+      "sound": {
+        "better": 5,
+        "no difference": 48,
+        "worse": 5
+      }
+    }
+  },
+  "fitting": {
+    "against_human": [
+      {
+        "human": "blog",
+        "judges": {
+          "gpt-6-astra": {
+            "human": 0,
+            "interval": [
+              0.912,
+              1.0
+            ],
+            "post": 40,
+            "rate": 1.0,
+            "tie": 0,
+            "units": 40
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "human": 27,
+            "interval": [
+              0.201,
+              0.48
+            ],
+            "post": 13,
+            "rate": 0.325,
+            "tie": 0,
+            "units": 40
+          },
+          "private-host/Qwen3.8-27B": {
+            "human": 12,
+            "interval": [
+              0.546,
+              0.819
+            ],
+            "post": 28,
+            "rate": 0.7,
+            "tie": 0,
+            "units": 40
+          }
+        },
+        "pairs": 120,
+        "panel": {
+          "human": 12,
+          "interval": [
+            0.546,
+            0.819
+          ],
+          "post": 28,
+          "rate": 0.7,
+          "tie": 0,
+          "units": 40
+        },
+        "reviser": "none",
+        "unreadable": 0,
+        "variant": "as it is"
+      },
+      {
+        "human": "styled",
+        "judges": {
+          "gpt-6-astra": {
+            "human": 1,
+            "interval": [
+              0.871,
+              0.996
+            ],
+            "post": 39,
+            "rate": 0.975,
+            "tie": 0,
+            "units": 40
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "human": 32,
+            "interval": [
+              0.105,
+              0.348
+            ],
+            "post": 8,
+            "rate": 0.2,
+            "tie": 0,
+            "units": 40
+          },
+          "private-host/Qwen3.8-27B": {
+            "human": 11,
+            "interval": [
+              0.572,
+              0.839
+            ],
+            "post": 29,
+            "rate": 0.725,
+            "tie": 0,
+            "units": 40
+          }
+        },
+        "pairs": 120,
+        "panel": {
+          "human": 10,
+          "interval": [
+            0.598,
+            0.858
+          ],
+          "post": 30,
+          "rate": 0.75,
+          "tie": 0,
+          "units": 40
+        },
+        "reviser": "none",
+        "unreadable": 0,
+        "variant": "as it is"
+      },
+      {
+        "human": "blog",
+        "judges": {
+          "gpt-6-astra": {
+            "human": 0,
+            "interval": [
+              0.912,
+              1.0
+            ],
+            "post": 40,
+            "rate": 1.0,
+            "tie": 0,
+            "units": 40
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "human": 32,
+            "interval": [
+              0.105,
+              0.348
+            ],
+            "post": 8,
+            "rate": 0.2,
+            "tie": 0,
+            "units": 40
+          },
+          "private-host/Qwen3.8-27B": {
+            "human": 17,
+            "interval": [
+              0.422,
+              0.715
+            ],
+            "post": 23,
+            "rate": 0.575,
+            "tie": 0,
+            "units": 40
+          }
+        },
+        "pairs": 120,
+        "panel": {
+          "human": 14,
+          "interval": [
+            0.495,
+            0.779
+          ],
+          "post": 26,
+          "rate": 0.65,
+          "tie": 0,
+          "units": 40
+        },
+        "reviser": "gpt-6-astra",
+        "unreadable": 0,
+        "variant": "report of alpha.13, instruction of the record"
+      },
+      {
+        "human": "blog",
+        "judges": {
+          "gpt-6-astra": {
+            "human": 0,
+            "interval": [
+              0.912,
+              1.0
+            ],
+            "post": 40,
+            "rate": 1.0,
+            "tie": 0,
+            "units": 40
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "human": 26,
+            "interval": [
+              0.221,
+              0.505
+            ],
+            "post": 14,
+            "rate": 0.35,
+            "tie": 0,
+            "units": 40
+          },
+          "private-host/Qwen3.8-27B": {
+            "human": 14,
+            "interval": [
+              0.495,
+              0.779
+            ],
+            "post": 26,
+            "rate": 0.65,
+            "tie": 0,
+            "units": 40
+          }
+        },
+        "pairs": 120,
+        "panel": {
+          "human": 12,
+          "interval": [
+            0.546,
+            0.819
+          ],
+          "post": 28,
+          "rate": 0.7,
+          "tie": 0,
+          "units": 40
+        },
+        "reviser": "private-host/Qwen3.6-35B-A3B",
+        "unreadable": 1,
+        "variant": "report of alpha.13, instruction of the record"
+      },
+      {
+        "human": "blog",
+        "judges": {
+          "gpt-6-astra": {
+            "human": 0,
+            "interval": [
+              0.912,
+              1.0
+            ],
+            "post": 40,
+            "rate": 1.0,
+            "tie": 0,
+            "units": 40
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "human": 31,
+            "interval": [
+              0.123,
+              0.375
+            ],
+            "post": 9,
+            "rate": 0.225,
+            "tie": 0,
+            "units": 40
+          },
+          "private-host/Qwen3.8-27B": {
+            "human": 14,
+            "interval": [
+              0.495,
+              0.779
+            ],
+            "post": 26,
+            "rate": 0.65,
+            "tie": 0,
+            "units": 40
+          }
+        },
+        "pairs": 120,
+        "panel": {
+          "human": 12,
+          "interval": [
+            0.546,
+            0.819
+          ],
+          "post": 28,
+          "rate": 0.7,
+          "tie": 0,
+          "units": 40
+        },
+        "reviser": "gpt-6-astra",
+        "unreadable": 1,
+        "variant": "report with sentence lengths, shorter instruction"
+      },
+      {
+        "human": "blog",
+        "judges": {
+          "gpt-6-astra": {
+            "human": 0,
+            "interval": [
+              0.912,
+              1.0
+            ],
+            "post": 40,
+            "rate": 1.0,
+            "tie": 0,
+            "units": 40
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "human": 33,
+            "interval": [
+              0.087,
+              0.32
+            ],
+            "post": 7,
+            "rate": 0.175,
+            "tie": 0,
+            "units": 40
+          },
+          "private-host/Qwen3.8-27B": {
+            "human": 16,
+            "interval": [
+              0.446,
+              0.737
+            ],
+            "post": 24,
+            "rate": 0.6,
+            "tie": 0,
+            "units": 40
+          }
+        },
+        "pairs": 120,
+        "panel": {
+          "human": 18,
+          "interval": [
+            0.398,
+            0.693
+          ],
+          "post": 22,
+          "rate": 0.55,
+          "tie": 0,
+          "units": 40
+        },
+        "reviser": "gpt-6-astra",
+        "unreadable": 0,
+        "variant": "free rewrite"
+      },
+      {
+        "human": "styled",
+        "judges": {
+          "gpt-6-astra": {
+            "human": 1,
+            "interval": [
+              0.871,
+              0.996
+            ],
+            "post": 39,
+            "rate": 0.975,
+            "tie": 0,
+            "units": 40
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "human": 35,
+            "interval": [
+              0.055,
+              0.261
+            ],
+            "post": 5,
+            "rate": 0.125,
+            "tie": 0,
+            "units": 40
+          },
+          "private-host/Qwen3.8-27B": {
+            "human": 23,
+            "interval": [
+              0.263,
+              0.554
+            ],
+            "post": 16,
+            "rate": 0.4,
+            "tie": 1,
+            "units": 40
+          }
+        },
+        "pairs": 120,
+        "panel": {
+          "human": 16,
+          "interval": [
+            0.446,
+            0.737
+          ],
+          "post": 24,
+          "rate": 0.6,
+          "tie": 0,
+          "units": 40
+        },
+        "reviser": "gpt-6-astra",
+        "unreadable": 1,
+        "variant": "free rewrite"
+      }
+    ],
+    "both_orders": [
+      {
+        "first text both times": 0,
+        "judge": "private-host/Qwen3.6-35B-A3B",
+        "other": 5,
+        "page in both orders": 5,
+        "pairs": 40,
+        "pairs_of": "revisions of gpt-6-astra",
+        "revision in both orders": 0,
+        "second text both times": 30,
+        "wording": "wording of the record"
+      },
+      {
+        "first text both times": 0,
+        "judge": "private-host/Qwen3.6-35B-A3B",
+        "other": 4,
+        "page in both orders": 2,
+        "pairs": 40,
+        "pairs_of": "revisions of gpt-6-astra",
+        "revision in both orders": 2,
+        "second text both times": 32,
+        "wording": "first wording of the command"
+      },
+      {
+        "first text both times": 0,
+        "judge": "private-host/Qwen3.6-35B-A3B",
+        "other": 4,
+        "page in both orders": 0,
+        "pairs": 40,
+        "pairs_of": "revisions of gpt-6-astra",
+        "revision in both orders": 1,
+        "second text both times": 35,
+        "wording": "first wording of the command, in the command"
+      },
+      {
+        "first text both times": 0,
+        "judge": "gpt-6-astra",
+        "other": 6,
+        "page in both orders": 1,
+        "pairs": 40,
+        "pairs_of": "revisions of private-host/Qwen3.6-35B-A3B",
+        "revision in both orders": 6,
+        "second text both times": 27,
+        "wording": "first wording of the command, in the command"
+      },
+      {
+        "first text both times": 0,
+        "judge": "private-host/Qwen3.6-35B-A3B",
+        "other": 0,
+        "page in both orders": 18,
+        "pairs": 24,
+        "pairs_of": "a model's text and the human post on its subject",
+        "revision in both orders": 0,
+        "second text both times": 6,
+        "wording": "wording of the record"
+      },
+      {
+        "first text both times": 0,
+        "judge": "gpt-6-astra",
+        "other": 0,
+        "page in both orders": 24,
+        "pairs": 24,
+        "pairs_of": "a model's text and the human post on its subject",
+        "revision in both orders": 0,
+        "second text both times": 0,
+        "wording": "wording of the record"
+      }
+    ],
+    "damage": {
+      "accepted": 0,
+      "copies": 12,
+      "negation": {
+        "copies": 5,
+        "noticed": 5
+      },
+      "no_verdict": 1,
+      "noticed": 10,
+      "noticed_share": 0.833,
+      "sentence": {
+        "copies": 7,
+        "noticed": 5
+      }
+    },
+    "page_against_revision": [
+      {
+        "judges": {
+          "gpt-6-astra": {
+            "page": 30,
+            "revision": 4,
+            "same": 2,
+            "unreadable": 0
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "page": 15,
+            "revision": 19,
+            "same": 2,
+            "unreadable": 0
+          },
+          "private-host/Qwen3.8-27B": {
+            "page": 20,
+            "revision": 14,
+            "same": 2,
+            "unreadable": 0
+          }
+        },
+        "pairs": 36,
+        "panel": {
+          "page": 20,
+          "revision": 14,
+          "tie": 2
+        },
+        "reviser": "gpt-6-astra",
+        "variant": "report of alpha.13, instruction of the record"
+      },
+      {
+        "judges": {
+          "gpt-6-astra": {
+            "page": 17,
+            "revision": 15,
+            "same": 2,
+            "unreadable": 0
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "page": 17,
+            "revision": 15,
+            "same": 2,
+            "unreadable": 0
+          },
+          "private-host/Qwen3.8-27B": {
+            "page": 14,
+            "revision": 18,
+            "same": 2,
+            "unreadable": 0
+          }
+        },
+        "pairs": 34,
+        "panel": {
+          "page": 17,
+          "revision": 15,
+          "tie": 2
+        },
+        "reviser": "private-host/Qwen3.6-35B-A3B",
+        "variant": "report of alpha.13, instruction of the record"
+      },
+      {
+        "judges": {
+          "gpt-6-astra": {
+            "page": 17,
+            "revision": 23,
+            "same": 0,
+            "unreadable": 0
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "page": 16,
+            "revision": 24,
+            "same": 0,
+            "unreadable": 0
+          },
+          "private-host/Qwen3.8-27B": {
+            "page": 10,
+            "revision": 30,
+            "same": 0,
+            "unreadable": 0
+          }
+        },
+        "pairs": 40,
+        "panel": {
+          "page": 16,
+          "revision": 24,
+          "tie": 0
+        },
+        "reviser": "gpt-6-astra",
+        "variant": "report with sentence lengths, shorter instruction"
+      },
+      {
+        "judges": {
+          "gpt-6-astra": {
+            "page": 32,
+            "revision": 4,
+            "same": 4,
+            "unreadable": 0
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "page": 25,
+            "revision": 11,
+            "same": 4,
+            "unreadable": 0
+          },
+          "private-host/Qwen3.8-27B": {
+            "page": 20,
+            "revision": 16,
+            "same": 4,
+            "unreadable": 0
+          }
+        },
+        "pairs": 40,
+        "panel": {
+          "page": 26,
+          "revision": 10,
+          "tie": 4
+        },
+        "reviser": "gpt-6-astra",
+        "variant": "report with the line on em dashes, shorter instruction"
+      },
+      {
+        "judges": {
+          "gpt-6-astra": {
+            "page": 15,
+            "revision": 19,
+            "same": 6,
+            "unreadable": 0
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "page": 14,
+            "revision": 20,
+            "same": 6,
+            "unreadable": 0
+          },
+          "private-host/Qwen3.8-27B": {
+            "page": 13,
+            "revision": 21,
+            "same": 6,
+            "unreadable": 0
+          }
+        },
+        "pairs": 40,
+        "panel": {
+          "page": 15,
+          "revision": 19,
+          "tie": 6
+        },
+        "reviser": "private-host/Qwen3.6-35B-A3B",
+        "variant": "report with the line on em dashes, shorter instruction"
+      },
+      {
+        "judges": {
+          "private-host/Qwen3.6-35B-A3B": {
+            "page": 18,
+            "revision": 15,
+            "same": 6,
+            "unreadable": 1
+          }
+        },
+        "pairs": 40,
+        "panel": {
+          "page": 18,
+          "revision": 15,
+          "tie": 7
+        },
+        "reviser": "gpt-6-astra",
+        "variant": "report with the line on em dashes, instruction of the record"
+      },
+      {
+        "judges": {
+          "private-host/Qwen3.8-27B": {
+            "page": 16,
+            "revision": 18,
+            "same": 5,
+            "unreadable": 0
+          }
+        },
+        "pairs": 39,
+        "panel": {
+          "page": 16,
+          "revision": 18,
+          "tie": 5
+        },
+        "reviser": "private-host/Qwen3.6-35B-A3B",
+        "variant": "report with the line on em dashes, instruction of the record"
+      }
+    ],
+    "revisions": [
+      {
+        "add_em_dash": 13,
+        "em_dashes_added": 27,
+        "high": [
+          20,
+          0
+        ],
+        "median_index": [
+          71.0,
+          33.0
+        ],
+        "revised": 36,
+        "reviser": "gpt-6-astra",
+        "variant": "report of alpha.13, instruction of the record"
+      },
+      {
+        "add_em_dash": 22,
+        "em_dashes_added": 94,
+        "high": [
+          18,
+          1
+        ],
+        "median_index": [
+          70.0,
+          48.5
+        ],
+        "revised": 34,
+        "reviser": "private-host/Qwen3.6-35B-A3B",
+        "variant": "report of alpha.13, instruction of the record"
+      },
+      {
+        "add_em_dash": 1,
+        "em_dashes_added": 2,
+        "high": [
+          20,
+          0
+        ],
+        "median_index": [
+          69.0,
+          23.0
+        ],
+        "revised": 40,
+        "reviser": "gpt-6-astra",
+        "variant": "report with sentence lengths, shorter instruction"
+      },
+      {
+        "add_em_dash": 0,
+        "em_dashes_added": 0,
+        "high": [
+          20,
+          0
+        ],
+        "median_index": [
+          69.0,
+          23.0
+        ],
+        "revised": 40,
+        "reviser": "gpt-6-astra",
+        "variant": "report with the line on em dashes, shorter instruction"
+      },
+      {
+        "add_em_dash": 1,
+        "em_dashes_added": 1,
+        "high": [
+          20,
+          0
+        ],
+        "median_index": [
+          69.0,
+          23.0
+        ],
+        "revised": 40,
+        "reviser": "private-host/Qwen3.6-35B-A3B",
+        "variant": "report with the line on em dashes, shorter instruction"
+      },
+      {
+        "add_em_dash": 0,
+        "em_dashes_added": 0,
+        "high": [
+          20,
+          1
+        ],
+        "median_index": [
+          69.0,
+          24.5
+        ],
+        "revised": 40,
+        "reviser": "gpt-6-astra",
+        "variant": "report with the line on em dashes, instruction of the record"
+      },
+      {
+        "add_em_dash": 0,
+        "em_dashes_added": 0,
+        "high": [
+          19,
+          0
+        ],
+        "median_index": [
+          68,
+          23
+        ],
+        "revised": 39,
+        "reviser": "private-host/Qwen3.6-35B-A3B",
+        "variant": "report with the line on em dashes, instruction of the record"
+      },
+      {
+        "add_em_dash": 30,
+        "em_dashes_added": 54,
+        "high": [
+          20,
+          16
+        ],
+        "median_index": [
+          71.0,
+          68.0
+        ],
+        "revised": 36,
+        "reviser": "gpt-6-astra",
+        "variant": "free rewrite"
+      }
+    ],
+    "sections": [
+      {
+        "against": 15,
+        "better": 11,
+        "for_the_revision": 13,
+        "judge": "private-host/Qwen3.6-35B-A3B",
+        "no_difference": 18,
+        "pairs": 40,
+        "pairs_of": "revisions of gpt-6-astra",
+        "sections": 245,
+        "unsure": 217,
+        "worse": 11
+      },
+      {
+        "against": 15,
+        "better": 8,
+        "for_the_revision": 18,
+        "judge": "gpt-6-astra",
+        "no_difference": 6,
+        "pairs": 20,
+        "pairs_of": "revisions of private-host/Qwen3.6-35B-A3B",
+        "sections": 95,
+        "unsure": 62,
+        "worse": 6
+      }
+    ]
+  },
+  "known": {
+    "better": 26,
+    "better_share": 0.867,
+    "no_verdict": 0,
+    "orders": {
+      "first text both times": 0,
+      "other": 0,
+      "page in both orders": 26,
+      "pairs": 30,
+      "revision in both orders": 0,
+      "second text both times": 4
+    },
+    "pairs": 30
+  },
+  "published": {
+    "every revision": {
+      "gpt-6-astra": {
+        "judges": {
+          "gpt-6-astra": {
+            "human": 1,
+            "interval": [
+              0.833,
+              0.994
+            ],
+            "post": 29,
+            "rate": 0.967,
+            "tie": 0,
+            "units": 30
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "human": 27,
+            "interval": [
+              0.035,
+              0.256
+            ],
+            "post": 3,
+            "rate": 0.1,
+            "tie": 0,
+            "units": 30
+          },
+          "private-host/Qwen3.8-27B": {
+            "human": 11,
+            "interval": [
+              0.455,
+              0.781
+            ],
+            "post": 19,
+            "rate": 0.633,
+            "tie": 0,
+            "units": 30
+          }
+        },
+        "pairs": 90,
+        "panel": {
+          "human": 11,
+          "interval": [
+            0.455,
+            0.781
+          ],
+          "post": 19,
+          "rate": 0.633,
+          "tie": 0,
+          "units": 30
+        },
+        "unreadable": 0
+      },
+      "private-host/Qwen3.6-35B-A3B": {
+        "judges": {
+          "gpt-6-astra": {
+            "human": 1,
+            "interval": [
+              0.833,
+              0.994
+            ],
+            "post": 29,
+            "rate": 0.967,
+            "tie": 0,
+            "units": 30
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "human": 24,
+            "interval": [
+              0.095,
+              0.373
+            ],
+            "post": 6,
+            "rate": 0.2,
+            "tie": 0,
+            "units": 30
+          },
+          "private-host/Qwen3.8-27B": {
+            "human": 8,
+            "interval": [
+              0.556,
+              0.858
+            ],
+            "post": 22,
+            "rate": 0.733,
+            "tie": 0,
+            "units": 30
+          }
+        },
+        "pairs": 90,
+        "panel": {
+          "human": 8,
+          "interval": [
+            0.556,
+            0.858
+          ],
+          "post": 22,
+          "rate": 0.733,
+          "tie": 0,
+          "units": 30
+        },
+        "unreadable": 0
+      }
+    },
+    "gpt-6-astra": {
+      "blog": {
+        "judges": {
+          "gpt-6-astra": {
+            "human": 1,
+            "interval": [
+              0.833,
+              0.994
+            ],
+            "post": 29,
+            "rate": 0.967,
+            "tie": 0,
+            "units": 30
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "human": 24,
+            "interval": [
+              0.095,
+              0.373
+            ],
+            "post": 6,
+            "rate": 0.2,
+            "tie": 0,
+            "units": 30
+          },
+          "private-host/Qwen3.8-27B": {
+            "human": 10,
+            "interval": [
+              0.488,
+              0.808
+            ],
+            "post": 20,
+            "rate": 0.667,
+            "tie": 0,
+            "units": 30
+          }
+        },
+        "pairs": 90,
+        "panel": {
+          "human": 8,
+          "interval": [
+            0.556,
+            0.858
+          ],
+          "post": 22,
+          "rate": 0.733,
+          "tie": 0,
+          "units": 30
+        },
+        "unreadable": 0
+      },
+      "styled": {
+        "judges": {
+          "gpt-6-astra": {
+            "human": 0,
+            "interval": [
+              0.886,
+              1.0
+            ],
+            "post": 30,
+            "rate": 1.0,
+            "tie": 0,
+            "units": 30
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "human": 21,
+            "interval": [
+              0.167,
+              0.479
+            ],
+            "post": 9,
+            "rate": 0.3,
+            "tie": 0,
+            "units": 30
+          },
+          "private-host/Qwen3.8-27B": {
+            "human": 9,
+            "interval": [
+              0.521,
+              0.833
+            ],
+            "post": 21,
+            "rate": 0.7,
+            "tie": 0,
+            "units": 30
+          }
+        },
+        "pairs": 90,
+        "panel": {
+          "human": 9,
+          "interval": [
+            0.521,
+            0.833
+          ],
+          "post": 21,
+          "rate": 0.7,
+          "tie": 0,
+          "units": 30
+        },
+        "unreadable": 0
+      }
+    },
+    "none": {
+      "blog": {
+        "judges": {
+          "gpt-6-astra": {
+            "human": 0,
+            "interval": [
+              0.886,
+              1.0
+            ],
+            "post": 30,
+            "rate": 1.0,
+            "tie": 0,
+            "units": 30
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "human": 25,
+            "interval": [
+              0.073,
+              0.336
+            ],
+            "post": 5,
+            "rate": 0.167,
+            "tie": 0,
+            "units": 30
+          },
+          "private-host/Qwen3.8-27B": {
+            "human": 9,
+            "interval": [
+              0.521,
+              0.833
+            ],
+            "post": 21,
+            "rate": 0.7,
+            "tie": 0,
+            "units": 30
+          }
+        },
+        "pairs": 90,
+        "panel": {
+          "human": 8,
+          "interval": [
+            0.556,
+            0.858
+          ],
+          "post": 22,
+          "rate": 0.733,
+          "tie": 0,
+          "units": 30
+        },
+        "unreadable": 0
+      },
+      "styled": {
+        "judges": {
+          "gpt-6-astra": {
+            "human": 0,
+            "interval": [
+              0.886,
+              1.0
+            ],
+            "post": 30,
+            "rate": 1.0,
+            "tie": 0,
+            "units": 30
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "human": 21,
+            "interval": [
+              0.167,
+              0.479
+            ],
+            "post": 9,
+            "rate": 0.3,
+            "tie": 0,
+            "units": 30
+          },
+          "private-host/Qwen3.8-27B": {
+            "human": 10,
+            "interval": [
+              0.488,
+              0.808
+            ],
+            "post": 20,
+            "rate": 0.667,
+            "tie": 0,
+            "units": 30
+          }
+        },
+        "pairs": 90,
+        "panel": {
+          "human": 11,
+          "interval": [
+            0.455,
+            0.781
+          ],
+          "post": 19,
+          "rate": 0.633,
+          "tie": 0,
+          "units": 30
+        },
+        "unreadable": 0
+      }
+    },
+    "private-host/Qwen3.6-35B-A3B": {
+      "blog": {
+        "judges": {
+          "gpt-6-astra": {
+            "human": 1,
+            "interval": [
+              0.833,
+              0.994
+            ],
+            "post": 29,
+            "rate": 0.967,
+            "tie": 0,
+            "units": 30
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "human": 25,
+            "interval": [
+              0.073,
+              0.336
+            ],
+            "post": 5,
+            "rate": 0.167,
+            "tie": 0,
+            "units": 30
+          },
+          "private-host/Qwen3.8-27B": {
+            "human": 10,
+            "interval": [
+              0.488,
+              0.808
+            ],
+            "post": 20,
+            "rate": 0.667,
+            "tie": 0,
+            "units": 30
+          }
+        },
+        "pairs": 90,
+        "panel": {
+          "human": 8,
+          "interval": [
+            0.556,
+            0.858
+          ],
+          "post": 22,
+          "rate": 0.733,
+          "tie": 0,
+          "units": 30
+        },
+        "unreadable": 0
+      },
+      "styled": {
+        "judges": {
+          "gpt-6-astra": {
+            "human": 0,
+            "interval": [
+              0.886,
+              1.0
+            ],
+            "post": 30,
+            "rate": 1.0,
+            "tie": 0,
+            "units": 30
+          },
+          "private-host/Qwen3.6-35B-A3B": {
+            "human": 25,
+            "interval": [
+              0.073,
+              0.336
+            ],
+            "post": 5,
+            "rate": 0.167,
+            "tie": 0,
+            "units": 30
+          },
+          "private-host/Qwen3.8-27B": {
+            "human": 10,
+            "interval": [
+              0.488,
+              0.808
+            ],
+            "post": 20,
+            "rate": 0.667,
+            "tie": 0,
+            "units": 30
+          }
+        },
+        "pairs": 90,
+        "panel": {
+          "human": 9,
+          "interval": [
+            0.521,
+            0.833
+          ],
+          "post": 21,
+          "rate": 0.7,
+          "tie": 0,
+          "units": 30
+        },
+        "unreadable": 0
+      }
+    }
+  },
+  "registered": {
+    "A1, panel, gpt-6-astra, blog": false,
+    "A1, panel, gpt-6-astra, styled": false,
+    "A1, panel, private-host/Qwen3.6-35B-A3B, blog": false,
+    "A1, panel, private-host/Qwen3.6-35B-A3B, styled": false,
+    "A2, gpt-6-astra alone, gpt-6-astra, blog": false,
+    "A2, gpt-6-astra alone, gpt-6-astra, styled": false,
+    "A2, gpt-6-astra alone, private-host/Qwen3.6-35B-A3B, blog": false,
+    "A2, gpt-6-astra alone, private-host/Qwen3.6-35B-A3B, styled": false,
+    "B1, verdicts, gpt-6-astra": true,
+    "B1, verdicts, private-host/Qwen3.6-35B-A3B": true,
+    "B2, accepted revisions are better": true,
+    "B3, rejected revisions are less often better": true,
+    "C1, em dashes, gpt-6-astra": true,
+    "C1, em dashes, private-host/Qwen3.6-35B-A3B": true,
+    "C2, statements kept, gpt-6-astra": false,
+    "C2, statements kept, private-host/Qwen3.6-35B-A3B": true,
+    "C3, damage is noticed": false,
+    "D, a known difference is found": true
+  },
+  "revisions": {
+    "gpt-6-astra": {
+      "add_em_dash": 0,
+      "add_em_dash_share": 0.0,
+      "check": {
+        "accepted": 15,
+        "accepted_add_em_dash": 0,
+        "accepted_set_s": 2,
+        "first_text_both_times": 1,
+        "judge": "private-host/Qwen3.6-35B-A3B",
+        "kept": 3373,
+        "kept_share": 0.978,
+        "lost_something": 1,
+        "not_kept": {
+          "changed": 24,
+          "missing": 0,
+          "unquoted": 53
+        },
+        "pairs": 86,
+        "rejected": 71,
+        "second_text_both_times": 55,
+        "sound": {
+          "better": 27,
+          "no difference": 57,
+          "worse": 2
+        },
+        "statements": 3450,
+        "third_on_accepted": {
+          "decisive": 15,
+          "page": 11,
+          "page_share": 0.733,
+          "revision": 4,
+          "same": 0,
+          "unreadable": 0
+        },
+        "third_on_rejected": {
+          "decisive": 69,
+          "page": 41,
+          "page_share": 0.594,
+          "revision": 28,
+          "same": 1,
+          "unreadable": 1
+        },
+        "under_the_bar": 33,
+        "verdict_share": 1.0,
+        "verdicts": 86
+      },
+      "em_dashes_added": 0,
+      "high": [
+        67,
+        19
+      ],
+      "index_lower": 86,
+      "median_index": [
+        84.0,
+        30.0
+      ],
+      "no_mark_listed": 4,
+      "no_revision": 0,
+      "pages": 90,
+      "revised": 86,
+      "set_s": {
+        "high": [
+          13,
+          0
+        ],
+        "index_lower": 27,
+        "median_index": [
+          68,
+          23
+        ],
+        "revised": 27
+      },
+      "third": {
+        "decisive": 84,
+        "page": 52,
+        "page_share": 0.619,
+        "revision": 32,
+        "same": 1,
+        "unreadable": 1
+      }
+    },
+    "private-host/Qwen3.6-35B-A3B": {
+      "add_em_dash": 1,
+      "add_em_dash_share": 0.012,
+      "check": {
+        "accepted": 15,
+        "accepted_add_em_dash": 0,
+        "accepted_set_s": 3,
+        "first_text_both_times": 3,
+        "judge": "gpt-6-astra",
+        "kept": 3176,
+        "kept_share": 0.994,
+        "lost_something": 2,
+        "not_kept": {
+          "changed": 12,
+          "missing": 5,
+          "unquoted": 2
+        },
+        "pairs": 57,
+        "rejected": 42,
+        "second_text_both_times": 21,
+        "sound": {
+          "better": 19,
+          "no difference": 25,
+          "worse": 13
+        },
+        "statements": 3195,
+        "third_on_accepted": {
+          "decisive": 15,
+          "page": 10,
+          "page_share": 0.667,
+          "revision": 5,
+          "same": 0,
+          "unreadable": 0
+        },
+        "third_on_rejected": {
+          "decisive": 41,
+          "page": 16,
+          "page_share": 0.39,
+          "revision": 25,
+          "same": 1,
+          "unreadable": 0
+        },
+        "under_the_bar": 9,
+        "verdict_share": 1.0,
+        "verdicts": 57
+      },
+      "em_dashes_added": 2,
+      "high": [
+        67,
+        5
+      ],
+      "index_lower": 86,
+      "median_index": [
+        84.0,
+        23.0
+      ],
+      "no_mark_listed": 4,
+      "no_revision": 0,
+      "pages": 90,
+      "revised": 86,
+      "set_s": {
+        "high": [
+          13,
+          1
+        ],
+        "index_lower": 27,
+        "median_index": [
+          68,
+          23
+        ],
+        "revised": 27
+      },
+      "third": {
+        "decisive": 85,
+        "page": 48,
+        "page_share": 0.565,
+        "revision": 37,
+        "same": 1,
+        "unreadable": 0
+      }
+    },
+    "together": {
+      "accepted": 30,
+      "third_on_accepted": {
+        "decisive": 30,
+        "page": 21,
+        "page_share": 0.7,
+        "revision": 9,
+        "same": 0,
+        "unreadable": 0
+      },
+      "third_on_rejected": {
+        "decisive": 110,
+        "page": 57,
+        "page_share": 0.518,
+        "revision": 53,
+        "same": 2,
+        "unreadable": 1
+      }
+    }
+  }
+}

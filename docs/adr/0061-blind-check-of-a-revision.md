@@ -60,15 +60,18 @@ added 0 and 1 to 40 posts each.
 
 **The report does not ask for longer sentences.** People's articles have
 longer sentences than the posts of the product blog, and a report can say so
-with the figures of the page. A reviser follows it: the share of sentences
-over 20 words rose from 8% to 36%. All three judges then found the revision
-more like a model's text than the post, on 23, 30, and 24 of 40.
+with the figures of the page. A reviser follows it: more than a third of the
+sentences of its revisions run over 20 words, against about one in ten
+before. That is counted on the texts, and the record does not recount it.
+All three judges then found the revision more like a model's text than the
+post, on 23, 30, and 24 of 40.
 
 **A vote by section is not used.** A page and its revision were cut at their
 headings, and each section was asked in both orders. One judge was unsure on
 217 of 245 sections and found 11 revisions better and 11 worse. For the
-other reviser, the vote called 8 of 20 revisions better; the panel of three
-judges had found 5 of those 8 more like a model's text than the post.
+other reviser the vote called 8 of 20 revisions better and 6 worse, while the
+panel of three judges found the revision more like a model's text than the
+post on 19 of that reviser's 40 revisions and the post on 15.
 
 ## What the fitting half showed about a post against human text
 
@@ -85,7 +88,63 @@ it is and after a revision of every post:
 
 One judge tells every post from a human post, whatever was done to it.
 Against articles that people wrote under a style guide it tells 39 of 40.
-MEASURED
+
+## What was measured
+
+All numbers are on the measured half, with the bars written on issue 583
+before the run. Two models revised 86 pages each by the report of this
+change: the 30 posts of the product blog and 60 texts that models wrote under
+a style guide, less the pages whose report lists no mark.
+
+**A revised post against human text.** A writer who follows the product
+publishes a revision only when the check accepts it. The bars were a panel
+rate of at most 55%, and at most 65% for the judge that told every post
+before. Neither holds.
+
+| What is published | Human text | Panel picks the post | `gpt-6-astra` alone |
+| --- | --- | --- | --- |
+| The post as it is | human blog posts | 22 of 30 | 30 of 30 |
+| The post as it is | articles under a style guide | 19 of 30 | 30 of 30 |
+| Accepted revisions, either reviser | human blog posts | 22 of 30 | 29 of 30 |
+| Accepted revisions, either reviser | articles under a style guide | 21 of 30 | 30 of 30 |
+| Every revision of `gpt-6-astra` | human blog posts | 19 of 30 | 29 of 30 |
+| Every revision of `private-host/Qwen3.6-35B-A3B` | human blog posts | 22 of 30 | 29 of 30 |
+
+The check accepted the revision of 2 and of 3 of the 30 posts. The last two
+rows publish every revision without the check; no bar was set for them. The
+median index of the revised posts fell from 68 to 23 with either reviser. So
+a revision by the report lowers the index and does not make a post read as a
+person's.
+
+**The check.** It reached a verdict on all 86 and all 57 pairs, and it
+accepted 15 of each. A third model, which revised no page and judged in no
+check, named the page as more like a model's text on 21 of the 30 accepted
+revisions, the bar of 70%, and on 57 of the 110 rejected ones on which it
+named either text.
+
+**Statements.** With `gpt-6-astra` as the judge the check found 99.4% of
+3,195 statements kept. With `private-host/Qwen3.6-35B-A3B` it found 97.8% of
+3,450, under the bar of 98%: of its 77 statements that were not kept, 53 are
+ones that it called kept with words that are not in the revision.
+
+**Damage on purpose.** Each post got a copy with one sentence removed and a
+copy with the word "not" removed from one sentence. With
+`private-host/Qwen3.6-35B-A3B` as the judge the check reported a statement as
+not kept on 39 of 58 copies, under the bar of 80%. With `gpt-6-astra`, in a
+run that was added after the bars were written, it did on 48 of 58. The check
+accepted 3 and 2 of the 58 damaged copies, each with a sentence removed: the
+comparison called the copy better, and the search did not notice the missing
+sentence.
+
+**Em dashes.** None of 86 revisions of one reviser and 1 of 86 of the other
+added an em dash, and no accepted revision did.
+
+**A known difference.** The rule of two orders can say yes. On 30 pairs a
+text that a model wrote under a style guide stands as the page, and the human
+post on the same subject stands in the place of the revision. With
+`private-host/Qwen3.6-35B-A3B` as the judge the comparison named the model's
+text in both orders on 26, over the bar of 60%, and the second text both
+times on the other 4.
 
 ## Consequences
 
@@ -100,4 +159,22 @@ MEASURED
 
 ## Limits
 
-LIMITS
+- A post that a model wrote under a style guide is told from human text by
+  one judge in 29 or 30 of 30 cases, before and after any revision that was
+  tried. The product does not claim to change that.
+- The check accepts few revisions, and a rejection for "no difference" does
+  not show that a revision is no better. Over many pairs the judges name the
+  page a little more often than the revision; on one pair they mostly follow
+  the order of the texts.
+- The judge reads the opening of both texts, about 450 words.
+- The search for statements depends on the judge. One of the two judges
+  quoted words that are not in the revision for 53 statements, and the command
+  cannot tell that from a statement that is lost.
+- The search misses damage. It did not notice a removed sentence or a removed
+  "not" on 19 of 58 copies with one judge and on 10 of 58 with the other, and
+  the check accepted 3 and 2 damaged copies. An accepted revision can have
+  lost a statement.
+- The check verifies that quoted words stand in the revision. It does not
+  verify that they mean what the statement says.
+- The judges are models, and the third model is of the family of one of the
+  revisers. No person took part.

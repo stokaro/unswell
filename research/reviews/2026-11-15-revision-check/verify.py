@@ -28,8 +28,12 @@ CHECK_JUDGE = {GPT: QWEN35, QWEN35: GPT}
 THIRD = QWEN27
 # The judge that picked every post of the set before any revision.
 STRICT = GPT
+# The judge of the check on damaged copies, as the bar names it. A second judge was added after the bars were written.
+DAMAGE_JUDGE = QWEN35
 HUMAN = ("blog", "styled")
 SOUNDS = ("better", "no difference", "worse")
+# A statement that is not kept: the revision says something else, does not say it, or the judge quoted words that are not there.
+NOT_KEPT = ("changed", "missing", "unquoted")
 NAMED = ("page", "revision", "same", "unreadable")
 ELEVATED, HIGH = 40, 70
 # The bars, as they were written on issue 583 before the run.
@@ -125,17 +129,23 @@ def against_human(rows, what):
 
 
 def published_results(rows):
-    result = {}
+    """A post as it is published. With kept "every revision" the revision stands in whatever the check said."""
+    result = {"every revision": {}}
     for row in rows:
-        if row.get("reviser") not in ("none",) + REVISERS or row.get("human") not in HUMAN:
+        if row.get("reviser") not in ("none",) + REVISERS or row.get("human") not in HUMAN or row.get("kept") not in (None, "every revision"):
             fail(f"published answer without a known reviser or kind of human text: {row.get('unit')}")
+    checked = [row for row in rows if "kept" not in row]
     for reviser in ("none",) + REVISERS:
         result[reviser] = {}
         for human in HUMAN:
-            mine = [row for row in rows if row["reviser"] == reviser and row["human"] == human]
+            mine = [row for row in checked if row["reviser"] == reviser and row["human"] == human]
             if not mine:
                 fail(f"no published answers for {reviser} against {human}")
             result[reviser][human] = against_human(mine, f"{reviser} against {human}")
+    for reviser in REVISERS:
+        mine = [row for row in rows if row.get("kept") == "every revision" and row["reviser"] == reviser]
+        if mine:
+            result["every revision"][reviser] = against_human(mine, f"every revision of {reviser}")
     return result
 
 
@@ -185,9 +195,11 @@ def checked_verdict(row, key):
         fail(f"check without what the judge named in each order: {key}")
     if check["sound"] != sound_of(named):
         fail(f"check whose sound does not follow from the two answers: {key}")
-    statements, kept = check.get("statements"), check.get("kept")
+    statements, kept, others = check.get("statements"), check.get("kept"), check.get("not_kept")
     if not (isinstance(statements, int) and isinstance(kept, int) and 0 <= kept <= statements):
         fail(f"check without its statements: {key}")
+    if not (isinstance(others, dict) and set(others) == set(NOT_KEPT) and kept + sum(others.values()) == statements):
+        fail(f"check whose statements do not add up: {key}")
     lost = check.get("lost")
     if not (isinstance(lost, dict) and set(lost) == {"numbers", "code", "links"} and all(isinstance(v, int) and v >= 0 for v in lost.values())):
         fail(f"check without what was lost: {key}")
@@ -216,6 +228,13 @@ def third_votes(rows):
     return {**counted, "decisive": decisive, "page_share": share(counted["page"], decisive)}
 
 
+def index_figures(rows):
+    """The index of a group of revised pages before and after."""
+    return {"revised": len(rows), "index_lower": sum(row["index"][1] < row["index"][0] for row in rows),
+            "median_index": [median(row["index"][0] for row in rows), median(row["index"][1] for row in rows)],
+            "high": [sum(row["index"][0] >= HIGH for row in rows), sum(row["index"][1] >= HIGH for row in rows)]}
+
+
 def reviser_results(rows):
     revised = [row for row in rows if row["outcome"] == "revised"]
     checked = [row for row in revised if "check" in row]
@@ -233,6 +252,7 @@ def reviser_results(rows):
         "add_em_dash": len(adding), "add_em_dash_share": share(len(adding), len(revised)),
         "em_dashes_added": sum(row["em_dashes"][1] - row["em_dashes"][0] for row in adding),
         "third": third_votes(revised),
+        "set_s": index_figures([row for row in revised if row["set"] == "set-s"]),
         "check": {
             "judge": CHECK_JUDGE[rows[0]["reviser"]] if rows else None, "pairs": len(checked), "verdicts": len(verdicts),
             "verdict_share": share(len(verdicts), len(checked)), "accepted": len(by_verdict("accepted")), "rejected": len(by_verdict("rejected")),
@@ -241,6 +261,7 @@ def reviser_results(rows):
             "second_text_both_times": sum(row["check"]["named"] == ["revision", "page"] for row in verdicts),
             "first_text_both_times": sum(row["check"]["named"] == ["page", "revision"] for row in verdicts),
             "statements": statements, "kept": kept, "kept_share": share(kept, statements),
+            "not_kept": {kind: sum(row["check"]["not_kept"][kind] for row in verdicts) for kind in NOT_KEPT},
             "under_the_bar": sum(row["check"]["kept"] < BARS["statements_kept"] * row["check"]["statements"] for row in verdicts),
             "lost_something": sum(any(row["check"]["lost"].values()) for row in verdicts),
             "accepted_add_em_dash": sum(row["em_dashes"][1] > row["em_dashes"][0] for row in by_verdict("accepted")),
@@ -276,6 +297,40 @@ def noticed(rows, what):
         group = [row for row in rows if row["kind"] == kind]
         result[kind] = {"copies": len(group), "noticed": found(group)}
     return result
+
+
+def damage_results(rows):
+    """Damaged copies of the measured half, for each judge that checked them. The bar reads the judge that it names."""
+    seen = set()
+    for row in rows:
+        key = (row.get("judge"), row.get("unit"), row.get("kind"))
+        if row.get("judge") not in JUDGES:
+            fail(f"damaged copy without a known judge: {row.get('unit')}")
+        if key in seen:
+            fail(f"damaged copy listed twice: {key}")
+        seen.add(key)
+    judges = sorted({row["judge"] for row in rows}, key=JUDGES.index)
+    if DAMAGE_JUDGE not in judges:
+        fail("no damaged copy was checked by the judge of the bar")
+    result = {}
+    for judge in judges:
+        mine = [row for row in rows if row["judge"] == judge]
+        result[judge] = noticed(mine, f"the measured half, {judge}")
+        answered = [row for row in mine if row["verdict"] != "no verdict"]
+        result[judge]["sound"] = count((damaged_sound(row) for row in answered), SOUNDS)
+        result[judge]["better"] = {kind: sum(row["sound"] == "better" for row in answered if row["kind"] == kind) for kind in ("sentence", "negation")}
+    return result
+
+
+def damaged_sound(row):
+    """The sound of a damaged copy against its post. The two texts differ by one sentence."""
+    sound = row.get("sound")
+    if sound not in SOUNDS or sound != sound_of(row.get("named")):
+        fail(f"damaged copy whose sound does not follow from the two answers: {row.get('unit')}")
+    kept = row.get("statements", 0) - row["not_kept"]
+    if row["verdict"] == "accepted" and (sound != "better" or kept < BARS["statements_kept"] * row.get("statements", 0)):
+        fail(f"damaged copy whose verdict does not follow from the sound and the statements: {row.get('unit')}")
+    return sound
 
 
 def both_orders(rows, what):
@@ -373,7 +428,7 @@ def fitting_results(rows):
 def results(root):
     revisions = checked_revisions(read(root, "revisions"))
     result = {"bars": BARS, "published": published_results(read(root, "published")), "revisions": revisions_results(revisions),
-              "damage": noticed(read(root, "damage"), "the measured half"), "known": known_results(read(root, "known")),
+              "damage": damage_results(read(root, "damage")), "known": known_results(read(root, "known")),
               "fitting": fitting_results(read(root, "fitting"))}
     result["registered"] = registered(result)
     return result
@@ -398,7 +453,7 @@ def registered(result):
     enough = together["accepted"] >= BARS["fewest_accepted"] and on_accepted is not None
     held["B2, accepted revisions are better"] = on_accepted >= BARS["accepted_better"] if enough else None
     held["B3, rejected revisions are less often better"] = on_rejected < on_accepted if enough and on_rejected is not None else None
-    held["C3, damage is noticed"] = (result["damage"]["noticed_share"] or 0) >= BARS["damage_noticed"]
+    held["C3, damage is noticed"] = (result["damage"][DAMAGE_JUDGE]["noticed_share"] or 0) >= BARS["damage_noticed"]
     held["D, a known difference is found"] = (result["known"]["better_share"] or 0) >= BARS["known_difference"]
     return held
 

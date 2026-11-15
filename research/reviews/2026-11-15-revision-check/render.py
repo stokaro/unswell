@@ -3,6 +3,7 @@
 GPT, QWEN35, QWEN27 = "gpt-6-astra", "private-host/Qwen3.6-35B-A3B", "private-host/Qwen3.8-27B"
 REVISERS = (GPT, QWEN35)
 JUDGES = (GPT, QWEN27, QWEN35)
+DAMAGE_JUDGE = QWEN35
 HUMAN = {"blog": "human blog posts", "styled": "articles of people under a style guide"}
 
 
@@ -52,6 +53,15 @@ def published_section(result):
     accepted = ", ".join(f"{result['revisions'][reviser]['check']['accepted_set_s']} for {code(reviser)}" for reviser in REVISERS)
     lines += ["", f"Of the posts of the style-guide set, the check accepted the revision of {accepted}. The other posts are published as they were, "
               "so the rows of a reviser differ from the first rows only where a revision was accepted.", ""]
+    every = published["every revision"]
+    if every:
+        lines += ["Without the check: every revision stands in the place of its post, against the human blog posts. No bar was set for this.", "",
+                  "| Reviser | Panel picks the post | " + " | ".join(code(judge) + " alone" for judge in JUDGES) + " |",
+                  "| --- | --- |" + " --- |" * len(JUDGES)]
+        for reviser, entry in every.items():
+            alone = " | ".join(f"{entry['judges'][judge]['post']} of {entry['judges'][judge]['units']}" for judge in JUDGES)
+            lines.append(f"| {code(reviser)} | {picked(entry['panel'])}{interval(entry['panel']['interval'])} | {alone} |")
+        lines.append("")
     return lines
 
 
@@ -76,6 +86,10 @@ def check_section(result):
                      f"{check['kept']:,} of {check['statements']:,}, {percent(check['kept_share'])} | {check['under_the_bar']} | {check['lost_something']} |")
     lines += ["", "\"Second text both times\" counts the pairs where the judge named text B in both orders, which is the page once and the "
               "revision once. Such a judge follows the order of the texts, and the command reads that as no difference.", "",
+              "Statements that were not kept: " + "; ".join(
+                  f"with {code(revisions[reviser]['check']['judge'])} as the judge, {revisions[reviser]['check']['not_kept']['changed']} changed, "
+                  f"{revisions[reviser]['check']['not_kept']['missing']} missing, and {revisions[reviser]['check']['not_kept']['unquoted']} that the judge "
+                  "called kept with words that are not in the revision" for reviser in REVISERS) + ".", "",
               "The third model on the same pairs:", "",
               "| Reviser | All revisions | Accepted by the check | Rejected by the check |", "| --- | --- | --- | --- |"]
     for reviser in REVISERS:
@@ -102,18 +116,33 @@ def spoil_section(result):
         lines.append(f"| {code(reviser)} | {mine['pages']} | {mine['revised']} | {mine['no_mark_listed']} | {mine['no_revision']} | {mine['index_lower']} | "
                      f"{plainly(mine['median_index'][0])} and {plainly(mine['median_index'][1])} | {mine['high'][0]} and {mine['high'][1]} | "
                      f"{mine['add_em_dash']}, {percent(mine['add_em_dash_share'])} | {mine['em_dashes_added']} | {mine['check']['accepted_add_em_dash']} |")
+    lines += ["", "Of these, the posts of the style-guide set: " + "; ".join(
+        f"{code(reviser)} revised {revisions[reviser]['set_s']['revised']}, the index is lower on {revisions[reviser]['set_s']['index_lower']}, its median "
+        f"goes from {plainly(revisions[reviser]['set_s']['median_index'][0])} to {plainly(revisions[reviser]['set_s']['median_index'][1])}, and "
+        f"{revisions[reviser]['set_s']['high'][0]} and {revisions[reviser]['set_s']['high'][1]} are `high` before and after" for reviser in REVISERS) + "."]
     lines += ["", f"Bars. At most {percent(bars['em_dash_revisions'])} of the revisions add an em dash, and no accepted one does: "
               + "; ".join(f"{code(reviser)}, {verdict(result, f'C1, em dashes, {reviser}')}" for reviser in REVISERS) + ". "
               f"The check finds at least {percent(bars['statements_kept'])} of the statements kept over all revisions with a verdict: "
               + "; ".join(f"{code(reviser)}, {verdict(result, f'C2, statements kept, {reviser}')}" for reviser in REVISERS) + ".", "",
               "Damage on purpose. Each post of the style-guide set gets a copy with one sentence removed and a copy with the word \"not\"",
               "removed from one sentence. The sentence has no digit, code, or link, so only the search for the statements can notice it.", "",
-              "| Damage | Copies | The check reports a statement as not kept |", "| --- | --- | --- |",
-              f"| A sentence removed | {damage['sentence']['copies']} | {damage['sentence']['noticed']} |",
-              f"| \"not\" removed | {damage['negation']['copies']} | {damage['negation']['noticed']} |",
-              f"| Both | {damage['copies']} | {damage['noticed']}, {percent(damage['noticed_share'])} |", "",
-              f"{damage['no_verdict']} copies got no verdict, and the check accepted {damage['accepted']} damaged copies. Bar: at least "
-              f"{percent(bars['damage_noticed'])} of the copies, {verdict(result, 'C3, damage is noticed')}.", "",
+              "The check reports a statement as not kept on:", "",
+              "| Judge of the check | A sentence removed | \"not\" removed | Both | No verdict | Sound better, no difference, worse |"
+              " Damaged copies accepted |",
+              "| --- | --- | --- | --- | --- | --- | --- |"]
+    for judge, mine in damage.items():
+        sound = mine["sound"]
+        lines.append(f"| {code(judge)} | {mine['sentence']['noticed']} of {mine['sentence']['copies']} | {mine['negation']['noticed']} of "
+                     f"{mine['negation']['copies']} | {mine['noticed']} of {mine['copies']}, {percent(mine['noticed_share'])} | {mine['no_verdict']} | "
+                     f"{sound['better']}, {sound['no difference']}, {sound['worse']} | {mine['accepted']} |")
+    lines += ["", "A copy differs from its post by one sentence. The comparison said \"better\" on " + "; ".join(
+        f"{mine['better']['sentence']} copies with a sentence removed and {mine['better']['negation']} with \"not\" removed for {code(judge)}"
+        for judge, mine in damage.items()) + ". The check accepts a damaged copy when the comparison says \"better\" and the search for "
+              "statements does not notice the damage."]
+    others = [code(judge) for judge in damage if judge != DAMAGE_JUDGE]
+    lines += ["", f"Bar, with {code(DAMAGE_JUDGE)} as the judge: at least {percent(bars['damage_noticed'])} of the copies, "
+              f"{verdict(result, 'C3, damage is noticed')}."
+              + (f" The run with {' and '.join(others)} was added after the bars were written and has no bar." if others else ""), "",
               "## Can the check find a revision better", "",
               "A difference that is known to be large: a text that a model wrote under a style guide stands as the page, and the human post",
               "on the same subject as its revision. Only the blind comparison is read; the two texts do not hold the same statements.", "",
