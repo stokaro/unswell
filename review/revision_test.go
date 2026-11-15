@@ -370,6 +370,11 @@ func kept(count int) []review.Fact {
 	return facts
 }
 
+// suspect is a sentence that the revision may have lost, with what a judge said of it.
+func suspect(reason, outcome string) review.Suspect {
+	return review.Suspect{Line: 3, Text: "A sentence of the page.", Reason: reason, Revised: "Words of the revision.", Outcome: outcome}
+}
+
 func TestJudgeAcceptsOnlyARevisionThatPassesEveryCheck(t *testing.T) {
 	withLoss := func(facts []review.Fact, lost int) []review.Fact {
 		for index := range lost {
@@ -379,45 +384,69 @@ func TestJudgeAcceptsOnlyARevisionThatPassesEveryCheck(t *testing.T) {
 	}
 	dashed := strings.Replace(serviceRevision, "failure, and the delay", "failure—the delay", 1)
 	cases := []struct {
-		name    string
-		revised string
-		sound   string
-		facts   []review.Fact
-		reasons []string
+		name      string
+		revised   string
+		sound     string
+		facts     []review.Fact
+		sentences []review.Suspect
+		reasons   []string
 	}{
-		{"every check passes", serviceRevision, review.SoundBetter, kept(50), []string{}},
-		{"one statement in fifty is lost", serviceRevision, review.SoundBetter, withLoss(kept(50), 1), []string{}},
+		{"every check passes", serviceRevision, review.SoundBetter, kept(50), nil, []string{}},
+		{"one statement in fifty is lost", serviceRevision, review.SoundBetter, withLoss(kept(50), 1), nil, []string{}},
 		{
-			"two statements in fifty are lost", serviceRevision, review.SoundBetter, withLoss(kept(50), 2),
+			"two statements in fifty are lost", serviceRevision, review.SoundBetter, withLoss(kept(50), 2), nil,
 			[]string{"2 of 50 statements of the page are not kept"},
 		},
 		{
-			"the judge hears no difference", serviceRevision, review.SoundSame, kept(4),
+			"the judge hears no difference", serviceRevision, review.SoundSame, kept(4), nil,
 			[]string{"the judge does not find the revision less like a model's text than the page"},
 		},
 		{
-			"the judge prefers the page", serviceRevision, review.SoundWorse, kept(4),
+			"the judge prefers the page", serviceRevision, review.SoundWorse, kept(4), nil,
 			[]string{"the judge finds the revision more like a model's text than the page"},
 		},
-		{"no statement was checked", serviceRevision, review.SoundBetter, nil, []string{"no statement of the page was checked"}},
-		{"an em dash is added", dashed, review.SoundBetter, kept(4), []string{"the revision adds 1 em dashes"}},
+		{"no statement was checked", serviceRevision, review.SoundBetter, nil, nil, []string{"no statement of the page was checked"}},
+		{"an em dash is added", dashed, review.SoundBetter, kept(4), nil, []string{"the revision adds 1 em dashes"}},
 		{
 			"a number and a link are lost",
 			strings.NewReplacer("30 seconds", "half a minute", "[protocol](https://example.com/protocol)", "protocol").Replace(serviceRevision),
-			review.SoundBetter, kept(4), []string{"the revision loses 1 numbers, 1 links"},
+			review.SoundBetter, kept(4), nil, []string{"the revision loses 1 numbers, 1 links"},
+		},
+		{
+			"every suspect is cleared", serviceRevision, review.SoundBetter, kept(4),
+			[]review.Suspect{suspect(review.SentenceMissing, review.FactKept), suspect(review.SentenceNegation, review.FactKept)}, []string{},
+		},
+		{
+			"one sentence is gone", serviceRevision, review.SoundBetter, kept(50),
+			[]review.Suspect{suspect(review.SentenceMissing, review.FactMissing), suspect(review.SentenceMissing, review.FactKept)},
+			[]string{"1 sentence of the page is not in the revision"},
+		},
+		{
+			"a suspect that nobody looked at counts as lost", serviceRevision, review.SoundBetter, kept(50),
+			[]review.Suspect{suspect(review.SentenceNegation, "")}, []string{"1 sentence of the page loses a negation"},
+		},
+		{
+			"sentences are gone and negations too", serviceRevision, review.SoundBetter, kept(50),
+			[]review.Suspect{
+				suspect(review.SentenceMissing, review.FactUnquoted), suspect(review.SentenceMissing, review.FactChanged),
+				suspect(review.SentenceNegation, review.FactChanged), suspect(review.SentenceNegation, review.FactMissing),
+			},
+			[]string{"2 sentences of the page are not in the revision, and 2 sentences of the page lose a negation"},
 		},
 		{
 			"everything fails", strings.Replace(dashed, "version 2.1", "version 2", 1), review.SoundWorse, withLoss(kept(4), 4),
+			[]review.Suspect{suspect(review.SentenceMissing, review.FactMissing)},
 			[]string{
 				"the judge finds the revision more like a model's text than the page",
-				"4 of 4 statements of the page are not kept", "the revision loses 1 numbers", "the revision adds 1 em dashes",
+				"4 of 4 statements of the page are not kept", "1 sentence of the page is not in the revision",
+				"the revision loses 1 numbers", "the revision adds 1 em dashes",
 			},
 		},
 	}
 	for _, test := range cases {
 		t.Run(test.name, func(t *testing.T) {
 			c := qt.New(t)
-			verdict := revisionOf(c, t, test.revised).Judge(test.sound, test.facts)
+			verdict := revisionOf(c, t, test.revised).Judge(test.sound, test.facts, test.sentences)
 			c.Assert(verdict.Reasons, qt.DeepEquals, test.reasons)
 			c.Assert(verdict.Accepted, qt.Equals, len(test.reasons) == 0)
 		})

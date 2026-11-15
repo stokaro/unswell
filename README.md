@@ -151,8 +151,9 @@ files.
 `unswell compare` checks a revision of a page. A judge reads the opening of the
 page and of the revision without a hint of which is which, in both orders. The
 revision is accepted only when the judge names the page both times, the
-statements of the page are still in the revision, no number, code, or link is
-lost, and no em dash is added:
+statements and the sentences of the page are still in the revision, no
+number, code, or link is lost, and no em dash is added. The sentences are
+compared by the command itself, without a model:
 
 ```sh
 bin/unswell compare docs/guide.md docs/guide.revised.md \

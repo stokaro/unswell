@@ -110,10 +110,16 @@ a model's.
 blind check of one revision, and records that a revision by the report lowers
 the index and does not make a post read as a person's. Open after it: a
 remedy after which a post is not told from human text, which no report or
-rewrite that was tried gives; a search for statements that notices a removed
-sentence or a removed "not"
-([#584](https://github.com/stokaro/unswell/issues/584)); a comparison that
-reads more than the opening of a page; and people as judges.
+rewrite that was tried gives; a comparison that reads more than the opening
+of a page; and people as judges.
+
+[ADR 0062](adr/0062-sentences-of-a-revision.md) makes `unswell compare`
+compare the sentences of a page with its revision without a model, after the
+search for statements had missed a removed sentence and a removed "not"
+([#584](https://github.com/stokaro/unswell/issues/584)). Open after it:
+damage that keeps the words of a sentence and changes what it says, such as
+"before" in the place of "after"; a language other than English; and people
+as judges.
 
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on

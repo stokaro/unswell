@@ -154,7 +154,9 @@ that could be replayed from kept answers of the judge; see the
 ## Consequences
 
 - A fourth command sends text to a model that the user names, beside
-  `review` and `trim`. Its JSON report has the schema `unswell-compare-v1`.
+  `review` and `trim`. Its JSON report has the schema `unswell-compare-v1`;
+  [ADR 0062](0062-sentences-of-a-revision.md) changed it to
+  `unswell-compare-v2`.
 - The `review` package gains the prompts, the parsers, and the rule of the
   check: `NewRevision`, `SoundPrompt`, `ParseSound`, `SoundVerdict`,
   `FactsPrompt`, `ParseFacts`, `ControlPrompt`, `KeptPrompt`, `ParseKept`,
@@ -178,7 +180,8 @@ that could be replayed from kept answers of the judge; see the
 - The search misses damage. It did not notice a removed sentence or a removed
   "not" on 19 of 58 copies with one judge and on 10 of 58 with the other, and
   the check accepted 3 and 2 damaged copies. An accepted revision can have
-  lost a statement.
+  lost a statement. [ADR 0062](0062-sentences-of-a-revision.md) answers this
+  with a comparison of sentences that needs no model.
 - The check verifies that quoted words stand in the revision. It does not
   verify that they mean what the statement says.
 - The judges are models, and the third model is of the family of one of the

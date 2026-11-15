@@ -9,7 +9,7 @@ import (
 
 // RevisionProtocol names the prompts, the answer shapes, and the acceptance
 // rule of the revision check.
-const RevisionProtocol = "unswell-revision-v1"
+const RevisionProtocol = "unswell-revision-v2"
 
 // MaxFacts bounds the statements that one answer may list for one page.
 const MaxFacts = 300
@@ -623,11 +623,13 @@ type RevisionVerdict struct {
 
 // Judge accepts a revision that reads less like a model's text in both orders
 // of the blind comparison, keeps at least MinFactsKept of the statements,
-// loses no number, code, or link, and adds no em dash. sound is the value of
-// SoundVerdict, and facts are those of BindFacts.
-func (r *Revision) Judge(sound string, facts []Fact) RevisionVerdict {
+// keeps every sentence that Suspects names, loses no number, code, or link,
+// and adds no em dash. sound is the value of SoundVerdict, facts are those of
+// BindFacts, and sentences are the suspects with the outcomes of
+// BindSuspects. A suspect without an outcome counts as lost.
+func (r *Revision) Judge(sound string, facts []Fact, sentences []Suspect) RevisionVerdict {
 	reasons := []string{}
-	for _, reason := range []string{soundReason(sound), factsReason(facts), r.lostReason(), r.dashReason()} {
+	for _, reason := range []string{soundReason(sound), factsReason(facts), sentencesReason(sentences), r.lostReason(), r.dashReason()} {
 		if reason != "" {
 			reasons = append(reasons, reason)
 		}
@@ -665,6 +667,33 @@ func factsReason(facts []Fact) string {
 		return fmt.Sprintf("%d of %d statements of the page are not kept", len(facts)-kept, len(facts))
 	}
 	return ""
+}
+
+func sentencesReason(sentences []Suspect) string {
+	gone, turned := 0, 0
+	for _, suspect := range sentences {
+		switch {
+		case suspect.Outcome == FactKept:
+		case suspect.Reason == SentenceNegation:
+			turned++
+		default:
+			gone++
+		}
+	}
+	parts := []string{}
+	switch {
+	case gone == 1:
+		parts = append(parts, "1 sentence of the page is not in the revision")
+	case gone > 1:
+		parts = append(parts, fmt.Sprintf("%d sentences of the page are not in the revision", gone))
+	}
+	switch {
+	case turned == 1:
+		parts = append(parts, "1 sentence of the page loses a negation")
+	case turned > 1:
+		parts = append(parts, fmt.Sprintf("%d sentences of the page lose a negation", turned))
+	}
+	return strings.Join(parts, ", and ")
 }
 
 func (r *Revision) lostReason() string {
