@@ -28,7 +28,22 @@ salt = (G / "set-salt.txt").read_text().strip()
 posts = load("set.jsonl")
 set_id = {r["id"]: f"s-{position + 1:02d}" for position, r in
           enumerate(sorted(posts, key=lambda r: hashlib.sha256((salt + r["id"]).encode()).hexdigest()))}
-unit = lambda row_id: set_id.get(row_id, row_id)
+
+
+def unit(row_id, label):
+    """The name of a page in the record. Two writers wrote on the same subjects, so a text carries its writer."""
+    if label.startswith("gpt"):
+        return "g-" + row_id
+    if label.startswith("qwen"):
+        return "q-" + row_id
+    return set_id[row_id]
+
+
+def label_of(name):
+    """The pages that a set of copies or revisions is made of: "setS", "gptF", and so on; the first copies are of set S."""
+    return "setS" if name.startswith("damage-") or name == "blog" else name.rsplit("-", 1)[-1]
+
+
 words = lambda text: set(re.findall(r"[a-z0-9]+", text.lower()))
 
 
@@ -63,7 +78,8 @@ for part, audit, sources in (("fitting, first copies", "audit-fit-final-damage.j
         if (row["set"], row["id"]) not in source:
             continue
         kind, pages = kind_and_pages(row["set"])
-        entry = {"part": part, "pages": pages, "unit": unit(row["id"]), "kind": kind, "compared": row["compared"], "suspects": len(row["suspects"])}
+        entry = {"part": part, "pages": pages, "unit": unit(row["id"], label_of(row["set"])), "kind": kind, "compared": row["compared"],
+                 "suspects": len(row["suspects"])}
         if kind in ("sentence", "negation"):
             entry["named"] = names(source[(row["set"], row["id"])]["damage"], [s[1] for s in row["suspects"]])
         copies.append(entry)
@@ -86,6 +102,17 @@ def final_rule(row):
     return row
 
 
+def last_attempts(name):
+    """The checks of one run: for each pair its last row, and whether a row before it ended without a verdict.
+
+    A pair whose check ended without a verdict was run once more, and the second row follows the first in the file.
+    """
+    attempts = {}
+    for row in load(name):
+        attempts.setdefault((row["set"], row["id"]), []).append(row)
+    return [(rows[-1], any("error" in earlier for earlier in rows[:-1])) for rows in attempts.values()]
+
+
 def parts_of(result):
     """The parts of one verdict. An accepted verdict of the fitting half is read again under the final rule."""
     facts, sentences = result["facts"], result.get("sentences", [])
@@ -100,9 +127,11 @@ damage = []
 for part, fitted, runs in (("fitting, first copies", True, (("gpt", "compare-dev15-damage-gpt.jsonl"), ("qwen", "compare-dev15-damage.jsonl"))),
                            ("measured", False, (("gpt", "compare-test15-damage-gpt.jsonl"), ("qwen", "compare-test15-damage.jsonl")))):
     for judge, name in runs:
-        for result in load(name):
+        for result, retried in last_attempts(name):
             kind, pages = kind_and_pages(result["set"])
-            entry = {"part": part, "pages": pages, "unit": unit(result["id"]), "kind": kind, "judge": MODELS[judge]}
+            entry = {"part": part, "pages": pages, "unit": unit(result["id"], label_of(result["set"])), "kind": kind, "judge": MODELS[judge]}
+            if retried:
+                entry["retried"] = True
             if "error" in result:
                 entry["verdict"] = "no verdict"
             else:
@@ -119,14 +148,17 @@ for part, fitted, runs in (("fitting, earlier build", True, (("gpt", "compare-de
                            ("fresh", False, (("gpt", "compare-test15-fresh-gpt.jsonl"), ("qwen", "compare-test15-fresh-qwen.jsonl")))):
     for reviser, name in runs:
         judge = "qwen" if reviser == "gpt" else "gpt"
-        for result in load(name):
-            entry = {"part": part, "pages": PAGES[result["set"]], "unit": unit(result["id"]), "reviser": MODELS[reviser], "judge": MODELS[judge]}
+        for result, retried in last_attempts(name):
+            entry = {"part": part, "pages": PAGES[result["set"]], "unit": unit(result["id"], label_of(result["set"])), "reviser": MODELS[reviser],
+                     "judge": MODELS[judge]}
+            if retried:
+                entry["retried"] = True
             if "error" in result:
                 entry["verdict"] = "no verdict"
             else:
                 counted, facts, lost = parts_of(final_rule(result) if fitted else result)
                 entry.update(counted, not_kept={kind: sum(f[0] == kind for f in facts) for kind in ("changed", "missing", "unquoted")},
-                             lost_by={reason: sum(s[0] == reason for s in lost) for reason in ("missing", "negation")})
+                             lost_by={reason: sum(s[0] == reason for s in lost) for reason in ("missing", "negation")}, em_dashes=result["dashes"])
             revisions.append(entry)
 write("revisions", revisions)
 
@@ -140,9 +172,9 @@ first = {(r["set"], r["id"]): r for r in load("damage-dev.jsonl")}
 for key, name in VARIANTS:
     for row in load(f"audit-fit-{key}-damage.jsonl"):
         if (row["set"], row["id"]) in first:
-            variants.append({"variant": name, "kind": kind_and_pages(row["set"])[0], "unit": unit(row["id"]), "suspects": len(row["suspects"]),
+            variants.append({"variant": name, "kind": kind_and_pages(row["set"])[0], "unit": set_id[row["id"]], "suspects": len(row["suspects"]),
                              "named": names(first[(row["set"], row["id"])]["damage"], [s[1] for s in row["suspects"]])})
     for reviser in ("gpt", "qwen"):
         for row in load(f"audit-fit-{key}-{reviser}.jsonl"):
-            variants.append({"variant": name, "kind": "revision", "reviser": MODELS[reviser], "unit": unit(row["id"]), "suspects": len(row["suspects"])})
+            variants.append({"variant": name, "kind": "revision", "reviser": MODELS[reviser], "unit": set_id[row["id"]], "suspects": len(row["suspects"])})
 write("variants", variants)

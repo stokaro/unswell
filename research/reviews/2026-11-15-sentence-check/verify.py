@@ -147,9 +147,14 @@ def variants_results(rows):
 
 
 def checked(row, what):
-    """Read the parts of one verdict and see that they agree. Return whether the row has a verdict."""
+    """Read the parts of one verdict and see that they agree. Return whether the row has a verdict.
+
+    A pair whose check ended without a verdict was run once more; "retried" marks it, whatever the second run gave.
+    """
     if row.get("judge") not in JUDGES or row.get("verdict") not in ("accepted", "rejected", "no verdict"):
         fail(f"{what} with an unknown judge or verdict: {row.get('unit')}")
+    if not isinstance(row.get("retried", False), bool):
+        fail(f"{what} that does not say plainly whether it was run again: {row.get('unit')}")
     if row["verdict"] == "no verdict":
         return False
     if row.get("sound") not in SOUNDS or row["sound"] != sound_of(row.get("named")):
@@ -172,10 +177,11 @@ def damage_results(rows):
             fail(f"damaged copy of an unknown part, kind of pages, or kind: {row.get('unit')}")
         answered = checked(row, "damaged copy")
         entry = result.setdefault(row["part"], {}).setdefault(row["pages"], {}).setdefault(row["judge"], {
-            "copies": 0, "verdicts": 0, "accepted": 0, "reported": 0, "by_statements": 0, "by_either": 0, "sound": dict.fromkeys(SOUNDS, 0),
-            **{kind: {"copies": 0, "reported": 0} for kind in DAMAGE}})
+            "copies": 0, "verdicts": 0, "first_verdicts": 0, "accepted": 0, "reported": 0, "by_statements": 0, "by_either": 0,
+            "sound": dict.fromkeys(SOUNDS, 0), **{kind: {"copies": 0, "reported": 0} for kind in DAMAGE}})
         entry["copies"] += 1
         entry[row["kind"]]["copies"] += 1
+        entry["first_verdicts"] += answered and not row.get("retried", False)
         if not answered:
             continue
         if not isinstance(row.get("reported"), bool) or (row["reported"] and row["lost"] == 0):
@@ -192,6 +198,7 @@ def damage_results(rows):
         for pages in part.values():
             for entry in pages.values():
                 entry["verdict_share"] = share(entry["verdicts"], entry["copies"])
+                entry["first_verdict_share"] = share(entry["first_verdicts"], entry["copies"])
                 entry["reported_share"] = share(entry["reported"], entry["copies"])
     return result
 
@@ -207,10 +214,12 @@ def revisions_results(rows):
         if row["judge"] != CHECK_JUDGE[row["reviser"]]:
             fail(f"revision whose judge is not of the other family: {row.get('unit')}")
         entry = result.setdefault(row["part"], {}).setdefault(row["reviser"], {
-            "judge": row["judge"], "pairs": 0, "verdicts": 0, "accepted": 0, "sound": dict.fromkeys(SOUNDS, 0), "statements": 0, "kept": 0,
+            "judge": row["judge"], "pairs": 0, "verdicts": 0, "first_verdicts": 0, "accepted": 0, "sound": dict.fromkeys(SOUNDS, 0),
+            "statements": 0, "kept": 0,
             "not_kept": dict.fromkeys(NOT_KEPT, 0), "under_the_bar": 0, "suspects": 0, "cleared": 0, "with_a_suspect": 0,
-            "with_a_lost_sentence": 0, "lost": dict.fromkeys(REASONS, 0), "rejected_by_sentences_alone": 0})
+            "with_a_lost_sentence": 0, "lost": dict.fromkeys(REASONS, 0), "rejected_by_sentences_alone": 0, "add_em_dash": 0})
         entry["pairs"] += 1
+        entry["first_verdicts"] += answered and not row.get("retried", False)
         if not answered:
             continue
         not_kept, lost = row.get("not_kept"), row.get("lost_by")
@@ -218,6 +227,12 @@ def revisions_results(rows):
             fail(f"revision whose statements do not add up: {row.get('unit')}")
         if not (isinstance(lost, dict) and set(lost) == set(REASONS) and sum(lost.values()) == row["lost"]):
             fail(f"revision whose lost sentences do not add up: {row.get('unit')}")
+        dashes = row.get("em_dashes")
+        if not (isinstance(dashes, list) and len(dashes) == 2 and all(isinstance(n, int) and n >= 0 for n in dashes)):
+            fail(f"revision without the em dashes of the page and of the revision: {row.get('unit')}")
+        if row["verdict"] == "accepted" and dashes[1] > dashes[0]:
+            fail(f"revision that is accepted with an em dash added: {row.get('unit')}")
+        entry["add_em_dash"] += dashes[1] > dashes[0]
         enough = row["kept"] >= BARS["statements_kept"] * row["statements"]
         entry["verdicts"] += 1
         entry["accepted"] += row["verdict"] == "accepted"
@@ -237,6 +252,7 @@ def revisions_results(rows):
     for part in result.values():
         for entry in part.values():
             entry["verdict_share"] = share(entry["verdicts"], entry["pairs"])
+            entry["first_verdict_share"] = share(entry["first_verdicts"], entry["pairs"])
             entry["kept_share"] = share(entry["kept"], entry["statements"])
     return result
 
@@ -254,7 +270,11 @@ def results(root):
 
 
 def registered(result):
-    """Read each registered bar on the measured part. A cell without data is malformed: every bar has to be read."""
+    """Read each registered bar on the measured part. A cell without data is malformed: every bar has to be read.
+
+    The bar on verdicts is read after the one retry that issue 589 set during the run, when the program of one judge
+    failed. The share on the first attempt stands beside it in the results.
+    """
     held = {}
     copies, damage, revisions = result["copies"].get("measured", {}), result["damage"].get("measured", {}), result["revisions"]
     for pages in PAGES:

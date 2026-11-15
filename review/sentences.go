@@ -306,20 +306,27 @@ func itemsText(items []Item) string {
 
 // negationWords deny what a sentence says. A word that ends in n't counts
 // too.
-var negationWords = wordSet(`not no never none nor neither without cannot nothing nobody nowhere`)
+var negationWords = wordSet(
+	"not", "no", "never", "none", "nor", "neither", "without", "cannot", "nothing", "nobody", "nowhere",
+)
 
 // functionWords carry no content of their own. A reviser adds and drops them
 // freely, so they do not count when two sentences are compared.
-var functionWords = wordSet(`a an the and or but if then else so as at by for from in into of on onto to with over under about
-	after before between through during until while when where which who whom whose what why how that this these those
-	there here it its they them their we us our you your he she his her i me my is are was were be been being am
-	do does did done doing have has had having will would shall should can could may might must also just very more
-	most much many some any each every all both either than too only own same such other another one two up down out
-	off again further once because since though although however yet still even now`)
+var functionWords = wordSet(
+	"a", "an", "the", "and", "or", "but", "if", "then", "else", "so", "as", "at", "by", "for", "from", "in", "into",
+	"of", "on", "onto", "to", "with", "over", "under", "about", "after", "before", "between", "through", "during",
+	"until", "while", "when", "where", "which", "who", "whom", "whose", "what", "why", "how", "that", "this", "these",
+	"those", "there", "here", "it", "its", "they", "them", "their", "we", "us", "our", "you", "your", "he", "she",
+	"his", "her", "i", "me", "my", "is", "are", "was", "were", "be", "been", "being", "am", "do", "does", "did", "done",
+	"doing", "have", "has", "had", "having", "will", "would", "shall", "should", "can", "could", "may", "might", "must",
+	"also", "just", "very", "more", "most", "much", "many", "some", "any", "each", "every", "all", "both", "either",
+	"than", "too", "only", "own", "same", "such", "other", "another", "one", "two", "up", "down", "out", "off", "again",
+	"further", "once", "because", "since", "though", "although", "however", "yet", "still", "even", "now",
+)
 
-func wordSet(text string) map[string]bool {
-	set := map[string]bool{}
-	for word := range strings.FieldsSeq(text) {
+func wordSet(words ...string) map[string]bool {
+	set := make(map[string]bool, len(words))
+	for _, word := range words {
 		set[word] = true
 	}
 	return set

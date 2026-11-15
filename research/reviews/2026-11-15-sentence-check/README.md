@@ -23,7 +23,33 @@ on the measured part.
 
 ## Outcome
 
-OUTCOME
+All 22 bars hold.
+
+- **Damage is reported.** Without a model, the damaged sentence is a suspect
+  on every damaged copy of the measured part: 56 of 56 copies of the posts and
+  41 of 41 copies of the fresh texts. With a judge, it stays a suspect that
+  the judge does not clear on every one of them, with either judge. The check
+  accepted no damaged copy. The search for statements alone reported a
+  statement as not kept on 43 and 28 of the 56 copies of the posts.
+- **Harmless copies are left alone.** The comparison named no suspect on any
+  of the 56 and 41 harmless copies.
+- **Statements are found kept.** Over the revisions of the earlier record the
+  check finds 3,033 of 3,039 statements kept, 99.8%, with the judge that had
+  found 97.8% before, and 3,201 of 3,216, 99.5%, with the other. Over the
+  revisions of the fresh texts it finds 99.4% and 99.2%.
+- **A sentence alone rejects some ordinary revisions.** Of the 86 and 57
+  revisions of the earlier record, 18 and 25 have a suspect. The judge cleared
+  18 of 25 suspects and 49 of 68. A sentence that was not cleared stands in 7
+  and 10 revisions. No bar was set for this, and nobody checked whether each of
+  those sentences is in fact gone.
+- **Two failures of the judges' programs.** The program of one judge exited
+  with an error on its first question for the first 72 damaged copies, and
+  the endpoint of the other answered with errors for about twenty minutes.
+  171 pairs ended without a verdict. Issue 589 set one retry for such pairs
+  while the run was in progress, before any of them had a result. After the
+  retry every pair has a verdict. RESULTS.md shows the share of verdicts on
+  the first attempt beside the share after the retry, and each retried pair is
+  marked in the data.
 
 ## What the product gained
 
@@ -76,7 +102,7 @@ was added. The rows of those copies have that rule applied to the kept
 answers, so their sentences say what the final build decides. That build
 also asked again only about a statement whose quote was not in the revision.
 On the ordinary revisions one judge then called 22 of the 90 statements of
-one revision changed, the last twenty of the list among them. The final build
+one revision changed, most of them at the end of the list. The final build
 asks again about every statement that was not found, and the ordinary
 revisions of the fitting half were checked with it.
 
@@ -111,6 +137,17 @@ judges, `gpt-6-astra` at low reasoning effort and
 `private-host/Qwen3.6-35B-A3B` with `gpt-6-astra`. Each reviser also revises
 the 30 fresh texts by the report of the build, and the judge of the other
 family checks those revisions.
+
+## The build behind the numbers
+
+The measured part ran with the build of commit `37b8aad6` of the branch of
+this change.
+
+The final build differs from it in two things that change no result. Its
+lists of function words and of negations are written as separate words; a
+check of the repository had read the one long string as stacked hedges. The
+lists hold the same words, and the final build names the same suspects on
+all 421 copies of this record. And it carries the version of the release.
 
 ## Data
 

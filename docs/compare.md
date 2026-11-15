@@ -48,7 +48,7 @@ kept only when the quoted words stand in the revision; the command checks that
 itself. At least 98% of the statements have to be kept. Before a statement
 counts as not kept, the command asks once more about it, in a list of those
 statements only. A model errs on a long list: it paraphrases a quote, or
-calls the last statements of the list changed in a row.
+calls many statements at the end of the list changed.
 
 **Sentences.** Without a model, the command compares each sentence of the
 page with the revision. A sentence has its counterpart when one sentence of
@@ -184,23 +184,52 @@ the human post on the same subject stands in the place of the revision. With
 text in both orders on 26 of them. On the other 4 it named the second text
 both times.
 
-**The statements.** With `gpt-6-astra` as the judge, 99.4% of 3,195
-statements were kept, and 9 of 57 revisions fell under the bar of 98%. With
-`private-host/Qwen3.6-35B-A3B` as the judge, 97.8% of 3,450 were kept, under
-the bar that was set for it, and 33 of 86 revisions fell under 98%. That
-judge often quotes words that are not in the revision.
-
-**Damage it does not notice.** Each post got a copy with one sentence
-removed and a copy with the word "not" removed from one sentence. The search
-for statements reported a statement as not kept on 39 of 58 copies with
-`private-host/Qwen3.6-35B-A3B` as the judge, under the bar of 80%, and on 48
-of 58 with `gpt-6-astra`, in a run added after the bars were written. The
-check accepted 3 and 2 of the 58 damaged copies, each with a sentence
-removed: the comparison called the copy better, and the search did not notice
-the missing sentence.
-
 **Em dashes.** With the line of advice that the report has now, none of 86
 revisions of one reviser and 1 of 86 of the other added an em dash.
+
+### The sentences and the statements
+
+The build of `v0.1.0-alpha.14` had no comparison of sentences. Its search for
+statements reported damage made on purpose on 39 and on 48 of 58 copies, and
+the check accepted 3 and 2 damaged copies. One judge found 97.8% of the
+statements kept, under 98%, because it quoted words that are not in the
+revision. The comparison of sentences and the second question about a
+statement answer that. A second measurement, with the bars written on issue
+589 before the run, read them; its
+[record](../research/reviews/2026-11-15-sentence-check/RESULTS.md) recounts
+the numbers, and [ADR 0062](adr/0062-sentences-of-a-revision.md) has the
+decisions.
+
+The style-guide set has no post that no run had read: its 30 measured posts
+were read once by the first measurement. So every bar was read on those posts
+with new damaged copies, and on 30 texts that no run had read, which two
+models wrote under a style guide. All 22 bars hold.
+
+**Damage is reported.** Each page got a copy with one sentence removed and a
+copy with the word "not" removed from one sentence.
+
+| What | Posts | Texts that no run had read |
+| --- | --- | --- |
+| The damaged sentence is a suspect, without a model | 56 of 56 | 41 of 41 |
+| The check reports it, with `gpt-6-astra` as the judge | 56 of 56 | 41 of 41 |
+| The check reports it, with `private-host/Qwen3.6-35B-A3B` | 56 of 56 | 41 of 41 |
+| Damaged copies accepted, either judge | 0 | 0 |
+
+**Harmless copies are left alone.** A copy with two sentences joined, or with
+its negations written as contractions, got a suspect on none of 56 and none
+of 41.
+
+**The statements are found kept.** Over the revisions of the first
+measurement the check finds 99.8% of 3,039 statements kept with
+`private-host/Qwen3.6-35B-A3B` as the judge and 99.5% of 3,216 with
+`gpt-6-astra`. Over revisions of the texts that no run had read it finds
+99.4% and 99.2%.
+
+**A sentence alone rejects some ordinary revisions.** Of 86 and 57 revisions
+by the report, 18 and 25 had a suspect. The judge cleared 18 of 25 suspects
+and 49 of 68, and a sentence that it did not clear stood in 7 and 10
+revisions. One of the two revisers drops or rewords a sentence more often
+than the other.
 
 ## Limits
 
@@ -209,14 +238,17 @@ revisions of one reviser and 1 of 86 of the other added an em dash.
   the page in both orders.
 - The judge reads the opening of both texts. A revision that changes only
   what comes later is judged on text that is the same in both.
-- The search for statements depends on the judge. A judge that quotes
-  carelessly rejects revisions that keep every statement, and the command
-  cannot tell that from a statement that was lost. It verifies the quote, not
-  the meaning.
-- An accepted revision can have lost a statement. The search missed a
-  removed sentence or a removed "not" on 10 to 19 of 58 damaged copies, and
-  the check accepted 2 or 3 of them. Read the diff of a revision before you
-  publish it.
+- The search for statements depends on the judge, and it verifies a quote,
+  not its meaning.
+- The comparison of sentences reads words. A revision that keeps the words of
+  a sentence and changes what it says, with "before" where the page said
+  "after", has its counterpart. The damage that was measured is a removed
+  sentence and a removed "not".
+- A paraphrase that keeps none of a sentence's own words is not cleared,
+  whatever the judge says: the revision is rejected, and the report names the
+  sentence. Read it and decide.
+- The words are English. The lists of function words, negations, and endings
+  are English lists.
 - An accepted revision more often reads less like a model's text than the
   page did. It is still told from text that a person wrote; see
   [a revised post against human text](ai-sounding-index.md#a-revised-post-against-human-text).

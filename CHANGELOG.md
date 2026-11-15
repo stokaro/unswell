@@ -1,6 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-alpha.15
+
+This release makes the check of a revision find a sentence that the revision
+dropped or turned around. The command now compares the sentences itself,
+without a model.
 
 `unswell compare` now compares the sentences of the page with the revision
 itself, without a model. A sentence that has no counterpart in the revision,
@@ -15,7 +19,15 @@ suspects as a third argument
 ([documentation](docs/compare.md),
 [ADR 0062](docs/adr/0062-sentences-of-a-revision.md)).
 
-MEASURED
+The change was measured on new damaged copies of the 30 posts of the measured
+half and on 30 texts that no run had read, with the bars written on issue 589
+before the run. A removed sentence, or one without its "not", is reported on
+every one of 97 damaged copies with either of two judges, and no damaged copy
+is accepted. A copy with two sentences joined or with contractions gets no
+suspect. The check finds 99.2% to 99.8% of the statements kept, also with the
+judge that had found 97.8%. The posts had been read once by the earlier
+measurement; the record says so
+([record](research/reviews/2026-11-15-sentence-check/RESULTS.md)).
 
 ## 0.1.0-alpha.14
 

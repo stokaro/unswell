@@ -353,7 +353,7 @@ func askFacts(ctx context.Context, client modelClient, options modelRunOptions, 
 // count as kept, and about those only. A statement is kept when the second
 // answer finds it with words that stand in the revision; otherwise it keeps
 // its first outcome. A model errs on a long list: it paraphrases a quote, or
-// calls the last statements of the list changed in a row. The same statements
+// calls many statements at the end of the list changed. The same statements
 // in a short list show whether the revision lost them.
 func askAgain(
 	revision *review.Revision, lookup func(prompt string, count int) ([]review.FactVerdict, error), statements []review.Fact,

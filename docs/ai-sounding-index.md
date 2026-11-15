@@ -501,7 +501,8 @@ were written on issue 583 before the run.
   page, with another it did not on the posts of the product blog.
 - A lower index after a revision does not show that the revision helped. The
   index falls after almost any edit of a run. [`unswell compare`](compare.md)
-  checks one revision blind and looks for the statements of the page in it.
+  checks one revision blind and looks for the statements and the sentences of
+  the page in it.
 - A revised post is still told from human text: one judge tells 29 of 30.
 - Against a page fixed with a third-party linter's findings, the advantage is
   measured for `unswell fix` and for a model that follows the report as it is

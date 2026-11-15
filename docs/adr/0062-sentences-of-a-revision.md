@@ -71,8 +71,8 @@ question for those statements only, and a statement that is quoted properly
 the second time is kept. A model errs on a long list. One judge quoted words
 that are not in the revision for 53 statements of the earlier record. On the
 fitting half the same judge called 22 of the 90 statements of one revision
-changed, the last twenty of the list among them; the other 15 revisions it
-had read by then kept every statement.
+changed, most of them at the end of the list; the other 15 revisions it had
+read by then kept every statement.
 
 ## What the fitting half showed
 
@@ -103,7 +103,35 @@ and of the 47 in those of the second it cleared 38. A sentence alone rejects
 
 ## What was measured
 
-MEASURED
+The bars were written on issue 589 before the run. The style-guide set has no
+post that no run had read: the 30 posts of its measured half were read once
+by the record of ADR 0061. So every bar was read twice, on those 30 posts with
+new copies and on 30 texts that no run had read, which two models wrote under
+a style guide. All 22 bars hold.
+
+| What | Posts of the style-guide set | Texts that no run had read |
+| --- | --- | --- |
+| Damaged copies where the sentence is a suspect, without a model | 56 of 56 | 41 of 41 |
+| Harmless copies with a suspect, without a model | 0 of 56 | 0 of 41 |
+| Damaged copies that the check reports, with `gpt-6-astra` as the judge | 56 of 56 | 41 of 41 |
+| The same, with `private-host/Qwen3.6-35B-A3B` | 56 of 56 | 41 of 41 |
+| Damaged copies that the check accepts, either judge | 0 | 0 |
+
+The statements. Over the revisions of the earlier record the check finds
+3,033 of 3,039 statements kept with `private-host/Qwen3.6-35B-A3B` as the
+judge, 99.8% where the earlier build found 97.8%, and 3,201 of 3,216 with
+`gpt-6-astra`, 99.5%. Over revisions of the fresh texts it finds 897 of 902
+and 1,587 of 1,599.
+
+The sentences of ordinary revisions. Of the 86 and 57 revisions of the
+earlier record, 18 and 25 have a suspect; the judge cleared 18 of 25 suspects
+and 49 of 68, and a sentence that was not cleared stands in 7 and 10
+revisions. No bar was set for this.
+
+During the run the program of one judge and the endpoint of the other failed,
+and 171 pairs ended without a verdict. Issue 589 set one retry for such pairs
+while the run was in progress. After it every pair has a verdict; the record
+shows both counts.
 
 ## Consequences
 

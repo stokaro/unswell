@@ -45,7 +45,7 @@ def revision(part, reviser, number):
              3: checked(kept=48)}.get(number, checked())
     not_kept = {"changed": parts["statements"] - parts["kept"], "missing": 0, "unquoted": 0}
     return {"part": part, "pages": "set-s", "unit": f"u{number}", "reviser": reviser, "judge": verify.CHECK_JUDGE[reviser], **parts,
-            "not_kept": not_kept, "lost_by": {"missing": parts["lost"], "negation": 0}}
+            "not_kept": not_kept, "lost_by": {"missing": parts["lost"], "negation": 0}, "em_dashes": [2, 3] if number == 4 else [2, 2]}
 
 
 def record():
@@ -104,13 +104,14 @@ class RecountTest(unittest.TestCase):
         self.assertEqual((measured["harmless"]["copies"], measured["harmless"]["with_a_suspect"]), (20, 0))
         cell = result["damage"][MEASURED]["fresh"][QWEN35]
         self.assertEqual((cell["copies"], cell["verdicts"], cell["reported"], cell["by_statements"], cell["by_either"]), (20, 20, 19, 1, 20))
+        self.assertEqual((cell["first_verdicts"], cell["first_verdict_share"]), (20, 1.0))
         self.assertEqual((cell["sentence"]["reported"], cell["negation"]["reported"], cell["accepted"], cell["reported_share"]), (9, 10, 0, 0.95))
         self.assertEqual(cell["sound"], {"better": 0, "no difference": 20, "worse": 0})
         mine = result["revisions"]["read"][GPT]
         self.assertEqual((mine["judge"], mine["pairs"], mine["accepted"], mine["kept"], mine["statements"]), (QWEN35, 10, 1, 498, 500))
         self.assertEqual((mine["kept_share"], mine["under_the_bar"], mine["not_kept"]["changed"]), (0.996, 1, 2))
         self.assertEqual((mine["with_a_suspect"], mine["suspects"], mine["cleared"], mine["with_a_lost_sentence"]), (2, 3, 2, 1))
-        self.assertEqual((mine["lost"], mine["rejected_by_sentences_alone"]), ({"missing": 1, "negation": 0}, 1))
+        self.assertEqual((mine["lost"], mine["rejected_by_sentences_alone"], mine["add_em_dash"]), ({"missing": 1, "negation": 0}, 1, 1))
         first, second = result["variants"]
         self.assertEqual((first["variant"], first["damaged"]["sentence"]["named"], second["damaged"]["negation"]["named"]), ("all words", 3, 5))
         self.assertEqual(first["revisions"][GPT], {"revisions": 5, "with_a_suspect": 1, "suspects": 2})
@@ -142,6 +143,25 @@ class RecountTest(unittest.TestCase):
                     row["verdict"] = "no verdict"
         result = self.changed("damage", silent)
         self.assertFalse(result["registered"][f"V, verdicts on damaged copies, set-s, {QWEN35}"])
+
+    def test_a_retried_pair_counts_after_its_retry_and_is_shown(self):
+        def retried(rows):
+            for row in rows:
+                if (row["part"], row["pages"], row["judge"]) == (MEASURED, "set-s", GPT) and row["unit"] in ("u1", "u2", "u3"):
+                    row["retried"] = True
+        result = self.changed("damage", retried)
+        cell = result["damage"][MEASURED]["set-s"][GPT]
+        # Six copies needed the retry and got a verdict from it: the bar is read after it, and the first attempt is shown.
+        self.assertEqual((cell["copies"], cell["verdicts"], cell["first_verdicts"], cell["first_verdict_share"]), (20, 20, 14, 0.7))
+        self.assertTrue(result["registered"][f"V, verdicts on damaged copies, set-s, {GPT}"])
+        self.assertIn("On the first attempt the shares were posts of the style-guide set, `gpt-6-astra`, 70.0%", (self.root / "RESULTS.md").read_text())
+
+        def again(rows):
+            for row in rows:
+                if (row["part"], row["reviser"]) == ("read", GPT) and row["unit"] == "u5":
+                    row["retried"] = True
+        result = self.changed("revisions", again)
+        self.assertEqual((result["revisions"]["read"][GPT]["verdicts"], result["revisions"]["read"][GPT]["first_verdicts"]), (10, 9))
 
         def suspected(rows):
             for row in rows:
@@ -183,6 +203,7 @@ class RecountTest(unittest.TestCase):
         self.assertIn("verdict does not follow", self.broken("damage", lambda rows: rows[2].update(verdict="accepted")))
         self.assertIn("report does not follow", self.broken("damage", lambda rows: rows[0].update(reported=True)))
         self.assertIn("report does not follow", self.broken("damage", lambda rows: rows[2].pop("reported")))
+        self.assertIn("whether it was run again", self.broken("damage", lambda rows: rows[0].update(retried="yes")))
 
         def one_judge(rows):
             rows[:] = [row for row in rows if (row["part"], row["judge"]) != (MEASURED, GPT)]
@@ -198,6 +219,8 @@ class RecountTest(unittest.TestCase):
         self.assertIn("lost sentences do not add up", self.broken("revisions", lambda rows: rows[2]["lost_by"].update(negation=1)))
         self.assertIn("verdict does not follow", self.broken("revisions", lambda rows: rows[2].update(verdict="accepted")))
         self.assertIn("verdict does not follow", self.broken("revisions", lambda rows: rows[3].update(verdict="accepted")))
+        self.assertIn("without the em dashes", self.broken("revisions", lambda rows: rows[0].update(em_dashes=[1])))
+        self.assertIn("with an em dash added", self.broken("revisions", lambda rows: rows[0].update(em_dashes=[0, 1])))
 
         def without(rows):
             rows[:] = [row for row in rows if (row["part"], row["reviser"]) != ("fresh", QWEN35)]

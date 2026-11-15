@@ -52,10 +52,12 @@ def damage_section(result):
     lines = ["## Damaged copies under a judge", "",
              "The whole check on each damaged copy. \"Reported by the sentences\" counts the copies where the damaged sentence is a suspect",
              "that the judge did not clear. \"By the statements\" counts those where the search for statements found one not kept, which",
-             "need not be the damaged one.", "",
-             "| Part | Pages | Judge | Copies | Verdicts | Reported by the sentences: removed, \"not\" removed, both | By the statements |"
+             "need not be the damaged one. A copy whose check ended without a verdict was run once more; the counts after the first",
+             "column of verdicts are those after that retry.", "",
+             "| Part | Pages | Judge | Copies | Verdicts on the first attempt | Verdicts after one retry |"
+             " Reported by the sentences: removed, \"not\" removed, both | By the statements |"
              " By either | Sound better, no difference, worse | Damaged copies accepted |",
-             "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
+             "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
     for part in COPY_PARTS:
         for pages, name in PAGES.items():
             for judge in JUDGES:
@@ -63,7 +65,7 @@ def damage_section(result):
                 if entry is None:
                     continue
                 sound = entry["sound"]
-                lines.append(f"| {part} | {name} | {code(judge)} | {entry['copies']} | {entry['verdicts']} | "
+                lines.append(f"| {part} | {name} | {code(judge)} | {entry['copies']} | {entry['first_verdicts']} | {entry['verdicts']} | "
                              f"{of(entry['sentence']['reported'], entry['sentence']['copies'])}, "
                              f"{of(entry['negation']['reported'], entry['negation']['copies'])}, "
                              f"{of(entry['reported'], entry['copies'])}, {percent(entry['reported_share'])} | {entry['by_statements']} | "
@@ -73,8 +75,10 @@ def damage_section(result):
               + "; ".join(f"{name}, {code(judge)}, {verdict(result, f'D1, damage reported, {pages}, {judge}')}" for pages, name, judge in cells)
               + f". The check accepts at most {bars['damaged_accepted']} damaged copy: "
               + "; ".join(f"{name}, {code(judge)}, {verdict(result, f'D2, damaged copies accepted, {pages}, {judge}')}" for pages, name, judge in cells)
-              + f". It reaches a verdict on at least {percent(bars['verdicts'])} of the copies: "
+              + f". It reaches a verdict on at least {percent(bars['verdicts'])} of the copies, after one retry of a copy without a verdict: "
               + "; ".join(f"{name}, {code(judge)}, {verdict(result, f'V, verdicts on damaged copies, {pages}, {judge}')}" for pages, name, judge in cells)
+              + ". On the first attempt the shares were "
+              + "; ".join(f"{name}, {code(judge)}, {percent(damage['measured'][pages][judge]['first_verdict_share'])}" for pages, name, judge in cells)
               + ".", ""]
     return lines
 
@@ -83,31 +87,34 @@ def revisions_section(result):
     revisions, bars = result["revisions"], result["bars"]
     lines = ["## Revisions", "",
              "The whole check on each revision by the report, with a judge of the other family than the reviser.", "",
-             "| Part | Reviser | Judge | Pairs | Verdicts | Accepted | Sound better, no difference, worse | Statements kept | Changed, missing,"
-             " quote not in the revision | Revisions under 98% |",
-             "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
+             "| Part | Reviser | Judge | Pairs | Verdicts on the first attempt | Verdicts after one retry | Accepted |"
+             " Sound better, no difference, worse | Statements kept | Changed, missing, quote not in the revision | Revisions under 98% |",
+             "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
     rows = [(part, name, reviser, revisions[part][reviser]) for part, name in REVISION_PARTS.items() for reviser in JUDGES
             if reviser in revisions.get(part, {})]
     for part, name, reviser, entry in rows:
         sound, not_kept = entry["sound"], entry["not_kept"]
-        lines.append(f"| {name} | {code(reviser)} | {code(entry['judge'])} | {entry['pairs']} | {entry['verdicts']} | {entry['accepted']} | "
+        lines.append(f"| {name} | {code(reviser)} | {code(entry['judge'])} | {entry['pairs']} | {entry['first_verdicts']} | {entry['verdicts']} | "
+                     f"{entry['accepted']} | "
                      f"{sound['better']}, {sound['no difference']}, {sound['worse']} | {entry['kept']:,} of {entry['statements']:,}, "
                      f"{percent(entry['kept_share'])} | {not_kept['changed']}, {not_kept['missing']}, {not_kept['unquoted']} | {entry['under_the_bar']} |")
     lines += ["", "The sentences of the same revisions. A suspect is a sentence of the page without a counterpart, or with one negation less.", "",
               "| Part | Reviser | Revisions with a suspect | Suspects | Cleared by the judge | Revisions with a sentence not cleared |"
-              " Sentences not cleared: missing, negation | Rejected by a sentence alone |",
-              "| --- | --- | --- | --- | --- | --- | --- | --- |"]
+              " Sentences not cleared: missing, negation | Rejected by a sentence alone | Revisions that add an em dash |",
+              "| --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
     for part, name, reviser, entry in rows:
         lines.append(f"| {name} | {code(reviser)} | {of(entry['with_a_suspect'], entry['verdicts'])} | {entry['suspects']} | {entry['cleared']} | "
                      f"{entry['with_a_lost_sentence']} | {entry['lost']['missing']}, {entry['lost']['negation']} | "
-                     f"{entry['rejected_by_sentences_alone']} |")
+                     f"{entry['rejected_by_sentences_alone']} | {entry['add_em_dash']} |")
     measured = [(part, name, reviser) for part, name, reviser, _ in rows if part in ("read", "fresh")]
     lines += ["", "\"Rejected by a sentence alone\" counts the revisions that keep at least 98% of their statements and have a sentence that was "
-              "not cleared. No bar was set for it.", "",
+              "not cleared. No bar was set for it, nor for the em dashes: the check rejects a revision that adds one.", "",
               f"Bars. The check finds at least {percent(bars['statements_kept'])} of the statements kept: "
               + "; ".join(f"{name}, {code(reviser)}, {verdict(result, f'R, statements kept, {part}, {reviser}')}" for part, name, reviser in measured)
-              + f". It reaches a verdict on at least {percent(bars['verdicts'])} of the pairs: "
+              + f". It reaches a verdict on at least {percent(bars['verdicts'])} of the pairs, after one retry of a pair without a verdict: "
               + "; ".join(f"{name}, {code(reviser)}, {verdict(result, f'V, verdicts on revisions, {part}, {reviser}')}"
+                          for part, name, reviser in measured) + ". On the first attempt the shares were "
+              + "; ".join(f"{name}, {code(reviser)}, {percent(revisions[part][reviser]['first_verdict_share'])}"
                           for part, name, reviser in measured) + ".", ""]
     return lines
 
