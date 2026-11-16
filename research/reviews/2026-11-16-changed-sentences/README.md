@@ -1,0 +1,117 @@
+# Every sentence that a revision changes
+
+The [earlier record](../2026-11-15-sentence-check/README.md) measured the
+comparison of sentences of `unswell compare` on two kinds of damage: a
+sentence removed, and the word "not" removed from a sentence. The check
+reported both on every copy. The rule was built for those two kinds. It
+looked for the content words of a sentence and counted its negations, so a
+revision that keeps the content words and changes what the sentence says
+passed it.
+
+This record measures the rule that replaced it. A sentence is kept only when
+it stands in the revision word for word, and every other sentence goes to the
+judge beside what replaced it.
+
+[RESULTS.md](RESULTS.md) holds the numbers, and `make check-changed-sentences`
+recounts every one of them from the data here. The bars were written on
+[issue ISSUE](https://github.com/stokaro/unswell/issues/ISSUE) before the run
+on the measured part.
+
+## Outcome
+
+OUTCOME
+
+## What the product gained
+
+- **Kept means word for word.** The command looks for each sentence of the
+  page near its place in the revision, with the same words in the same order.
+  Case, punctuation, markup, and contractions do not count, and the sentence
+  may stand inside a longer one. Every other sentence is a suspect and goes
+  to the judge. Before, the command named what makes a sentence a suspect,
+  and whatever it did not name passed.
+- **A sentence has the words of its code spans.** The engine gives the prose
+  of a paragraph in pieces around its code spans. The pieces of one block are
+  joined again, so a term that a reviser sets as code stays a word of its
+  sentence.
+- **Questions of twenty.** A long list of suspects goes to the judge in
+  several questions.
+
+## Texts
+
+The texts are those of the earlier records, prepared in the same way. The
+style-guide set has 70 posts: 40 in the fitting half and 30 in the measured
+half. It has no others.
+
+## Damage and harmless copies
+
+A copy changes one sentence of a page. The sentence is picked by a hash among
+the sentences of running prose without a digit, code, or a link, so that the
+checks of numbers, code, and links do not notice the change.
+
+| Kind | What is done to the sentence |
+| --- | --- |
+| A sentence removed | The sentence is taken out. |
+| "not" removed | The word "not" is taken out of it. |
+| "not" put in | The word "not" is put after "is", "are", "was", "will", "can", "does", "do", "should", or "must". |
+| A word turned around | One word is replaced by its opposite: before and after, above and below, must and may, always and sometimes, all and some, more and less, first and last, higher and lower, larger and smaller, faster and slower, newer and older, earlier and later, increases and decreases, enables and disables, required and optional, same and different. |
+| A clause cut off | Its last clause is cut, from "if", "when", "unless", "because", "until", or "while" to the end. |
+| Two sentences joined (harmless) | Two sentences of one paragraph are joined with ", and". |
+| Contractions (harmless) | The negations of the page are written as contractions. |
+
+## The fitting half
+
+The rule was fitted on the 40 posts of the fitting half and on nothing else:
+on copies of each kind, and on the revisions that two models made of those
+posts by the report. A first build compared the pieces of prose as the engine
+gives them; two sentences were then called missing because the revision had
+set one of their words as code. The build of this record joins the pieces of
+a block again, and the fitting rows come from it.
+
+## The measured part, and what had been read before
+
+The 30 posts of the measured half have been read twice, by the two earlier
+records. The copies of this record change sentences that neither of them
+changed. The posts are still not unread, and there are no others. So every
+bar is read on two kinds of pages:
+
+- **The posts.** The 30 posts of the measured half, with new copies.
+- **Fresh texts.** 30 texts that no run had read: texts that two models wrote
+  under a style guide on the subjects of human posts, for each writer the 15
+  after the first 45 in the order of a hash of the id. They are not posts of
+  the style-guide set.
+
+**Without a model.** The comparison runs on every copy.
+
+**With a judge.** The whole check runs on each damaged copy with each of two
+judges, `gpt-6-astra` at low reasoning effort and
+`private-host/Qwen3.6-35B-A3B`.
+
+**Revisions.** The revisions of the 27 posts that each reviser made for the
+first record are checked again. Each reviser also revises the 30 fresh texts
+by the report of the build, and the judge of the other family checks those
+revisions.
+
+**A pair without a verdict** is run once more, with the same build and the
+same settings. The issue set this before the run. Every bar is read after
+that retry, and RESULTS.md shows the share of verdicts on the first attempt.
+
+## Data
+
+| File | Rows |
+| --- | --- |
+| `data/copies.jsonl.gz` | each copy of a page: its kind, how many sentences were compared, how many suspects the comparison named, and for a damaged copy whether the changed sentence is one of them |
+| `data/damage.jsonl.gz` | each damaged copy and judge: the verdict, the sound with what the judge named in each order, the statements and how many were kept, the suspects and how many were not cleared, and whether the changed sentence is one of those |
+| `data/revisions.jsonl.gz` | each revision with its judge: the verdict, the sound, the statements with how the others failed, the suspects, the sentences that were not cleared by their kind, and the em dashes of the page and of the revision |
+
+The record holds no text of any page. A post of the style-guide set has the
+number that it has in the earlier records and nothing else that tells which
+post it is. The copies, the revisions, the sentences, and the judges' quotes
+stay with the maintainer.
+
+## Not measured
+
+People as judges. Posts of the style-guide set that no run had read. Damage
+other than the five kinds above. What a page says across several sentences,
+such as the order of steps. Whether a suspect that a judge cleared with a
+proper quote is in fact kept: the command verifies the quote, not the
+meaning. A language other than English.

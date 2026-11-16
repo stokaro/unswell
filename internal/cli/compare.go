@@ -386,15 +386,46 @@ func askAgain(
 }
 
 // askSentences compares the sentences of the page with the revision, which
-// needs no model, and asks the judge about each suspect.
+// needs no model, and asks the judge about each suspect. A suspect that the
+// judge found with words that are not in its passage is asked about once
+// more: a model that says yes may quote the sentence it was asked about.
 func askSentences(ctx context.Context, client modelClient, options modelRunOptions, revision *review.Revision) (comparedSentences, error) {
 	suspects, compared := revision.Suspects()
 	result := comparedSentences{Compared: compared, Suspects: suspects}
 	if len(suspects) == 0 {
 		return result, nil
 	}
-	result.Suspects = make([]review.Suspect, 0, len(suspects))
-	// A long list goes to the judge in several questions.
+	bound, err := askSuspects(ctx, client, options, suspects)
+	if err != nil {
+		return comparedSentences{}, err
+	}
+	result.Suspects = bound
+	var again []review.Suspect
+	var places []int
+	for index, suspect := range bound {
+		if suspect.Outcome == review.FactUnquoted {
+			again, places = append(again, suspects[index]), append(places, index)
+		}
+	}
+	if len(again) > 0 {
+		second, err := askSuspects(ctx, client, options, again)
+		if err != nil {
+			return comparedSentences{}, err
+		}
+		for index, suspect := range second {
+			if suspect.Outcome == review.FactKept {
+				result.Suspects[places[index]] = suspect
+			}
+		}
+	}
+	result.Lost = review.LostSentences(result.Suspects)
+	return result, nil
+}
+
+// askSuspects asks the judge about a list of suspects, twenty in a question,
+// and returns them with what the judge said of each.
+func askSuspects(ctx context.Context, client modelClient, options modelRunOptions, suspects []review.Suspect) ([]review.Suspect, error) {
+	answered := make([]review.Suspect, 0, len(suspects))
 	for batch := range slices.Chunk(suspects, review.SuspectsPerQuestion) {
 		var verdicts []review.FactVerdict
 		err := askModel(ctx, client, review.SuspectsPrompt(batch), options, func(answer string) (parseErr error) {
@@ -402,16 +433,15 @@ func askSentences(ctx context.Context, client modelClient, options modelRunOptio
 			return parseErr
 		})
 		if err != nil {
-			return comparedSentences{}, err
+			return nil, err
 		}
 		bound, err := review.BindSuspects(batch, verdicts)
 		if err != nil {
-			return comparedSentences{}, err
+			return nil, err
 		}
-		result.Suspects = append(result.Suspects, bound...)
+		answered = append(answered, bound...)
 	}
-	result.Lost = review.LostSentences(result.Suspects)
-	return result, nil
+	return answered, nil
 }
 
 func writeCompareReports(environment Environment, targets []reportTarget, result compareResult) error {

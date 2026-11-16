@@ -667,5 +667,60 @@ func TestCompareAsksAboutManySentencesInSeveralQuestions(t *testing.T) {
 			questions = append(questions, pairs)
 		}
 	}
-	c.Assert(questions, qt.DeepEquals, []int{20, 3})
+	// Twenty and three sentences go in two questions. The dropped one, found with words that do not clear it, is
+	// asked about once more.
+	c.Assert(questions, qt.DeepEquals, []int{20, 3, 1})
+}
+
+func TestCompareAsksOnceMoreAboutASentenceFoundWithoutItsWords(t *testing.T) {
+	// The judge finds the reworded sentence and quotes the sentence of the page that it was asked about. Those words
+	// are not in the passage, so the command asks once more about that sentence.
+	first := `{"sentences": [{"sentence": 1, "kept": "yes", "quote": "does not retry a request that the server rejected"}]}`
+	cases := []struct {
+		name, second, outcome string
+		code                  int
+	}{
+		{
+			"then the words of the passage", `{"sentences": [{"sentence": 1, "kept": "yes", "quote": "that the server rejected is not retried"}]}`,
+			"kept", 0,
+		},
+		{"then the same words again", first, "unquoted", 1},
+		{"then another answer", `{"sentences": [{"sentence": 1, "kept": "changed", "quote": ""}]}`, "unquoted", 1},
+	}
+	for _, test := range cases {
+		t.Run(test.name, func(t *testing.T) {
+			c := qt.New(t)
+			script := judgeScript{sound: pageNamed, facts: comparedFacts, control: comparedControl, kept: comparedKept}
+			asked := 0
+			model := newFakeModel(t, func(call chatCall, attempt int) (int, string) {
+				if !strings.Contains(call.User, "===== PAIR 1 =====") {
+					return script.answer(call, attempt)
+				}
+				asked++
+				if asked == 1 {
+					return http.StatusOK, first
+				}
+				return http.StatusOK, test.second
+			})
+			report, outcome := compareJSON(c, t, comparedFiles(c, t, comparedRevision), model)
+			c.Assert(outcome.code, qt.Equals, test.code, qt.Commentf("stderr: %s", outcome.stderr))
+			c.Assert(asked, qt.Equals, 2)
+			c.Assert(report.Sentences.Suspects, qt.HasLen, 1)
+			// The first outcome stays unless the second answer finds the sentence with words of its passage.
+			c.Assert(report.Sentences.Suspects[0].Outcome, qt.Equals, test.outcome)
+			c.Assert(report.Sentences.Lost, qt.Equals, test.code)
+		})
+	}
+}
+
+func TestCompareDoesNotAskAgainAboutASentenceThatTheJudgeCallsChanged(t *testing.T) {
+	c := qt.New(t)
+	script := judgeScript{sound: pageNamed, facts: comparedFacts, control: comparedControl, kept: comparedKept,
+		sentences: `{"sentences": [{"sentence": 1, "kept": "changed", "quote": ""}]}`}
+	model := newFakeModel(t, script.answer)
+	report, outcome := compareJSON(c, t, comparedFiles(c, t, comparedRevision), model)
+	c.Assert(outcome.code, qt.Equals, 1)
+	c.Assert(report.Sentences.Suspects[0].Outcome, qt.Equals, "changed")
+	// Two questions for the sound, three for the statements, and one for the sentence.
+	c.Assert(model.received(), qt.HasLen, 6)
 }
