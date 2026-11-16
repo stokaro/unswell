@@ -392,14 +392,35 @@ func askAgain(
 func askSentences(ctx context.Context, client modelClient, options modelRunOptions, revision *review.Revision) (comparedSentences, error) {
 	suspects, compared := revision.Suspects()
 	result := comparedSentences{Compared: compared, Suspects: suspects}
-	if len(suspects) == 0 {
-		return result, nil
+	// A suspect with nothing at its place has its outcome already. The others go to the judge.
+	var open []review.Suspect
+	var places []int
+	for index, suspect := range suspects {
+		if suspect.Outcome == "" {
+			open, places = append(open, suspect), append(places, index)
+		}
 	}
-	bound, err := askSuspects(ctx, client, options, suspects)
+	bound, err := askSuspectsTwice(ctx, client, options, open)
 	if err != nil {
 		return comparedSentences{}, err
 	}
-	result.Suspects = bound
+	for index, suspect := range bound {
+		result.Suspects[places[index]] = suspect
+	}
+	result.Lost = review.LostSentences(result.Suspects)
+	return result, nil
+}
+
+// askSuspectsTwice asks the judge about the suspects, and once more about
+// those that it found without the words of their place.
+func askSuspectsTwice(ctx context.Context, client modelClient, options modelRunOptions, suspects []review.Suspect) ([]review.Suspect, error) {
+	if len(suspects) == 0 {
+		return nil, nil
+	}
+	bound, err := askSuspects(ctx, client, options, suspects)
+	if err != nil {
+		return nil, err
+	}
 	var again []review.Suspect
 	var places []int
 	for index, suspect := range bound {
@@ -407,23 +428,21 @@ func askSentences(ctx context.Context, client modelClient, options modelRunOptio
 			again, places = append(again, suspects[index]), append(places, index)
 		}
 	}
-	if len(again) > 0 {
-		second, err := askSuspects(ctx, client, options, again)
-		if err != nil {
-			return comparedSentences{}, err
-		}
-		for index, suspect := range second {
-			if suspect.Outcome == review.FactKept {
-				result.Suspects[places[index]] = suspect
-			}
+	if len(again) == 0 {
+		return bound, nil
+	}
+	second, err := askSuspects(ctx, client, options, again)
+	if err != nil {
+		return nil, err
+	}
+	for index, suspect := range second {
+		if suspect.Outcome == review.FactKept {
+			bound[places[index]] = suspect
 		}
 	}
-	result.Lost = review.LostSentences(result.Suspects)
-	return result, nil
+	return bound, nil
 }
 
-// askSuspects asks the judge about a list of suspects, twenty in a question,
-// and returns them with what the judge said of each.
 func askSuspects(ctx context.Context, client modelClient, options modelRunOptions, suspects []review.Suspect) ([]review.Suspect, error) {
 	answered := make([]review.Suspect, 0, len(suspects))
 	for batch := range slices.Chunk(suspects, review.SuspectsPerQuestion) {
@@ -548,20 +567,29 @@ func sentencesText(sentences comparedSentences) string {
 		fmt.Fprintf(&text, "Sentences: %d of %s of the page not in the revision word for word; the judge did not find %d of them there.\n",
 			len(sentences.Suspects), plural(sentences.Compared, "compared sentence"), sentences.Lost)
 	}
+	padding := 0
 	for _, suspect := range sentences.Suspects {
 		if suspect.Outcome != review.FactKept {
 			fmt.Fprintf(&text, "    line %d, %s: %s\n", suspect.Line, suspectLabel(suspect), excerpt(suspect.Text, maxReasonText))
 		}
+		if suspect.Padding {
+			padding++
+		}
+	}
+	if padding > 0 {
+		fmt.Fprintf(&text, "    The judge called the words left out of %s padding; the JSON report lists them.\n", plural(padding, "sentence"))
 	}
 	return text.String()
 }
 
 // suspectLabel says what happened to a sentence that the judge did not find.
 func suspectLabel(suspect review.Suspect) string {
-	switch suspect.Reason {
-	case review.SentenceNegation:
+	switch {
+	case suspect.Cut != "":
+		return fmt.Sprintf("the revision leaves out %q", excerpt(suspect.Cut, maxReasonText))
+	case suspect.Reason == review.SentenceNegation:
 		return "a negation is gone"
-	case review.SentenceReworded:
+	case suspect.Reason == review.SentenceReworded:
 		return "says something else"
 	}
 	return "not in the revision"

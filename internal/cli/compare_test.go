@@ -153,8 +153,9 @@ type compareReport struct {
 		Compared int `json:"compared"`
 		Lost     int `json:"lost"`
 		Suspects []struct {
-			Line                                  int
-			Text, Reason, Revised, Outcome, Quote string
+			Line                                       int
+			Text, Reason, Revised, Cut, Outcome, Quote string
+			Padding                                    bool
 		} `json:"suspects"`
 	} `json:"sentences"`
 	Lost *struct {
@@ -194,7 +195,7 @@ func TestCompareAcceptsARevisionThatPassesEveryCheck(t *testing.T) {
 	report, outcome := compareJSON(c, t, comparedFiles(c, t, comparedRevision), model)
 	c.Assert(outcome.code, qt.Equals, 0, qt.Commentf("stderr: %s", outcome.stderr))
 	c.Assert(report.SchemaVersion, qt.Equals, "unswell-compare-v2")
-	c.Assert(report.Protocol, qt.Equals, "unswell-revision-v2")
+	c.Assert(report.Protocol, qt.Equals, "unswell-revision-v3")
 	c.Assert(report.Page.Path, qt.Equals, "page.md")
 	c.Assert(report.Revision.Path, qt.Equals, "revised.md")
 	c.Assert(report.Sound.Verdict, qt.Equals, "better")
@@ -723,4 +724,103 @@ func TestCompareDoesNotAskAgainAboutASentenceThatTheJudgeCallsChanged(t *testing
 	c.Assert(report.Sentences.Suspects[0].Outcome, qt.Equals, "changed")
 	// Two questions for the sound, three for the statements, and one for the sentence.
 	c.Assert(model.received(), qt.HasLen, 6)
+}
+
+// pageHas answers the blind comparison as a judge that hears the page as the
+// one more like a model's text, for a revision that has no words of its own:
+// the page is the text with the given words.
+func pageHas(words string) func(chatCall) string {
+	return func(call chatCall) string {
+		letter := "A"
+		if strings.Index(call.User, words) > strings.Index(call.User, "===== TEXT B =====") {
+			letter = "B"
+		}
+		return `{"more_like_a_model": "` + letter + `", "reason": "Its sentences have one length."}`
+	}
+}
+
+func TestCompareRejectsASentenceWithNothingAtItsPlaceWithoutAsking(t *testing.T) {
+	c := qt.New(t)
+	// The revision is the page without one sentence. The sentences around it stand word for word, so the revision
+	// wrote nothing at its place, and there is nothing to ask a judge about.
+	removed := strings.Replace(comparedPage, "The client does not retry a request that the server rejected. ", "", 1)
+	script := judgeScript{sound: pageHas("The client does not retry"), facts: twoFacts, control: twoControl, kept: twoControl}
+	model := newFakeModel(t, script.answer)
+	root := comparedFiles(c, t, removed)
+	report, outcome := compareJSON(c, t, root, model)
+	c.Assert(outcome.code, qt.Equals, 1, qt.Commentf("stderr: %s", outcome.stderr))
+	c.Assert(report.Facts.Kept, qt.Equals, 2)
+	c.Assert(report.Sentences.Lost, qt.Equals, 1)
+	c.Assert(report.Sentences.Suspects, qt.HasLen, 1)
+	suspect := report.Sentences.Suspects[0]
+	c.Assert(suspect.Text, qt.Equals, "The client does not retry a request that the server rejected.")
+	c.Assert(suspect.Reason, qt.Equals, "missing")
+	c.Assert(suspect.Revised, qt.Equals, "")
+	c.Assert(suspect.Outcome, qt.Equals, "missing")
+	c.Assert(report.Verdict.Reasons, qt.DeepEquals, []string{"1 sentence of the page is not in the revision"})
+	// Two calls for the sound and three for the statements. None is about the sentence.
+	calls := model.received()
+	c.Assert(calls, qt.HasLen, 5)
+	for _, call := range calls {
+		c.Assert(call.User, qt.Not(qt.Contains), "===== PAIR 1 =====")
+	}
+}
+
+func TestCompareNamesTheWordsThatTheRevisionLeftOut(t *testing.T) {
+	// The revision has the first sentence without its last words, and nothing else is changed.
+	cut := strings.Replace(comparedPage, " after a connection failure", "", 1)
+	kept := strings.Replace(comparedControl, "The client retries a request after a connection failure", "The client retries a request", 1)
+	line := `    line 3, the revision leaves out "after a connection failure": The client retries a request after a connection failure.` + "\n"
+	cases := []struct {
+		name, sentences, outcome, line string
+		padding                        bool
+		calls, code                    int
+	}{
+		{
+			// What is left of the sentence shows only that the rest is kept, so the judge is asked once more.
+			"the judge quotes what is left of the sentence",
+			`{"sentences": [{"sentence": 1, "kept": "yes", "quote": "The client retries a request"}]}`, "unquoted", line, false, 7, 1,
+		},
+		{"the judge calls it changed", `{"sentences": [{"sentence": 1, "kept": "changed", "quote": ""}]}`, "changed", line, false, 6, 1},
+		{
+			"the judge calls the words padding", `{"sentences": [{"sentence": 1, "kept": "padding", "quote": ""}]}`, "kept",
+			"    The judge called the words left out of 1 sentence padding; the JSON report lists them.\n", true, 6, 0,
+		},
+	}
+	for _, test := range cases {
+		t.Run(test.name, func(t *testing.T) {
+			c := qt.New(t)
+			script := judgeScript{sound: pageHas("after a connection failure"), facts: comparedFacts, control: comparedControl, kept: kept,
+				sentences: test.sentences}
+			// The page and the revision both have the sentence that tells them apart for the other tests.
+			answer := func(call chatCall, attempt int) (int, string) {
+				if _, searched, found := strings.Cut(call.User, "===== PAGE ====="); found && !strings.Contains(searched, "after a connection failure") {
+					return http.StatusOK, kept
+				}
+				return script.answer(call, attempt)
+			}
+			model := newFakeModel(t, answer)
+			root := comparedFiles(c, t, cut)
+			report, outcome := compareJSON(c, t, root, model)
+			c.Assert(outcome.code, qt.Equals, test.code, qt.Commentf("stderr: %s", outcome.stderr))
+			c.Assert(report.Facts.Kept, qt.Equals, 3)
+			c.Assert(report.Sentences.Suspects, qt.HasLen, 1)
+			suspect := report.Sentences.Suspects[0]
+			c.Assert(suspect.Reason, qt.Equals, "cut")
+			c.Assert(suspect.Cut, qt.Equals, "after a connection failure")
+			c.Assert(suspect.Revised, qt.Equals, "The client retries a request.")
+			c.Assert(suspect.Outcome, qt.Equals, test.outcome)
+			c.Assert(suspect.Padding, qt.Equals, test.padding)
+			c.Assert(report.Sentences.Lost, qt.Equals, test.code)
+			calls := model.received()
+			c.Assert(calls, qt.HasLen, test.calls)
+			c.Assert(calls[5].User, qt.Contains, "===== PAIR 1 =====\nSentence: The client retries a request after a connection failure.\n"+
+				"Passage: The client retries a request.\nLeft out: after a connection failure\n")
+			if test.code == 1 {
+				c.Assert(report.Verdict.Reasons, qt.DeepEquals, []string{"1 sentence of the page has words left out in the revision"})
+			}
+			text := runCommand(t, "compare", root, "", "page.md", "revised.md", "--quiet", "--endpoint", model.server.URL, "--model", "judge")
+			c.Assert(text.stdout, qt.Contains, test.line)
+		})
+	}
 }

@@ -9,7 +9,7 @@ import (
 
 // RevisionProtocol names the prompts, the answer shapes, and the acceptance
 // rule of the revision check.
-const RevisionProtocol = "unswell-revision-v2"
+const RevisionProtocol = "unswell-revision-v3"
 
 // MaxFacts bounds the statements that one answer may list for one page.
 const MaxFacts = 300
@@ -687,6 +687,7 @@ func sentencesReason(sentences []Suspect) string {
 	for _, kind := range []struct{ reason, one, many string }{
 		{SentenceMissing, "is not in the revision", "are not in the revision"},
 		{SentenceNegation, "loses a negation", "lose a negation"},
+		{SentenceCut, "has words left out in the revision", "have words left out in the revision"},
 		{SentenceReworded, "says something else in the revision", "say something else in the revision"},
 	} {
 		switch count := lost[kind.reason]; {
