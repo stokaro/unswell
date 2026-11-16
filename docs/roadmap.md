@@ -116,10 +116,15 @@ of a page; and people as judges.
 [ADR 0062](adr/0062-sentences-of-a-revision.md) makes `unswell compare`
 compare the sentences of a page with its revision without a model, after the
 search for statements had missed a removed sentence and a removed "not"
-([#584](https://github.com/stokaro/unswell/issues/584)). Open after it:
-damage that keeps the words of a sentence and changes what it says, such as
-"before" in the place of "after"; a language other than English; and people
-as judges.
+([#584](https://github.com/stokaro/unswell/issues/584)).
+
+[ADR 0063](adr/0063-every-changed-sentence.md) turns that rule around: a
+sentence is kept only when it stands in the revision word for word, and every
+other sentence goes to the judge
+([#594](https://github.com/stokaro/unswell/issues/594)). Open after it: what
+a page says across several sentences, such as the order of steps; prose that
+the engine does not read as prose; a judge that reads a changed sentence as
+kept; a language other than English; and people as judges.
 
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on

@@ -254,13 +254,19 @@ than the other.
   what comes later is judged on text that is the same in both.
 - The search for statements depends on the judge, and it verifies a quote,
   not its meaning.
-- The comparison of sentences reads words. A revision that keeps the words of
-  a sentence and changes what it says, with "before" where the page said
-  "after", has its counterpart. The damage that was measured is a removed
-  sentence and a removed "not".
+- The command shows the judge every sentence that the revision changed. What
+  the judge reads in it is the judge's: in the measurement a judge cleared
+  some sentences with one word turned around or with a clause cut off.
+- The check rejects many ordinary revisions for one sentence. A reviser that
+  rewords freely drops a detail somewhere, and one sentence that the judge
+  does not find rejects the revision. The report names the sentence with its
+  line; read it and decide.
 - A paraphrase that keeps none of a sentence's own words is not cleared,
-  whatever the judge says: the revision is rejected, and the report names the
-  sentence. Read it and decide.
+  whatever the judge says.
+- A sentence with fewer than three content words is not compared, and the
+  command reads only what the engine reads as prose. What a page says across
+  several sentences, such as the order of steps, is compared sentence by
+  sentence.
 - The words are English. The lists of function words, negations, and endings
   are English lists.
 - An accepted revision more often reads less like a model's text than the
