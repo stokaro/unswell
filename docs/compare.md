@@ -16,7 +16,7 @@ Sound: the revision reads less like a model's text. The judge named the page in 
     Text A states every step in a sentence of the same shape.
     Text B has one cadence from the first paragraph to the last.
 Facts: 41 of 41 statements kept.
-Sentences: each of the 58 compared sentences of the page has its counterpart in the revision.
+Sentences: 9 of 58 compared sentences of the page not in the revision word for word; the judge found each of them there.
 Numbers, code, and links: nothing lost.
 Em dashes: 0 in the page, 0 in the revision.
 Accepted.
@@ -51,23 +51,31 @@ statements only. A model errs on a long list: it paraphrases a quote, or
 calls many statements at the end of the list changed.
 
 **Sentences.** Without a model, the command compares each sentence of the
-page with the revision. A sentence has its counterpart when one sentence of
-the revision near its place, or two or three in a row, carry at least six
-tenths of its content words. That share is counted twice: over all its
-content words, and over those that the sentences around it in the page do not
-have. The sentences around a removed sentence share its subject; they do not
-have its own words. A sentence is a suspect when it has no counterpart, or
-when its counterpart has fewer negations than it has. A sentence with fewer
+page with the revision. A sentence is kept when it stands in the revision
+near its place with the same words in the same order. Case, punctuation,
+markup, and contractions do not count, and the sentence may stand inside a
+longer one, so two sentences joined with "and" are both kept. The words of a
+code span are words of its sentence, so a term that the revision sets as code
+changes nothing. Every other sentence is a suspect: the revision changed at
+least one of its words. A heading is no sentence, and a sentence with fewer
 than three content words is not compared.
 
-Most suspects are harmless: a reviser may say "rather than" where the page
-said "not", or put a sentence in words of its own. So the model is asked
-about each suspect, with the sentence beside the sentences of the revision
-from its place, and nothing else of either text. It clears a suspect only
-with a quote that stands in that place. For a missing sentence the quote also
-has to carry one of the sentence's own words: a model that quotes the
-sentence beside the gap does not clear it. One suspect that is not cleared
-rejects the revision, and the report shows the sentence with its line.
+For a suspect the command looks for a counterpart: one sentence of the
+revision near its place, or two or three in a row, with at least six tenths
+of its content words. That share is counted twice, over all its content words
+and over those that the sentences around it in the page do not have. A
+suspect without a counterpart is missing. One whose counterpart has fewer
+negations lost a negation. Any other is reworded.
+
+So nothing that a sentence says can change without that sentence going to
+the model. The model gets each suspect beside the sentences of the revision
+from its place, and nothing else of either text; a long list goes in
+questions of twenty. Most suspects are harmless: a reviser says a sentence in
+another order or in words of its own. The model clears a suspect only with a
+quote that stands in that place. For a missing sentence the quote also has to
+carry one of the sentence's own words: a model that quotes the sentence
+beside the gap does not clear it. One suspect that is not cleared rejects the
+revision, and the report shows the sentence with its line.
 
 **Numbers, code, and links.** Without a model: every number of the page's
 prose, every code block and inline code, and every link has to occur in the
@@ -139,11 +147,11 @@ the place it was looked for and what the judge said, what was lost, the em
 dashes of both texts, and the verdict with its reasons. `--report text:PATH`
 writes the text above.
 
-The command makes five to seven calls: two for the sound, three for the
-facts, one more when a statement was not found the first time, and one when
-a sentence is a suspect. The three for the facts carry the whole text of the
-page or of the revision. The call about suspects carries only those sentences
-and their places.
+The command makes five calls or more: two for the sound, three for the
+facts, one more when a statement was not found the first time, and one for
+every twenty sentences that the revision does not keep word for word. The
+three for the facts carry the whole text of the page or of the revision. A
+call about sentences carries only those sentences and their places.
 
 ## Measured behavior
 

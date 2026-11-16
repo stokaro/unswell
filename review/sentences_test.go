@@ -249,20 +249,57 @@ func TestBindSuspectsClearsOnlyAQuotedYes(t *testing.T) {
 	c.Assert(err, qt.ErrorMatches, "8 suspects have 0 verdicts")
 }
 
-func TestSuspectsCutAnItemAtTheEndsOfItsSentences(t *testing.T) {
+func TestSuspectsReadTheWordsOfACodeSpanAsWordsOfTheSentence(t *testing.T) {
 	c := qt.New(t)
-	// The prose of a paragraph up to a code span is one item with three sentences. The one in the middle is removed,
-	// and the item still carries most of its words.
+	// The engine gives the prose of this paragraph in pieces around the code span. The sentences are whole again:
+	// three before the code span and the one that holds it.
 	closing := " Run `make status` before the next step.\n"
 	page := prepare(c, t, "page.md", "# Deploy\n\n"+lockWait+" "+lockQueue+" "+lockTimeout+closing)
-	revised := prepare(c, t, "revised.md", "# Deploy\n\n"+lockWait+" "+lockTimeout+closing)
 	c.Assert(itemContaining(c, page.Items, "Every query").Text, qt.Contains, lockTimeout)
-	revision, err := review.NewRevision(page, revised)
+
+	// The sentence in the middle is removed.
+	revision, err := review.NewRevision(page, prepare(c, t, "revised.md", "# Deploy\n\n"+lockWait+" "+lockTimeout+closing))
 	c.Assert(err, qt.IsNil)
 	suspects, compared := revision.Suspects()
-	c.Assert(compared, qt.Equals, 3)
+	c.Assert(compared, qt.Equals, 4)
 	c.Assert(suspects, qt.HasLen, 1)
 	c.Assert(suspects[0].Text, qt.Equals, lockQueue)
 	c.Assert(suspects[0].Reason, qt.Equals, review.SentenceMissing)
 	c.Assert(suspects[0].Revised, qt.Equals, lockWait+" "+lockTimeout)
+
+	// A word that the revision sets as code is still a word of its sentence, and so is one that it sets as plain text.
+	for _, closing := range []string{" Run make status before the next step.\n", " Run `make` `status` before the **next** step.\n"} {
+		revision, err = review.NewRevision(page, prepare(c, t, "revised.md", "# Deploy\n\n"+lockWait+" "+lockQueue+" "+lockTimeout+closing))
+		c.Assert(err, qt.IsNil)
+		suspects, compared = revision.Suspects()
+		c.Assert(compared, qt.Equals, 4)
+		c.Assert(suspects, qt.HasLen, 0)
+	}
+
+	// The code of the span is turned around: the sentence is a suspect, and the judge is shown its code.
+	revision, err = review.NewRevision(page, prepare(c, t, "revised.md",
+		"# Deploy\n\n"+lockWait+" "+lockQueue+" "+lockTimeout+" Run `make status` after the next step.\n"))
+	c.Assert(err, qt.IsNil)
+	suspects, _ = revision.Suspects()
+	c.Assert(suspects, qt.HasLen, 1)
+	c.Assert(suspects[0].Reason, qt.Equals, review.SentenceReworded)
+	c.Assert(suspects[0].Text, qt.Equals, "Run `make status` before the next step.")
+	c.Assert(suspects[0].Revised, qt.Equals, "Run `make status` after the next step.")
+}
+
+func TestSuspectsLeaveOutHeadingsAndKeepListItemsApart(t *testing.T) {
+	c := qt.New(t)
+	page := "# Lock waits before a deploy\n\n" + lockWait + "\n\n- " + lockQueue + "\n- " + lockTimeout + "\n\n## What to set first\n\n" +
+		lockSession + "\n"
+	revised := "# Waits for locks ahead of deploys\n\n" + lockWait + "\n\n- " + lockQueue + "\n\n## What to set first\n\n" + lockSession + "\n"
+	revision, err := review.NewRevision(prepare(c, t, "page.md", page), prepare(c, t, "revised.md", revised))
+	c.Assert(err, qt.IsNil)
+	suspects, compared := revision.Suspects()
+	// The changed heading is no sentence. The removed list item is one, and its place does not hold a heading.
+	c.Assert(compared, qt.Equals, 4)
+	c.Assert(suspects, qt.HasLen, 1)
+	c.Assert(suspects[0].Text, qt.Equals, lockTimeout)
+	c.Assert(suspects[0].Reason, qt.Equals, review.SentenceMissing)
+	c.Assert(suspects[0].Line, qt.Equals, 6)
+	c.Assert(suspects[0].Revised, qt.Equals, lockQueue+" "+lockSession)
 }

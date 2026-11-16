@@ -45,9 +45,9 @@ func compareCommand(environment Environment, code *int) *cobra.Command {
 			"without a hint of which is the revision.\n" +
 			"It is also asked for the statements of the page, then for each of them in the page itself, and then\n" +
 			"for each that it found there in the revision.\n" +
-			"Without a model the command compares each sentence of the page with the revision. A sentence that has\n" +
-			"no counterpart there, or whose counterpart has one negation less, goes to the model beside the place\n" +
-			"where it stood, and the model has to quote the words that still say it.\n" +
+			"Without a model the command compares each sentence of the page with the revision. A sentence that\n" +
+			"does not stand there word for word goes to the model beside the sentences that took its place, and\n" +
+			"the model has to quote the words that still say it.\n" +
 			"A revision is accepted when the judge names the page in both orders, at least 98% of the statements are\n" +
 			"kept, every sentence is found, no number, code, or link is lost, and no em dash is added. The page\n" +
 			"index plays no part.\n" +

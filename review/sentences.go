@@ -3,9 +3,12 @@ package review
 import (
 	"fmt"
 	"math"
+	"regexp"
 	"slices"
 	"strings"
 	"unicode"
+
+	"github.com/stokaro/unswell/document"
 )
 
 // The reasons why a sentence of the page is a suspect.
@@ -95,7 +98,7 @@ type Suspect struct {
 // counterpart has fewer negations than the sentence. Otherwise it is
 // reworded. A sentence with fewer than three content words is not compared.
 func (r *Revision) Suspects() (suspects []Suspect, compared int) {
-	before, after := sentencesOf(r.page.Items), sentencesOf(r.revised.Items)
+	before, after := sentencesOf(r.page), sentencesOf(r.revised)
 	page, revised := itemWords(before), itemWords(after)
 	matches := make([]match, len(page))
 	for index := range page {
@@ -105,9 +108,9 @@ func (r *Revision) Suspects() (suspects []Suspect, compared int) {
 		compared++
 		expected := index * len(revised) / len(page)
 		matches[index].compared = true
-		if verbatim(page[index], revised, expected) {
+		if start, found := verbatim(page[index], revised, expected); found {
 			matches[index].verbatim = true
-			matches[index].start, matches[index].size = expected, 1
+			matches[index].start, matches[index].size = start, 1
 			continue
 		}
 		page[index].own = ownWords(page, index)
@@ -143,17 +146,90 @@ func sortedWords(words map[string]bool) []string {
 	return sorted
 }
 
-// sentencesOf cuts the items at the ends of their sentences. An item can hold
-// more than one sentence: the prose of a paragraph up to a code span is one
-// item. Each sentence keeps the line of its item.
-func sentencesOf(items []Item) []Item {
-	sentences := make([]Item, 0, len(items))
-	for _, item := range items {
-		for _, text := range splitSentences(item.Text) {
-			sentences = append(sentences, Item{ID: item.ID, Kind: item.Kind, Line: item.Line, Text: text})
+// sentencesOf returns the sentences of a document's prose, each with the line
+// of its block. The engine gives the prose of a paragraph in pieces: what
+// stands between two code spans is a piece of its own. The pieces of one
+// block are joined again with what stands between them, so a sentence has the
+// words of its code spans, and a word that a reviser sets as code is still a
+// word of the sentence. A heading is no sentence and is left out.
+func sentencesOf(prepared *Document) []Item {
+	sentences := []Item{}
+	for _, block := range proseBlocks(prepared.source, prepared.prose) {
+		if heading.Match(prepared.source[block.Start:block.End]) {
+			continue
+		}
+		line := 1 + strings.Count(string(prepared.source[:block.Start]), "\n")
+		for _, text := range splitSentences(blockText(prepared.source[block.Start:block.End])) {
+			sentences = append(sentences, Item{Line: line, Text: text})
 		}
 	}
 	return sentences
+}
+
+// blockStart matches the start of a line that opens a new block: a list
+// item, a heading, or a row of a table, also inside a quotation.
+var blockStart = regexp.MustCompile(`\n[ \t>]*(?:[-*+]|\d+[.)]|#{1,6})[ \t]|\n[ \t>]*\|`)
+
+// heading matches a block that is a Markdown heading.
+var heading = regexp.MustCompile(`^[ \t>]*#{1,6}[ \t]`)
+
+// blockMarker matches what opens a block before its first word.
+var blockMarker = regexp.MustCompile(`^[ \t>]*(?:(?:[-*+]|\d+[.)]|#{1,6})[ \t]+)?`)
+
+// proseBlocks joins the pieces of prose that belong to one block and widens
+// each block to whole lines. Two pieces belong to one block when no empty
+// line and no start of a new block stands between them.
+func proseBlocks(source []byte, pieces []document.Span) []document.Span {
+	blocks := []document.Span{}
+	for _, piece := range pieces {
+		if last := len(blocks) - 1; last >= 0 && piece.Start <= blocks[last].End {
+			blocks[last].End = max(blocks[last].End, piece.End)
+			continue
+		} else if last >= 0 && sameBlock(source[blocks[last].End:piece.Start]) {
+			blocks[last].End = piece.End
+			continue
+		}
+		blocks = append(blocks, piece)
+	}
+	for index := range blocks {
+		floor, ceiling := 0, len(source)
+		if index > 0 {
+			floor = blocks[index-1].End
+		}
+		if index+1 < len(blocks) {
+			ceiling = blocks[index+1].Start
+		}
+		blocks[index] = wholeLines(source, blocks[index], floor, ceiling)
+	}
+	return blocks
+}
+
+func sameBlock(between []byte) bool {
+	gap := strings.ReplaceAll(string(between), "\r", "")
+	return !strings.Contains(gap, "\n\n") && !blockStart.MatchString(gap)
+}
+
+// wholeLines widens a block to the start of its first line and to the end of
+// its last one, without reaching into the blocks beside it. A code span at
+// the start or at the end of a paragraph is no piece of prose, and its words
+// belong to the sentence.
+func wholeLines(source []byte, block document.Span, floor, ceiling int) document.Span {
+	start, end := block.Start, block.End
+	for start > floor && source[start-1] != '\n' {
+		start--
+	}
+	for end < ceiling && source[end] != '\n' {
+		end++
+	}
+	return document.Span{Start: start, End: end}
+}
+
+// blockText returns the text of a block as a reader sees it: without the
+// marker that opens it, without the addresses of its links, and on one line.
+func blockText(block []byte) string {
+	text := blockMarker.ReplaceAllString(string(block), "")
+	text = markdownLink.ReplaceAllString(text, "$1")
+	return strings.Join(strings.Fields(text), " ")
 }
 
 // splitSentences cuts a text after a period, a question mark, or an
@@ -219,17 +295,27 @@ type sentenceWords struct {
 }
 
 // verbatim reports whether a sentence stands near its place in the revision
-// with the same words in the same order. It may stand inside a longer
-// sentence, or run over the end of one into the next.
-func verbatim(words sentenceWords, revised []sentenceWords, expected int) bool {
+// with the same words in the same order, and in which sentence it starts. It
+// may stand inside a longer sentence, or run over the end of one into the
+// next.
+func verbatim(words sentenceWords, revised []sentenceWords, expected int) (start int, found bool) {
 	reach := max(minReach, len(revised)/reachShare)
+	first := max(0, expected-reach)
 	var near strings.Builder
 	near.WriteString(" ")
-	for index := max(0, expected-reach); index < len(revised) && index <= expected+reach+maxCounterpart; index++ {
+	offsets := []int{}
+	for index := first; index < len(revised) && index <= expected+reach+maxCounterpart; index++ {
+		offsets = append(offsets, near.Len())
 		near.WriteString(revised[index].spoken)
 		near.WriteString(" ")
 	}
-	return strings.Contains(near.String(), " "+words.spoken+" ")
+	at := strings.Index(near.String(), " "+words.spoken+" ")
+	if at < 0 {
+		return 0, false
+	}
+	// The sentence starts in the last sentence of the revision that begins at or before its first word.
+	inside, _ := slices.BinarySearch(offsets, at+2)
+	return first + max(0, inside-1), true
 }
 
 func itemWords(items []Item) []sentenceWords {
