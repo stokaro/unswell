@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"path/filepath"
+	"slices"
 	"strings"
 	"time"
 
@@ -392,16 +393,22 @@ func askSentences(ctx context.Context, client modelClient, options modelRunOptio
 	if len(suspects) == 0 {
 		return result, nil
 	}
-	var verdicts []review.FactVerdict
-	err := askModel(ctx, client, review.SuspectsPrompt(suspects), options, func(answer string) (parseErr error) {
-		verdicts, parseErr = review.ParseSuspects(answer, len(suspects))
-		return parseErr
-	})
-	if err != nil {
-		return comparedSentences{}, err
-	}
-	if result.Suspects, err = review.BindSuspects(suspects, verdicts); err != nil {
-		return comparedSentences{}, err
+	result.Suspects = make([]review.Suspect, 0, len(suspects))
+	// A long list goes to the judge in several questions.
+	for batch := range slices.Chunk(suspects, review.SuspectsPerQuestion) {
+		var verdicts []review.FactVerdict
+		err := askModel(ctx, client, review.SuspectsPrompt(batch), options, func(answer string) (parseErr error) {
+			verdicts, parseErr = review.ParseSuspects(answer, len(batch))
+			return parseErr
+		})
+		if err != nil {
+			return comparedSentences{}, err
+		}
+		bound, err := review.BindSuspects(batch, verdicts)
+		if err != nil {
+			return comparedSentences{}, err
+		}
+		result.Suspects = append(result.Suspects, bound...)
 	}
 	result.Lost = review.LostSentences(result.Suspects)
 	return result, nil
@@ -505,11 +512,11 @@ func sentencesText(sentences comparedSentences) string {
 		fmt.Fprintf(&text, "Sentences: each of the %s of the page has its counterpart in the revision.\n",
 			plural(sentences.Compared, "compared sentence"))
 	case sentences.Lost == 0:
-		fmt.Fprintf(&text, "Sentences: %s had no counterpart or one negation less; the judge found each in the revision.\n",
-			plural(len(sentences.Suspects), "sentence"))
+		fmt.Fprintf(&text, "Sentences: %d of %s of the page not in the revision word for word; the judge found each of them there.\n",
+			len(sentences.Suspects), plural(sentences.Compared, "compared sentence"))
 	default:
-		fmt.Fprintf(&text, "Sentences: %d of %s of the page not found in the revision as it was.\n", sentences.Lost,
-			plural(sentences.Compared, "compared sentence"))
+		fmt.Fprintf(&text, "Sentences: %d of %s of the page not in the revision word for word; the judge did not find %d of them there.\n",
+			len(sentences.Suspects), plural(sentences.Compared, "compared sentence"), sentences.Lost)
 	}
 	for _, suspect := range sentences.Suspects {
 		if suspect.Outcome != review.FactKept {
@@ -521,8 +528,11 @@ func sentencesText(sentences comparedSentences) string {
 
 // suspectLabel says what happened to a sentence that the judge did not find.
 func suspectLabel(suspect review.Suspect) string {
-	if suspect.Reason == review.SentenceNegation {
+	switch suspect.Reason {
+	case review.SentenceNegation:
 		return "a negation is gone"
+	case review.SentenceReworded:
+		return "says something else"
 	}
 	return "not in the revision"
 }

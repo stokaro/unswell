@@ -434,6 +434,20 @@ func TestJudgeAcceptsOnlyARevisionThatPassesEveryCheck(t *testing.T) {
 			[]string{"2 sentences of the page are not in the revision, and 2 sentences of the page lose a negation"},
 		},
 		{
+			"a reworded sentence says something else", serviceRevision, review.SoundBetter, kept(50),
+			[]review.Suspect{suspect(review.SentenceReworded, review.FactChanged), suspect(review.SentenceReworded, review.FactKept)},
+			[]string{"1 sentence of the page says something else in the revision"},
+		},
+		{
+			"each kind of lost sentence", serviceRevision, review.SoundBetter, kept(50),
+			[]review.Suspect{
+				suspect(review.SentenceReworded, review.FactChanged), suspect(review.SentenceReworded, review.FactMissing),
+				suspect(review.SentenceMissing, review.FactMissing), suspect(review.SentenceNegation, review.FactChanged),
+			},
+			[]string{"1 sentence of the page is not in the revision, and 1 sentence of the page loses a negation, " +
+				"and 2 sentences of the page say something else in the revision"},
+		},
+		{
 			"everything fails", strings.Replace(dashed, "version 2.1", "version 2", 1), review.SoundWorse, withLoss(kept(4), 4),
 			[]review.Suspect{suspect(review.SentenceMissing, review.FactMissing)},
 			[]string{

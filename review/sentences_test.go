@@ -34,16 +34,16 @@ func suspectsOf(c *qt.C, t *testing.T, revised string) ([]review.Suspect, int) {
 	return revision.Suspects()
 }
 
-func TestSuspectsLeaveARevisionThatKeepsEverySentence(t *testing.T) {
+func TestSuspectsLeaveASentenceThatStandsWordForWord(t *testing.T) {
 	cases := map[string]string{
 		"two sentences joined": lockPage(strings.TrimSuffix(lockWait, ".")+", and every query on that table queues behind the waiting migration.",
 			lockTimeout, lockSession, lockDeploy, lockOrder),
-		"a contraction and another order": lockPage(lockWait, lockQueue,
-			"Statements that already hold the lock aren't canceled by the timeout.", lockSession, lockDeploy, lockOrder),
-		"one sentence split": lockPage(lockWait, lockQueue, lockTimeout,
-			"Set the lock timeout in the session.", "Do it before the first statement runs.", lockDeploy, lockOrder),
-		"other forms of the same words": lockPage(lockWait, lockQueue, lockTimeout, lockSession,
-			"Deploy jobs read the migration directories from release images.", lockOrder),
+		"a contraction": lockPage(lockWait, lockQueue, "The timeout doesn't cancel statements that already hold the lock.", lockSession,
+			lockDeploy, lockOrder),
+		"a word in front": lockPage(lockWait, "And every query on that table queues behind the waiting migration.", lockTimeout,
+			"So set the lock timeout in the session before the first statement runs.", lockDeploy, lockOrder),
+		"markup, case, and punctuation": lockPage(lockWait, lockQueue, "The timeout does **not** cancel statements that already hold the lock;",
+			"set the lock timeout in the session (before the first statement runs).", lockDeploy, lockOrder),
 	}
 	for name, revised := range cases {
 		t.Run(name, func(t *testing.T) {
@@ -53,6 +53,60 @@ func TestSuspectsLeaveARevisionThatKeepsEverySentence(t *testing.T) {
 			c.Assert(compared, qt.Equals, 6)
 		})
 	}
+}
+
+func TestSuspectsNameASentenceThatIsNotThereWordForWord(t *testing.T) {
+	cases := map[string]struct {
+		revised, sentence, passage string
+	}{
+		"another order": {
+			lockPage(lockWait, lockQueue, "Statements that already hold the lock are not canceled by the timeout.", lockSession, lockDeploy, lockOrder),
+			lockTimeout, "Statements that already hold the lock are not canceled by the timeout.",
+		},
+		"one sentence split": {
+			lockPage(lockWait, lockQueue, lockTimeout, "Set the lock timeout in the session.", "Do it before the first statement runs.", lockDeploy,
+				lockOrder),
+			lockSession, "Set the lock timeout in the session. Do it before the first statement runs.",
+		},
+		"other forms of the same words": {
+			lockPage(lockWait, lockQueue, lockTimeout, lockSession, "Deploy jobs read the migration directories from release images.", lockOrder),
+			lockDeploy, "Deploy jobs read the migration directories from release images.",
+		},
+		// "Before" and "after" are no content words. The sentence still has to stand word for word.
+		"one word turned around": {
+			lockPage(lockWait, lockQueue, lockTimeout, strings.Replace(lockSession, "before", "after", 1), lockDeploy, lockOrder),
+			lockSession, "Set the lock timeout in the session after the first statement runs.",
+		},
+		// A negation more is no negation less, so only the words tell.
+		"a negation put in": {
+			lockPage(lockWait, lockQueue, lockTimeout, lockSession, strings.Replace(lockDeploy, "reads", "does not read", 1), lockOrder),
+			lockDeploy, "The deploy job does not read the migration directory from the release image.",
+		},
+	}
+	for name, test := range cases {
+		t.Run(name, func(t *testing.T) {
+			c := qt.New(t)
+			suspects, compared := suspectsOf(c, t, test.revised)
+			c.Assert(compared, qt.Equals, 6)
+			c.Assert(suspects, qt.HasLen, 1)
+			c.Assert(suspects[0].Reason, qt.Equals, review.SentenceReworded)
+			c.Assert(suspects[0].Text, qt.Equals, test.sentence)
+			c.Assert(suspects[0].Revised, qt.Equals, test.passage)
+		})
+	}
+}
+
+func TestSuspectsCallASentenceMissingWhenItsOwnWordsAreCutOff(t *testing.T) {
+	c := qt.New(t)
+	// What is left of the sentence has the words of the sentences around it and none of its own, "changes" and
+	// "column". So it counts as missing, and the judge is shown what stands in its place.
+	cut := strings.Replace(lockWait, " before it changes a column", "", 1)
+	suspects, _ := suspectsOf(c, t, lockPage(cut, lockQueue, lockTimeout, lockSession, lockDeploy, lockOrder))
+	c.Assert(suspects, qt.HasLen, 1)
+	c.Assert(suspects[0].Reason, qt.Equals, review.SentenceMissing)
+	c.Assert(suspects[0].Text, qt.Equals, lockWait)
+	c.Assert(suspects[0].Words, qt.DeepEquals, []string{"chang", "column"})
+	c.Assert(suspects[0].Revised, qt.Contains, "A migration waits for a table lock.")
 }
 
 func TestSuspectsNameARemovedSentenceWithItsPlace(t *testing.T) {
@@ -159,6 +213,7 @@ func TestBindSuspectsClearsOnlyAQuotedYes(t *testing.T) {
 		{Text: "five", Reason: review.SentenceMissing, Revised: queue, Words: own},
 		{Text: "six", Reason: review.SentenceMissing, Revised: queue, Words: own},
 		{Text: "seven", Reason: review.SentenceNegation, Revised: "The timeout doesn't cancel statements.", Words: own},
+		{Text: "eight", Reason: review.SentenceReworded, Revised: "Statements are not canceled by the timeout.", Words: own},
 	}
 	bound, err := review.BindSuspects(suspects, []review.FactVerdict{
 		{Fact: 1, Kept: "yes", Quote: "on that table queues  behind"},
@@ -168,6 +223,7 @@ func TestBindSuspectsClearsOnlyAQuotedYes(t *testing.T) {
 		{Fact: 5, Kept: "yes", Quote: "queues behind"},
 		{Fact: 6, Kept: "yes", Quote: "The migration waits for a lock"},
 		{Fact: 7, Kept: "yes", Quote: "doesn't cancel statements"},
+		{Fact: 8, Kept: "yes", Quote: "are not canceled by the timeout"},
 	})
 	c.Assert(err, qt.IsNil)
 	outcomes := make([]string, len(bound))
@@ -176,20 +232,20 @@ func TestBindSuspectsClearsOnlyAQuotedYes(t *testing.T) {
 	}
 	// The second quote is not in the passage, and the fifth has two words. The sixth stands in the passage and has
 	// none of the sentence's own words: it is the sentence beside the one that is gone. A sentence whose negation
-	// was in doubt needs only words of its passage.
+	// was in doubt, or that was reworded, needs only words of its passage.
 	c.Assert(outcomes, qt.DeepEquals, []string{
 		review.FactKept, review.FactUnquoted, review.FactChanged, review.FactMissing, review.FactUnquoted, review.FactUnquoted,
-		review.FactKept,
+		review.FactKept, review.FactKept,
 	})
 	c.Assert(bound[0].Quote, qt.Equals, "on that table queues behind")
 	c.Assert(bound[2].Quote, qt.Equals, "")
 	c.Assert(review.LostSentences(bound), qt.Equals, 5)
 	// The suspects that were given keep no outcome.
 	c.Assert(suspects[0].Outcome, qt.Equals, "")
-	c.Assert(review.LostSentences(suspects), qt.Equals, 7)
+	c.Assert(review.LostSentences(suspects), qt.Equals, 8)
 
 	_, err = review.BindSuspects(suspects, nil)
-	c.Assert(err, qt.ErrorMatches, "7 suspects have 0 verdicts")
+	c.Assert(err, qt.ErrorMatches, "8 suspects have 0 verdicts")
 }
 
 func TestSuspectsCutAnItemAtTheEndsOfItsSentences(t *testing.T) {

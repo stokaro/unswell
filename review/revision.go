@@ -670,28 +670,24 @@ func factsReason(facts []Fact) string {
 }
 
 func sentencesReason(sentences []Suspect) string {
-	gone, turned := 0, 0
+	lost := map[string]int{}
 	for _, suspect := range sentences {
-		switch {
-		case suspect.Outcome == FactKept:
-		case suspect.Reason == SentenceNegation:
-			turned++
-		default:
-			gone++
+		if suspect.Outcome != FactKept {
+			lost[suspect.Reason]++
 		}
 	}
 	parts := []string{}
-	switch {
-	case gone == 1:
-		parts = append(parts, "1 sentence of the page is not in the revision")
-	case gone > 1:
-		parts = append(parts, fmt.Sprintf("%d sentences of the page are not in the revision", gone))
-	}
-	switch {
-	case turned == 1:
-		parts = append(parts, "1 sentence of the page loses a negation")
-	case turned > 1:
-		parts = append(parts, fmt.Sprintf("%d sentences of the page lose a negation", turned))
+	for _, kind := range []struct{ reason, one, many string }{
+		{SentenceMissing, "is not in the revision", "are not in the revision"},
+		{SentenceNegation, "loses a negation", "lose a negation"},
+		{SentenceReworded, "says something else in the revision", "say something else in the revision"},
+	} {
+		switch count := lost[kind.reason]; {
+		case count == 1:
+			parts = append(parts, "1 sentence of the page "+kind.one)
+		case count > 1:
+			parts = append(parts, fmt.Sprintf("%d sentences of the page %s", count, kind.many))
+		}
 	}
 	return strings.Join(parts, ", and ")
 }

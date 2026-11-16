@@ -16,6 +16,9 @@ const (
 	// SentenceNegation means the words of the sentence are in the revision
 	// and one of its negations is not.
 	SentenceNegation = "negation"
+	// SentenceReworded means the sentence has a counterpart and does not
+	// stand in the revision word for word.
+	SentenceReworded = "reworded"
 )
 
 // minSentenceWords is the fewest content words that a sentence needs to be
@@ -52,6 +55,10 @@ const maxCounterpart = 3
 // as the place where a missing sentence stood.
 const maxPassage = 6
 
+// SuspectsPerQuestion is the most suspects that one question to a model
+// should hold. A model errs on a long list.
+const SuspectsPerQuestion = 20
+
 // Suspect is a sentence of the page that the revision may have dropped or
 // turned around. Revised holds the sentences of the revision from its place:
 // the counterpart when a negation is gone, and what stands between the
@@ -75,15 +82,18 @@ type Suspect struct {
 }
 
 // Suspects compares the sentences of the page with those of the revision and
-// returns those that the revision may have lost, with the number of sentences
-// it compared. It needs no model.
+// returns those that the revision does not keep word for word, with the
+// number of sentences it compared. It needs no model.
 //
-// A sentence is a suspect when the revision has, near its place, no sentence
-// and no two or three in a row with at least six tenths of its content words,
-// counted over all of them and over those that the sentences around it do
-// not have. It is also a suspect when that counterpart has fewer negations
-// than the sentence. A sentence with fewer than three content words is not
-// compared.
+// A sentence that stands in the revision near its place with the same words
+// in the same order is kept; case, punctuation, markup, and contractions do
+// not count, and it may stand inside a longer sentence. Every other sentence
+// is a suspect, of one of three kinds. It is missing when the revision has,
+// near its place, no sentence and no two or three in a row with at least six
+// tenths of its content words, counted over all of them and over those that
+// the sentences around it do not have. It lost a negation when that
+// counterpart has fewer negations than the sentence. Otherwise it is
+// reworded. A sentence with fewer than three content words is not compared.
 func (r *Revision) Suspects() (suspects []Suspect, compared int) {
 	before, after := sentencesOf(r.page.Items), sentencesOf(r.revised.Items)
 	page, revised := itemWords(before), itemWords(after)
@@ -93,15 +103,22 @@ func (r *Revision) Suspects() (suspects []Suspect, compared int) {
 			continue
 		}
 		compared++
-		page[index].own = ownWords(page, index)
-		matches[index] = counterpart(page[index], revised, index*len(revised)/len(page))
+		expected := index * len(revised) / len(page)
 		matches[index].compared = true
+		if verbatim(page[index], revised, expected) {
+			matches[index].verbatim = true
+			matches[index].start, matches[index].size = expected, 1
+			continue
+		}
+		page[index].own = ownWords(page, index)
+		found := counterpart(page[index], revised, expected)
+		matches[index].start, matches[index].size = found.start, found.size
 	}
 	suspects = []Suspect{}
 	for index, found := range matches {
-		suspect := Suspect{Line: before[index].Line, Text: before[index].Text, Words: sortedWords(page[index].own)}
+		suspect := Suspect{Line: before[index].Line, Text: before[index].Text}
 		switch {
-		case !found.compared:
+		case !found.compared || found.verbatim:
 			continue
 		case found.size == 0:
 			start, end := place(matches, index, len(revised))
@@ -109,8 +126,9 @@ func (r *Revision) Suspects() (suspects []Suspect, compared int) {
 		case negations(revised[found.start:found.start+found.size]) < page[index].negations:
 			suspect.Reason, suspect.Revised = SentenceNegation, itemsText(after[found.start:found.start+found.size])
 		default:
-			continue
+			suspect.Reason, suspect.Revised = SentenceReworded, itemsText(after[found.start:found.start+found.size])
 		}
+		suspect.Words = sortedWords(page[index].own)
 		suspects = append(suspects, suspect)
 	}
 	return suspects, compared
@@ -181,19 +199,37 @@ func sentenceEnd(runes []rune, index int) (next int, ends bool) {
 }
 
 // match is the counterpart of one sentence of the page: size sentences of the
-// revision from start, or none when size is zero.
+// revision from start, or none when size is zero. A sentence that stands in
+// the revision word for word has its place there as its counterpart.
 type match struct {
-	compared    bool
-	start, size int
+	compared, verbatim bool
+	start, size        int
 }
 
-// sentenceWords holds what a sentence is compared by: its content words and
-// the number of its negations.
+// sentenceWords holds what a sentence is compared by: its words in order, its
+// content words, and the number of its negations.
 type sentenceWords struct {
+	// spoken are all the words in order, in lower case and with contractions
+	// written out, joined by single spaces.
+	spoken    string
 	content   map[string]bool
 	negations int
 	// own are the content words that the sentences around it do not have.
 	own map[string]bool
+}
+
+// verbatim reports whether a sentence stands near its place in the revision
+// with the same words in the same order. It may stand inside a longer
+// sentence, or run over the end of one into the next.
+func verbatim(words sentenceWords, revised []sentenceWords, expected int) bool {
+	reach := max(minReach, len(revised)/reachShare)
+	var near strings.Builder
+	near.WriteString(" ")
+	for index := max(0, expected-reach); index < len(revised) && index <= expected+reach+maxCounterpart; index++ {
+		near.WriteString(revised[index].spoken)
+		near.WriteString(" ")
+	}
+	return strings.Contains(near.String(), " "+words.spoken+" ")
 }
 
 func itemWords(items []Item) []sentenceWords {
@@ -337,10 +373,14 @@ func wordSet(words ...string) map[string]bool {
 // follows an apostrophe.
 func wordsOf(text string) sentenceWords {
 	words := sentenceWords{content: map[string]bool{}}
+	spoken := []string{}
 	for token := range strings.FieldsFuncSeq(strings.ToLower(text), func(r rune) bool {
 		return !unicode.IsLetter(r) && !unicode.IsDigit(r) && r != '\'' && r != '’'
 	}) {
 		token = strings.Trim(strings.ReplaceAll(token, "’", "'"), "'")
+		if token != "" {
+			spoken = append(spoken, writtenOut(token))
+		}
 		if negationWords[token] || strings.HasSuffix(token, "n't") {
 			words.negations++
 			continue
@@ -351,7 +391,25 @@ func wordsOf(text string) sentenceWords {
 			words.content[stem(token)] = true
 		}
 	}
+	words.spoken = strings.Join(spoken, " ")
 	return words
+}
+
+// contractions are written out when the words of two sentences are compared
+// in order, so that "do not" and "don't" are the same words.
+var contractions = map[string]string{
+	"can't": "can not", "cannot": "can not", "won't": "will not", "shan't": "shall not",
+}
+
+// writtenOut returns a word with its contraction of "not" written out.
+func writtenOut(token string) string {
+	if long, found := contractions[token]; found {
+		return long
+	}
+	if stem, found := strings.CutSuffix(token, "n't"); found && stem != "" {
+		return stem + " not"
+	}
+	return token
 }
 
 // stem cuts the common endings of a word, so that "retry", "retries", and
