@@ -121,13 +121,18 @@ search for statements had missed a removed sentence and a removed "not"
 [ADR 0063](adr/0063-every-changed-sentence.md) turns that rule around: a
 sentence is kept only when it stands in the revision word for word, and every
 other sentence goes to the judge
-([#594](https://github.com/stokaro/unswell/issues/594)). Open after it
-([#596](https://github.com/stokaro/unswell/issues/596)): a judge that finds a
-sentence in what was left of it after a clause was cut; a page that says a
-sentence twice, far apart; how many ordinary revisions one sentence rejects,
-and whether "nothing is lost" should be a verdict apart from "reads less like
-a model's text"; what a page says across several sentences, such as the order
-of steps; a language other than English; and people as judges.
+([#594](https://github.com/stokaro/unswell/issues/594)).
+
+[ADR 0064](adr/0064-words-left-out-of-a-sentence.md) answers what that
+measurement left open ([#596](https://github.com/stokaro/unswell/issues/596)):
+the command names the words that a revision leaves out of a sentence, it does
+not take a quote of the remains, and it no longer shows the judge a sentence
+that the revision kept. Open after it: how many ordinary revisions one
+sentence rejects, and whether "nothing is lost" should be a verdict apart
+from "reads less like a model's text"; a sentence that a revision cuts and
+also rewords; words that a revision puts in around a kept sentence; what a
+page says across several sentences, such as the order of steps; a language
+other than English; and people as judges.
 
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on

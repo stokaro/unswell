@@ -47,7 +47,9 @@ func compareCommand(environment Environment, code *int) *cobra.Command {
 			"for each that it found there in the revision.\n" +
 			"Without a model the command compares each sentence of the page with the revision, on every line\n" +
 			"outside fenced code. A sentence that does not stand there word for word goes to the model beside the\n" +
-			"sentences that took its place, and the model has to quote the words that still say it.\n" +
+			"sentences that took its place, and the model has to quote the words that still say it. When the\n" +
+			"revision only left words out of a sentence, the command names them, and the model says whether they\n" +
+			"were padding. A sentence with nothing written at its place is reported without a model.\n" +
 			"A revision is accepted when the judge names the page in both orders, at least 98% of the statements are\n" +
 			"kept, every sentence is found, no number, code, or link is lost, and no em dash is added. The page\n" +
 			"index plays no part.\n" +
