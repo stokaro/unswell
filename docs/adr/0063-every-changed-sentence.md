@@ -98,15 +98,16 @@ all 183 copies. On harmless copies, with two sentences joined or with
 contractions, the comparison named no suspect on any of 75.
 
 **With a judge.** On 50 damaged copies the changed sentence is a suspect that
-the judge does not clear on 48, with either judge, and neither accepted a
-damaged copy. Both judges cleared "above" where the page said "below" in a
-reference to another part of the page, and each cleared one sentence that had
-lost a clause with "when". The search for statements alone found a statement
-not kept on 32 and on 15 of the 50 copies.
+the judge does not clear on 48 with one judge and on 49 with the other. One
+judge cleared "above" where the page said "below" in a reference to another
+part of the page, and each cleared one sentence that had lost a clause with
+"when". One of those copies was accepted: the judge also heard it as better.
+The search for statements alone found a statement not kept on 31 and on 16 of
+the 50 copies.
 
 **On ordinary revisions.** The price of the rule is here. Of 40 revisions of
-each reviser, 36 and 34 have a suspect, and the judge cleared 499 of 525
-suspects and 711 of 744. A sentence that was not cleared stands in 9 and in
+each reviser, 36 and 34 have a suspect, and the judge cleared 511 of 536
+suspects and 727 of 763. A sentence that was not cleared stands in 9 and in
 12 revisions; under the rule of ADR 0062 it stood in 5 and in 6 of the same
 revisions. Read by hand, most of those sentences did lose a detail in the
 revision.
