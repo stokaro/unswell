@@ -103,31 +103,52 @@ func (r *Revision) Suspects() (suspects []Suspect, compared int) {
 	before, after := sentencesOf(r.page.source), sentencesOf(r.revised.source)
 	page, revised := itemWords(before), itemWords(after)
 	matches := make([]match, len(page))
-	own := make([]map[string]bool, len(page))
+	expected := func(index int) int { return index * len(revised) / len(page) }
+	// First the sentences that stand in the revision word for word. Each takes its own words there, so a sentence
+	// that the page says twice needs two places in the revision.
+	stream := newWordStream(revised)
 	for index, words := range page {
-		if words.spoken == "" {
+		if len(words.tokens) == 0 {
 			continue
 		}
 		compared++
-		expected := index * len(revised) / len(page)
 		matches[index].compared = true
-		if start, found := verbatim(words, revised, expected); found {
+		if start, found := stream.take(words.tokens, expected(index)); found {
 			matches[index].verbatim = true
 			matches[index].start, matches[index].size = start, 1
+		}
+	}
+	// A sentence of the revision whose words are all taken is the counterpart of no other sentence.
+	for index := range revised {
+		if stream.taken(index) {
+			revised[index] = sentenceWords{}
+		}
+	}
+	own := make([]map[string]bool, len(page))
+	for index, words := range page {
+		if !matches[index].compared || matches[index].verbatim {
 			continue
 		}
 		// A sentence with few content words is compared by all its words: "We did not run it." has one.
 		short := len(words.content) < minSentenceWords
 		own[index] = ownWords(page, index, short)
-		found := counterpart(words.compared(short), own[index], revised, short, expected)
+		found := counterpart(words.compared(short), own[index], revised, short, expected(index))
 		matches[index].start, matches[index].size = found.start, found.size
 	}
-	suspects = []Suspect{}
+	return r.suspects(before, after, page, revised, matches, own), compared
+}
+
+// suspects names each sentence of the page that is not in the revision word
+// for word, with its kind and with the sentences of the revision from its
+// place.
+func (r *Revision) suspects(before, after []Item, page, revised []sentenceWords, matches []match, own []map[string]bool) []Suspect {
+	suspects := []Suspect{}
 	for index, found := range matches {
-		suspect := Suspect{Line: before[index].Line, Text: before[index].Text}
-		switch {
-		case !found.compared || found.verbatim:
+		if !found.compared || found.verbatim {
 			continue
+		}
+		suspect := Suspect{Line: before[index].Line, Text: before[index].Text, Words: sortedWords(own[index])}
+		switch {
 		case found.size == 0:
 			start, end := place(matches, index, len(revised))
 			suspect.Reason, suspect.Revised = SentenceMissing, itemsText(after[start:end])
@@ -136,10 +157,9 @@ func (r *Revision) Suspects() (suspects []Suspect, compared int) {
 		default:
 			suspect.Reason, suspect.Revised = SentenceReworded, itemsText(after[found.start:found.start+found.size])
 		}
-		suspect.Words = sortedWords(own[index])
 		suspects = append(suspects, suspect)
 	}
-	return suspects, compared
+	return suspects
 }
 
 func sortedWords(words map[string]bool) []string {
@@ -293,9 +313,9 @@ type match struct {
 // sentenceWords holds what a sentence is compared by: its words in order, its
 // content words, and the number of its negations.
 type sentenceWords struct {
-	// spoken are all the words in order, in lower case and with contractions
-	// written out, joined by single spaces.
-	spoken string
+	// tokens are all the words in order, in lower case and with contractions
+	// written out.
+	tokens []string
 	// content are the words that carry content, and all are those and the
 	// function words; neither holds a negation. Both are without endings.
 	content, all map[string]bool
@@ -311,28 +331,76 @@ func (w sentenceWords) compared(short bool) map[string]bool {
 	return w.content
 }
 
-// verbatim reports whether a sentence stands near its place in the revision
-// with the same words in the same order, and in which sentence it starts. It
-// may stand inside a longer sentence, or run over the end of one into the
-// next.
-func verbatim(words sentenceWords, revised []sentenceWords, expected int) (start int, found bool) {
-	reach := max(minReach, len(revised)/reachShare)
-	first := max(0, expected-reach)
-	var near strings.Builder
-	near.WriteString(" ")
-	offsets := []int{}
-	for index := first; index < len(revised) && index <= expected+reach+maxCounterpart; index++ {
-		offsets = append(offsets, near.Len())
-		near.WriteString(revised[index].spoken)
-		near.WriteString(" ")
+// wordStream is the words of the revision in order. A sentence of the page
+// that stands there word for word takes its words, and no other sentence can
+// take them again.
+type wordStream struct {
+	tokens []string
+	// sentence is the sentence of each word, and starts the first word of
+	// each sentence, with the number of words at the end.
+	sentence, starts []int
+	used             []bool
+	// at lists the places of each word.
+	at map[string][]int
+}
+
+func newWordStream(sentences []sentenceWords) *wordStream {
+	stream := &wordStream{at: map[string][]int{}}
+	for index, words := range sentences {
+		stream.starts = append(stream.starts, len(stream.tokens))
+		for _, token := range words.tokens {
+			stream.at[token] = append(stream.at[token], len(stream.tokens))
+			stream.tokens = append(stream.tokens, token)
+			stream.sentence = append(stream.sentence, index)
+		}
 	}
-	at := strings.Index(near.String(), " "+words.spoken+" ")
-	if at < 0 {
+	stream.starts = append(stream.starts, len(stream.tokens))
+	stream.used = make([]bool, len(stream.tokens))
+	return stream
+}
+
+// take finds the words of a sentence, in their order, near the expected
+// sentence of the revision and among words that no sentence has taken. It
+// takes them and returns the sentence in which they start. The words may
+// stand inside a longer sentence, or run over the end of one into the next.
+// Of several places it takes the nearest.
+func (s *wordStream) take(tokens []string, expected int) (sentence int, found bool) {
+	sentences := len(s.starts) - 1
+	reach := max(minReach, sentences/reachShare)
+	first := s.starts[max(0, min(expected-reach, sentences))]
+	last := s.starts[max(0, min(expected+reach+maxCounterpart+1, sentences))]
+	best, bestDistance := -1, math.MaxInt
+	for _, at := range s.at[tokens[0]] {
+		if at < first || at+len(tokens) > last || !s.free(tokens, at) {
+			continue
+		}
+		if distance := max(s.sentence[at]-expected, expected-s.sentence[at]); distance < bestDistance {
+			best, bestDistance = at, distance
+		}
+	}
+	if best < 0 {
 		return 0, false
 	}
-	// The sentence starts in the last sentence of the revision that begins at or before its first word.
-	inside, _ := slices.BinarySearch(offsets, at+2)
-	return first + max(0, inside-1), true
+	for offset := range tokens {
+		s.used[best+offset] = true
+	}
+	return s.sentence[best], true
+}
+
+// free reports whether the words stand at a place and none of them is taken.
+func (s *wordStream) free(tokens []string, at int) bool {
+	for offset, token := range tokens {
+		if s.used[at+offset] || s.tokens[at+offset] != token {
+			return false
+		}
+	}
+	return true
+}
+
+// taken reports whether a sentence has words and all of them are taken.
+func (s *wordStream) taken(sentence int) bool {
+	first, last := s.starts[sentence], s.starts[sentence+1]
+	return first < last && !slices.Contains(s.used[first:last], false)
 }
 
 func itemWords(items []Item) []sentenceWords {
@@ -488,15 +556,15 @@ func wordSet(words ...string) map[string]bool {
 // follows an apostrophe.
 func wordsOf(text string) sentenceWords {
 	words := sentenceWords{content: map[string]bool{}, all: map[string]bool{}}
-	spoken := []string{}
 	for token := range strings.FieldsFuncSeq(strings.ToLower(text), func(r rune) bool {
 		return !unicode.IsLetter(r) && !unicode.IsDigit(r) && r != '\'' && r != '’'
 	}) {
-		token = strings.Trim(strings.ReplaceAll(token, "’", "'"), "'")
-		if token != "" {
-			spoken = append(spoken, writtenOut(token))
+		if token = strings.Trim(strings.ReplaceAll(token, "’", "'"), "'"); token != "" {
+			words.tokens = append(words.tokens, strings.Fields(writtenOut(token))...)
 		}
-		if negationWords[token] || strings.HasSuffix(token, "n't") {
+	}
+	for _, token := range words.tokens {
+		if negationWords[token] {
 			words.negations++
 			continue
 		}
@@ -510,7 +578,6 @@ func wordsOf(text string) sentenceWords {
 			words.content[stem(token)] = true
 		}
 	}
-	words.spoken = strings.Join(spoken, " ")
 	return words
 }
 

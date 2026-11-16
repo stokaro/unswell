@@ -365,3 +365,45 @@ func TestSuspectsKeepListItemsApart(t *testing.T) {
 	c.Assert(suspects[0].Line, qt.Equals, 6)
 	c.Assert(suspects[0].Revised, qt.Equals, lockQueue+" What to set first")
 }
+
+func TestSuspectsGiveEachSentenceItsOwnPlace(t *testing.T) {
+	// The page says one sentence twice, with two paragraphs between.
+	twice := lockPage(lockWait, lockQueue, lockTimeout) + "\n" + lockSession + " " + lockDeploy + "\n\n" + lockTimeout + " " + lockOrder + "\n"
+	cases := []struct {
+		name, old, new, reason, passage string
+	}{
+		{"both kept", "", "", "", ""},
+		// The other copy of the sentence stands near by, word for word. It is the place of the other one.
+		{
+			"the first turned around", lockTimeout + "\n\nSet", "The timeout does cancel statements that already hold the lock.\n\nSet",
+			review.SentenceNegation, "The timeout does cancel statements that already hold the lock.",
+		},
+		{
+			"the second turned around", lockTimeout + " It", "The timeout does cancel statements that already hold the lock. It",
+			review.SentenceNegation, "The timeout does cancel statements that already hold the lock.",
+		},
+		{"the second removed", lockTimeout + " It", "It", review.SentenceMissing, lockOrder},
+	}
+	for _, test := range cases {
+		t.Run(test.name, func(t *testing.T) {
+			c := qt.New(t)
+			revised := twice
+			if test.old != "" {
+				c.Assert(strings.Count(twice, test.old), qt.Equals, 1)
+				revised = strings.Replace(twice, test.old, test.new, 1)
+			}
+			revision, err := review.NewRevision(prepare(c, t, "page.md", twice), prepare(c, t, "revised.md", revised+"\nDone.\n"))
+			c.Assert(err, qt.IsNil)
+			suspects, compared := revision.Suspects()
+			c.Assert(compared, qt.Equals, 8)
+			if test.reason == "" {
+				c.Assert(suspects, qt.HasLen, 0)
+				return
+			}
+			c.Assert(suspects, qt.HasLen, 1)
+			c.Assert(suspects[0].Text, qt.Equals, lockTimeout)
+			c.Assert(suspects[0].Reason, qt.Equals, test.reason)
+			c.Assert(suspects[0].Revised, qt.Contains, test.passage)
+		})
+	}
+}
