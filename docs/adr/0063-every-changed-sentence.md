@@ -169,7 +169,10 @@ clears most: 260 of 265 and 471 of 507 on the posts, 606 of 618 and 852 of
 texts. No bar was set for this.
 
 The [record](../../research/reviews/2026-11-16-changed-sentences/RESULTS.md)
-recounts these numbers.
+recounts these numbers. The published binary of `v0.1.0-alpha.16` names the
+same suspects on all 553 copies of the record, and it reaches the recorded
+verdict on the 57 revisions that could be replayed from kept answers of a
+judge; see the [alpha.16 evidence](../release/v0.1.0-alpha.16.md).
 
 ## Consequences
 
