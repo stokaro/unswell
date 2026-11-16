@@ -13,8 +13,10 @@ the sentence may stand inside a longer one. Every other sentence goes to the
 judge beside what replaced it. Before, the command named what makes a
 sentence a suspect, a missing counterpart or a lost negation, and a revision
 that kept the content words and said something else passed: "after" for
-"before", "may" for "must", a "not" put in. A sentence now has the words of
-its code spans, a long list of sentences goes to the judge in questions of
+"before", "may" for "must", a "not" put in. The command now reads every line
+of the page outside fenced code, also a heading, the text of an image, and an
+indented block, and it compares a short sentence such as "We did not run it."
+by all its words. A long list of sentences goes to the judge in questions of
 twenty, and a sentence that the judge found without the words of its place is
 asked about once more
 ([documentation](docs/compare.md),

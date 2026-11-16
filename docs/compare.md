@@ -51,21 +51,23 @@ statements only. A model errs on a long list: it paraphrases a quote, or
 calls many statements at the end of the list changed.
 
 **Sentences.** Without a model, the command compares each sentence of the
-page with the revision. A sentence is kept when it stands in the revision
-near its place with the same words in the same order. Case, punctuation,
-markup, and contractions do not count, and the sentence may stand inside a
-longer one, so two sentences joined with "and" are both kept. The words of a
-code span are words of its sentence, so a term that the revision sets as code
-changes nothing. Every other sentence is a suspect: the revision changed at
-least one of its words. A heading is no sentence, and a sentence with fewer
-than three content words is not compared.
+page with the revision. It reads every line of the page outside fenced code
+blocks and front matter: running prose, list items, rows of tables, headings,
+the text of an image, an indented block. A sentence is kept when it stands in
+the revision near its place with the same words in the same order. Case,
+punctuation, markup, and contractions do not count, and the sentence may
+stand inside a longer one, so two sentences joined with "and" are both kept.
+The words of a code span are words of its sentence, so a term that the
+revision sets as code changes nothing. Every other sentence is a suspect: the
+revision changed at least one of its words.
 
 For a suspect the command looks for a counterpart: one sentence of the
 revision near its place, or two or three in a row, with at least six tenths
 of its content words. That share is counted twice, over all its content words
 and over those that the sentences around it in the page do not have. A
-suspect without a counterpart is missing. One whose counterpart has fewer
-negations lost a negation. Any other is reworded.
+sentence with fewer than three content words, such as "We did not run it.",
+is compared by all its words. A suspect without a counterpart is missing. One
+whose counterpart has fewer negations lost a negation. Any other is reworded.
 
 So nothing that a sentence says can change without that sentence going to
 the model. The model gets each suspect beside the sentences of the revision
@@ -263,10 +265,11 @@ than the other.
   line; read it and decide.
 - A paraphrase that keeps none of a sentence's own words is not cleared,
   whatever the judge says.
-- A sentence with fewer than three content words is not compared, and the
-  command reads only what the engine reads as prose. What a page says across
-  several sentences, such as the order of steps, is compared sentence by
-  sentence.
+- What a page says across several sentences, such as the order of steps, is
+  compared sentence by sentence. A sentence that the revision keeps word for
+  word and moves a few sentences away is kept.
+- Fenced code is compared as code: a block with one changed line is reported
+  as lost and is not shown to the judge.
 - The words are English. The lists of function words, negations, and endings
   are English lists.
 - An accepted revision more often reads less like a model's text than the

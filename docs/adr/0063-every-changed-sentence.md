@@ -37,13 +37,21 @@ run over the end of one into the next. So the edits that the report asks for
 most often keep a sentence: two sentences joined with "and", a contraction, a
 word put in front, an aside set in parentheses.
 
-**A sentence has the words of its code spans.** The engine gives the prose of
-a paragraph in pieces: what stands between two code spans is a piece of its
-own, and the code is in none. The command joins the pieces of one block again
-with what stands between them. Otherwise a term that a reviser sets as code
-would leave its sentence, and the judge would be shown a sentence with a hole
-in it. Two such sentences of the fitting half were called missing for that
-reason alone.
+**The command reads every line of the page outside fenced code.** The first
+build of this rule compared the prose that the engine extracts, and two holes
+showed. The engine gives the prose of a paragraph in pieces around its code
+spans, so a term that a reviser set as code left its sentence, and the judge
+was shown a sentence with a hole in it. And the engine reads no prose in the
+text of an image, in an indented block, or in a heading, so a change there
+was never compared. The command now cuts the source itself: every line
+outside fenced code blocks and front matter belongs to a block, and a block
+is cut into sentences. Fenced code is compared as code, as before.
+
+**A short sentence is compared by all its words.** ADR 0062 did not compare a
+sentence with fewer than three content words, because two words are in some
+other sentence by accident. "We did not run it for this post." has two, and
+without its "not" it passed. Such a sentence is now compared word for word
+like any other, and its counterpart is looked for by all its words.
 
 **Every other sentence is a suspect and goes to the judge.** The revision
 changed at least one of its words, and the command does not decide what the
@@ -123,9 +131,10 @@ MEASURED
 - The judge decides whether a reworded sentence still says the same. The
   command guarantees that the judge is shown the sentence and what replaced
   it; it does not guarantee what the judge reads.
-- A sentence with fewer than three content words is not compared.
 - A sentence that the revision keeps word for word and moves to another
   place near by is kept, also when its new place changes what it refers to.
+- Fenced code is compared as code and is not shown to the judge: a block with
+  one changed line is reported as lost.
 - What the page says across several sentences, such as the order of steps,
   is compared sentence by sentence only.
 - The words are English, and the judges of the measurement are models.

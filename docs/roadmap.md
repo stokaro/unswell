@@ -122,9 +122,9 @@ search for statements had missed a removed sentence and a removed "not"
 sentence is kept only when it stands in the revision word for word, and every
 other sentence goes to the judge
 ([#594](https://github.com/stokaro/unswell/issues/594)). Open after it: what
-a page says across several sentences, such as the order of steps; prose that
-the engine does not read as prose; a judge that reads a changed sentence as
-kept; a language other than English; and people as judges.
+a page says across several sentences, such as the order of steps; a judge
+that reads a changed sentence as kept; a language other than English; and
+people as judges.
 
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on
