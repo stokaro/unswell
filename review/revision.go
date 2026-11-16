@@ -598,6 +598,10 @@ func splitFences(source string) (blocks []string, rest string) {
 			outside = append(outside, line)
 		}
 	}
+	// A fence that is not closed runs to the end of the text, and what follows it is code.
+	if block := strings.TrimSpace(strings.Join(inside, "\n")); fence != "" && block != "" {
+		blocks = append(blocks, block)
+	}
 	return blocks, strings.Join(outside, "\n")
 }
 
