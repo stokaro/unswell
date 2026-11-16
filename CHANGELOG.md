@@ -20,7 +20,16 @@ model. A sentence that a page says twice takes its own place first
 ([documentation](docs/compare.md),
 [ADR 0064](docs/adr/0064-words-left-out-of-a-sentence.md)).
 
-MEASURED
+The change was measured with the bars written on issue 599 before the run;
+all 38 hold. A sentence that lost its last clause is reported on 23 of 23
+copies with each of two judges, where one of them had reported 11 of 16. Over
+six kinds of damage each judge reports 259 of 260 damaged copies, and the
+check accepts none. All 60 removed sentences are reported without a question
+to a model. Of 60 copies whose revision only leaves out padding, the check
+reports none. It is stricter on ordinary revisions: a sentence that the judge
+does not find rejects 4 and 15 of 27 revisions of posts, where it rejected 5
+and 13
+([record](research/reviews/2026-11-16-left-out-words/RESULTS.md)).
 
 ## 0.1.0-alpha.16
 

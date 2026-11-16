@@ -18,7 +18,34 @@ the measured part.
 
 ## Outcome
 
-OUTCOME
+All 38 bars hold.
+
+- **Every changed sentence is a suspect.** Without a model, on all 112
+  damaged copies of the posts and on all 148 of the new texts, for each of
+  the six kinds of damage. No harmless copy of 56 and of 40 has a suspect.
+- **A removed sentence needs no judge.** For all 60 removed sentences the
+  revision wrote nothing at the place, and the command reported each of them
+  without a question to a model.
+- **Both judges report the damage.** With `gpt-6-astra` the check reports 111
+  of 112 damaged copies of the posts and 148 of 148 of the new texts. With
+  `private-host/Qwen3.6-35B-A3B` it reports 112 of 112 and 147 of 148.
+  Neither accepts a damaged copy.
+- **A clause cut off, the bar that did not hold before.** Reported on 23 of
+  23 copies with each judge: 3 of the posts and 20 of the new texts.
+- **Last words cut off.** Reported on 59 of 60 copies with each judge. Each
+  judge called one cut padding, on two different copies.
+- **Trimmed copies are left alone.** Of 60 copies whose revision only leaves
+  out padding, the check reports none, with either judge. Each judge called
+  the padding padding on all 60.
+- **Statements are found kept.** 99.4% and 99.4% over the revisions of the
+  posts, 99.5% and 99.1% over those of the fresh texts.
+- **Verdicts.** Every pair got a verdict on the first attempt, and no check
+  was stopped.
+- **The price.** The rule is stricter on ordinary revisions. A sentence that
+  was not cleared stands in 4 and in 15 of the 27 revisions of posts, where
+  the record before this one had 5 and 13, and in 8 and in 24 of the 30
+  revisions of fresh texts, where it had 7 and 19. No bar was set for this,
+  and nobody checked whether each of those sentences did lose something.
 
 ## What the product gained
 
@@ -125,7 +152,14 @@ that retry, and RESULTS.md shows the share of verdicts on the first attempt.
 
 ## The build behind the numbers
 
-BUILD
+The measured part comes from the build of commit `22e32981` of the branch of
+this change, and so do the fitting rows of the comparison without a model.
+The judged rows of the fitting half come from the build of commit `60fb081f`,
+before a refactoring; the build of the measurement finds the same suspects,
+the same passages, and the same left-out words on all 344 fitting copies.
+
+The released build differs from the build of the measurement in the help text
+of the command.
 
 ## Data
 

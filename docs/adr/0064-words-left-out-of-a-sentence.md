@@ -72,11 +72,76 @@ has to say of the named words that they are padding.
 
 ## What the fitting half showed
 
-FITTING
+The rule was fitted on the 40 posts of the fitting half of the style-guide
+set and on nothing else, with new copies. Two kinds of copies are new. One
+cuts the last words of a sentence from a preposition, so that the result does
+not rest on the words that open a clause. The other is harmless: the page has
+a phrase of padding in front of one sentence, and the revision leaves it out.
+The [record](../../research/reviews/2026-11-16-left-out-words/RESULTS.md)
+recounts these numbers.
+
+**Without a model.** The changed sentence is a suspect on all 229 damaged
+copies. For all 40 removed sentences the revision wrote nothing at the place,
+so the command reports them without a question. No harmless copy of 75 has a
+suspect, and on all 40 trimmed copies the command names the padding as the
+words that were left out.
+
+**With a judge.** A clause cut off is reported on 32 of 32 copies with each
+judge. Last words cut off are reported on 39 of 40 with one judge and on 40
+of 40 with the other; the one that was cleared lost "in more detail", which
+the judge called padding. No damaged copy is accepted. Of the 40 trimmed
+copies the check reports none, with either judge.
+
+**On ordinary revisions.** A sentence that was not cleared stands in 12 and
+in 16 of 40 revisions, where it stood in 9 and in 14 under ADR 0063. The
+check of one reviser's 40 revisions accepted none, where it had accepted 4.
+Those 4 fail only the blind comparison of the sound, whose prompt did not
+change: asked again, the judge named the page in both orders for 1 revision,
+where it had done so for 5.
 
 ## What was measured
 
-MEASURED
+The bars were written on issue 599 before the run. Every bar was read on two
+kinds of pages: the 30 posts of the measured half of the style-guide set,
+which earlier measurements had read, and 30 texts that no run had read, which
+two models wrote for this measurement. All 38 bars hold.
+
+| What | Posts | New texts |
+| --- | --- | --- |
+| The changed sentence is a suspect, without a model | 112 of 112 | 148 of 148 |
+| Of them, reported without a question to a model | 30 | 30 |
+| Harmless copies with a suspect, without a model | 0 of 56 | 0 of 40 |
+| The check reports the damage, judge `gpt-6-astra` | 111 of 112 | 148 of 148 |
+| The check reports the damage, judge `private-host/Qwen3.6-35B-A3B` | 112 of 112 | 147 of 148 |
+| Damaged copies accepted, the two judges | 0 and 0 | 0 and 0 |
+| Trimmed copies whose sentence is reported, the two judges | 0 and 0 of 30 | 0 and 0 of 30 |
+
+By kind of damage, the two kinds of pages together:
+
+| Judge | A sentence removed | "not" removed | "not" put in | A word turned around | A clause cut off | Last words cut off |
+| --- | --- | --- | --- | --- | --- | --- |
+| `gpt-6-astra` | 60 of 60 | 18 of 18 | 47 of 47 | 52 of 52 | 23 of 23 | 59 of 60 |
+| `private-host/Qwen3.6-35B-A3B` | 60 of 60 | 18 of 18 | 47 of 47 | 52 of 52 | 23 of 23 | 59 of 60 |
+
+**The bar that did not hold under ADR 0063 holds.** A sentence that lost its
+last clause is reported on 23 of 23 copies with each judge. Only 3 of those
+copies are of the posts: the earlier measurements used most of their
+sentences that have a clause to cut.
+
+**Each judge called one cut padding**, of 60 with the last words cut off, on
+two different copies.
+
+**The statements.** The check finds 99.4% and 99.4% of the statements kept
+over the revisions of the posts, and 99.5% and 99.1% over revisions of fresh
+texts.
+
+**Ordinary revisions.** A sentence that was not cleared stands in 4 and in 15
+of 27 revisions of posts, where it stood in 5 and in 13 under ADR 0063, and
+in 8 and in 24 of 30 revisions of fresh texts, where it stood in 7 and in 19.
+No bar was set for this.
+
+The [record](../../research/reviews/2026-11-16-left-out-words/RESULTS.md)
+recounts these numbers.
 
 ## Consequences
 

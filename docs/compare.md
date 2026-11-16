@@ -317,6 +317,53 @@ stands in 5 and in 13 of 27 revisions of posts. On the fitting half the
 earlier rule left 5 and 6 of 40 revisions with such a sentence, and this one
 leaves 9 and 14. The report names each such sentence with its line.
 
+### The words that a revision leaves out
+
+That measurement left a bar open, and two things behind it. A judge that was
+shown "A when B." beside "A." answered that the sentence is there and quoted
+"A". And when a page said a sentence twice, the judge was shown the kept
+copy. The command now names the words that a revision leaves out of a
+sentence, takes no quote of what is left of it, and shows the judge only what
+the revision wrote. A fourth measurement read that, with the bars written on
+issue 599 before the run; its
+[record](../research/reviews/2026-11-16-left-out-words/RESULTS.md) recounts
+the numbers, and [ADR 0064](adr/0064-words-left-out-of-a-sentence.md) has the
+decisions. All 38 bars hold.
+
+The pages are the 30 posts and 30 texts that no run had read. The copies have
+one more kind of damage, the last words of a sentence cut off from a
+preposition, and one more harmless kind: a revision that leaves out a phrase
+of padding, such as "It is worth noting that".
+
+| What | Posts | New texts |
+| --- | --- | --- |
+| The changed sentence is a suspect, without a model | 112 of 112 | 148 of 148 |
+| Of them, reported without a question to a model | 30 | 30 |
+| A harmless copy has a suspect, without a model | 0 of 56 | 0 of 40 |
+| The check reports the damage, judge `gpt-6-astra` | 111 of 112 | 148 of 148 |
+| The check reports the damage, judge `private-host/Qwen3.6-35B-A3B` | 112 of 112 | 147 of 148 |
+| Damaged copies accepted, the two judges | 0 and 0 | 0 and 0 |
+| The check reports a sentence that only lost padding, the two judges | 0 and 0 of 30 | 0 and 0 of 30 |
+
+| Judge | A sentence removed | "not" removed | "not" put in | A word turned around | A clause cut off | Last words cut off |
+| --- | --- | --- | --- | --- | --- | --- |
+| `gpt-6-astra` | 60 of 60 | 18 of 18 | 47 of 47 | 52 of 52 | 23 of 23 | 59 of 60 |
+| `private-host/Qwen3.6-35B-A3B` | 60 of 60 | 18 of 18 | 47 of 47 | 52 of 52 | 23 of 23 | 59 of 60 |
+
+A removed sentence no longer depends on a judge: the revision wrote nothing
+at its place, so the command reports it. A cut clause is reported on every
+copy with each judge. Each judge called one cut of last words padding.
+
+**Ordinary revisions pay again.** A sentence that the check does not clear
+stands in 4 and in 15 of 27 revisions of posts, where it stood in 5 and in
+13, and in 8 and in 24 of 30 revisions of fresh texts, where it stood in 7
+and in 19.
+
+**The blind comparison is not stable.** The fitting half showed it by the
+way. The check had accepted 4 of 40 revisions of one reviser; asked again
+with the same prompt, the judge named the page in both orders for 1 revision,
+where it had done so for 5, and the check accepted none.
+
 ## Limits
 
 - The check is strict, and most revisions get "no difference". That is not a
@@ -327,12 +374,17 @@ leaves 9 and 14. The report names each such sentence with its line.
 - The search for statements depends on the judge, and it verifies a quote,
   not its meaning.
 - The command shows the judge every sentence that the revision changed. What
-  the judge reads in it is the judge's: in the measurement one judge found a
-  sentence in what was left of it after its last clause was cut, on 5 of 16
-  copies.
-- When a page says one sentence twice and the revision changes one copy, the
-  place that the judge is shown can hold the kept copy. One damaged copy of
-  198 went unreported for that.
+  the judge reads in it is the judge's. For a sentence that only lost words,
+  the command names the words and takes no quote of the remains; whether the
+  words were padding is still the judge's call. In the measurement each judge
+  called one of 60 cuts of last words padding.
+- A sentence that a revision cuts and also rewords is not a cut sentence. It
+  goes to the judge as a reworded one, without a line for what was left out.
+- Words that a revision puts in around a kept sentence are not shown to the
+  judge: a sentence is kept when it stands in the revision word for word,
+  also inside a longer one.
+- The answer of a judge to the blind comparison of the sound can differ from
+  one run to the next.
 - The check rejects many ordinary revisions for one sentence. A reviser that
   rewords freely drops a detail somewhere, and one sentence that the judge
   does not find rejects the revision. The report names the sentence with its
