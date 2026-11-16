@@ -582,16 +582,19 @@ func outsideFences(source string) string {
 func splitFences(source string) (blocks []string, rest string) {
 	var inside, outside []string
 	fence := ""
+	closeBlock := func() {
+		if block := strings.TrimSpace(strings.Join(inside, "\n")); block != "" {
+			blocks = append(blocks, block)
+		}
+		fence, inside = "", nil
+	}
 	for line := range strings.SplitSeq(source, "\n") {
 		trimmed := strings.TrimSpace(line)
 		switch {
-		case fence == "" && (strings.HasPrefix(trimmed, "```") || strings.HasPrefix(trimmed, "~~~")):
-			fence, inside = trimmed[:3], nil
+		case fence == "" && isFence(trimmed):
+			fence = trimmed[:3]
 		case fence != "" && strings.HasPrefix(trimmed, fence):
-			if block := strings.TrimSpace(strings.Join(inside, "\n")); block != "" {
-				blocks = append(blocks, block)
-			}
-			fence = ""
+			closeBlock()
 		case fence != "":
 			inside = append(inside, strings.TrimRight(line, " \t\r"))
 		default:
@@ -599,8 +602,8 @@ func splitFences(source string) (blocks []string, rest string) {
 		}
 	}
 	// A fence that is not closed runs to the end of the text, and what follows it is code.
-	if block := strings.TrimSpace(strings.Join(inside, "\n")); fence != "" && block != "" {
-		blocks = append(blocks, block)
+	if fence != "" {
+		closeBlock()
 	}
 	return blocks, strings.Join(outside, "\n")
 }
