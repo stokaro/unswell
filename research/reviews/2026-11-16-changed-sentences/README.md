@@ -29,10 +29,14 @@ OUTCOME
   may stand inside a longer one. Every other sentence is a suspect and goes
   to the judge. Before, the command named what makes a sentence a suspect,
   and whatever it did not name passed.
-- **A sentence has the words of its code spans.** The engine gives the prose
-  of a paragraph in pieces around its code spans. The pieces of one block are
-  joined again, so a term that a reviser sets as code stays a word of its
-  sentence.
+- **Every line outside fenced code.** The command cuts the page into
+  sentences itself and no longer asks what the engine reads as prose: running
+  prose, list items, rows of tables, headings, the text of an image, an
+  indented block. A sentence has the words of its code spans, so a term that
+  a reviser sets as code stays a word of its sentence.
+- **Short sentences too.** A sentence with fewer than three content words is
+  compared word for word like any other, and its counterpart is looked for by
+  all its words.
 - **Questions of twenty.** A long list of suspects goes to the judge in
   several questions.
 
@@ -62,27 +66,50 @@ checks of numbers, code, and links do not notice the change.
 
 The rule was fitted on the 40 posts of the fitting half and on nothing else:
 on copies of each kind, and on the revisions that two models made of those
-posts by the report. A first build compared the pieces of prose as the engine
-gives them; two sentences were then called missing because the revision had
-set one of their words as code. And one judge often found a reworded
-sentence with the words of the sentence it had been asked about; those words
-are not in the place it was shown, and that alone rejected 5 of 16 revisions.
-The build of this record joins the pieces of a block again and asks once more
-about a sentence that was found without the words of its place. The fitting
-rows come from it: the copies of all 40 posts without a model, 50 damaged
-copies with each judge, and the 40 revisions of each reviser.
+posts by the report. Two things changed on the way. A first build compared
+the pieces of prose as the engine gives them; two sentences were then called
+missing because the revision had set one of their words as code. And one
+judge often found a reworded sentence with the words of the sentence it had
+been asked about; those words are not in the place it was shown, and that
+alone rejected 5 of 16 revisions. The command now asks once more about a
+sentence that was found without the words of its place.
+
+The fitting rows of this record come from the build of the record: the copies
+of all 40 posts without a model, 50 damaged copies with each judge, and the
+40 revisions of each reviser.
+
+## The first start of the measured run, and why it was stopped
+
+The bars were written on the issue, and the run started with an earlier
+build. Its first stage, the comparison without a model, showed 4 damaged
+copies of the posts whose changed sentence was no suspect. Two were short
+sentences: the rule did not compare a sentence with fewer than three content
+words, and "We did not run it for this post." without its "not" passed. Two
+stood where the engine reads no prose, in the text of an image and in an
+indented block.
+
+Those are holes in the rule, a changed sentence that the judge is never
+shown, so the run was stopped during its judged stage and the rule was
+changed: the command reads every line outside fenced code, and it compares a
+short sentence like any other. The issue has what had been seen by then: the
+model-free stage in full, the verdicts on 66 and 56 damaged copies and on 39
+revisions as counts, and no answer of a judge.
+
+The second start is the measurement of this record. Its copies are new, with
+another salt, and change no sentence that an earlier run changed, so the 4
+copies above are not in it. Its fresh texts are other ones.
 
 ## The measured part, and what had been read before
 
-The 30 posts of the measured half have been read twice, by the two earlier
-records. The copies of this record change sentences that neither of them
-changed. The posts are still not unread, and there are no others. So every
-bar is read on two kinds of pages:
+The 30 posts of the measured half have been read by the two earlier records
+and by the first start. The copies of this record change other sentences. The
+posts are still not unread, and there are no others. So every bar is read on
+two kinds of pages:
 
 - **The posts.** The 30 posts of the measured half, with new copies.
 - **Fresh texts.** 30 texts that no run had read: texts that two models wrote
   under a style guide on the subjects of human posts, for each writer the 15
-  after the first 45 in the order of a hash of the id. They are not posts of
+  after the first 60 in the order of a hash of the id. They are not posts of
   the style-guide set.
 
 **Without a model.** The comparison runs on every copy.
