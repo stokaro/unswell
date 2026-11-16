@@ -60,7 +60,8 @@ func TestSuspectsNameASentenceThatIsNotThereWordForWord(t *testing.T) {
 		revised, sentence, passage string
 	}{
 		"another order": {
-			lockPage(lockWait, lockQueue, "Statements that already hold the lock are not canceled by the timeout.", lockSession, lockDeploy, lockOrder),
+			lockPage(lockWait, lockQueue, "Statements that already hold the lock are not canceled by the timeout.", lockSession, lockDeploy,
+				lockOrder),
 			lockTimeout, "Statements that already hold the lock are not canceled by the timeout.",
 		},
 		"one sentence split": {

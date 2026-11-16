@@ -640,9 +640,9 @@ func TestCompareAsksAboutManySentencesInSeveralQuestions(t *testing.T) {
 	var page, revision strings.Builder
 	page.WriteString("# Workers\n\nThe client does not retry a request that the server rejected.\n")
 	revision.WriteString("# Workers\n")
-	names := strings.Fields("amber basalt cedar delta ember flint garnet harbor indigo jasper kestrel lumen marble nectar onyx pebble quartz " +
-		"russet saffron timber umber violet")
-	for _, name := range names {
+	names := "amber basalt cedar delta ember flint garnet harbor indigo jasper kestrel lumen marble nectar onyx pebble quartz russet " +
+		"saffron timber umber violet"
+	for name := range strings.FieldsSeq(names) {
 		fmt.Fprintf(&page, "\nThe %s worker drains the %s queue before the %s report is written.\n", name, name, name)
 		fmt.Fprintf(&revision, "\nThe %s worker drains the %s queue after the %s report is written.\n", name, name, name)
 	}
@@ -650,7 +650,8 @@ func TestCompareAsksAboutManySentencesInSeveralQuestions(t *testing.T) {
 	c.Assert(os.WriteFile(filepath.Join(root, "page.md"), []byte(page.String()), 0o600), qt.IsNil)
 	c.Assert(os.WriteFile(filepath.Join(root, "revised.md"), []byte(revision.String()), 0o600), qt.IsNil)
 	one := `{"facts": [{"fact": 1, "kept": "yes", "quote": "The amber worker drains the amber queue"}]}`
-	script := judgeScript{sound: pageNamedBefore("queue after"), facts: `{"facts": ["The amber worker drains the amber queue."]}`, control: one, kept: one}
+	script := judgeScript{sound: pageNamedBefore("queue after"), facts: `{"facts": ["The amber worker drains the amber queue."]}`,
+		control: one, kept: one}
 	model := newFakeModel(t, script.answer)
 	report, outcome := compareJSON(c, t, root, model)
 	c.Assert(outcome.code, qt.Equals, 1, qt.Commentf("stderr: %s", outcome.stderr))
