@@ -99,12 +99,18 @@ func TestSuspectsNameTheWordsThatARevisionLeavesOut(t *testing.T) {
 	}{
 		// What is left has none of the sentence's own words, "changes" and "column". It is still the sentence.
 		{"its last clause", lockWait, "A migration waits for a table lock.", "before it changes a column", "A migration waits for a table lock."},
-		{"words in the middle", lockDeploy, "The deploy job reads the release image.", "migration directory from the", "The deploy job reads the release image."},
+		{
+			"words in the middle", lockDeploy, "The deploy job reads the release image.", "migration directory from the",
+			"The deploy job reads the release image.",
+		},
 		{
 			"two runs of words", lockSession, "Set the timeout in the session before the statement runs.", "lock ... first",
 			"Set the timeout in the session before the statement runs.",
 		},
-		{"its first words", lockOrder, "Each pending file in the order of its version.", "it applies", "Each pending file in the order of its version."},
+		{
+			"its first words", lockOrder, "Each pending file in the order of its version.", "it applies",
+			"Each pending file in the order of its version.",
+		},
 		// The words that were left out stand in the next sentence. The judge is shown both.
 		{
 			"words moved to the next sentence", lockSession, "Set the lock timeout in the session. Do it before the first statement runs.",

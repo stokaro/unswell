@@ -138,28 +138,7 @@ func (r *Revision) Suspects() (suspects []Suspect, compared int) {
 	page, revised := itemWords(before), itemWords(after)
 	matches := make([]match, len(page))
 	expected := func(index int) int { return index * len(revised) / len(page) }
-	// First the sentences that stand in the revision word for word. Each takes its own words there, so a sentence
-	// that the page says twice needs two places in the revision. Those that stand at their own place go first: a
-	// sentence does not take the place of its twin further down.
-	stream := newWordStream(revised)
-	for _, reach := range []int{nearSentences, max(minReach, len(revised)/reachShare)} {
-		for index, words := range page {
-			if len(words.tokens) == 0 || matches[index].verbatim {
-				continue
-			}
-			if start, found := stream.take(words.tokens, expected(index), reach); found {
-				matches[index].verbatim = true
-				matches[index].start, matches[index].size = start, 1
-			}
-		}
-	}
-	// A sentence of the revision whose words are all taken is the counterpart of no other sentence.
-	taken := make([]bool, len(revised))
-	for index := range revised {
-		if taken[index] = stream.taken(index); taken[index] {
-			revised[index] = sentenceWords{}
-		}
-	}
+	taken := takeVerbatim(page, revised, matches, expected)
 	own := make([]map[string]bool, len(page))
 	cuts := make([]string, len(page))
 	for index, words := range page {
@@ -182,6 +161,35 @@ func (r *Revision) Suspects() (suspects []Suspect, compared int) {
 		matches[index].start, matches[index].size = found.start, found.size
 	}
 	return r.suspects(sentencePairs{before, after, page, revised, taken}, matches, own, cuts), compared
+}
+
+// takeVerbatim marks the sentences of the page that stand in the revision
+// word for word. Each takes its own words there, so a sentence that the page
+// says twice needs two places in the revision. Those that stand at their own
+// place go first: a sentence does not take the place of its twin further
+// down. It returns which sentences of the revision have all their words
+// taken, and it empties them: such a sentence is the counterpart of no other
+// sentence.
+func takeVerbatim(page, revised []sentenceWords, matches []match, expected func(int) int) (taken []bool) {
+	stream := newWordStream(revised)
+	for _, reach := range []int{nearSentences, max(minReach, len(revised)/reachShare)} {
+		for index, words := range page {
+			if len(words.tokens) == 0 || matches[index].verbatim {
+				continue
+			}
+			if start, found := stream.take(words.tokens, expected(index), reach); found {
+				matches[index].verbatim = true
+				matches[index].start, matches[index].size = start, 1
+			}
+		}
+	}
+	taken = make([]bool, len(revised))
+	for index := range revised {
+		if taken[index] = stream.taken(index); taken[index] {
+			revised[index] = sentenceWords{}
+		}
+	}
+	return taken
 }
 
 // sentencePairs holds the sentences of the page and of the revision with the
@@ -281,18 +289,24 @@ func leftOut(tokens, rest []string) (cut string, ok bool) {
 	if 2*len(rest) < len(tokens) {
 		return "", false
 	}
+	return leftOutRuns(tokens, rest)
+}
+
+// leftOutRuns returns the runs of words of a sentence that are not in what
+// is left of it, when what is left has its words in their order.
+func leftOutRuns(tokens, rest []string) (cut string, ok bool) {
 	runs := []string{}
 	var run []string
 	next := 0
 	for _, token := range tokens {
-		if next < len(rest) && token == rest[next] {
-			next++
-			if len(run) > 0 {
-				runs, run = append(runs, strings.Join(run, " ")), nil
-			}
+		if next == len(rest) || token != rest[next] {
+			run = append(run, token)
 			continue
 		}
-		run = append(run, token)
+		next++
+		if len(run) > 0 {
+			runs, run = append(runs, strings.Join(run, " ")), nil
+		}
 	}
 	if len(run) > 0 {
 		runs = append(runs, strings.Join(run, " "))
@@ -652,14 +666,6 @@ func negations(run []sentenceWords) int {
 		total += words.negations
 	}
 	return total
-}
-
-func itemsText(items []Item) string {
-	texts := make([]string, len(items))
-	for index, item := range items {
-		texts[index] = item.Text
-	}
-	return strings.Join(texts, " ")
 }
 
 // negationWords deny what a sentence says. A word that ends in n't counts

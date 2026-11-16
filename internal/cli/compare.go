@@ -413,7 +413,9 @@ func askSentences(ctx context.Context, client modelClient, options modelRunOptio
 
 // askSuspectsTwice asks the judge about the suspects, and once more about
 // those that it found without the words of their place.
-func askSuspectsTwice(ctx context.Context, client modelClient, options modelRunOptions, suspects []review.Suspect) ([]review.Suspect, error) {
+func askSuspectsTwice(
+	ctx context.Context, client modelClient, options modelRunOptions, suspects []review.Suspect,
+) ([]review.Suspect, error) {
 	if len(suspects) == 0 {
 		return nil, nil
 	}

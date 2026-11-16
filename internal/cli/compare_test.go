@@ -794,7 +794,8 @@ func TestCompareNamesTheWordsThatTheRevisionLeftOut(t *testing.T) {
 				sentences: test.sentences}
 			// The page and the revision both have the sentence that tells them apart for the other tests.
 			answer := func(call chatCall, attempt int) (int, string) {
-				if _, searched, found := strings.Cut(call.User, "===== PAGE ====="); found && !strings.Contains(searched, "after a connection failure") {
+				_, searched, lookup := strings.Cut(call.User, "===== PAGE =====")
+				if lookup && !strings.Contains(searched, "after a connection failure") {
 					return http.StatusOK, kept
 				}
 				return script.answer(call, attempt)
