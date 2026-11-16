@@ -71,18 +71,37 @@ sentence with fewer than three content words, such as "We did not run it.",
 is compared by all its words. A suspect without a counterpart is missing. One
 whose counterpart has fewer negations lost a negation. Any other is reworded.
 
-So nothing that a sentence says can change without that sentence going to
-the model. The model gets each suspect beside the sentences of the revision
-from its place, and nothing else of either text; a long list goes in
-questions of twenty. Most suspects are harmless: a reviser says a sentence in
-another order or in words of its own. The model clears a suspect only with a
-quote that stands in that place. For a missing sentence the quote also has to
-carry one of the sentence's own words: a model that quotes the sentence
-beside the gap does not clear it. When the model finds a sentence and its
-quote is not in that place, the command asks once more about that sentence;
-a model that says yes may quote the sentence it was asked about. One suspect
-that is not cleared rejects the revision, and the report shows the sentence
-with its line.
+A suspect is cut when a sentence of the revision has its words in their
+order with some left out, and no other word: the revision cut a clause, a
+phrase, or a word out of the sentence. The command then names the words that
+were left out, in the report and to the model.
+
+So nothing that a sentence says can change without the command seeing it.
+The model gets each suspect beside the sentences that the revision wrote at
+its place, and nothing else of either text; a long list goes in questions of
+twenty. A sentence of the revision that is a kept sentence of the page is not
+shown: it says what its own sentence says. When the revision wrote nothing at
+the place of a sentence, the sentence is gone, and the command reports it
+without asking a model.
+
+Most suspects are harmless: a reviser says a sentence in another order or in
+words of its own. The model clears a suspect only with a quote that stands in
+that place. For a missing sentence the quote also has to carry one of the
+sentence's own words: a model that quotes the sentence beside the gap does
+not clear it. When the model finds a sentence and its quote is not in that
+place, the command asks once more about that sentence; a model that says yes
+may quote the sentence it was asked about.
+
+A cut sentence has two ways to be cleared. The model calls the words that
+were left out padding: they told the reader nothing. The command refuses that
+answer when the words hold a negation. Or the model quotes words of the
+passage that say what was left out, and that quote needs a word which the
+rest of the sentence does not have. What is left of a sentence shows only
+that the rest is kept, so a model that quotes it clears nothing.
+
+One suspect that is not cleared rejects the revision, and the report shows
+the sentence with its line, and for a cut sentence the words that were left
+out.
 
 **Numbers, code, and links.** Without a model: every number of the page's
 prose, every code block and inline code, and every link has to occur in the
@@ -151,14 +170,17 @@ are read, as they do for [`unswell check`](inputs.md). A text larger than
 statement with its outcome and the quoted words, the statements that were
 left out, the number of sentences that were compared and each suspect with
 the place it was looked for and what the judge said, what was lost, the em
-dashes of both texts, and the verdict with its reasons. `--report text:PATH`
+dashes of both texts, and the verdict with its reasons. A suspect whose
+sentence the revision cut has the words that were left out in `cut`, and
+`padding` is true when the judge called them padding. `--report text:PATH`
 writes the text above.
 
 The command makes five calls or more: two for the sound, three for the
 facts, one more when a statement was not found the first time, one for every
-twenty sentences that the revision does not keep word for word, and one more
-when a sentence was found without the words of its place. The three for the
-facts carry the whole text of the page or of the revision. A call about
+twenty sentences that the revision does not keep word for word and wrote
+something in the place of, and one more when a sentence was found without the
+words of its place. The three for the facts carry the whole text of the page
+or of the revision. A call about
 sentences carries only those sentences and their places.
 
 ## Measured behavior
