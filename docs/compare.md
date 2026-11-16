@@ -260,7 +260,9 @@ judge. A third measurement read that rule, with the bars written on issue 595
 before the run; its
 [record](../research/reviews/2026-11-16-changed-sentences/RESULTS.md) recounts
 the numbers, and [ADR 0063](adr/0063-every-changed-sentence.md) has the
-decisions. Of 32 bars, 31 hold.
+decisions. Of 32 bars, 31 hold. The published binary of `v0.1.0-alpha.16`
+names the same suspects on all 553 copies of the record; see the
+[alpha.16 evidence](release/v0.1.0-alpha.16.md).
 
 Each page got copies with one sentence changed in one of five ways. The pages
 are the 30 posts, which earlier measurements had read, and 30 texts that no

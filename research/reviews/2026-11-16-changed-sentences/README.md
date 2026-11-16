@@ -180,6 +180,15 @@ read what follows it neither as sentences nor as code; the final one reads it
 as code. No page and no revision of this record has a fenced code block, and
 the final build names the same suspects on all 553 copies.
 
+The published binary of `v0.1.0-alpha.16` was run on the same texts after the
+release. It names the same suspects on all 553 copies; `scripts/audit.py` is
+that check. From the kept answers of one judge it reaches the same verdict,
+sound, statements, sentences, losses, and em dashes on the 57 revisions that
+this judge checked; `scripts/reproduce.py` is that check. The damaged copies
+cannot be replayed, since several copies of one page ask the same question
+about it and a repeated question gets a new answer, and the answers of the
+endpoint judge were not kept.
+
 ## Data
 
 | File | Rows |
