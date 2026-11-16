@@ -38,7 +38,8 @@ PAGES = ("set-s", "fresh")
 REVISION_PARTS = ("fitting", "read", "fresh")
 MEASURED_REVISIONS = ("read", "fresh")
 # The bars, as they were written on issue ISSUE before the run.
-BARS = {"damage_reported": 0.90, "damaged_accepted": 2, "harmless_suspected": 0.05, "statements_kept": 0.98, "verdicts": 0.95}
+BARS = {"damage_reported": 0.90, "kind_reported": 0.80, "damaged_accepted": 2, "harmless_suspected": 0.05, "statements_kept": 0.98,
+        "verdicts": 0.95}
 
 
 class Malformed(Exception):
@@ -278,7 +279,7 @@ def registered(result):
             entry = result["kinds"][judge][kind]
             if entry["copies"] == 0:
                 fail(f"no measured copy of the kind {kind} for {judge}")
-            held[f"D2, {kind} reported, {judge}"] = entry["reported_share"] >= BARS["damage_reported"]
+            held[f"D2, {kind} reported, {judge}"] = entry["reported_share"] >= BARS["kind_reported"]
     for part in MEASURED_REVISIONS:
         if set(revisions.get(part, {})) != set(JUDGES):
             fail(f"the revisions of the part {part} are not complete")

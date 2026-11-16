@@ -86,7 +86,7 @@ def damage_section(result):
     kinds = [(f"{DAMAGE[kind].lower()}, {code(judge)}", {"kind": kind, "judge": judge}) for judge in JUDGES for kind in DAMAGE]
     lines += ["", f"Bar D1. The check reports the damage on at least {percent(limits['damage_reported'])} of the damaged copies of a kind of pages: "
               + bars(result, "D1, damage reported, {pages}, {judge}", cells) + ".", "",
-              f"Bar D2. It reports each kind of damage on at least {percent(limits['damage_reported'])} of the copies of that kind: "
+              f"Bar D2. It reports each kind of damage on at least {percent(limits['kind_reported'])} of the copies of that kind: "
               + bars(result, "D2, {kind} reported, {judge}", kinds) + ".", "",
               f"Bar D3. It accepts at most {limits['damaged_accepted']} damaged copies of a kind of pages: "
               + bars(result, "D3, damaged copies accepted, {pages}, {judge}", cells) + ".", "",

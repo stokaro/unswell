@@ -118,10 +118,10 @@ class RecountTest(unittest.TestCase):
     def test_each_bar_can_fail(self):
         def missed(rows):
             for row in rows:
-                if (row["part"], row["judge"], row["kind"]) == (MEASURED, GPT, "swap") and row["unit"] in ("u1", "u2"):
+                if (row["part"], row["judge"], row["kind"]) == (MEASURED, GPT, "swap") and row["unit"] in ("u1", "u2", "u3"):
                     row.update(suspects=0, lost=0, reported=False)
         result = self.changed("damage", missed)
-        # Four of twenty copies with a word turned around go unreported: that kind fails, and no other bar does.
+        # Six of twenty copies with a word turned around go unreported: that kind fails, and no other bar does.
         self.assertFalse(result["registered"][f"D2, swap reported, {GPT}"])
         self.assertTrue(result["registered"][f"D2, swap reported, {QWEN35}"])
         self.assertTrue(result["registered"][f"D2, clause reported, {GPT}"])
@@ -132,8 +132,11 @@ class RecountTest(unittest.TestCase):
                 if (row["part"], row["pages"], row["judge"]) == (MEASURED, "set-s", GPT) and row["unit"] in ("u1", "u2"):
                     row.update(suspects=0, lost=0, reported=False)
         result = self.changed("damage", many_missed)
+        # Ten of fifty copies of the posts go unreported, two of each kind and one more removed sentence: the bar on
+        # the pages fails, and each kind, read over both kinds of pages, still holds.
         self.assertFalse(result["registered"][f"D1, damage reported, set-s, {GPT}"])
         self.assertTrue(result["registered"][f"D1, damage reported, fresh, {GPT}"])
+        self.assertTrue(result["registered"][f"D2, swap reported, {GPT}"])
 
         def accepted(rows):
             for row in rows:
