@@ -18,7 +18,7 @@ const (
 	lockOrder   = "It applies each pending file in the order of its version."
 )
 
-// lockPage is a page of six sentences in two paragraphs.
+// lockPage is a page of a heading and six sentences.
 func lockPage(sentences ...string) string {
 	if len(sentences) == 0 {
 		sentences = []string{lockWait, lockQueue, lockTimeout, lockSession, lockDeploy, lockOrder}
@@ -34,31 +34,86 @@ func suspectsOf(c *qt.C, t *testing.T, revised string) ([]review.Suspect, int) {
 	return revision.Suspects()
 }
 
-func TestSuspectsLeaveARevisionThatKeepsEverySentence(t *testing.T) {
+func TestSuspectsLeaveASentenceThatStandsWordForWord(t *testing.T) {
 	cases := map[string]string{
 		"two sentences joined": lockPage(strings.TrimSuffix(lockWait, ".")+", and every query on that table queues behind the waiting migration.",
 			lockTimeout, lockSession, lockDeploy, lockOrder),
-		"a contraction and another order": lockPage(lockWait, lockQueue,
-			"Statements that already hold the lock aren't canceled by the timeout.", lockSession, lockDeploy, lockOrder),
-		"one sentence split": lockPage(lockWait, lockQueue, lockTimeout,
-			"Set the lock timeout in the session.", "Do it before the first statement runs.", lockDeploy, lockOrder),
-		"other forms of the same words": lockPage(lockWait, lockQueue, lockTimeout, lockSession,
-			"Deploy jobs read the migration directories from release images.", lockOrder),
+		"a contraction": lockPage(lockWait, lockQueue, "The timeout doesn't cancel statements that already hold the lock.", lockSession,
+			lockDeploy, lockOrder),
+		"a word in front": lockPage(lockWait, "And every query on that table queues behind the waiting migration.", lockTimeout,
+			"So set the lock timeout in the session before the first statement runs.", lockDeploy, lockOrder),
+		"markup, case, and punctuation": lockPage(lockWait, lockQueue, "The timeout does **not** cancel statements that already hold the lock;",
+			"set the lock timeout in the session (before the first statement runs).", lockDeploy, lockOrder),
 	}
 	for name, revised := range cases {
 		t.Run(name, func(t *testing.T) {
 			c := qt.New(t)
 			suspects, compared := suspectsOf(c, t, revised)
 			c.Assert(suspects, qt.HasLen, 0)
-			c.Assert(compared, qt.Equals, 6)
+			c.Assert(compared, qt.Equals, 7)
 		})
 	}
+}
+
+func TestSuspectsNameASentenceThatIsNotThereWordForWord(t *testing.T) {
+	cases := map[string]struct {
+		revised, sentence, passage string
+	}{
+		"another order": {
+			lockPage(lockWait, lockQueue, "Statements that already hold the lock are not canceled by the timeout.", lockSession, lockDeploy,
+				lockOrder),
+			lockTimeout, "Statements that already hold the lock are not canceled by the timeout.",
+		},
+		"one sentence split": {
+			lockPage(lockWait, lockQueue, lockTimeout, "Set the lock timeout in the session.", "Do it before the first statement runs.", lockDeploy,
+				lockOrder),
+			lockSession, "Set the lock timeout in the session. Do it before the first statement runs.",
+		},
+		"other forms of the same words": {
+			lockPage(lockWait, lockQueue, lockTimeout, lockSession, "Deploy jobs read the migration directories from release images.", lockOrder),
+			lockDeploy, "Deploy jobs read the migration directories from release images.",
+		},
+		// "Before" and "after" are no content words. The sentence still has to stand word for word.
+		"one word turned around": {
+			lockPage(lockWait, lockQueue, lockTimeout, strings.Replace(lockSession, "before", "after", 1), lockDeploy, lockOrder),
+			lockSession, "Set the lock timeout in the session after the first statement runs.",
+		},
+		// A negation more is no negation less, so only the words tell.
+		"a negation put in": {
+			lockPage(lockWait, lockQueue, lockTimeout, lockSession, strings.Replace(lockDeploy, "reads", "does not read", 1), lockOrder),
+			lockDeploy, "The deploy job does not read the migration directory from the release image.",
+		},
+	}
+	for name, test := range cases {
+		t.Run(name, func(t *testing.T) {
+			c := qt.New(t)
+			suspects, compared := suspectsOf(c, t, test.revised)
+			c.Assert(compared, qt.Equals, 7)
+			c.Assert(suspects, qt.HasLen, 1)
+			c.Assert(suspects[0].Reason, qt.Equals, review.SentenceReworded)
+			c.Assert(suspects[0].Text, qt.Equals, test.sentence)
+			c.Assert(suspects[0].Revised, qt.Equals, test.passage)
+		})
+	}
+}
+
+func TestSuspectsCallASentenceMissingWhenItsOwnWordsAreCutOff(t *testing.T) {
+	c := qt.New(t)
+	// What is left of the sentence has the words of the sentences around it and none of its own, "changes" and
+	// "column". So it counts as missing, and the judge is shown what stands in its place.
+	cut := strings.Replace(lockWait, " before it changes a column", "", 1)
+	suspects, _ := suspectsOf(c, t, lockPage(cut, lockQueue, lockTimeout, lockSession, lockDeploy, lockOrder))
+	c.Assert(suspects, qt.HasLen, 1)
+	c.Assert(suspects[0].Reason, qt.Equals, review.SentenceMissing)
+	c.Assert(suspects[0].Text, qt.Equals, lockWait)
+	c.Assert(suspects[0].Words, qt.DeepEquals, []string{"chang", "column"})
+	c.Assert(suspects[0].Revised, qt.Contains, "A migration waits for a table lock.")
 }
 
 func TestSuspectsNameARemovedSentenceWithItsPlace(t *testing.T) {
 	c := qt.New(t)
 	suspects, compared := suspectsOf(c, t, lockPage(lockWait, lockTimeout, lockSession, lockDeploy, lockOrder))
-	c.Assert(compared, qt.Equals, 6)
+	c.Assert(compared, qt.Equals, 7)
 	c.Assert(suspects, qt.HasLen, 1)
 	c.Assert(suspects[0].Reason, qt.Equals, review.SentenceMissing)
 	c.Assert(suspects[0].Text, qt.Equals, lockQueue)
@@ -90,14 +145,41 @@ func TestSuspectsDoNotTakeTheWordsOfTheNeighborsForARemovedSentence(t *testing.T
 	c.Assert(suspects[0].Reason, qt.Equals, review.SentenceMissing)
 }
 
-func TestSuspectsDoNotCompareASentenceOfTwoContentWords(t *testing.T) {
-	c := qt.New(t)
-	page := lockPage() + "\nIt works now.\n"
-	revision, err := review.NewRevision(prepare(c, t, "page.md", page), prepare(c, t, "revised.md", lockPage()))
-	c.Assert(err, qt.IsNil)
-	suspects, compared := revision.Suspects()
-	c.Assert(suspects, qt.HasLen, 0)
-	c.Assert(compared, qt.Equals, 6)
+func TestSuspectsCompareAShortSentenceByAllItsWords(t *testing.T) {
+	// "We did not run it." has one content word. It is compared like any sentence: word for word first, and by all
+	// its words when a counterpart is looked for.
+	short := "We did not run it."
+	cases := []struct {
+		name, revised, reason, passage string
+	}{
+		{"kept", short, "", ""},
+		{"kept inside a longer sentence", "For this post we did not run it.", "", ""},
+		{"its negation removed", "We did run it.", review.SentenceNegation, "We did run it."},
+		{"one word turned around", "They did not run it.", review.SentenceReworded, "They did not run it."},
+		{"removed", "", review.SentenceMissing, lockOrder},
+	}
+	for _, test := range cases {
+		t.Run(test.name, func(t *testing.T) {
+			c := qt.New(t)
+			page := prepare(c, t, "page.md", lockPage()+"\n"+short+"\n")
+			revised := lockPage()
+			if test.revised != "" {
+				revised += "\n" + test.revised + "\n"
+			}
+			revision, err := review.NewRevision(page, prepare(c, t, "revised.md", revised))
+			c.Assert(err, qt.IsNil)
+			suspects, compared := revision.Suspects()
+			c.Assert(compared, qt.Equals, 8)
+			if test.reason == "" {
+				c.Assert(suspects, qt.HasLen, 0)
+				return
+			}
+			c.Assert(suspects, qt.HasLen, 1)
+			c.Assert(suspects[0].Text, qt.Equals, short)
+			c.Assert(suspects[0].Reason, qt.Equals, test.reason)
+			c.Assert(suspects[0].Revised, qt.Contains, test.passage)
+		})
+	}
 }
 
 func TestSuspectsPromptShowsEachSentenceBesideItsPassage(t *testing.T) {
@@ -159,6 +241,7 @@ func TestBindSuspectsClearsOnlyAQuotedYes(t *testing.T) {
 		{Text: "five", Reason: review.SentenceMissing, Revised: queue, Words: own},
 		{Text: "six", Reason: review.SentenceMissing, Revised: queue, Words: own},
 		{Text: "seven", Reason: review.SentenceNegation, Revised: "The timeout doesn't cancel statements.", Words: own},
+		{Text: "eight", Reason: review.SentenceReworded, Revised: "Statements are not canceled by the timeout.", Words: own},
 	}
 	bound, err := review.BindSuspects(suspects, []review.FactVerdict{
 		{Fact: 1, Kept: "yes", Quote: "on that table queues  behind"},
@@ -168,6 +251,7 @@ func TestBindSuspectsClearsOnlyAQuotedYes(t *testing.T) {
 		{Fact: 5, Kept: "yes", Quote: "queues behind"},
 		{Fact: 6, Kept: "yes", Quote: "The migration waits for a lock"},
 		{Fact: 7, Kept: "yes", Quote: "doesn't cancel statements"},
+		{Fact: 8, Kept: "yes", Quote: "are not canceled by the timeout"},
 	})
 	c.Assert(err, qt.IsNil)
 	outcomes := make([]string, len(bound))
@@ -176,36 +260,150 @@ func TestBindSuspectsClearsOnlyAQuotedYes(t *testing.T) {
 	}
 	// The second quote is not in the passage, and the fifth has two words. The sixth stands in the passage and has
 	// none of the sentence's own words: it is the sentence beside the one that is gone. A sentence whose negation
-	// was in doubt needs only words of its passage.
+	// was in doubt, or that was reworded, needs only words of its passage.
 	c.Assert(outcomes, qt.DeepEquals, []string{
 		review.FactKept, review.FactUnquoted, review.FactChanged, review.FactMissing, review.FactUnquoted, review.FactUnquoted,
-		review.FactKept,
+		review.FactKept, review.FactKept,
 	})
 	c.Assert(bound[0].Quote, qt.Equals, "on that table queues behind")
 	c.Assert(bound[2].Quote, qt.Equals, "")
 	c.Assert(review.LostSentences(bound), qt.Equals, 5)
 	// The suspects that were given keep no outcome.
 	c.Assert(suspects[0].Outcome, qt.Equals, "")
-	c.Assert(review.LostSentences(suspects), qt.Equals, 7)
+	c.Assert(review.LostSentences(suspects), qt.Equals, 8)
 
 	_, err = review.BindSuspects(suspects, nil)
-	c.Assert(err, qt.ErrorMatches, "7 suspects have 0 verdicts")
+	c.Assert(err, qt.ErrorMatches, "8 suspects have 0 verdicts")
 }
 
-func TestSuspectsCutAnItemAtTheEndsOfItsSentences(t *testing.T) {
+func TestSuspectsReadTheWordsOfACodeSpanAsWordsOfTheSentence(t *testing.T) {
 	c := qt.New(t)
-	// The prose of a paragraph up to a code span is one item with three sentences. The one in the middle is removed,
-	// and the item still carries most of its words.
+	// The engine gives the prose of this paragraph in pieces around the code span. The command reads the lines of
+	// the source, so the sentences are whole: the heading, three sentences, and the one that holds the code span.
 	closing := " Run `make status` before the next step.\n"
 	page := prepare(c, t, "page.md", "# Deploy\n\n"+lockWait+" "+lockQueue+" "+lockTimeout+closing)
-	revised := prepare(c, t, "revised.md", "# Deploy\n\n"+lockWait+" "+lockTimeout+closing)
 	c.Assert(itemContaining(c, page.Items, "Every query").Text, qt.Contains, lockTimeout)
-	revision, err := review.NewRevision(page, revised)
+
+	// The sentence in the middle is removed.
+	revision, err := review.NewRevision(page, prepare(c, t, "revised.md", "# Deploy\n\n"+lockWait+" "+lockTimeout+closing))
 	c.Assert(err, qt.IsNil)
 	suspects, compared := revision.Suspects()
-	c.Assert(compared, qt.Equals, 3)
+	c.Assert(compared, qt.Equals, 5)
 	c.Assert(suspects, qt.HasLen, 1)
 	c.Assert(suspects[0].Text, qt.Equals, lockQueue)
 	c.Assert(suspects[0].Reason, qt.Equals, review.SentenceMissing)
 	c.Assert(suspects[0].Revised, qt.Equals, lockWait+" "+lockTimeout)
+
+	// A word that the revision sets as code is still a word of its sentence, and so is one that it sets as plain text.
+	for _, closing := range []string{" Run make status before the next step.\n", " Run `make` `status` before the **next** step.\n"} {
+		revision, err = review.NewRevision(page, prepare(c, t, "revised.md", "# Deploy\n\n"+lockWait+" "+lockQueue+" "+lockTimeout+closing))
+		c.Assert(err, qt.IsNil)
+		suspects, compared = revision.Suspects()
+		c.Assert(compared, qt.Equals, 5)
+		c.Assert(suspects, qt.HasLen, 0)
+	}
+
+	// The code of the span is turned around: the sentence is a suspect, and the judge is shown its code.
+	revision, err = review.NewRevision(page, prepare(c, t, "revised.md",
+		"# Deploy\n\n"+lockWait+" "+lockQueue+" "+lockTimeout+" Run `make status` after the next step.\n"))
+	c.Assert(err, qt.IsNil)
+	suspects, _ = revision.Suspects()
+	c.Assert(suspects, qt.HasLen, 1)
+	c.Assert(suspects[0].Reason, qt.Equals, review.SentenceReworded)
+	c.Assert(suspects[0].Text, qt.Equals, "Run `make status` before the next step.")
+	c.Assert(suspects[0].Revised, qt.Equals, "Run `make status` after the next step.")
+}
+
+func TestSuspectsReadEveryLineOutsideFencedCode(t *testing.T) {
+	c := qt.New(t)
+	// None of these is prose for the engine: a heading, the text of an image, an indented block, a row of a table.
+	// Each is a line of the page, and a reviser can change what it says.
+	page := "---\ntitle: Lock waits\n---\n\n# Do not deploy during a lock wait\n\n" + lockWait + "\n\n" +
+		"![The plan pane warns that the plan is out of date.](plan.png)\n\n" +
+		"    The history table stays in place while the next change is added.\n\n" +
+		"| Setting | Meaning |\n| --- | --- |\n| lock_timeout | The longest wait for a lock before the statement fails |\n\n" +
+		"```sh\nmake deploy before the lock\n```\n"
+	changed := strings.NewReplacer(
+		"title: Lock waits", "title: Waiting",
+		"# Do not deploy", "# Deploy",
+		"warns that the plan is out of date", "says that the plan is up to date",
+		"while the next change is added", "after the next change is added",
+		"The longest wait", "The shortest wait",
+		"make deploy before the lock", "make deploy after the lock",
+	).Replace(page)
+	revision, err := review.NewRevision(prepare(c, t, "page.md", page), prepare(c, t, "revised.md", changed))
+	c.Assert(err, qt.IsNil)
+	suspects, compared := revision.Suspects()
+	// The heading, the paragraph, the image, the indented block, and two rows of the table: the row of dashes has
+	// no word. The front matter and the fenced code are not sentences; the code is compared by Lost.
+	c.Assert(compared, qt.Equals, 6)
+	found := map[string]string{}
+	for _, suspect := range suspects {
+		found[suspect.Text] = suspect.Reason
+	}
+	c.Assert(found, qt.DeepEquals, map[string]string{
+		"Do not deploy during a lock wait":                                          review.SentenceNegation,
+		"The plan pane warns that the plan is out of date.":                         review.SentenceReworded,
+		"The history table stays in place while the next change is added.":          review.SentenceReworded,
+		"| lock_timeout | The longest wait for a lock before the statement fails |": review.SentenceReworded,
+	})
+	c.Assert(revision.Lost().Code, qt.DeepEquals, []string{"make deploy before the lock"})
+}
+
+func TestSuspectsKeepListItemsApart(t *testing.T) {
+	c := qt.New(t)
+	page := "# Lock waits\n\n" + lockWait + "\n\n- " + lockQueue + "\n- " + lockTimeout + "\n\n## What to set first\n\n" + lockSession + "\n"
+	revised := "# Lock waits\n\n" + lockWait + "\n\n- " + lockQueue + "\n\n## What to set first\n\n" + lockSession + "\n"
+	revision, err := review.NewRevision(prepare(c, t, "page.md", page), prepare(c, t, "revised.md", revised))
+	c.Assert(err, qt.IsNil)
+	suspects, compared := revision.Suspects()
+	// Two headings and four sentences. The removed list item is a sentence of its own, with its line.
+	c.Assert(compared, qt.Equals, 6)
+	c.Assert(suspects, qt.HasLen, 1)
+	c.Assert(suspects[0].Text, qt.Equals, lockTimeout)
+	c.Assert(suspects[0].Reason, qt.Equals, review.SentenceMissing)
+	c.Assert(suspects[0].Line, qt.Equals, 6)
+	c.Assert(suspects[0].Revised, qt.Equals, lockQueue+" What to set first")
+}
+
+func TestSuspectsGiveEachSentenceItsOwnPlace(t *testing.T) {
+	// The page says one sentence twice, with two paragraphs between.
+	twice := lockPage(lockWait, lockQueue, lockTimeout) + "\n" + lockSession + " " + lockDeploy + "\n\n" + lockTimeout + " " + lockOrder + "\n"
+	cases := []struct {
+		name, old, new, reason, passage string
+	}{
+		{"both kept", "", "", "", ""},
+		// The other copy of the sentence stands near by, word for word. It is the place of the other one.
+		{
+			"the first turned around", lockTimeout + "\n\nSet", "The timeout does cancel statements that already hold the lock.\n\nSet",
+			review.SentenceNegation, "The timeout does cancel statements that already hold the lock.",
+		},
+		{
+			"the second turned around", lockTimeout + " It", "The timeout does cancel statements that already hold the lock. It",
+			review.SentenceNegation, "The timeout does cancel statements that already hold the lock.",
+		},
+		{"the second removed", lockTimeout + " It", "It", review.SentenceMissing, lockOrder},
+	}
+	for _, test := range cases {
+		t.Run(test.name, func(t *testing.T) {
+			c := qt.New(t)
+			revised := twice
+			if test.old != "" {
+				c.Assert(strings.Count(twice, test.old), qt.Equals, 1)
+				revised = strings.Replace(twice, test.old, test.new, 1)
+			}
+			revision, err := review.NewRevision(prepare(c, t, "page.md", twice), prepare(c, t, "revised.md", revised+"\nDone.\n"))
+			c.Assert(err, qt.IsNil)
+			suspects, compared := revision.Suspects()
+			c.Assert(compared, qt.Equals, 8)
+			if test.reason == "" {
+				c.Assert(suspects, qt.HasLen, 0)
+				return
+			}
+			c.Assert(suspects, qt.HasLen, 1)
+			c.Assert(suspects[0].Text, qt.Equals, lockTimeout)
+			c.Assert(suspects[0].Reason, qt.Equals, test.reason)
+			c.Assert(suspects[0].Revised, qt.Contains, test.passage)
+		})
+	}
 }

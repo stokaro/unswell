@@ -3,6 +3,7 @@ package review
 import (
 	"fmt"
 	"math"
+	"regexp"
 	"slices"
 	"strings"
 	"unicode"
@@ -16,10 +17,14 @@ const (
 	// SentenceNegation means the words of the sentence are in the revision
 	// and one of its negations is not.
 	SentenceNegation = "negation"
+	// SentenceReworded means the sentence has a counterpart and does not
+	// stand in the revision word for word.
+	SentenceReworded = "reworded"
 )
 
 // minSentenceWords is the fewest content words that a sentence needs to be
-// compared. Two words are in some other sentence by accident too often.
+// compared by them. Two words are in some other sentence by accident too
+// often, so a shorter sentence is compared by all its words.
 const minSentenceWords = 3
 
 // minSentenceShare is the share of the content words of a sentence that its
@@ -52,6 +57,10 @@ const maxCounterpart = 3
 // as the place where a missing sentence stood.
 const maxPassage = 6
 
+// SuspectsPerQuestion is the most suspects that one question to a model
+// should hold. A model errs on a long list.
+const SuspectsPerQuestion = 20
+
 // Suspect is a sentence of the page that the revision may have dropped or
 // turned around. Revised holds the sentences of the revision from its place:
 // the counterpart when a negation is gone, and what stands between the
@@ -75,45 +84,82 @@ type Suspect struct {
 }
 
 // Suspects compares the sentences of the page with those of the revision and
-// returns those that the revision may have lost, with the number of sentences
-// it compared. It needs no model.
+// returns those that the revision does not keep word for word, with the
+// number of sentences it compared. It needs no model.
 //
-// A sentence is a suspect when the revision has, near its place, no sentence
-// and no two or three in a row with at least six tenths of its content words,
-// counted over all of them and over those that the sentences around it do
-// not have. It is also a suspect when that counterpart has fewer negations
-// than the sentence. A sentence with fewer than three content words is not
-// compared.
+// The sentences are those of every line of the source outside fenced code
+// blocks and front matter: running prose, list items, rows of tables,
+// headings, the text of an image, an indented block. A sentence that stands
+// in the revision near its place with the same words in the same order is
+// kept; case, punctuation, markup, and contractions do not count, and it may
+// stand inside a longer sentence. Every other sentence is a suspect, of one
+// of three kinds. It is missing when the revision has, near its place, no
+// sentence and no two or three in a row with at least six tenths of its
+// content words, counted over all of them and over those that the sentences
+// around it do not have. It lost a negation when that counterpart has fewer
+// negations than the sentence. Otherwise it is reworded. A sentence with
+// fewer than three content words is compared by all its words.
 func (r *Revision) Suspects() (suspects []Suspect, compared int) {
-	before, after := sentencesOf(r.page.Items), sentencesOf(r.revised.Items)
+	before, after := sentencesOf(r.page.source), sentencesOf(r.revised.source)
 	page, revised := itemWords(before), itemWords(after)
 	matches := make([]match, len(page))
-	for index := range page {
-		if len(page[index].content) < minSentenceWords {
+	expected := func(index int) int { return index * len(revised) / len(page) }
+	// First the sentences that stand in the revision word for word. Each takes its own words there, so a sentence
+	// that the page says twice needs two places in the revision.
+	stream := newWordStream(revised)
+	for index, words := range page {
+		if len(words.tokens) == 0 {
 			continue
 		}
 		compared++
-		page[index].own = ownWords(page, index)
-		matches[index] = counterpart(page[index], revised, index*len(revised)/len(page))
 		matches[index].compared = true
+		if start, found := stream.take(words.tokens, expected(index)); found {
+			matches[index].verbatim = true
+			matches[index].start, matches[index].size = start, 1
+		}
 	}
-	suspects = []Suspect{}
-	for index, found := range matches {
-		suspect := Suspect{Line: before[index].Line, Text: before[index].Text, Words: sortedWords(page[index].own)}
-		switch {
-		case !found.compared:
+	// A sentence of the revision whose words are all taken is the counterpart of no other sentence.
+	for index := range revised {
+		if stream.taken(index) {
+			revised[index] = sentenceWords{}
+		}
+	}
+	own := make([]map[string]bool, len(page))
+	for index, words := range page {
+		if !matches[index].compared || matches[index].verbatim {
 			continue
+		}
+		// A sentence with few content words is compared by all its words: "We did not run it." has one.
+		short := len(words.content) < minSentenceWords
+		own[index] = ownWords(page, index, short)
+		found := counterpart(words.compared(short), own[index], revised, short, expected(index))
+		matches[index].start, matches[index].size = found.start, found.size
+	}
+	return r.suspects(before, after, page, revised, matches, own), compared
+}
+
+// suspects names each sentence of the page that is not in the revision word
+// for word, with its kind and with the sentences of the revision from its
+// place.
+func (r *Revision) suspects(before, after []Item, page, revised []sentenceWords, matches []match, own []map[string]bool) []Suspect {
+	suspects := []Suspect{}
+	for index, found := range matches {
+		if !found.compared || found.verbatim {
+			continue
+		}
+		suspect := Suspect{Line: before[index].Line, Text: before[index].Text, Words: sortedWords(own[index])}
+		switch {
 		case found.size == 0:
 			start, end := place(matches, index, len(revised))
 			suspect.Reason, suspect.Revised = SentenceMissing, itemsText(after[start:end])
 		case negations(revised[found.start:found.start+found.size]) < page[index].negations:
 			suspect.Reason, suspect.Revised = SentenceNegation, itemsText(after[found.start:found.start+found.size])
 		default:
-			continue
+			suspect.Reason, suspect.Revised = SentenceReworded, itemsText(after[found.start:found.start+found.size])
 		}
 		suspects = append(suspects, suspect)
 	}
-	return suspects, compared
+	return suspects
 }
 
 func sortedWords(words map[string]bool) []string {
@@ -125,17 +171,93 @@ func sortedWords(words map[string]bool) []string {
 	return sorted
 }
 
-// sentencesOf cuts the items at the ends of their sentences. An item can hold
-// more than one sentence: the prose of a paragraph up to a code span is one
-// item. Each sentence keeps the line of its item.
-func sentencesOf(items []Item) []Item {
-	sentences := make([]Item, 0, len(items))
-	for _, item := range items {
-		for _, text := range splitSentences(item.Text) {
-			sentences = append(sentences, Item{ID: item.ID, Kind: item.Kind, Line: item.Line, Text: text})
+// sentencesOf returns the sentences of a source, each with the line of its
+// block. It reads every line outside fenced code blocks and front matter, and
+// does not ask what the engine reads as prose: the text of an image, an
+// indented block, and a heading can be changed like any sentence. The lines
+// of one block are joined, so a sentence has the words of its code spans, and
+// a word that a reviser sets as code is still a word of the sentence.
+func sentencesOf(source []byte) []Item {
+	sentences := []Item{}
+	for _, block := range lineBlocks(strings.Split(strings.ReplaceAll(string(source), "\r\n", "\n"), "\n")) {
+		for _, text := range splitSentences(blockText(block.Text)) {
+			sentences = append(sentences, Item{Line: block.Line, Text: text})
 		}
 	}
 	return sentences
+}
+
+// lineBlocks joins the lines of a source into blocks, each with the number of
+// its first line. A blank line, a fenced code block, and a line that opens a
+// list item, a heading, or a row of a table end the block before them, and a
+// heading is a block of its own. Front matter and fenced code are in no block.
+func lineBlocks(lines []string) []Item {
+	blocks := []Item{}
+	open, fence := false, ""
+	for number := frontMatterLines(lines); number < len(lines); number++ {
+		line := lines[number]
+		trimmed := strings.TrimSpace(line)
+		inside, next := fenced(trimmed, fence)
+		fence = next
+		switch {
+		case inside || trimmed == "":
+			open = false
+		case open && !opensBlock.MatchString(line):
+			blocks[len(blocks)-1].Text += "\n" + line
+		default:
+			blocks = append(blocks, Item{Line: number + 1, Text: line})
+			open = !headingLine.MatchString(line)
+		}
+	}
+	return blocks
+}
+
+// fenced reports whether a line belongs to a fenced code block, with its
+// fence lines, and returns the fence that is open after the line.
+func fenced(trimmed, fence string) (inside bool, next string) {
+	switch {
+	case fence != "" && strings.HasPrefix(trimmed, fence):
+		return true, ""
+	case fence != "":
+		return true, fence
+	case isFence(trimmed):
+		return true, trimmed[:3]
+	}
+	return false, ""
+}
+
+// frontMatterLines counts the lines of a leading block between two lines of
+// --- or +++, with those two lines.
+func frontMatterLines(lines []string) int {
+	mark := strings.TrimSpace(lines[0])
+	if mark != "---" && mark != "+++" {
+		return 0
+	}
+	for number := 1; number < len(lines); number++ {
+		if strings.TrimSpace(lines[number]) == mark {
+			return number + 1
+		}
+	}
+	return 0
+}
+
+// opensBlock matches a line that opens a new block: a list item, a heading,
+// or a row of a table, also inside a quotation.
+var opensBlock = regexp.MustCompile(`^[ \t>]*(?:(?:[-*+]|\d+[.)]|#{1,6})[ \t]|\|)`)
+
+// headingLine matches a line that is a Markdown heading. It is a block of its
+// own.
+var headingLine = regexp.MustCompile(`^[ \t>]*#{1,6}[ \t]`)
+
+// blockMarker matches what opens a block before its first word.
+var blockMarker = regexp.MustCompile(`^[ \t>]*(?:(?:[-*+]|\d+[.)]|#{1,6})[ \t]+)?`)
+
+// blockText returns the text of a block as a reader sees it: without the
+// marker that opens it, without the addresses of its links, and on one line.
+func blockText(block string) string {
+	text := blockMarker.ReplaceAllString(block, "")
+	text = markdownLink.ReplaceAllString(text, "$1")
+	return strings.Join(strings.Fields(text), " ")
 }
 
 // splitSentences cuts a text after a period, a question mark, or an
@@ -181,19 +303,104 @@ func sentenceEnd(runes []rune, index int) (next int, ends bool) {
 }
 
 // match is the counterpart of one sentence of the page: size sentences of the
-// revision from start, or none when size is zero.
+// revision from start, or none when size is zero. A sentence that stands in
+// the revision word for word has its place there as its counterpart.
 type match struct {
-	compared    bool
-	start, size int
+	compared, verbatim bool
+	start, size        int
 }
 
-// sentenceWords holds what a sentence is compared by: its content words and
-// the number of its negations.
+// sentenceWords holds what a sentence is compared by: its words in order, its
+// content words, and the number of its negations.
 type sentenceWords struct {
-	content   map[string]bool
-	negations int
-	// own are the content words that the sentences around it do not have.
-	own map[string]bool
+	// tokens are all the words in order, in lower case and with contractions
+	// written out.
+	tokens []string
+	// content are the words that carry content, and all are those and the
+	// function words; neither holds a negation. Both are without endings.
+	content, all map[string]bool
+	negations    int
+}
+
+// compared returns the words that a sentence is compared by: its content
+// words, or all its words when it is short.
+func (w sentenceWords) compared(short bool) map[string]bool {
+	if short {
+		return w.all
+	}
+	return w.content
+}
+
+// wordStream is the words of the revision in order. A sentence of the page
+// that stands there word for word takes its words, and no other sentence can
+// take them again.
+type wordStream struct {
+	tokens []string
+	// sentence is the sentence of each word, and starts the first word of
+	// each sentence, with the number of words at the end.
+	sentence, starts []int
+	used             []bool
+	// at lists the places of each word.
+	at map[string][]int
+}
+
+func newWordStream(sentences []sentenceWords) *wordStream {
+	stream := &wordStream{at: map[string][]int{}}
+	for index, words := range sentences {
+		stream.starts = append(stream.starts, len(stream.tokens))
+		for _, token := range words.tokens {
+			stream.at[token] = append(stream.at[token], len(stream.tokens))
+			stream.tokens = append(stream.tokens, token)
+			stream.sentence = append(stream.sentence, index)
+		}
+	}
+	stream.starts = append(stream.starts, len(stream.tokens))
+	stream.used = make([]bool, len(stream.tokens))
+	return stream
+}
+
+// take finds the words of a sentence, in their order, near the expected
+// sentence of the revision and among words that no sentence has taken. It
+// takes them and returns the sentence in which they start. The words may
+// stand inside a longer sentence, or run over the end of one into the next.
+// Of several places it takes the nearest.
+func (s *wordStream) take(tokens []string, expected int) (sentence int, found bool) {
+	sentences := len(s.starts) - 1
+	reach := max(minReach, sentences/reachShare)
+	first := s.starts[max(0, min(expected-reach, sentences))]
+	last := s.starts[max(0, min(expected+reach+maxCounterpart+1, sentences))]
+	best, bestDistance := -1, math.MaxInt
+	for _, at := range s.at[tokens[0]] {
+		if at < first || at+len(tokens) > last || !s.free(tokens, at) {
+			continue
+		}
+		if distance := max(s.sentence[at]-expected, expected-s.sentence[at]); distance < bestDistance {
+			best, bestDistance = at, distance
+		}
+	}
+	if best < 0 {
+		return 0, false
+	}
+	for offset := range tokens {
+		s.used[best+offset] = true
+	}
+	return s.sentence[best], true
+}
+
+// free reports whether the words stand at a place and none of them is taken.
+func (s *wordStream) free(tokens []string, at int) bool {
+	for offset, token := range tokens {
+		if s.used[at+offset] || s.tokens[at+offset] != token {
+			return false
+		}
+	}
+	return true
+}
+
+// taken reports whether a sentence has words and all of them are taken.
+func (s *wordStream) taken(sentence int) bool {
+	first, last := s.starts[sentence], s.starts[sentence+1]
+	return first < last && !slices.Contains(s.used[first:last], false)
 }
 
 func itemWords(items []Item) []sentenceWords {
@@ -204,50 +411,62 @@ func itemWords(items []Item) []sentenceWords {
 	return words
 }
 
-// ownWords returns the content words of a sentence that the two sentences
-// before it and the two after it do not have. The sentences around a removed
-// one share its subject and many of its words; they do not share these. A
-// sentence with fewer than two such words is compared by all its words.
-func ownWords(page []sentenceWords, index int) map[string]bool {
+// ownWords returns the words of a sentence that the two sentences before it
+// and the two after it do not have. The sentences around a removed one share
+// its subject and many of its words; they do not share these. A sentence
+// with fewer than two such words is compared by all its words.
+func ownWords(page []sentenceWords, index int, short bool) map[string]bool {
 	own := map[string]bool{}
-	for word := range page[index].content {
+	for word := range page[index].compared(short) {
 		shared := false
 		for other := max(0, index-nearSentences); other <= min(len(page)-1, index+nearSentences); other++ {
-			shared = shared || (other != index && page[other].content[word])
+			shared = shared || (other != index && page[other].compared(short)[word])
 		}
 		if !shared {
 			own[word] = true
 		}
 	}
 	if len(own) < minOwnWords {
-		return page[index].content
+		return page[index].compared(short)
 	}
 	return own
 }
 
 // counterpart finds the sentences of the revision that carry a sentence of
-// the page: the smallest run near its place that has enough of its words, and
-// among runs of one size the one with the most of them, then the nearest.
-func counterpart(words sentenceWords, revised []sentenceWords, expected int) match {
-	reach := max(minReach, len(revised)/reachShare)
+// the page: the smallest run near its place that has enough of its words and
+// of its own words, and among runs of one size the one with the most of
+// them, then the nearest. A sentence without a word has no counterpart.
+func counterpart(words, own map[string]bool, revised []sentenceWords, short bool, expected int) match {
+	if len(words) == 0 {
+		return match{}
+	}
 	for size := 1; size <= maxCounterpart; size++ {
-		best, bestStart, bestDistance := 0.0, 0, math.MaxInt
-		for start := max(0, expected-reach); start+size <= len(revised) && start <= expected+reach; start++ {
-			run := revised[start : start+size]
-			share := sharedShare(words.content, run)
-			if share < minSentenceShare || sharedShare(words.own, run) < minSentenceShare {
-				continue
-			}
-			distance := max(start-expected, expected-start)
-			if share > best || (share == best && distance < bestDistance) {
-				best, bestStart, bestDistance = share, start, distance
-			}
-		}
-		if best > 0 {
-			return match{start: bestStart, size: size}
+		if start, found := bestRun(words, own, revised, short, expected, size); found {
+			return match{start: start, size: size}
 		}
 	}
 	return match{}
+}
+
+// bestRun finds, among the runs of one size near the expected place, the one
+// that carries the most of the words of a sentence, and of equal ones the
+// nearest. A run counts only when it has enough of the words and of the own
+// words.
+func bestRun(words, own map[string]bool, revised []sentenceWords, short bool, expected, size int) (start int, found bool) {
+	reach := max(minReach, len(revised)/reachShare)
+	best, bestDistance := 0.0, math.MaxInt
+	for at := max(0, expected-reach); at+size <= len(revised) && at <= expected+reach; at++ {
+		run := revised[at : at+size]
+		share := sharedShare(words, run, short)
+		if share < minSentenceShare || sharedShare(own, run, short) < minSentenceShare {
+			continue
+		}
+		distance := max(at-expected, expected-at)
+		if share > best || (share == best && distance < bestDistance) {
+			best, start, bestDistance = share, at, distance
+		}
+	}
+	return start, best > 0
 }
 
 // place returns the sentences of the revision that stand where a missing
@@ -275,11 +494,11 @@ func place(matches []match, index, revised int) (start, end int) {
 }
 
 // sharedShare is the share of a set of words that a run of sentences carries.
-func sharedShare(words map[string]bool, run []sentenceWords) float64 {
+func sharedShare(words map[string]bool, run []sentenceWords, short bool) float64 {
 	shared := 0
 	for word := range words {
 		for _, other := range run {
-			if other.content[word] {
+			if other.compared(short)[word] {
 				shared++
 				break
 			}
@@ -336,22 +555,47 @@ func wordSet(words ...string) map[string]bool {
 // compared in lower case, without their common endings, and without what
 // follows an apostrophe.
 func wordsOf(text string) sentenceWords {
-	words := sentenceWords{content: map[string]bool{}}
+	words := sentenceWords{content: map[string]bool{}, all: map[string]bool{}}
 	for token := range strings.FieldsFuncSeq(strings.ToLower(text), func(r rune) bool {
 		return !unicode.IsLetter(r) && !unicode.IsDigit(r) && r != '\'' && r != '’'
 	}) {
-		token = strings.Trim(strings.ReplaceAll(token, "’", "'"), "'")
-		if negationWords[token] || strings.HasSuffix(token, "n't") {
+		if token = strings.Trim(strings.ReplaceAll(token, "’", "'"), "'"); token != "" {
+			words.tokens = append(words.tokens, strings.Fields(writtenOut(token))...)
+		}
+	}
+	for _, token := range words.tokens {
+		if negationWords[token] {
 			words.negations++
 			continue
 		}
 		// What follows an apostrophe is a possessive or a contracted verb.
 		token, _, _ = strings.Cut(token, "'")
-		if token != "" && !functionWords[token] {
+		if token == "" {
+			continue
+		}
+		words.all[stem(token)] = true
+		if !functionWords[token] {
 			words.content[stem(token)] = true
 		}
 	}
 	return words
+}
+
+// contractions are written out when the words of two sentences are compared
+// in order, so that "do not" and "don't" are the same words.
+var contractions = map[string]string{
+	"can't": "can not", "cannot": "can not", "won't": "will not", "shan't": "shall not",
+}
+
+// writtenOut returns a word with its contraction of "not" written out.
+func writtenOut(token string) string {
+	if long, found := contractions[token]; found {
+		return long
+	}
+	if stem, found := strings.CutSuffix(token, "n't"); found && stem != "" {
+		return stem + " not"
+	}
+	return token
 }
 
 // stem cuts the common endings of a word, so that "retry", "retries", and
@@ -489,10 +733,11 @@ func clears(suspect Suspect, quoted string) bool {
 	if len(strings.Fields(quote)) < minQuoteWords || !strings.Contains(plainQuote(suspect.Revised), quote) {
 		return false
 	}
-	if suspect.Reason != SentenceMissing {
+	// A sentence without a word of its own, such as "No.", needs only words of its place.
+	if suspect.Reason != SentenceMissing || len(suspect.Words) == 0 {
 		return true
 	}
-	carried := wordsOf(quote).content
+	carried := wordsOf(quote).all
 	return slices.ContainsFunc(suspect.Words, func(word string) bool { return carried[word] })
 }
 

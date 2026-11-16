@@ -16,7 +16,7 @@ Sound: the revision reads less like a model's text. The judge named the page in 
     Text A states every step in a sentence of the same shape.
     Text B has one cadence from the first paragraph to the last.
 Facts: 41 of 41 statements kept.
-Sentences: each of the 58 compared sentences of the page has its counterpart in the revision.
+Sentences: 9 of 58 compared sentences of the page not in the revision word for word; the judge found each of them there.
 Numbers, code, and links: nothing lost.
 Em dashes: 0 in the page, 0 in the revision.
 Accepted.
@@ -51,23 +51,38 @@ statements only. A model errs on a long list: it paraphrases a quote, or
 calls many statements at the end of the list changed.
 
 **Sentences.** Without a model, the command compares each sentence of the
-page with the revision. A sentence has its counterpart when one sentence of
-the revision near its place, or two or three in a row, carry at least six
-tenths of its content words. That share is counted twice: over all its
-content words, and over those that the sentences around it in the page do not
-have. The sentences around a removed sentence share its subject; they do not
-have its own words. A sentence is a suspect when it has no counterpart, or
-when its counterpart has fewer negations than it has. A sentence with fewer
-than three content words is not compared.
+page with the revision. It reads every line of the page outside fenced code
+blocks and front matter: running prose, list items, rows of tables, headings,
+the text of an image, an indented block. A sentence is kept when it stands in
+the revision near its place with the same words in the same order. Case,
+punctuation, markup, and contractions do not count, and the sentence may
+stand inside a longer one, so two sentences joined with "and" are both kept.
+The words of a code span are words of its sentence, so a term that the
+revision sets as code changes nothing. Each sentence takes its own words in
+the revision: a sentence that the page says twice needs two places there.
+Every other sentence is a suspect: the revision changed at least one of its
+words.
 
-Most suspects are harmless: a reviser may say "rather than" where the page
-said "not", or put a sentence in words of its own. So the model is asked
-about each suspect, with the sentence beside the sentences of the revision
-from its place, and nothing else of either text. It clears a suspect only
-with a quote that stands in that place. For a missing sentence the quote also
-has to carry one of the sentence's own words: a model that quotes the
-sentence beside the gap does not clear it. One suspect that is not cleared
-rejects the revision, and the report shows the sentence with its line.
+For a suspect the command looks for a counterpart: one sentence of the
+revision near its place, or two or three in a row, with at least six tenths
+of its content words. That share is counted twice, over all its content words
+and over those that the sentences around it in the page do not have. A
+sentence with fewer than three content words, such as "We did not run it.",
+is compared by all its words. A suspect without a counterpart is missing. One
+whose counterpart has fewer negations lost a negation. Any other is reworded.
+
+So nothing that a sentence says can change without that sentence going to
+the model. The model gets each suspect beside the sentences of the revision
+from its place, and nothing else of either text; a long list goes in
+questions of twenty. Most suspects are harmless: a reviser says a sentence in
+another order or in words of its own. The model clears a suspect only with a
+quote that stands in that place. For a missing sentence the quote also has to
+carry one of the sentence's own words: a model that quotes the sentence
+beside the gap does not clear it. When the model finds a sentence and its
+quote is not in that place, the command asks once more about that sentence;
+a model that says yes may quote the sentence it was asked about. One suspect
+that is not cleared rejects the revision, and the report shows the sentence
+with its line.
 
 **Numbers, code, and links.** Without a model: every number of the page's
 prose, every code block and inline code, and every link has to occur in the
@@ -139,11 +154,12 @@ the place it was looked for and what the judge said, what was lost, the em
 dashes of both texts, and the verdict with its reasons. `--report text:PATH`
 writes the text above.
 
-The command makes five to seven calls: two for the sound, three for the
-facts, one more when a statement was not found the first time, and one when
-a sentence is a suspect. The three for the facts carry the whole text of the
-page or of the revision. The call about suspects carries only those sentences
-and their places.
+The command makes five calls or more: two for the sound, three for the
+facts, one more when a statement was not found the first time, one for every
+twenty sentences that the revision does not keep word for word, and one more
+when a sentence was found without the words of its place. The three for the
+facts carry the whole text of the page or of the revision. A call about
+sentences carries only those sentences and their places.
 
 ## Measured behavior
 
@@ -233,6 +249,50 @@ and 49 of 68, and a sentence that it did not clear stood in 7 and 10
 revisions. One of the two revisers drops or rewords a sentence more often
 than the other.
 
+### Every changed sentence
+
+The build of `v0.1.0-alpha.15` named what makes a sentence a suspect: no
+counterpart, or one negation less. A revision that kept the content words of
+a sentence and changed what it says passed: "after" for "before", a "not" put
+in. The rule is now the other way round: a sentence is kept only when it
+stands in the revision word for word, and every other sentence goes to the
+judge. A third measurement read that rule, with the bars written on issue 595
+before the run; its
+[record](../research/reviews/2026-11-16-changed-sentences/RESULTS.md) recounts
+the numbers, and [ADR 0063](adr/0063-every-changed-sentence.md) has the
+decisions. Of 32 bars, 31 hold.
+
+Each page got copies with one sentence changed in one of five ways. The pages
+are the 30 posts, which earlier measurements had read, and 30 texts that no
+judge had read.
+
+| What | Posts | Fresh texts |
+| --- | --- | --- |
+| The changed sentence is a suspect, without a model | 96 of 96 | 102 of 102 |
+| A harmless copy has a suspect, without a model | 0 of 56 | 0 of 41 |
+| The check reports the damage, judge `gpt-6-astra` | 96 of 96 | 101 of 102 |
+| The check reports the damage, judge `private-host/Qwen3.6-35B-A3B` | 95 of 96 | 97 of 102 |
+| Damaged copies accepted, the two judges | 0 and 0 | 0 and 2 |
+
+| Judge | A sentence removed | "not" removed | "not" put in | A word turned around | A clause cut off |
+| --- | --- | --- | --- | --- | --- |
+| `gpt-6-astra` | 60 of 60 | 14 of 15 | 53 of 53 | 54 of 54 | 16 of 16 |
+| `private-host/Qwen3.6-35B-A3B` | 60 of 60 | 14 of 15 | 53 of 53 | 54 of 54 | 11 of 16 |
+
+**The bar that does not hold** is the last cell: a sentence that lost its
+last clause, with one judge. The command showed the judge the sentence beside
+what was left of it, and on 5 of 16 copies the judge found the sentence
+there. Both damaged copies that the check accepted are of this kind. So the
+choice of the judge matters: the command decides which sentences the judge
+is shown, and the judge decides what it reads in them.
+
+**Ordinary revisions pay for it.** Almost every revision by the report has a
+sentence that is not kept word for word, and the judge clears most of them:
+260 of 265 and 471 of 507 on the posts. A sentence that it does not clear
+stands in 5 and in 13 of 27 revisions of posts. On the fitting half the
+earlier rule left 5 and 6 of 40 revisions with such a sentence, and this one
+leaves 9 and 14. The report names each such sentence with its line.
+
 ## Limits
 
 - The check is strict, and most revisions get "no difference". That is not a
@@ -242,13 +302,24 @@ than the other.
   what comes later is judged on text that is the same in both.
 - The search for statements depends on the judge, and it verifies a quote,
   not its meaning.
-- The comparison of sentences reads words. A revision that keeps the words of
-  a sentence and changes what it says, with "before" where the page said
-  "after", has its counterpart. The damage that was measured is a removed
-  sentence and a removed "not".
+- The command shows the judge every sentence that the revision changed. What
+  the judge reads in it is the judge's: in the measurement one judge found a
+  sentence in what was left of it after its last clause was cut, on 5 of 16
+  copies.
+- When a page says one sentence twice and the revision changes one copy, the
+  place that the judge is shown can hold the kept copy. One damaged copy of
+  198 went unreported for that.
+- The check rejects many ordinary revisions for one sentence. A reviser that
+  rewords freely drops a detail somewhere, and one sentence that the judge
+  does not find rejects the revision. The report names the sentence with its
+  line; read it and decide.
 - A paraphrase that keeps none of a sentence's own words is not cleared,
-  whatever the judge says: the revision is rejected, and the report names the
-  sentence. Read it and decide.
+  whatever the judge says.
+- What a page says across several sentences, such as the order of steps, is
+  compared sentence by sentence. A sentence that the revision keeps word for
+  word and moves a few sentences away is kept.
+- Fenced code is compared as code: a block with one changed line is reported
+  as lost and is not shown to the judge.
 - The words are English. The lists of function words, negations, and endings
   are English lists.
 - An accepted revision more often reads less like a model's text than the

@@ -434,6 +434,20 @@ func TestJudgeAcceptsOnlyARevisionThatPassesEveryCheck(t *testing.T) {
 			[]string{"2 sentences of the page are not in the revision, and 2 sentences of the page lose a negation"},
 		},
 		{
+			"a reworded sentence says something else", serviceRevision, review.SoundBetter, kept(50),
+			[]review.Suspect{suspect(review.SentenceReworded, review.FactChanged), suspect(review.SentenceReworded, review.FactKept)},
+			[]string{"1 sentence of the page says something else in the revision"},
+		},
+		{
+			"each kind of lost sentence", serviceRevision, review.SoundBetter, kept(50),
+			[]review.Suspect{
+				suspect(review.SentenceReworded, review.FactChanged), suspect(review.SentenceReworded, review.FactMissing),
+				suspect(review.SentenceMissing, review.FactMissing), suspect(review.SentenceNegation, review.FactChanged),
+			},
+			[]string{"1 sentence of the page is not in the revision, and 1 sentence of the page loses a negation, " +
+				"and 2 sentences of the page say something else in the revision"},
+		},
+		{
 			"everything fails", strings.Replace(dashed, "version 2.1", "version 2", 1), review.SoundWorse, withLoss(kept(4), 4),
 			[]review.Suspect{suspect(review.SentenceMissing, review.FactMissing)},
 			[]string{
@@ -451,4 +465,24 @@ func TestJudgeAcceptsOnlyARevisionThatPassesEveryCheck(t *testing.T) {
 			c.Assert(verdict.Accepted, qt.Equals, len(test.reasons) == 0)
 		})
 	}
+}
+
+func TestLostReadsWhatFollowsAnUnclosedFenceAsCode(t *testing.T) {
+	c := qt.New(t)
+	// The fence is not closed, so the text after it is code to the end of the page. No sentence is read there, and
+	// a change in it has to show as lost code.
+	page := "# Deploy\n\nRun the deploy job after the migration has finished.\n\n```sh\nmake migrate\nmake deploy after the migration\n"
+	kept, err := review.NewRevision(prepare(c, t, "page.md", page), prepare(c, t, "revised.md", page+"\n"))
+	c.Assert(err, qt.IsNil)
+	c.Assert(kept.Lost().Any(), qt.IsFalse)
+	suspects, compared := kept.Suspects()
+	c.Assert(suspects, qt.HasLen, 0)
+	c.Assert(compared, qt.Equals, 2)
+
+	changed := strings.Replace(page, "make deploy after the migration", "make deploy before the migration", 1)
+	revision, err := review.NewRevision(prepare(c, t, "page.md", page), prepare(c, t, "revised.md", changed))
+	c.Assert(err, qt.IsNil)
+	c.Assert(revision.Lost().Code, qt.DeepEquals, []string{"make migrate"})
+	suspects, _ = revision.Suspects()
+	c.Assert(suspects, qt.HasLen, 0)
 }

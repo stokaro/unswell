@@ -1,5 +1,39 @@
 # Changelog
 
+## 0.1.0-alpha.16
+
+This release makes the check of a revision read every sentence that the
+revision changed. Before, it looked for two kinds of change and passed the
+rest.
+
+`unswell compare` now sends every sentence that a revision changes to the
+judge. A sentence is kept only when it stands in the revision word for word,
+near its place; case, punctuation, markup, and contractions do not count, and
+the sentence may stand inside a longer one. Every other sentence goes to the
+judge beside what replaced it. Before, the command named what makes a
+sentence a suspect, a missing counterpart or a lost negation, and a revision
+that kept the content words and said something else passed: "after" for
+"before", "may" for "must", a "not" put in. The command now reads every line
+of the page outside fenced code, also a heading, the text of an image, and an
+indented block, and it compares a short sentence such as "We did not run it."
+by all its words. A long list of sentences goes to the judge in questions of
+twenty, and a sentence that the judge found without the words of its place is
+asked about once more
+([documentation](docs/compare.md),
+[ADR 0063](docs/adr/0063-every-changed-sentence.md)).
+
+The change was measured on copies of pages with one sentence changed in one
+of five ways, with the bars written on issue 595 before the run; 31 of 32
+hold. Without a model, the changed sentence is a suspect on every one of 198
+damaged copies, and a copy with two sentences joined or with contractions has
+no suspect. With one judge the check reports the damage on 197 of 198 copies
+and accepts no damaged copy. With the other it reports 192 and accepts 2: a
+sentence that lost its last clause is reported on 11 of 16 copies, under the
+bar of 80%, because that judge found the sentence in what was left of it. The
+check is stricter on ordinary revisions too: a sentence that the judge does
+not find rejects 5 and 13 of 27 revisions of posts
+([record](research/reviews/2026-11-16-changed-sentences/RESULTS.md)).
+
 ## 0.1.0-alpha.15
 
 This release makes the check of a revision find a sentence that the revision

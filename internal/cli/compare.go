@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"path/filepath"
+	"slices"
 	"strings"
 	"time"
 
@@ -44,9 +45,9 @@ func compareCommand(environment Environment, code *int) *cobra.Command {
 			"without a hint of which is the revision.\n" +
 			"It is also asked for the statements of the page, then for each of them in the page itself, and then\n" +
 			"for each that it found there in the revision.\n" +
-			"Without a model the command compares each sentence of the page with the revision. A sentence that has\n" +
-			"no counterpart there, or whose counterpart has one negation less, goes to the model beside the place\n" +
-			"where it stood, and the model has to quote the words that still say it.\n" +
+			"Without a model the command compares each sentence of the page with the revision, on every line\n" +
+			"outside fenced code. A sentence that does not stand there word for word goes to the model beside the\n" +
+			"sentences that took its place, and the model has to quote the words that still say it.\n" +
 			"A revision is accepted when the judge names the page in both orders, at least 98% of the statements are\n" +
 			"kept, every sentence is found, no number, code, or link is lost, and no em dash is added. The page\n" +
 			"index plays no part.\n" +
@@ -385,26 +386,62 @@ func askAgain(
 }
 
 // askSentences compares the sentences of the page with the revision, which
-// needs no model, and asks the judge about each suspect.
+// needs no model, and asks the judge about each suspect. A suspect that the
+// judge found with words that are not in its passage is asked about once
+// more: a model that says yes may quote the sentence it was asked about.
 func askSentences(ctx context.Context, client modelClient, options modelRunOptions, revision *review.Revision) (comparedSentences, error) {
 	suspects, compared := revision.Suspects()
 	result := comparedSentences{Compared: compared, Suspects: suspects}
 	if len(suspects) == 0 {
 		return result, nil
 	}
-	var verdicts []review.FactVerdict
-	err := askModel(ctx, client, review.SuspectsPrompt(suspects), options, func(answer string) (parseErr error) {
-		verdicts, parseErr = review.ParseSuspects(answer, len(suspects))
-		return parseErr
-	})
+	bound, err := askSuspects(ctx, client, options, suspects)
 	if err != nil {
 		return comparedSentences{}, err
 	}
-	if result.Suspects, err = review.BindSuspects(suspects, verdicts); err != nil {
-		return comparedSentences{}, err
+	result.Suspects = bound
+	var again []review.Suspect
+	var places []int
+	for index, suspect := range bound {
+		if suspect.Outcome == review.FactUnquoted {
+			again, places = append(again, suspects[index]), append(places, index)
+		}
+	}
+	if len(again) > 0 {
+		second, err := askSuspects(ctx, client, options, again)
+		if err != nil {
+			return comparedSentences{}, err
+		}
+		for index, suspect := range second {
+			if suspect.Outcome == review.FactKept {
+				result.Suspects[places[index]] = suspect
+			}
+		}
 	}
 	result.Lost = review.LostSentences(result.Suspects)
 	return result, nil
+}
+
+// askSuspects asks the judge about a list of suspects, twenty in a question,
+// and returns them with what the judge said of each.
+func askSuspects(ctx context.Context, client modelClient, options modelRunOptions, suspects []review.Suspect) ([]review.Suspect, error) {
+	answered := make([]review.Suspect, 0, len(suspects))
+	for batch := range slices.Chunk(suspects, review.SuspectsPerQuestion) {
+		var verdicts []review.FactVerdict
+		err := askModel(ctx, client, review.SuspectsPrompt(batch), options, func(answer string) (parseErr error) {
+			verdicts, parseErr = review.ParseSuspects(answer, len(batch))
+			return parseErr
+		})
+		if err != nil {
+			return nil, err
+		}
+		bound, err := review.BindSuspects(batch, verdicts)
+		if err != nil {
+			return nil, err
+		}
+		answered = append(answered, bound...)
+	}
+	return answered, nil
 }
 
 func writeCompareReports(environment Environment, targets []reportTarget, result compareResult) error {
@@ -505,11 +542,11 @@ func sentencesText(sentences comparedSentences) string {
 		fmt.Fprintf(&text, "Sentences: each of the %s of the page has its counterpart in the revision.\n",
 			plural(sentences.Compared, "compared sentence"))
 	case sentences.Lost == 0:
-		fmt.Fprintf(&text, "Sentences: %s had no counterpart or one negation less; the judge found each in the revision.\n",
-			plural(len(sentences.Suspects), "sentence"))
+		fmt.Fprintf(&text, "Sentences: %d of %s of the page not in the revision word for word; the judge found each of them there.\n",
+			len(sentences.Suspects), plural(sentences.Compared, "compared sentence"))
 	default:
-		fmt.Fprintf(&text, "Sentences: %d of %s of the page not found in the revision as it was.\n", sentences.Lost,
-			plural(sentences.Compared, "compared sentence"))
+		fmt.Fprintf(&text, "Sentences: %d of %s of the page not in the revision word for word; the judge did not find %d of them there.\n",
+			len(sentences.Suspects), plural(sentences.Compared, "compared sentence"), sentences.Lost)
 	}
 	for _, suspect := range sentences.Suspects {
 		if suspect.Outcome != review.FactKept {
@@ -521,8 +558,11 @@ func sentencesText(sentences comparedSentences) string {
 
 // suspectLabel says what happened to a sentence that the judge did not find.
 func suspectLabel(suspect review.Suspect) string {
-	if suspect.Reason == review.SentenceNegation {
+	switch suspect.Reason {
+	case review.SentenceNegation:
 		return "a negation is gone"
+	case review.SentenceReworded:
+		return "says something else"
 	}
 	return "not in the revision"
 }
