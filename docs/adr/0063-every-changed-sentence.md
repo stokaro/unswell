@@ -110,15 +110,16 @@ the judge does not clear on 48 with one judge and on 49 with the other. One
 judge cleared "above" where the page said "below" in a reference to another
 part of the page, and each cleared one sentence that had lost a clause with
 "when". One of those copies was accepted: the judge also heard it as better.
-The search for statements alone found a statement not kept on 31 and on 16 of
+The search for statements alone found a statement not kept on 32 and on 14 of
 the 50 copies.
 
 **On ordinary revisions.** The price of the rule is here. Of 40 revisions of
-each reviser, 36 and 34 have a suspect, and the judge cleared 511 of 536
-suspects and 727 of 763. A sentence that was not cleared stands in 9 and in
-12 revisions; under the rule of ADR 0062 it stood in 5 and in 6 of the same
+each reviser, 36 and 34 have a suspect, and the judge cleared 510 of 537
+suspects and 734 of 773. A sentence that was not cleared stands in 9 and in
+14 revisions; under the rule of ADR 0062 it stood in 5 and in 6 of the same
 revisions. Read by hand, most of those sentences did lose a detail in the
-revision.
+revision. Four are lines that stand for a code block in the texts of the
+measurement, which a revision has fewer times than its page.
 
 ## What was measured
 
