@@ -202,3 +202,7 @@ judge; see the [alpha.16 evidence](../release/v0.1.0-alpha.16.md).
 - What the page says across several sentences, such as the order of steps,
   is compared sentence by sentence only.
 - The words are English, and the judges of the measurement are models.
+
+[ADR 0064](0064-words-left-out-of-a-sentence.md) answers the first two
+limits: the command names the words that a revision leaves out of a sentence,
+and it no longer shows the judge a kept copy of a sentence.

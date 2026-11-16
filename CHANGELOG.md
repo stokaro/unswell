@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.1.0-alpha.17
+
+This release closes what the measurement of alpha.16 left open in
+`unswell compare`: a revision that cuts words out of a sentence.
+
+When a revision has a sentence of the page with words left out and nothing
+else changed, the command now names those words, in the report and to the
+judge. The judge answers about them: they are padding, the passage says them
+elsewhere, or the sentence is changed. A negation is never padding, and a
+quote of what is left of the sentence clears nothing. Before, a judge could
+answer that the sentence is there and quote the remains, and one of two
+judges did so for a sentence that had lost its last clause.
+
+The judge is now shown only what the revision wrote at the place of a
+sentence, not the sentences that it kept. When the revision wrote nothing
+there, the sentence is gone, and the command reports it without asking a
+model. A sentence that a page says twice takes its own place first
+([documentation](docs/compare.md),
+[ADR 0064](docs/adr/0064-words-left-out-of-a-sentence.md)).
+
+The change was measured with the bars written on issue 599 before the run;
+all 38 hold. A sentence that lost its last clause is reported on 23 of 23
+copies with each of two judges, where one of them had reported 11 of 16. Over
+six kinds of damage each judge reports 259 of 260 damaged copies, and the
+check accepts none. All 60 removed sentences are reported without a question
+to a model. Of 60 copies whose revision only leaves out padding, the check
+reports none. It is stricter on ordinary revisions: a sentence that the judge
+does not find rejects 4 and 15 of 27 revisions of posts, where it rejected 5
+and 13
+([record](research/reviews/2026-11-16-left-out-words/RESULTS.md)).
+
 ## 0.1.0-alpha.16
 
 This release makes the check of a revision read every sentence that the

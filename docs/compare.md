@@ -71,18 +71,37 @@ sentence with fewer than three content words, such as "We did not run it.",
 is compared by all its words. A suspect without a counterpart is missing. One
 whose counterpart has fewer negations lost a negation. Any other is reworded.
 
-So nothing that a sentence says can change without that sentence going to
-the model. The model gets each suspect beside the sentences of the revision
-from its place, and nothing else of either text; a long list goes in
-questions of twenty. Most suspects are harmless: a reviser says a sentence in
-another order or in words of its own. The model clears a suspect only with a
-quote that stands in that place. For a missing sentence the quote also has to
-carry one of the sentence's own words: a model that quotes the sentence
-beside the gap does not clear it. When the model finds a sentence and its
-quote is not in that place, the command asks once more about that sentence;
-a model that says yes may quote the sentence it was asked about. One suspect
-that is not cleared rejects the revision, and the report shows the sentence
-with its line.
+A suspect is cut when a sentence of the revision has its words in their
+order with some left out, and no other word: the revision cut a clause, a
+phrase, or a word out of the sentence. The command then names the words that
+were left out, in the report and to the model.
+
+So nothing that a sentence says can change without the command seeing it.
+The model gets each suspect beside the sentences that the revision wrote at
+its place, and nothing else of either text; a long list goes in questions of
+twenty. A sentence of the revision that is a kept sentence of the page is not
+shown: it says what its own sentence says. When the revision wrote nothing at
+the place of a sentence, the sentence is gone, and the command reports it
+without asking a model.
+
+Most suspects are harmless: a reviser says a sentence in another order or in
+words of its own. The model clears a suspect only with a quote that stands in
+that place. For a missing sentence the quote also has to carry one of the
+sentence's own words: a model that quotes the sentence beside the gap does
+not clear it. When the model finds a sentence and its quote is not in that
+place, the command asks once more about that sentence; a model that says yes
+may quote the sentence it was asked about.
+
+A cut sentence has two ways to be cleared. The model calls the words that
+were left out padding: they told the reader nothing. The command refuses that
+answer when the words hold a negation. Or the model quotes words of the
+passage that say what was left out, and that quote needs a word which the
+rest of the sentence does not have. What is left of a sentence shows only
+that the rest is kept, so a model that quotes it clears nothing.
+
+One suspect that is not cleared rejects the revision, and the report shows
+the sentence with its line, and for a cut sentence the words that were left
+out.
 
 **Numbers, code, and links.** Without a model: every number of the page's
 prose, every code block and inline code, and every link has to occur in the
@@ -151,14 +170,17 @@ are read, as they do for [`unswell check`](inputs.md). A text larger than
 statement with its outcome and the quoted words, the statements that were
 left out, the number of sentences that were compared and each suspect with
 the place it was looked for and what the judge said, what was lost, the em
-dashes of both texts, and the verdict with its reasons. `--report text:PATH`
+dashes of both texts, and the verdict with its reasons. A suspect whose
+sentence the revision cut has the words that were left out in `cut`, and
+`padding` is true when the judge called them padding. `--report text:PATH`
 writes the text above.
 
 The command makes five calls or more: two for the sound, three for the
 facts, one more when a statement was not found the first time, one for every
-twenty sentences that the revision does not keep word for word, and one more
-when a sentence was found without the words of its place. The three for the
-facts carry the whole text of the page or of the revision. A call about
+twenty sentences that the revision does not keep word for word and wrote
+something in the place of, and one more when a sentence was found without the
+words of its place. The three for the facts carry the whole text of the page
+or of the revision. A call about
 sentences carries only those sentences and their places.
 
 ## Measured behavior
@@ -295,6 +317,53 @@ stands in 5 and in 13 of 27 revisions of posts. On the fitting half the
 earlier rule left 5 and 6 of 40 revisions with such a sentence, and this one
 leaves 9 and 14. The report names each such sentence with its line.
 
+### The words that a revision leaves out
+
+That measurement left a bar open, and two things behind it. A judge that was
+shown "A when B." beside "A." answered that the sentence is there and quoted
+"A". And when a page said a sentence twice, the judge was shown the kept
+copy. The command now names the words that a revision leaves out of a
+sentence, takes no quote of what is left of it, and shows the judge only what
+the revision wrote. A fourth measurement read that, with the bars written on
+issue 599 before the run; its
+[record](../research/reviews/2026-11-16-left-out-words/RESULTS.md) recounts
+the numbers, and [ADR 0064](adr/0064-words-left-out-of-a-sentence.md) has the
+decisions. All 38 bars hold.
+
+The pages are the 30 posts and 30 texts that no run had read. The copies have
+one more kind of damage, the last words of a sentence cut off from a
+preposition, and one more harmless kind: a revision that leaves out a phrase
+of padding, such as "It is worth noting that".
+
+| What | Posts | New texts |
+| --- | --- | --- |
+| The changed sentence is a suspect, without a model | 112 of 112 | 148 of 148 |
+| Of them, reported without a question to a model | 30 | 30 |
+| A harmless copy has a suspect, without a model | 0 of 56 | 0 of 40 |
+| The check reports the damage, judge `gpt-6-astra` | 111 of 112 | 148 of 148 |
+| The check reports the damage, judge `private-host/Qwen3.6-35B-A3B` | 112 of 112 | 147 of 148 |
+| Damaged copies accepted, the two judges | 0 and 0 | 0 and 0 |
+| The check reports a sentence that only lost padding, the two judges | 0 and 0 of 30 | 0 and 0 of 30 |
+
+| Judge | A sentence removed | "not" removed | "not" put in | A word turned around | A clause cut off | Last words cut off |
+| --- | --- | --- | --- | --- | --- | --- |
+| `gpt-6-astra` | 60 of 60 | 18 of 18 | 47 of 47 | 52 of 52 | 23 of 23 | 59 of 60 |
+| `private-host/Qwen3.6-35B-A3B` | 60 of 60 | 18 of 18 | 47 of 47 | 52 of 52 | 23 of 23 | 59 of 60 |
+
+A removed sentence no longer depends on a judge: the revision wrote nothing
+at its place, so the command reports it. A cut clause is reported on every
+copy with each judge. Each judge called one cut of last words padding.
+
+**Ordinary revisions pay again.** A sentence that the check does not clear
+stands in 4 and in 15 of 27 revisions of posts, where it stood in 5 and in
+13, and in 8 and in 24 of 30 revisions of fresh texts, where it stood in 7
+and in 19.
+
+**The blind comparison is not stable.** The fitting half showed it by the
+way. The check had accepted 4 of 40 revisions of one reviser; asked again
+with the same prompt, the judge named the page in both orders for 1 revision,
+where it had done so for 5, and the check accepted none.
+
 ## Limits
 
 - The check is strict, and most revisions get "no difference". That is not a
@@ -305,12 +374,17 @@ leaves 9 and 14. The report names each such sentence with its line.
 - The search for statements depends on the judge, and it verifies a quote,
   not its meaning.
 - The command shows the judge every sentence that the revision changed. What
-  the judge reads in it is the judge's: in the measurement one judge found a
-  sentence in what was left of it after its last clause was cut, on 5 of 16
-  copies.
-- When a page says one sentence twice and the revision changes one copy, the
-  place that the judge is shown can hold the kept copy. One damaged copy of
-  198 went unreported for that.
+  the judge reads in it is the judge's. For a sentence that only lost words,
+  the command names the words and takes no quote of the remains; whether the
+  words were padding is still the judge's call. In the measurement each judge
+  called one of 60 cuts of last words padding.
+- A sentence that a revision cuts and also rewords is not a cut sentence. It
+  goes to the judge as a reworded one, without a line for what was left out.
+- Words that a revision puts in around a kept sentence are not shown to the
+  judge: a sentence is kept when it stands in the revision word for word,
+  also inside a longer one.
+- The answer of a judge to the blind comparison of the sound can differ from
+  one run to the next.
 - The check rejects many ordinary revisions for one sentence. A reviser that
   rewords freely drops a detail somewhere, and one sentence that the judge
   does not find rejects the revision. The report names the sentence with its
