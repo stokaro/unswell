@@ -328,7 +328,9 @@ the revision wrote. A fourth measurement read that, with the bars written on
 issue 599 before the run; its
 [record](../research/reviews/2026-11-16-left-out-words/RESULTS.md) recounts
 the numbers, and [ADR 0064](adr/0064-words-left-out-of-a-sentence.md) has the
-decisions. All 38 bars hold.
+decisions. All 38 bars hold. The published binary of `v0.1.0-alpha.17` finds
+the same on all 760 copies of the record; see the
+[alpha.17 evidence](release/v0.1.0-alpha.17.md).
 
 The pages are the 30 posts and 30 texts that no run had read. The copies have
 one more kind of damage, the last words of a sentence cut off from a

@@ -141,7 +141,11 @@ in 8 and in 24 of 30 revisions of fresh texts, where it stood in 7 and in 19.
 No bar was set for this.
 
 The [record](../../research/reviews/2026-11-16-left-out-words/RESULTS.md)
-recounts these numbers.
+recounts these numbers. The published binary of `v0.1.0-alpha.17` finds the
+same suspects, passages, and left-out words on all 760 copies of the record,
+and it reaches the recorded verdict on the 57 revisions that could be
+replayed from kept answers of a judge; see the
+[alpha.17 evidence](../release/v0.1.0-alpha.17.md).
 
 ## Consequences
 
