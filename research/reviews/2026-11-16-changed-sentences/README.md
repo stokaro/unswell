@@ -19,7 +19,37 @@ on the measured part.
 
 ## Outcome
 
-OUTCOME
+Of the 32 bars, 31 hold.
+
+- **Every changed sentence is a suspect.** Without a model, the changed
+  sentence is a suspect on all 96 damaged copies of the posts and on all 102
+  of the fresh texts, for each of the five kinds of damage. No harmless copy
+  of 56 and of 41 has a suspect.
+- **With one judge the check reports the damage almost always.** With
+  `gpt-6-astra` the changed sentence stays a suspect that the judge does not
+  clear on 96 of 96 copies of the posts and on 101 of 102 of the fresh texts,
+  and the check accepts no damaged copy.
+- **With the other judge one kind of damage gets through.** With
+  `private-host/Qwen3.6-35B-A3B` it is 95 of 96 and 97 of 102, and the check
+  accepts 2 damaged copies. A sentence removed, "not" put in, and a word
+  turned around are reported on every copy, 60, 53, and 54. A sentence that
+  lost its last clause is reported on 11 of 16, under the bar of 80%: the
+  command showed the judge the sentence beside what was left of it, and the
+  judge found the sentence there. Both accepted copies are of this kind.
+- **One copy with "not" removed went unreported with each judge.** It is a
+  copy of the text that says its sentences twice. The changed sentence had no
+  counterpart near its place, and the place that the judge was shown holds
+  the other copy of the sentence.
+- **Statements are found kept.** 100.0% and 99.4% over the revisions of the
+  posts, 99.7% and 98.9% over those of the fresh texts.
+- **The rule rejects many ordinary revisions.** Of the 27 revisions of posts
+  by each reviser, a sentence that the judge did not clear stands in 5 and in
+  13; of the 30 revisions of fresh texts, in 7 and in 19. No bar was set for
+  this, and nobody checked whether each of those sentences did lose
+  something.
+- **Verdicts.** Four checks hung on the endpoint of one judge and were
+  stopped; each was run once more, as the issue had set before the run. Every
+  pair has a verdict.
 
 ## What the product gained
 
@@ -138,6 +168,17 @@ revisions.
 **A pair without a verdict** is run once more, with the same build and the
 same settings. The issue set this before the run. Every bar is read after
 that retry, and RESULTS.md shows the share of verdicts on the first attempt.
+
+## The build behind the numbers
+
+The measured part and the fitting rows come from the build of commit
+`77c51f13` of the branch of this change.
+
+The final build differs from it in one thing that changes no result. A code
+fence that is never closed runs to the end of a page, and the earlier build
+read what follows it neither as sentences nor as code; the final one reads it
+as code. No page and no revision of this record has a fenced code block, and
+the final build names the same suspects on all 553 copies.
 
 ## Data
 

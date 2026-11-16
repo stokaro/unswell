@@ -249,6 +249,50 @@ and 49 of 68, and a sentence that it did not clear stood in 7 and 10
 revisions. One of the two revisers drops or rewords a sentence more often
 than the other.
 
+### Every changed sentence
+
+The build of `v0.1.0-alpha.15` named what makes a sentence a suspect: no
+counterpart, or one negation less. A revision that kept the content words of
+a sentence and changed what it says passed: "after" for "before", a "not" put
+in. The rule is now the other way round: a sentence is kept only when it
+stands in the revision word for word, and every other sentence goes to the
+judge. A third measurement read that rule, with the bars written on issue 595
+before the run; its
+[record](../research/reviews/2026-11-16-changed-sentences/RESULTS.md) recounts
+the numbers, and [ADR 0063](adr/0063-every-changed-sentence.md) has the
+decisions. Of 32 bars, 31 hold.
+
+Each page got copies with one sentence changed in one of five ways. The pages
+are the 30 posts, which earlier measurements had read, and 30 texts that no
+judge had read.
+
+| What | Posts | Fresh texts |
+| --- | --- | --- |
+| The changed sentence is a suspect, without a model | 96 of 96 | 102 of 102 |
+| A harmless copy has a suspect, without a model | 0 of 56 | 0 of 41 |
+| The check reports the damage, judge `gpt-6-astra` | 96 of 96 | 101 of 102 |
+| The check reports the damage, judge `private-host/Qwen3.6-35B-A3B` | 95 of 96 | 97 of 102 |
+| Damaged copies accepted, the two judges | 0 and 0 | 0 and 2 |
+
+| Judge | A sentence removed | "not" removed | "not" put in | A word turned around | A clause cut off |
+| --- | --- | --- | --- | --- | --- |
+| `gpt-6-astra` | 60 of 60 | 14 of 15 | 53 of 53 | 54 of 54 | 16 of 16 |
+| `private-host/Qwen3.6-35B-A3B` | 60 of 60 | 14 of 15 | 53 of 53 | 54 of 54 | 11 of 16 |
+
+**The bar that does not hold** is the last cell: a sentence that lost its
+last clause, with one judge. The command showed the judge the sentence beside
+what was left of it, and on 5 of 16 copies the judge found the sentence
+there. Both damaged copies that the check accepted are of this kind. So the
+choice of the judge matters: the command decides which sentences the judge
+is shown, and the judge decides what it reads in them.
+
+**Ordinary revisions pay for it.** Almost every revision by the report has a
+sentence that is not kept word for word, and the judge clears most of them:
+260 of 265 and 471 of 507 on the posts. A sentence that it does not clear
+stands in 5 and in 13 of 27 revisions of posts. On the fitting half the
+earlier rule left 5 and 6 of 40 revisions with such a sentence, and this one
+leaves 9 and 14. The report names each such sentence with its line.
+
 ## Limits
 
 - The check is strict, and most revisions get "no difference". That is not a
@@ -259,8 +303,12 @@ than the other.
 - The search for statements depends on the judge, and it verifies a quote,
   not its meaning.
 - The command shows the judge every sentence that the revision changed. What
-  the judge reads in it is the judge's: in the measurement a judge cleared
-  some sentences with one word turned around or with a clause cut off.
+  the judge reads in it is the judge's: in the measurement one judge found a
+  sentence in what was left of it after its last clause was cut, on 5 of 16
+  copies.
+- When a page says one sentence twice and the revision changes one copy, the
+  place that the judge is shown can hold the kept copy. One damaged copy of
+  198 went unreported for that.
 - The check rejects many ordinary revisions for one sentence. A reviser that
   rewords freely drops a detail somewhere, and one sentence that the judge
   does not find rejects the revision. The report names the sentence with its

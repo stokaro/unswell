@@ -102,8 +102,13 @@ def parts_of(result):
 damage = []
 for part, runs in (("fitting", (("gpt", "compare-dev21-damage-gpt.jsonl"), ("qwen", "compare-dev21-damage.jsonl"))),
                    ("measured", (("gpt", "compare-test19-damage-gpt.jsonl"), ("qwen", "compare-test19-damage.jsonl")))):
+    # Both judges are read on the same copies. On the fitting half one run went on to four more copies when it was
+    # started again after an outage; those are left out.
+    both = set.intersection(*({(r["set"], r["id"]) for r in load(name)} for _, name in runs))
     for judge, name in runs:
         for result, retried in last_attempts(name):
+            if (result["set"], result["id"]) not in both:
+                continue
             kind, pages = kind_and_pages(result["set"])
             entry = {"part": part, "pages": pages, "unit": unit(result["id"], label_of(result["set"])), "kind": kind, "judge": MODELS[judge]}
             if retried:

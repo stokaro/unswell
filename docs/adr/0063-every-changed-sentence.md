@@ -123,7 +123,53 @@ measurement, which a revision has fewer times than its page.
 
 ## What was measured
 
-MEASURED
+The bars were written on issue 595 before the run. The run was started three
+times. The first two starts were stopped when their model-free stage showed
+damaged copies whose changed sentence was no suspect: short sentences and
+text that the engine reads as no prose the first time, a page that says its
+sentences twice the second. Each time the rule was changed, as the sections
+above say, and the issue has a comment for each stop with what had been seen.
+The numbers below are those of the third start, on new copies.
+
+Every bar was read on two kinds of pages: the 30 posts of the measured half
+of the style-guide set, which earlier measurements had read, and 30 texts
+that two models wrote under a style guide, which no judge had read. Of the 32
+bars, 31 hold.
+
+| What | Posts | Fresh texts |
+| --- | --- | --- |
+| The changed sentence is a suspect, without a model | 96 of 96 | 102 of 102 |
+| Harmless copies with a suspect, without a model | 0 of 56 | 0 of 41 |
+| The check reports the damage, judge `gpt-6-astra` | 96 of 96 | 101 of 102 |
+| The check reports the damage, judge `private-host/Qwen3.6-35B-A3B` | 95 of 96 | 97 of 102 |
+| Damaged copies accepted, the two judges | 0 and 0 | 0 and 2 |
+
+By kind of damage, the two kinds of pages together:
+
+| Judge | A sentence removed | "not" removed | "not" put in | A word turned around | A clause cut off |
+| --- | --- | --- | --- | --- | --- |
+| `gpt-6-astra` | 60 of 60 | 14 of 15 | 53 of 53 | 54 of 54 | 16 of 16 |
+| `private-host/Qwen3.6-35B-A3B` | 60 of 60 | 14 of 15 | 53 of 53 | 54 of 54 | 11 of 16 |
+
+**The bar that does not hold.** Each kind of damage had to be reported on at
+least 80% of its copies. A sentence that lost its last clause was reported on
+11 of 16 with one judge. The command did its part: the sentence was a
+suspect, and the judge was shown it beside what was left of it. The judge
+found the sentence there and quoted the words that remained. Both damaged
+copies that the check accepted are of this kind.
+
+**The statements.** The check finds 100.0% and 99.4% of the statements kept
+over the revisions of the posts, and 99.7% and 98.9% over those of the fresh
+texts.
+
+**Ordinary revisions.** Almost every revision has a suspect, and the judge
+clears most: 260 of 265 and 471 of 507 on the posts, 606 of 618 and 852 of
+917 on the fresh texts. A sentence that it did not clear stands in 5 and in
+13 of 27 revisions of posts, and in 7 and in 19 of 30 revisions of fresh
+texts. No bar was set for this.
+
+The [record](../../research/reviews/2026-11-16-changed-sentences/RESULTS.md)
+recounts these numbers.
 
 ## Consequences
 
@@ -140,7 +186,12 @@ MEASURED
 
 - The judge decides whether a reworded sentence still says the same. The
   command guarantees that the judge is shown the sentence and what replaced
-  it; it does not guarantee what the judge reads.
+  it; it does not guarantee what the judge reads. One of the two judges found
+  a sentence in what was left of it after its last clause was cut, on 5 of 16
+  copies.
+- When a page says a sentence twice and the revision changes one copy far
+  from the other, the place that the judge is shown can hold the kept copy.
+  One damaged copy of 198 went unreported for that, with each judge.
 - A sentence that the revision keeps word for word and moves to another
   place near by is kept, also when its new place changes what it refers to.
 - Fenced code is compared as code and is not shown to the judge: a block with

@@ -22,7 +22,17 @@ asked about once more
 ([documentation](docs/compare.md),
 [ADR 0063](docs/adr/0063-every-changed-sentence.md)).
 
-MEASURED
+The change was measured on copies of pages with one sentence changed in one
+of five ways, with the bars written on issue 595 before the run; 31 of 32
+hold. Without a model, the changed sentence is a suspect on every one of 198
+damaged copies, and a copy with two sentences joined or with contractions has
+no suspect. With one judge the check reports the damage on 197 of 198 copies
+and accepts no damaged copy. With the other it reports 192 and accepts 2: a
+sentence that lost its last clause is reported on 11 of 16 copies, under the
+bar of 80%, because that judge found the sentence in what was left of it. The
+check is stricter on ordinary revisions too: a sentence that the judge does
+not find rejects 5 and 13 of 27 revisions of posts
+([record](research/reviews/2026-11-16-changed-sentences/RESULTS.md)).
 
 ## 0.1.0-alpha.15
 
