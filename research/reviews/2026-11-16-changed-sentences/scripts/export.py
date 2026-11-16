@@ -67,7 +67,7 @@ def names(target, suspects):
 
 # ---- the comparison without a model ----
 copies = []
-for part, audit, sources in (("fitting", "audit-fit17-copies.jsonl", ("copies-dev3.jsonl",)), ("measured", "audit-test17.jsonl", ("copies-test17.jsonl",))):
+for part, audit, sources in (("fitting", "audit-fit17-copies.jsonl", ("copies-dev3.jsonl",)), ("measured", "audit-test19.jsonl", ("copies-test19.jsonl",))):
     source = {(r["set"], r["id"]): r for name in sources for r in load(name)}
     for row in load(audit):
         kind, pages = kind_and_pages(row["set"])
@@ -100,8 +100,8 @@ def parts_of(result):
 
 
 damage = []
-for part, runs in (("fitting", (("gpt", "compare-dev19-damage-gpt.jsonl"), ("qwen", "compare-dev19-damage.jsonl"))),
-                   ("measured", (("gpt", "compare-test17-damage-gpt.jsonl"), ("qwen", "compare-test17-damage.jsonl")))):
+for part, runs in (("fitting", (("gpt", "compare-dev21-damage-gpt.jsonl"), ("qwen", "compare-dev21-damage.jsonl"))),
+                   ("measured", (("gpt", "compare-test19-damage-gpt.jsonl"), ("qwen", "compare-test19-damage.jsonl")))):
     for judge, name in runs:
         for result, retried in last_attempts(name):
             kind, pages = kind_and_pages(result["set"])
@@ -118,9 +118,9 @@ write("damage", damage)
 
 revisions = []
 PAGES = {"blog": "set-s", "setS": "set-s", "gptF": "fresh", "qwenF": "fresh"}
-for part, runs in (("fitting", (("gpt", "compare-dev19-gpt.jsonl"), ("qwen", "compare-dev19-qwen.jsonl"))),
-                   ("read", (("gpt", "compare-test17-gpt.jsonl"), ("qwen", "compare-test17-qwen.jsonl"))),
-                   ("fresh", (("gpt", "compare-test17-fresh-gpt.jsonl"), ("qwen", "compare-test17-fresh-qwen.jsonl")))):
+for part, runs in (("fitting", (("gpt", "compare-dev21-gpt.jsonl"), ("qwen", "compare-dev21-qwen.jsonl"))),
+                   ("read", (("gpt", "compare-test19-gpt.jsonl"), ("qwen", "compare-test19-qwen.jsonl"))),
+                   ("fresh", (("gpt", "compare-test19-fresh-gpt.jsonl"), ("qwen", "compare-test19-fresh-qwen.jsonl")))):
     for reviser, name in runs:
         judge = "qwen" if reviser == "gpt" else "gpt"
         for result, retried in last_attempts(name):
