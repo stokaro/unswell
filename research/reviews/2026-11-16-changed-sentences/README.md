@@ -14,7 +14,7 @@ judge beside what replaced it.
 
 [RESULTS.md](RESULTS.md) holds the numbers, and `make check-changed-sentences`
 recounts every one of them from the data here. The bars were written on
-[issue ISSUE](https://github.com/stokaro/unswell/issues/ISSUE) before the run
+[issue 595](https://github.com/stokaro/unswell/issues/595) before the run
 on the measured part.
 
 ## Outcome
@@ -64,8 +64,13 @@ The rule was fitted on the 40 posts of the fitting half and on nothing else:
 on copies of each kind, and on the revisions that two models made of those
 posts by the report. A first build compared the pieces of prose as the engine
 gives them; two sentences were then called missing because the revision had
-set one of their words as code. The build of this record joins the pieces of
-a block again, and the fitting rows come from it.
+set one of their words as code. And one judge often found a reworded
+sentence with the words of the sentence it had been asked about; those words
+are not in the place it was shown, and that alone rejected 5 of 16 revisions.
+The build of this record joins the pieces of a block again and asks once more
+about a sentence that was found without the words of its place. The fitting
+rows come from it: the copies of all 40 posts without a model, 50 damaged
+copies with each judge, and the 40 revisions of each reviser.
 
 ## The measured part, and what had been read before
 

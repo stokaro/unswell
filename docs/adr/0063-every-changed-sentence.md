@@ -72,12 +72,36 @@ only about such a one. A sentence that the judge called changed or missing is
 not asked about again.
 
 **A long list goes in questions of twenty.** An ordinary revision of the
-fitting half has a median of FITMEDIAN suspects, and a heavy one more than a
-hundred. A model errs at the end of a long list.
+fitting half has a median of 9 suspects with one reviser and of 14 with the
+other, and a heavy one more than a hundred. A model errs at the end of a long
+list.
 
 ## What the fitting half showed
 
-FITTING
+The rule was fitted on the 40 posts of the fitting half of the style-guide
+set and on nothing else. The
+[record](../../research/reviews/2026-11-16-changed-sentences/RESULTS.md)
+recounts these numbers.
+
+**Without a model.** Each post got a copy of each kind of damage: a sentence
+removed, "not" removed, "not" put in, one word replaced by its opposite, and
+the last clause of a sentence cut off. The changed sentence is a suspect on
+all 183 copies. On harmless copies, with two sentences joined or with
+contractions, the comparison named no suspect on any of 75.
+
+**With a judge.** On 50 damaged copies the changed sentence is a suspect that
+the judge does not clear on 48, with either judge, and neither accepted a
+damaged copy. Both judges cleared "above" where the page said "below" in a
+reference to another part of the page, and each cleared one sentence that had
+lost a clause with "when". The search for statements alone found a statement
+not kept on 32 and on 15 of the 50 copies.
+
+**On ordinary revisions.** The price of the rule is here. Of 40 revisions of
+each reviser, 36 and 34 have a suspect, and the judge cleared 499 of 525
+suspects and 711 of 744. A sentence that was not cleared stands in 9 and in
+12 revisions; under the rule of ADR 0062 it stood in 5 and in 6 of the same
+revisions. Read by hand, most of those sentences did lose a detail in the
+revision.
 
 ## What was measured
 

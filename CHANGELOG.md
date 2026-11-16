@@ -1,5 +1,23 @@
 # Changelog
 
+## Unreleased
+
+`unswell compare` now sends every sentence that a revision changes to the
+judge. A sentence is kept only when it stands in the revision word for word,
+near its place; case, punctuation, markup, and contractions do not count, and
+the sentence may stand inside a longer one. Every other sentence goes to the
+judge beside what replaced it. Before, the command named what makes a
+sentence a suspect, a missing counterpart or a lost negation, and a revision
+that kept the content words and said something else passed: "after" for
+"before", "may" for "must", a "not" put in. A sentence now has the words of
+its code spans, a long list of sentences goes to the judge in questions of
+twenty, and a sentence that the judge found without the words of its place is
+asked about once more
+([documentation](docs/compare.md),
+[ADR 0063](docs/adr/0063-every-changed-sentence.md)).
+
+MEASURED
+
 ## 0.1.0-alpha.15
 
 This release makes the check of a revision find a sentence that the revision

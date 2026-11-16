@@ -37,7 +37,7 @@ PAGES = ("set-s", "fresh")
 # texts.
 REVISION_PARTS = ("fitting", "read", "fresh")
 MEASURED_REVISIONS = ("read", "fresh")
-# The bars, as they were written on issue ISSUE before the run.
+# The bars, as they were written on issue 595 before the run.
 BARS = {"damage_reported": 0.90, "kind_reported": 0.80, "damaged_accepted": 2, "harmless_suspected": 0.05, "statements_kept": 0.98,
         "verdicts": 0.95}
 
