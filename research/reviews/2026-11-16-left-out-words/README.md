@@ -161,6 +161,16 @@ the same passages, and the same left-out words on all 344 fitting copies.
 The released build differs from the build of the measurement in the help text
 of the command.
 
+The published binary of `v0.1.0-alpha.17` was run on the same texts after the
+release. It finds the same suspects, the same passages, and the same left-out
+words on all 760 copies; `scripts/audit.py` is that check. From the kept
+answers of one judge it reaches the same verdict, sound, statements,
+sentences, losses, and em dashes on the 57 revisions that this judge checked;
+`scripts/reproduce.py` is that check. The damaged and the trimmed copies
+cannot be replayed, since several copies of one page ask the same question
+about it and a repeated question gets a new answer, and the answers of the
+endpoint judge were not kept.
+
 ## Data
 
 | File | Rows |
