@@ -1,6 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-alpha.16
+
+This release makes the check of a revision read every sentence that the
+revision changed. Before, it looked for two kinds of change and passed the
+rest.
 
 `unswell compare` now sends every sentence that a revision changes to the
 judge. A sentence is kept only when it stands in the revision word for word,
