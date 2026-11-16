@@ -74,8 +74,11 @@ questions of twenty. Most suspects are harmless: a reviser says a sentence in
 another order or in words of its own. The model clears a suspect only with a
 quote that stands in that place. For a missing sentence the quote also has to
 carry one of the sentence's own words: a model that quotes the sentence
-beside the gap does not clear it. One suspect that is not cleared rejects the
-revision, and the report shows the sentence with its line.
+beside the gap does not clear it. When the model finds a sentence and its
+quote is not in that place, the command asks once more about that sentence;
+a model that says yes may quote the sentence it was asked about. One suspect
+that is not cleared rejects the revision, and the report shows the sentence
+with its line.
 
 **Numbers, code, and links.** Without a model: every number of the page's
 prose, every code block and inline code, and every link has to occur in the
@@ -148,10 +151,11 @@ dashes of both texts, and the verdict with its reasons. `--report text:PATH`
 writes the text above.
 
 The command makes five calls or more: two for the sound, three for the
-facts, one more when a statement was not found the first time, and one for
-every twenty sentences that the revision does not keep word for word. The
-three for the facts carry the whole text of the page or of the revision. A
-call about sentences carries only those sentences and their places.
+facts, one more when a statement was not found the first time, one for every
+twenty sentences that the revision does not keep word for word, and one more
+when a sentence was found without the words of its place. The three for the
+facts carry the whole text of the page or of the revision. A call about
+sentences carries only those sentences and their places.
 
 ## Measured behavior
 

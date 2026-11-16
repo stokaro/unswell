@@ -62,6 +62,15 @@ what replaced it.
 place it was shown, and for a missing sentence one that carries a word of the
 sentence's own. One suspect that is not cleared rejects the revision.
 
+**A sentence found without the words of its place is asked about again.**
+One judge of the fitting half often said that a reworded sentence was kept
+and quoted the sentence of the page that it had been asked about. Those words
+are not in the place it was shown, so the sentence counted as not cleared: 13
+of the 34 sentences that this judge did not clear, and the only reason for 5
+of 16 rejections. The command now asks once more about such a sentence, and
+only about such a one. A sentence that the judge called changed or missing is
+not asked about again.
+
 **A long list goes in questions of twenty.** An ordinary revision of the
 fitting half has a median of FITMEDIAN suspects, and a heavy one more than a
 hundred. A model errs at the end of a long list.
