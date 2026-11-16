@@ -167,9 +167,6 @@ type Document struct {
 	path   string
 	source []byte
 	units  map[string]unit
-	// prose holds the span of every piece of prose that the engine found,
-	// also of those too short to be an item, in source order.
-	prose []document.Span
 }
 
 type segment struct {
@@ -209,10 +206,6 @@ func (r *Reviewer) Prepare(ctx context.Context, source document.Source) (*Docume
 	if err != nil {
 		return nil, err
 	}
-	for _, entry := range candidates {
-		prepared.prose = append(prepared.prose, enclosing(entry.segments))
-	}
-	slices.SortFunc(prepared.prose, func(a, b document.Span) int { return a.Start - b.Start })
 	for _, entry := range units {
 		prepared.Items = append(prepared.Items, entry.item)
 		prepared.units[entry.item.ID] = entry
