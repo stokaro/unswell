@@ -37,6 +37,9 @@ OUTCOME
 - **Short sentences too.** A sentence with fewer than three content words is
   compared word for word like any other, and its counterpart is looked for by
   all its words.
+- **One place for each sentence.** A sentence of the page takes the words
+  that it matches in the revision, so a sentence that the page says twice
+  needs two places there.
 - **Questions of twenty.** A long list of suspects goes to the judge in
   several questions.
 
@@ -78,39 +81,48 @@ The fitting rows of this record come from the build of the record: the copies
 of all 40 posts without a model, 50 damaged copies with each judge, and the
 40 revisions of each reviser.
 
-## The first start of the measured run, and why it was stopped
+## Two starts that were stopped
 
-The bars were written on the issue, and the run started with an earlier
-build. Its first stage, the comparison without a model, showed 4 damaged
-copies of the posts whose changed sentence was no suspect. Two were short
-sentences: the rule did not compare a sentence with fewer than three content
-words, and "We did not run it for this post." without its "not" passed. Two
-stood where the engine reads no prose, in the text of an image and in an
-indented block.
+The bars were written on the issue, and the measured run started twice with
+an earlier build. Each time its first stage, the comparison without a model,
+showed damaged copies whose changed sentence was no suspect: a changed
+sentence that the judge is never shown. Those are holes in the rule itself,
+so each time the run was stopped and the rule was changed. The issue has a
+comment for each stop, written before the next start, with what had been
+seen.
 
-Those are holes in the rule, a changed sentence that the judge is never
-shown, so the run was stopped during its judged stage and the rule was
-changed: the command reads every line outside fenced code, and it compares a
-short sentence like any other. The issue has what had been seen by then: the
-model-free stage in full, the verdicts on 66 and 56 damaged copies and on 39
-revisions as counts, and no answer of a judge.
+**The first start** showed 4 such copies of 261, all of posts. Two were
+short sentences: the rule did not compare a sentence with fewer than three
+content words, and "We did not run it for this post." without its "not"
+passed. Two stood where the engine reads no prose, in the text of an image
+and in an indented block. It was stopped during its judged stage; the
+verdicts on 66 and 56 damaged copies and on 39 revisions had been seen as
+counts, and no answer of a judge. The command now reads every line outside
+fenced code and compares a short sentence like any other.
 
-The second start is the measurement of this record. Its copies are new, with
-another salt, and change no sentence that an earlier run changed, so the 4
-copies above are not in it. Its fresh texts are other ones.
+**The second start** showed 3 such copies of 244, all of one fresh text. That
+text says its sentences twice, and the second copy of a sentence vouched for
+the changed one. It was stopped before its judged stage began. A sentence of
+the page now takes its own words in the revision.
+
+The third start is the measurement of this record. Its copies are new, with
+another salt, and change no sentence that an earlier run or start changed.
 
 ## The measured part, and what had been read before
 
 The 30 posts of the measured half have been read by the two earlier records
-and by the first start. The copies of this record change other sentences. The
-posts are still not unread, and there are no others. So every bar is read on
-two kinds of pages:
+and by the two starts above. The copies of this record change other
+sentences. The posts are still not unread, and there are no others. So every
+bar is read on two kinds of pages:
 
 - **The posts.** The 30 posts of the measured half, with new copies.
-- **Fresh texts.** 30 texts that no run had read: texts that two models wrote
-  under a style guide on the subjects of human posts, for each writer the 15
-  after the first 60 in the order of a hash of the id. They are not posts of
-  the style-guide set.
+- **Fresh texts.** 30 texts that two models wrote under a style guide on the
+  subjects of human posts, for each writer the 15 after the first 60 in the
+  order of a hash of the id. They are not posts of the style-guide set. No
+  judge had read them. The second start had: its model-free stage ran on
+  copies of them, and one of them showed the hole that stopped it. Three
+  texts of this kind are left that no run has read, too few for a
+  measurement.
 
 **Without a model.** The comparison runs on every copy.
 

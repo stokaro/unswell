@@ -58,8 +58,10 @@ the revision near its place with the same words in the same order. Case,
 punctuation, markup, and contractions do not count, and the sentence may
 stand inside a longer one, so two sentences joined with "and" are both kept.
 The words of a code span are words of its sentence, so a term that the
-revision sets as code changes nothing. Every other sentence is a suspect: the
-revision changed at least one of its words.
+revision sets as code changes nothing. Each sentence takes its own words in
+the revision: a sentence that the page says twice needs two places there.
+Every other sentence is a suspect: the revision changed at least one of its
+words.
 
 For a suspect the command looks for a counterpart: one sentence of the
 revision near its place, or two or three in a row, with at least six tenths

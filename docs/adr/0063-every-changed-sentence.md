@@ -53,6 +53,14 @@ other sentence by accident. "We did not run it for this post." has two, and
 without its "not" it passed. Such a sentence is now compared word for word
 like any other, and its counterpart is looked for by all its words.
 
+**Each sentence takes its own place.** A page can say one sentence twice; a
+text that a model wrote does it often. With a search that only asks whether
+the words stand near by, the second copy of the sentence vouches for the
+first, and the revision can change one of them. So a sentence of the page
+takes the words that it matches, and no other sentence can take them again.
+A sentence of the revision whose words are all taken is the counterpart of no
+other sentence either: the judge is shown the changed copy, not the kept one.
+
 **Every other sentence is a suspect and goes to the judge.** The revision
 changed at least one of its words, and the command does not decide what the
 change means. It names the kind of suspect as before: missing, when no
