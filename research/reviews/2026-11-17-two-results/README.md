@@ -109,6 +109,13 @@ The measured part comes from the build of commit `b4fcd8e6` of the branch of
 this change. The final build differs from it in the version number and in
 nothing that the command does.
 
+The published binary of `v0.1.0-alpha.19` was run on the same texts after the
+release. Without a model it finds the same suspects on all 374 copies. From
+the kept answers of one judge it reaches the same results on the 57 revisions
+of that judge's second run; `scripts/reproduce.py` is that check, and it
+cannot reach a model. See the
+[alpha.19 evidence](../../../docs/release/v0.1.0-alpha.19.md).
+
 ## Data
 
 | File | Rows |
