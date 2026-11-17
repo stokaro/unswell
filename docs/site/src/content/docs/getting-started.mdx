@@ -14,7 +14,7 @@ import Terminal from '../../components/Terminal.astro';
 
 ## Install
 
-The published release is `v0.1.0-alpha.17`. Pin it: the public API, the rule
+The published release is `v0.1.0-alpha.18`. Pin it: the public API, the rule
 defaults and the artifact formats all change during the alpha.
 
 ### Homebrew
@@ -32,7 +32,7 @@ instead. The formula moves to a new release through a pull request in the tap, s
 ### Go
 
 ```sh
-go install github.com/stokaro/unswell/cmd/unswell@v0.1.0-alpha.17
+go install github.com/stokaro/unswell/cmd/unswell@v0.1.0-alpha.18
 ```
 
 From a checkout, `go build -o bin/unswell ./cmd/unswell` uses the minimum Go
@@ -47,10 +47,10 @@ matching digests. Mount your sources read-only; a scan makes no network request.
 ### GitHub Action
 
 ```yaml
-- uses: stokaro/unswell-action@dfa6b0bb49ef5654d7f5882b8a0c269cb52a1bbf
+- uses: stokaro/unswell-action@ca4fafb6e9e9ec0cf0520e0ef35fe826eafac1c7
   id: unswell
   with:
-    version: 0.1.0-alpha.17
+    version: 0.1.0-alpha.18
     config: .unswell.yaml
     paths: |
       README.md
