@@ -485,6 +485,16 @@ these answers and recounts the numbers, and
 [ADR 0061](adr/0061-blind-check-of-a-revision.md) has the decisions. The bars
 were written on issue 583 before the run.
 
+Three later pilots on the fitting half tried what the report did not have
+then: a revision that takes out the paragraphs' closing denials, which
+[a rule](page-habits.md) now lists; a rewrite in the manner of two human
+posts; and four rounds of revision by the judge's own remarks. The judge that
+told every post before tells every post after each of them, and the three
+judges together pick 25 of 38 revised posts where they picked 26. The
+[record of the pilots](../research/reviews/2026-11-17-revision-pilots/README.md)
+has the counts. The same judge names a model's text in 147 of 147 pairs with
+a human post on the same subject, so it does not go by the subject of a post.
+
 ## Limits
 
 - The first reading was fitted and measured on English documentation that
