@@ -95,6 +95,10 @@ The final build differs from the build of the measurement in a refactoring of
 two functions. It gives the same row for each of the 4,947 pages of this
 record.
 
+The published binary of `v0.1.0-alpha.18` was run on the same texts after
+the release. It gives the same row for each of the 4,947 pages too; see the
+[alpha.18 evidence](../../../docs/release/v0.1.0-alpha.18.md).
+
 ## Data
 
 | File | Rows |
