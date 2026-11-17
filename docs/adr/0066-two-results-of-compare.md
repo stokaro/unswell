@@ -76,20 +76,20 @@ page is accepted when it loses nothing. The report says so on its own line.
 
 The bars were written on
 [issue 605](https://github.com/stokaro/unswell/issues/605) before the run on
-the measured part. Eleven of the 14 can be read, and all eleven hold.
+the measured part, and all 14 hold.
 
 - The result on nothing lost is the same in two runs on 55 and on 49 of 57
   revisions, with the two judges.
-- Of 155 harmless copies, 144 lose nothing with the judge that saw them all.
-  No damaged copy loses nothing: 0 of 219 with that judge.
+- Of 155 harmless copies, 155 and 144 lose nothing with the two judges. No
+  damaged copy loses nothing: 0 of 219 with either.
 - With `kept` required the check accepts 19 and 41 of 57 revisions in a first
   run, where it accepts 6 and 12 with `all` required.
 
-The run of the copies with `gpt-6-astra` was stopped after 198 of 374 copies,
-when that judge was no longer available. Three of its bars are not read, and
-the issue keeps them open. The
-[record](../../research/reviews/2026-11-17-two-results/README.md) has the
-counts on what it did judge.
+The run of the copies with `gpt-6-astra` was made in three parts, because
+that judge was twice no longer available. Eleven bars were read when this
+decision was written, and the other three when that run was complete. The
+[record](../../research/reviews/2026-11-17-two-results/README.md) says how
+the parts are counted.
 
 ## Not covered
 

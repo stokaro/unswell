@@ -46,12 +46,12 @@ class RecordTest(unittest.TestCase):
         self.assertEqual(result["bars_total"], 14)
         self.assertEqual(result["bars_held"], sum(1 for bar in result["bars"] if bar["holds"]))
         self.assertEqual([bar["bar"] for bar in result["bars"]], ["G1"] * 2 + ["G2"] * 4 + ["G3"] * 2 + ["G4"] * 6)
-        # The run of the copies with one judge was stopped, so three bars of that judge are not read. No bar that is read fails.
-        not_read = [(bar["bar"], bar["judge"], bar["read_on"]) for bar in result["bars"] if bar["holds"] is None]
-        self.assertEqual(not_read, [("G1", GPT, "harmless and trimmed copies"), ("G2", GPT, "damaged copies of fresh"), ("G4", GPT, "the copies")])
-        self.assertEqual(result["bars_read"], 11)
-        self.assertEqual(result["bars_held"], 11)
-        self.assertEqual(result["stopped"], [GPT])
+        # Every bar is read on all its copies, and a bar holds or it does not.
+        self.assertTrue(all(isinstance(bar["holds"], bool) for bar in result["bars"]))
+        # The run of the copies with one judge was made in three parts, and the other judge made its run in one.
+        self.assertEqual([part["copies"] for part in result["copies"][GPT]["parts"]], [198, 55, 121])
+        self.assertEqual(sum(part["copies"] for part in result["copies"][GPT]["parts"]), result["copies"][GPT]["copies"])
+        self.assertEqual([part["copies"] for part in result["copies"][QWEN]["parts"]], [374])
 
     def test_a_changed_number_is_not_accepted(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -86,23 +86,41 @@ class BarsTest(unittest.TestCase):
                 lose(row, "statements")
 
         rewrite(self.root, "copies", spoil)
+        before = self.bars()
+        rewrite(self.root, "copies", spoil)
         held = self.bars()
         self.assertIs(held[("G1", QWEN, "harmless and trimmed copies")], False)
-        # The other judge did not see every harmless copy, so its bar is still not read.
-        self.assertIsNone(held[("G1", GPT, "harmless and trimmed copies")])
+        # The bar of the other judge is read on its own copies.
+        self.assertIs(held[("G1", GPT, "harmless and trimmed copies")], before[("G1", GPT, "harmless and trimmed copies")])
 
-    def test_a_bar_of_a_stopped_run_is_not_read_whatever_its_copies_say(self):
+    def test_a_bar_is_read_on_every_part_of_a_run(self):
         def spoil(rows):
+            # The harmless copies of the later parts alone are enough to fail the bar of the whole run.
             for row in rows:
-                if row["judge"] == GPT and row["kind"] in verify.HARMLESS and row["verdict"]:
+                if row["judge"] == GPT and row["part"] > 1 and row["kind"] in verify.HARMLESS and row["verdict"]:
                     lose(row, "statements")
 
         rewrite(self.root, "copies", spoil)
-        held = self.bars()
-        self.assertIsNone(held[("G1", GPT, "harmless and trimmed copies")])
-        self.assertIsNone(held[("G4", GPT, "the copies")])
-        # The damaged copies of the posts were all judged, so that bar is read.
-        self.assertIs(held[("G2", GPT, "damaged copies of set-s")], True)
+        result = verify.results(self.root)
+        later = result["copies"][GPT]["parts"][1:]
+        self.assertEqual(sum(part["harmless"]["count"] for part in later), 0)
+        self.assertGreater(sum(part["harmless"]["of"] for part in later), 0.15 * verify.COPIES["harmless"])
+        held = {(bar["bar"], bar["judge"], bar["read_on"]): bar["holds"] for bar in result["bars"]}
+        self.assertIs(held[("G1", GPT, "harmless and trimmed copies")], False)
+
+    def test_a_copy_without_a_verdict_after_its_retry_counts_against_the_bar_of_verdicts(self):
+        def silence(rows):
+            mine = [row for row in rows if row["judge"] == GPT and row["retried"]]
+            for row in mine[:20]:
+                for key in ("nothing_lost", "failed", "sound", "accepted"):
+                    row.pop(key, None)
+                row["verdict"] = False
+
+        rewrite(self.root, "copies", silence)
+        result = verify.results(self.root)
+        self.assertEqual(result["copies"][GPT]["verdicts"]["count"], 354)
+        held = {(bar["bar"], bar["judge"], bar["read_on"]): bar["holds"] for bar in result["bars"]}
+        self.assertIs(held[("G4", GPT, "the copies")], False)
 
     def test_a_harmless_copy_without_a_verdict_does_not_pass(self):
         def silence(rows):
@@ -183,19 +201,31 @@ class RowsTest(unittest.TestCase):
     def test_a_copy_listed_twice_is_refused(self):
         self.refused("copies", lambda rows: rows + [dict(rows[0])], "listed twice")
 
-    def test_a_missing_copy_of_a_run_that_was_not_stopped_is_refused(self):
-        def drop(rows):
-            rows.remove(next(row for row in rows if row["judge"] == QWEN))
+    def test_a_missing_copy_is_refused_for_either_judge(self):
+        for judge in (QWEN, GPT):
+            with self.subTest(judge=judge):
+                root = copy_of_record(tempfile.mkdtemp(dir=self.directory.name))
+                rewrite(root, "copies", lambda rows: rows.remove(next(row for row in rows if row["judge"] == judge)))
+                with self.assertRaisesRegex(verify.Malformed, "373 copies, and the record says 374"):
+                    verify.results(root)
 
-        self.refused("copies", drop, "373 copies, and the record says 374")
+    def test_a_copy_of_a_part_that_its_run_did_not_have_is_refused(self):
+        def later(rows):
+            next(row for row in rows if row["judge"] == QWEN)["part"] = 2
 
-    def test_only_a_stopped_run_may_have_fewer_copies_and_none_may_have_more(self):
-        self.assertFalse(verify.judged_all(GPT, "copies", 198, 374))
-        self.assertTrue(verify.judged_all(GPT, "copies", 374, 374))
-        with self.assertRaisesRegex(verify.Malformed, "375 copies"):
-            verify.judged_all(GPT, "copies", 375, 374)
-        with self.assertRaisesRegex(verify.Malformed, "373 copies"):
-            verify.judged_all(QWEN, "copies", 373, 374)
+        self.refused("copies", later, "a part that the run of this judge did not have")
+
+    def test_a_copy_without_its_part_is_refused(self):
+        def forget(rows):
+            del rows[0]["part"]
+
+        self.refused("copies", forget, "a part that the run of this judge did not have")
+
+    def test_a_copy_moved_to_the_other_part_is_refused(self):
+        def move(rows):
+            next(row for row in rows if row["judge"] == GPT and row["part"] == 2)["part"] = 1
+
+        self.refused("copies", move, "199 copies in part 1, and the record says 198")
 
     def test_a_pair_that_lost_nothing_and_failed_a_check_is_refused(self):
         self.refused("copies", lambda rows: self.judged(rows).update(nothing_lost=True, failed=["dashes"]),
@@ -241,13 +271,17 @@ class ControlTest(unittest.TestCase):
         self.root = copy_of_record(self.directory.name)
 
     def test_the_two_judges_are_read_on_the_same_revisions(self):
-        found = verify.results(HERE)["same_revisions"]
-        self.assertEqual(found["revisions"], 57)
-        self.assertEqual((found["reviser"], found["judge_of_own_family"], found["judge_of_other_family"]), (QWEN, QWEN, GPT))
-        # The count of the other judge is that of its first run of the measurement.
-        self.assertEqual(found["other_family"], verify.results(HERE)["revisions"][GPT]["runs"]["1"]["nothing_lost"])
-        self.assertLessEqual(found["both"], min(found["own_family"], found["other_family"]))
-        self.assertEqual(sum(part["revisions"] for part in found["by_pages"].values()), 57)
+        result = verify.results(HERE)
+        self.assertEqual([found["reviser"] for found in result["controls"]], [QWEN, GPT])
+        for found, other in zip(result["controls"], (GPT, QWEN)):
+            with self.subTest(reviser=found["reviser"]):
+                self.assertEqual((found["judge_of_own_family"], found["judge_of_other_family"]), (found["reviser"], other))
+                self.assertEqual(found["revisions"] + found["without_verdict"], 57)
+                # The count of the other judge is that of its first run of the measurement.
+                if not found["without_verdict"]:
+                    self.assertEqual(found["other_family"], result["revisions"][other]["runs"]["1"]["nothing_lost"])
+                self.assertLessEqual(found["both"], min(found["own_family"], found["other_family"]))
+                self.assertEqual(sum(part["revisions"] for part in found["by_pages"].values()), found["revisions"])
 
     def test_an_agreement_is_counted_on_each_revision(self):
         def turn(rows):
@@ -256,10 +290,24 @@ class ControlTest(unittest.TestCase):
                     keep(row)
 
         rewrite(self.root, "same", turn)
-        found = verify.results(self.root)["same_revisions"]
-        self.assertEqual(found["own_family"], 57)
-        self.assertEqual(found["both"], found["other_family"])
-        self.assertEqual(found["agree"]["count"], found["other_family"])
+        for found in verify.results(self.root)["controls"]:
+            with self.subTest(reviser=found["reviser"]):
+                self.assertEqual(found["own_family"], found["revisions"])
+                self.assertEqual(found["both"], found["other_family"])
+                self.assertEqual(found["agree"]["count"], found["other_family"])
+
+    def test_one_control_does_not_move_the_other(self):
+        before = verify.results(self.root)["controls"]
+
+        def spoil(rows):
+            for row in rows:
+                if row["judge"] == GPT and row["verdict"]:
+                    lose(row)
+
+        rewrite(self.root, "same", spoil)
+        after = verify.results(self.root)["controls"]
+        self.assertEqual(after[0], before[0])
+        self.assertEqual(after[1]["own_family"], 0)
 
     def test_the_control_does_not_move_a_bar(self):
         before = verify.results(self.root)["bars"]
@@ -272,14 +320,25 @@ class ControlTest(unittest.TestCase):
         rewrite(self.root, "same", spoil)
         self.assertEqual(verify.results(self.root)["bars"], before)
 
-    def test_a_control_row_of_another_judge_is_refused(self):
-        rewrite(self.root, "same", lambda rows: rows[0].update(judge=GPT))
+    def test_a_control_row_under_the_judge_of_the_other_family_is_refused(self):
+        def other(rows):
+            rows[0]["judge"] = GPT if rows[0]["judge"] == QWEN else QWEN
+
+        rewrite(self.root, "same", other)
         with self.assertRaisesRegex(verify.Malformed, "judge of its own family"):
             verify.results(self.root)
 
     def test_a_control_without_one_of_the_revisions_is_refused(self):
-        rewrite(self.root, "same", lambda rows: rows[1:])
-        with self.assertRaisesRegex(verify.Malformed, "each once"):
+        for judge in (QWEN, GPT):
+            with self.subTest(judge=judge):
+                root = copy_of_record(tempfile.mkdtemp(dir=self.directory.name))
+                rewrite(root, "same", lambda rows: rows.remove(next(row for row in rows if row["judge"] == judge)))
+                with self.assertRaisesRegex(verify.Malformed, "each once"):
+                    verify.results(root)
+
+    def test_a_control_row_listed_twice_is_refused(self):
+        rewrite(self.root, "same", lambda rows: rows + [dict(rows[0])])
+        with self.assertRaisesRegex(verify.Malformed, "listed twice"):
             verify.results(self.root)
 
 

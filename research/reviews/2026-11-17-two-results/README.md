@@ -17,47 +17,70 @@ has the decision.
 
 ## Outcome
 
-Eleven of the 14 bars can be read, and all eleven hold. Three are not read:
-the run of the copies with one judge was stopped (see below).
+All 14 bars hold.
 
 - **The first result repeats.** The same revisions were checked twice with
   the same build. The result on nothing lost came out the same on 55 of 57
   with `gpt-6-astra` and on 49 of 57 with `private-host/Qwen3.6-35B-A3B`.
 - **Harmless edits pass.** Of 155 copies that join two sentences, write
-  negations as contractions, or leave out padding, 144 lose nothing with
-  `private-host/Qwen3.6-35B-A3B`. The other 11 fail on a statement that the
-  judge did not find, and on nothing else. With `gpt-6-astra`, all 93 that it
-  judged lose nothing.
-- **Damage does not pass.** No damaged copy loses nothing: 0 of 219 with one
-  judge, and 0 of the 105 that the other judged, the 87 of the posts among
-  them.
+  negations as contractions, or leave out padding, all 155 lose nothing with
+  `gpt-6-astra`, and 144 do with `private-host/Qwen3.6-35B-A3B`. The other 11
+  fail on a statement that the judge did not find, and on nothing else.
+- **Damage does not pass.** No damaged copy loses nothing: 0 of 219 with
+  either judge.
 - **What the split buys.** With `kept` required the check accepts 19 and 17
   of 57 revisions in the two runs of one judge, and 41 and 43 in those of the
   other. With `all` required it accepts 6 and 5, and 12 and 13.
-- **Verdicts.** Every pair that was run got a verdict on the first attempt.
+- **Verdicts.** Every pair has a verdict. With `gpt-6-astra`, 121 copies got
+  none on the first attempt and got one on their one retry (see below).
 
 One thing came out beside the bars. The two judges are far apart on how many
 revisions lose nothing, 19 against 41 of 57, and each checked the revisions
-of the other reviser. A control after the run tells the two apart: the judge
-that found 41 then checked the 57 revisions that the other judge had checked,
-and found nothing lost in 23 of them, where that judge found 19. So it is the
-reviser. The revisions of `gpt-6-astra` lose nothing about twice as often as
-those of `private-host/Qwen3.6-35B-A3B`, whichever judge reads them. The two
-judges still differ on single revisions: they agree on 43 of the 57.
+of the other reviser. Two controls after the run tell the reviser from the
+judge: each judge then checked the 57 revisions of its own family, which the
+other judge had checked.
 
-## The run that was stopped
+| Revisions of | Nothing lost with `gpt-6-astra` | With `private-host/Qwen3.6-35B-A3B` |
+| --- | ---: | ---: |
+| `private-host/Qwen3.6-35B-A3B` | 19 of 57 | 23 of 57 |
+| `gpt-6-astra` | 49 of 57 | 41 of 57 |
 
-The run of the copies with `gpt-6-astra` was stopped after 198 of 374
-copies, when that judge was no longer available. Its two runs of the
-revisions were complete by then. The copies were judged in the
-order of the file, so the 198 are all 172 copies of the posts and 26 of the
-202 copies of the fresh texts, and no sample of the rest.
+So it is the reviser. The revisions of `gpt-6-astra` lose nothing about twice
+as often as those of `private-host/Qwen3.6-35B-A3B`, whichever judge reads
+them: 49 against 19 with one judge, and 41 against 23 with the other.
 
-So three bars of that judge are not read: harmless edits (93 of 155 judged),
-damaged copies of the fresh texts (18 of 132), and verdicts on the copies.
-The counts on what it did judge are in RESULTS.md beside those bars. The
-issue keeps them open, and the remaining 176 copies can be run with the same
-build.
+The judge matters less. Each judge finds nothing lost more often in the
+revisions of its own family, by 8 and by 4 of 57, where two runs of one judge
+differ by 2. On single revisions the two judges agree on 43 of the 57 of one
+reviser and on 47 of the 57 of the other.
+
+## The run in three parts
+
+The run of the copies with `gpt-6-astra` was made in three parts, because
+that judge was twice no longer available. Its two runs of the revisions were
+complete before the first stop. Every part used the same build, the same file
+of copies, and the same order.
+
+- **Part 1.** 198 copies got a verdict: all 172 of the posts and 26 of the
+  202 of the fresh texts. An earlier state of this record ended here: it read
+  eleven bars and left three of that judge unread.
+- **Part 2.** 55 more copies got a verdict. Then the judge stopped answering,
+  and the runner did not notice. It started the other 121 checks, and the
+  judge's program returned an error and no answer to each of them.
+- **Part 3.** Those 121 were pairs without a verdict. The rule on the issue
+  gives such a pair one retry, and each of them got a verdict on it.
+
+The bar of verdicts is read after that retry, as the rule says: 374 of 374.
+On the first attempt the number is 253 of 374, and RESULTS.md gives it under
+the bars. What would be done with the second and the third part was written
+on the issue before either was read.
+
+The copies were judged in the order of the file, so the parts hold different
+pages. RESULTS.md has the counts by part. In each part every harmless copy
+loses nothing, and no damaged copy does.
+
+The runner now starts no further pair once a check has failed and the judge
+answers no question at all. A pair that was not started has had no attempt.
 
 ## What the product gained
 
@@ -116,35 +139,39 @@ nothing that the command does.
 The published binary of `v0.1.0-alpha.19` was run on the same texts after the
 release. Without a model it finds the same suspects on all 374 copies. From
 the kept answers of one judge it reaches the same results on the 57 revisions
-of that judge's second run; `scripts/reproduce.py` is that check, and it
-cannot reach a model. See the
+of that judge's second run, on the 57 of its control, and on the 120 copies
+that the kept answers still cover; `scripts/reproduce.py` is that check, and
+it cannot reach a model. See the
 [alpha.19 evidence](../../../docs/release/v0.1.0-alpha.19.md).
 
 ## Data
 
 | File | Rows |
 | --- | --- |
-| `data/copies.jsonl.gz` | each copy that a judge was given: its kind, its pages, whether the check reached a verdict, whether nothing is lost and which checks failed, the verdict of the blind comparison, and whether the pair is accepted with all required |
+| `data/copies.jsonl.gz` | each copy that a judge was given: its kind, its pages, the part of the run, whether the check reached a verdict and whether it needed its retry, whether nothing is lost and which checks failed, the verdict of the blind comparison, and whether the pair is accepted with all required |
 | `data/revisions.jsonl.gz` | each revision with its judge and its run: the same parts, and how many statements were checked and found kept |
 | `data/fitting.jsonl.gz` | each pair of the fitting half: the revisions in two runs, and the harmless copies with each judge and build |
-| `data/same.jsonl.gz` | the control: each revision of one reviser under the judge of its own family, with the same parts |
+| `data/same.jsonl.gz` | the controls: each revision of a reviser under the judge of its own family, with the same parts |
 
 The record holds no text of any page. A post of the style-guide set has the
 number that it has in the earlier records. The copies, the revisions, the
 statements, and the judges' quotes stay with the maintainer, and so do the
 texts that the scripts in `scripts/` need.
 
-## The control is no check
+## The controls are no check
 
-In the control a model judges revisions of its own family, which the command
-warns against: a model tends to prefer its own text. That matters for the
-blind comparison and little for a result that rests on quoted words, and the
-control is read only on nothing lost. It was run after the bars had been
-read, with the build of the measurement, and it moves no bar.
+In a control a model judges revisions of its own family, which the command
+warns against: a model tends to prefer its own text. That matters most for
+the blind comparison, so the controls are read only on nothing lost, a result
+that rests on quoted words. They show some of it there too: each judge finds
+nothing lost more often in the revisions of its own family.
+
+Both were run after the runs that the bars are read on, with the build of the
+measurement, and they move no bar. How the second control would be read was
+written on the issue before it was run.
 
 ## Not measured
 
-The copies that the stopped run did not reach. People as judges. Texts that
-no run had read. Whether a revision that loses nothing is worth publishing.
-A blind comparison that repeats: this change takes it out of the gate for
-those who ask, and leaves it as it was.
+People as judges. Texts that no run had read. Whether a revision that loses
+nothing is worth publishing. A blind comparison that repeats: this change
+takes it out of the gate for those who ask, and leaves it as it was.

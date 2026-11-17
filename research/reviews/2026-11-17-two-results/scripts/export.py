@@ -3,10 +3,10 @@
 
 usage: export.py <workspace> <record dir>
 
-copies     one row for each copy of a measured page and judge: what the whole check did with it
+copies     one row for each copy of a measured page and judge: what the whole check did with it, and the part of the run
 revisions  one row for each revision, judge, and run: what the whole check did with it
 fitting    one row for each pair of the fitting half: the revisions in two runs, and the harmless copies
-same       one row for each revision of one reviser under the judge of its own family, as a control
+same       one row for each revision of a reviser under the judge of its own family, as a control
 
 The posts of set S are numbered as in the earlier records: in the order of a salted hash whose salt stays in the
 workspace. The record holds neither their names nor their words.
@@ -19,6 +19,9 @@ G = W / "guided"
 MODELS = {"gpt": "gpt-6-astra", "qwen": "private-host/Qwen3.6-35B-A3B"}
 # The judge of a revision is of the other family than its reviser.
 OTHER = {"gpt": "qwen", "qwen": "gpt"}
+# The run of the copies with one judge stopped twice and went on later. Its file had this many rows at each stop,
+# and a copy belongs to the part of the run that gave it its last row.
+STOPS = {"gpt": (198, 374)}
 SOUND = ("the judge does not find the revision less like a model's text than the page",
          "the judge finds the revision more like a model's text than the page")
 load = lambda name: [json.loads(line) for line in open(G / name)]
@@ -59,6 +62,11 @@ def last_attempts(name):
     return [(rows[-1], any("error" in earlier for earlier in rows[:-1])) for rows in attempts.values()]
 
 
+def places(name):
+    """The place in the file of the last attempt of each pair."""
+    return {(row["set"], row["id"]): place for place, row in enumerate(load(name))}
+
+
 def failed(reasons):
     """The checks of "nothing lost" that a pair failed, by the reasons that the command gave."""
     kinds = set()
@@ -93,10 +101,12 @@ def pages_of(label):
 # ---- the copies of the measured part ----
 copies = []
 for judge, name in (("gpt", "compare-test21-copies-gpt.jsonl"), ("qwen", "compare-test21-copies.jsonl")):
+    place = places(name)
     for row, retried in last_attempts(name):
         kind, label = row["set"].split("-", 1)
+        part = 1 + sum(place[(row["set"], row["id"])] >= stop for stop in STOPS.get(judge, ()))
         copies.append({"judge": MODELS[judge], "pages": pages_of(label), "kind": kind, "page": unit(row["id"], label, second=True),
-                       **result(row, retried)})
+                       "part": part, **result(row, retried)})
 copies.sort(key=lambda r: (r["judge"], r["pages"], r["kind"], r["page"]))
 write("copies", copies)
 
@@ -132,13 +142,14 @@ for judge, build, name in (("gpt", "earlier", "compare-split1-harmless-gpt.jsonl
 fitting.sort(key=lambda r: (r["what"], r["judge"], r["build"], r["kind"], r["page"], r["run"]))
 write("fitting", fitting)
 
-# ---- a control: the revisions of one reviser under the judge of its own family ----
+# ---- two controls: the revisions of each reviser under the judge of its own family ----
 # The two judges found nothing lost in very different numbers of revisions, and each had checked the revisions of
-# the other reviser. Here one judge checks the revisions that the other judge checked.
+# the other reviser. Here each judge checks the revisions that the other judge checked.
 same = []
-for name in ("compare-test21s-qwen.jsonl", "compare-test21s-fresh-qwen.jsonl"):
-    for row, retried in last_attempts(name):
-        same.append({"judge": MODELS["qwen"], "reviser": MODELS["qwen"], "pages": pages_of(row["set"]), "page": unit(row["id"], row["set"]),
-                     **result(row, retried)})
-same.sort(key=lambda r: (r["pages"], r["page"]))
+for family in ("qwen", "gpt"):
+    for name in (f"compare-test21s-{family}.jsonl", f"compare-test21s-fresh-{family}.jsonl"):
+        for row, retried in last_attempts(name):
+            same.append({"judge": MODELS[family], "reviser": MODELS[family], "pages": pages_of(row["set"]),
+                         "page": unit(row["id"], row["set"]), **result(row, retried)})
+same.sort(key=lambda r: (r["judge"], r["pages"], r["page"]))
 write("same", same)
