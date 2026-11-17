@@ -56,6 +56,11 @@ The index has no gate and does not change the exit code. A file that is not
 Markdown gets no index, and neither does a page with fewer than 150 prose
 words.
 
+Two rules of `unswell check` report two habits of a page that the index does
+not count: paragraphs that end on a denial, and one formal register from the
+first line to the last. They are findings of their own and take no part in
+the index; see [Habits of a page](page-habits.md).
+
 ## In the report
 
 The lines of the index in the text report of `unswell check docs/guide.md`,

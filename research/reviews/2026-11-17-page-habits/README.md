@@ -87,6 +87,14 @@ Commit `86cd7bf4` of the branch of this change, with both rules on and every
 other rule off (`scripts/policy.yaml`). A page is one run of
 `unswell check --stdin` on its text.
 
+The measured rows were written a second time after the first reading. The
+fresh texts come in four sets with the same ids, and the first file could not
+tell them apart. The second run of the same build gave the same counts.
+
+The final build differs from the build of the measurement in a refactoring of
+two functions. It gives the same row for each of the 4,947 pages of this
+record.
+
 ## Data
 
 | File | Rows |
