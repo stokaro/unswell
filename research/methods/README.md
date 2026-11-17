@@ -165,9 +165,17 @@ style signals. Earlier classifications and measurements remain frozen; this
 rule establishes no authorship association or broad recall.
 
 Revision 13, [`rule-classes-v1-r13.json`](rule-classes-v1-r13.json), covers the
-current 60-rule catalog. Emoji in headings and list items and the em dash
+60-rule catalog. Emoji in headings and list items and the em dash
 count of a whole document are general style signals. Both were tested on files
 before and after commits that say they remove AI-sounding wording
-([ADR 0056](../../docs/adr/0056-rules-tested-on-de-slop-commits.md)). Current
-command tests use revision 13. Earlier classifications and measurements remain
-frozen; the rules establish no authorship association.
+([ADR 0056](../../docs/adr/0056-rules-tested-on-de-slop-commits.md)). What
+revisions 1 to 12 classified and measured is unchanged, and the two rules
+establish no authorship association.
+
+Revision 14, [`rule-classes-v1-r14.json`](rule-classes-v1-r14.json), covers the
+current 62-rule catalog. Paragraphs that end on a denial and a page that never
+leaves one formal register are general style signals. Both were measured on
+posts of a product blog, on texts that two models wrote, and on pages that
+people wrote ([record](../reviews/2026-11-17-page-habits/README.md)). Current
+command tests use revision 14. The revisions before it stay as they are, and
+neither rule says who wrote a page.

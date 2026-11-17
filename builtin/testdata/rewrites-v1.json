@@ -319,6 +319,18 @@
       "format": "markdown",
       "before": "# Client\n\nThe client opens a connection — then waits. The pool keeps it — for a while. A timeout closes it — unless a request is pending.\n",
       "after": "# Client\n\nThe client opens a connection, then waits. The pool keeps it for a while. A timeout closes it unless a request is pending.\n"
+    },
+    {
+      "rule": "syntax.closing-denial-density",
+      "format": "markdown",
+      "before": "# Runner\n\nThe runner reads the old history. It does not rewrite a file.\n\nThe check compares two schemas. It does not call the service.\n\nWe ran the plan on a copy. This is a rehearsal, not a migration.\n",
+      "after": "# Runner\n\nThe runner reads the old history and leaves every file as it is.\n\nThe check compares two schemas, without a call to the service.\n\nWe ran the plan on a copy, as a rehearsal. The migration itself comes later.\n"
+    },
+    {
+      "rule": "syntax.uniform-register",
+      "format": "markdown",
+      "before": "# Server\n\nThe server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client.\n",
+      "after": "# Server\n\nThe server reads the request (one at a time, in the order of arrival). It doesn't keep it: it sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client. The server reads the request. It sends the reply to the client.\n"
     }
   ]
 }

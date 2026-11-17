@@ -1,6 +1,6 @@
 {
   "schema": "unswell-docs-rules-catalog-v1",
-  "rule_count": 60,
+  "rule_count": 62,
   "families": [
     {
       "name": "density",
@@ -1080,6 +1080,24 @@
       "name": "syntax",
       "rules": [
         {
+          "id": "syntax.closing-denial-density",
+          "version": "1",
+          "status": "experimental",
+          "group": "rhetorical-patterns",
+          "scope": "document",
+          "contexts": [
+            "paragraph"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 0,
+          "cap": 0,
+          "summary": "Several paragraphs end by saying what something is not; end most of them on what it is or does.",
+          "description": "Counts the paragraphs of two sentences or more whose last sentence denies: a last clause after a semicolon or a dash that opens with a negation, a tail of the form \", not X\", or a main clause with its negation among the first six words. Reports the page once when more than allowed_occurrences paragraphs end that way and they are at least onset percent of those paragraphs.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. One denial at the end of a paragraph is an honest limit; the rule reports a habit, not a sentence. A condition, a question, an instruction, a sentence that addresses the reader, and \"not only\", \"not yet\", and the like are not counted. The forms are English, and they are read from the words, not from a parse."
+        },
+        {
           "id": "syntax.long-sentence",
           "version": "2",
           "status": "experimental",
@@ -1312,6 +1330,24 @@
           "description": "Counts three-item lists from the evaluative dictionary with at least two adjective tags; one triad is allowed.",
           "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. One noun tag is tolerated for an ambiguous modifier. This is a POS/dictionary heuristic, not a dependency parse.",
           "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. It counts three-item lists used as a rhythm device."
+        },
+        {
+          "id": "syntax.uniform-register",
+          "version": "1",
+          "status": "experimental",
+          "group": "rhetorical-patterns",
+          "scope": "document",
+          "contexts": [
+            "paragraph"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 0,
+          "cap": 0,
+          "summary": "This page never leaves one formal register: no contraction, no aside in parentheses, no question, and no sentence that opens with And, But, or So. Say one or two things the way you would to a colleague.",
+          "description": "Counts the sentences of running paragraphs and those of them with a casual mark: a question, an exclamation, a first word And, But, So, Or, or Yet, a contraction, or parentheses that hold two words or more. Reports the page once when it has at least min_sentences sentences and at most allowed_occurrences of them have a mark.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Reference documentation and a specification are often written this way by people, on purpose. The marks are English. A possessive is not a contraction, and one word in parentheses is not an aside."
         },
         {
           "id": "syntax.whether-preface-density",

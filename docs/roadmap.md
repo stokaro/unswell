@@ -134,6 +134,14 @@ also rewords; words that a revision puts in around a kept sentence; what a
 page says across several sentences, such as the order of steps; a language
 other than English; and people as judges.
 
+[ADR 0065](adr/0065-habits-of-a-page.md) adds two rules for habits of a page
+that no rule counted: paragraphs that end on a denial, and one formal register
+from the first line to the last
+([#603](https://github.com/stokaro/unswell/issues/603)). Open after it: whether
+a page that is revised until both are quiet reads as a person's, which only
+blind judges can say; a denial whose negation stands late in its clause;
+reference pages and specifications; and a language other than English.
+
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on
 an explicit maintainer request, after the other implementation tasks have a
