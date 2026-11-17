@@ -162,6 +162,8 @@ bin/unswell compare docs/guide.md docs/guide.revised.md \
 ```
 
 It exits with 1 for a rejected revision. The page index plays no part in it.
+With `--require kept` it accepts a revision that loses nothing, whatever the
+judge hears in the blind comparison.
 
 The three commands send the texts you select to the model you name and to
 nothing else. The output of review and trim is advisory and never fails a

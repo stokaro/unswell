@@ -1,0 +1,761 @@
+{
+  "bars": [
+    {
+      "bar": "G1",
+      "holds": null,
+      "judge": "gpt-6-astra",
+      "kind": "at least",
+      "limit": 0.85,
+      "of_all": 155,
+      "read_on": "harmless and trimmed copies",
+      "value": {
+        "count": 93,
+        "of": 93,
+        "share": 1.0
+      }
+    },
+    {
+      "bar": "G1",
+      "holds": true,
+      "judge": "private-host/Qwen3.6-35B-A3B",
+      "kind": "at least",
+      "limit": 0.85,
+      "of_all": 155,
+      "read_on": "harmless and trimmed copies",
+      "value": {
+        "count": 144,
+        "of": 155,
+        "share": 0.929
+      }
+    },
+    {
+      "bar": "G2",
+      "holds": true,
+      "judge": "gpt-6-astra",
+      "kind": "at most",
+      "limit": 2,
+      "of_all": 87,
+      "read_on": "damaged copies of set-s",
+      "value": {
+        "count": 0,
+        "of": 87,
+        "share": 0.0
+      }
+    },
+    {
+      "bar": "G2",
+      "holds": null,
+      "judge": "gpt-6-astra",
+      "kind": "at most",
+      "limit": 2,
+      "of_all": 132,
+      "read_on": "damaged copies of fresh",
+      "value": {
+        "count": 0,
+        "of": 18,
+        "share": 0.0
+      }
+    },
+    {
+      "bar": "G2",
+      "holds": true,
+      "judge": "private-host/Qwen3.6-35B-A3B",
+      "kind": "at most",
+      "limit": 2,
+      "of_all": 87,
+      "read_on": "damaged copies of set-s",
+      "value": {
+        "count": 0,
+        "of": 87,
+        "share": 0.0
+      }
+    },
+    {
+      "bar": "G2",
+      "holds": true,
+      "judge": "private-host/Qwen3.6-35B-A3B",
+      "kind": "at most",
+      "limit": 2,
+      "of_all": 132,
+      "read_on": "damaged copies of fresh",
+      "value": {
+        "count": 0,
+        "of": 132,
+        "share": 0.0
+      }
+    },
+    {
+      "bar": "G3",
+      "holds": true,
+      "judge": "gpt-6-astra",
+      "kind": "at least",
+      "limit": 0.85,
+      "read_on": "revisions with a verdict in both runs",
+      "value": {
+        "count": 55,
+        "of": 57,
+        "share": 0.9649
+      }
+    },
+    {
+      "bar": "G3",
+      "holds": true,
+      "judge": "private-host/Qwen3.6-35B-A3B",
+      "kind": "at least",
+      "limit": 0.85,
+      "read_on": "revisions with a verdict in both runs",
+      "value": {
+        "count": 49,
+        "of": 57,
+        "share": 0.8596
+      }
+    },
+    {
+      "bar": "G4",
+      "holds": null,
+      "judge": "gpt-6-astra",
+      "kind": "at least",
+      "limit": 0.95,
+      "of_all": 374,
+      "read_on": "the copies",
+      "value": {
+        "count": 198,
+        "of": 198,
+        "share": 1.0
+      }
+    },
+    {
+      "bar": "G4",
+      "holds": true,
+      "judge": "gpt-6-astra",
+      "kind": "at least",
+      "limit": 0.95,
+      "of_all": 57,
+      "read_on": "the revisions, run 1",
+      "value": {
+        "count": 57,
+        "of": 57,
+        "share": 1.0
+      }
+    },
+    {
+      "bar": "G4",
+      "holds": true,
+      "judge": "gpt-6-astra",
+      "kind": "at least",
+      "limit": 0.95,
+      "of_all": 57,
+      "read_on": "the revisions, run 2",
+      "value": {
+        "count": 57,
+        "of": 57,
+        "share": 1.0
+      }
+    },
+    {
+      "bar": "G4",
+      "holds": true,
+      "judge": "private-host/Qwen3.6-35B-A3B",
+      "kind": "at least",
+      "limit": 0.95,
+      "of_all": 374,
+      "read_on": "the copies",
+      "value": {
+        "count": 374,
+        "of": 374,
+        "share": 1.0
+      }
+    },
+    {
+      "bar": "G4",
+      "holds": true,
+      "judge": "private-host/Qwen3.6-35B-A3B",
+      "kind": "at least",
+      "limit": 0.95,
+      "of_all": 57,
+      "read_on": "the revisions, run 1",
+      "value": {
+        "count": 57,
+        "of": 57,
+        "share": 1.0
+      }
+    },
+    {
+      "bar": "G4",
+      "holds": true,
+      "judge": "private-host/Qwen3.6-35B-A3B",
+      "kind": "at least",
+      "limit": 0.95,
+      "of_all": 57,
+      "read_on": "the revisions, run 2",
+      "value": {
+        "count": 57,
+        "of": 57,
+        "share": 1.0
+      }
+    }
+  ],
+  "bars_held": 11,
+  "bars_read": 11,
+  "bars_total": 14,
+  "copies": {
+    "gpt-6-astra": {
+      "by_kind": {
+        "addnot": {
+          "copies": 15,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 15,
+            "statements": 3
+          },
+          "nothing_lost": 0,
+          "without_verdict": 0
+        },
+        "clause": {
+          "copies": 3,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 3,
+            "statements": 0
+          },
+          "nothing_lost": 0,
+          "without_verdict": 0
+        },
+        "contract": {
+          "copies": 26,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 0,
+            "statements": 0
+          },
+          "nothing_lost": 26,
+          "without_verdict": 0
+        },
+        "join": {
+          "copies": 34,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 0,
+            "statements": 0
+          },
+          "nothing_lost": 34,
+          "without_verdict": 0
+        },
+        "negation": {
+          "copies": 5,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 5,
+            "statements": 0
+          },
+          "nothing_lost": 0,
+          "without_verdict": 0
+        },
+        "sentence": {
+          "copies": 34,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 34,
+            "statements": 7
+          },
+          "nothing_lost": 0,
+          "without_verdict": 0
+        },
+        "swap": {
+          "copies": 21,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 21,
+            "statements": 3
+          },
+          "nothing_lost": 0,
+          "without_verdict": 0
+        },
+        "tail": {
+          "copies": 27,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 27,
+            "statements": 4
+          },
+          "nothing_lost": 0,
+          "without_verdict": 0
+        },
+        "trim": {
+          "copies": 33,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 0,
+            "statements": 0
+          },
+          "nothing_lost": 33,
+          "without_verdict": 0
+        }
+      },
+      "complete": false,
+      "copies": 374,
+      "damaged": {
+        "fresh": {
+          "accepted_all": 0,
+          "complete": false,
+          "copies": 132,
+          "judged": 18,
+          "nothing_lost": 0
+        },
+        "set-s": {
+          "accepted_all": 0,
+          "complete": true,
+          "copies": 87,
+          "judged": 87,
+          "nothing_lost": 0
+        }
+      },
+      "first_attempt": {
+        "count": 198,
+        "of": 198,
+        "share": 1.0
+      },
+      "harmless": {
+        "count": 93,
+        "of": 93,
+        "share": 1.0
+      },
+      "harmless_accepted_all": 16,
+      "harmless_complete": false,
+      "harmless_copies": 155,
+      "judged": 198,
+      "verdicts": {
+        "count": 198,
+        "of": 198,
+        "share": 1.0
+      }
+    },
+    "private-host/Qwen3.6-35B-A3B": {
+      "by_kind": {
+        "addnot": {
+          "copies": 40,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 40,
+            "statements": 14
+          },
+          "nothing_lost": 0,
+          "without_verdict": 0
+        },
+        "clause": {
+          "copies": 13,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 13,
+            "statements": 4
+          },
+          "nothing_lost": 0,
+          "without_verdict": 0
+        },
+        "contract": {
+          "copies": 36,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 0,
+            "statements": 3
+          },
+          "nothing_lost": 33,
+          "without_verdict": 0
+        },
+        "join": {
+          "copies": 60,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 0,
+            "statements": 5
+          },
+          "nothing_lost": 55,
+          "without_verdict": 0
+        },
+        "negation": {
+          "copies": 11,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 11,
+            "statements": 8
+          },
+          "nothing_lost": 0,
+          "without_verdict": 0
+        },
+        "sentence": {
+          "copies": 59,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 59,
+            "statements": 19
+          },
+          "nothing_lost": 0,
+          "without_verdict": 0
+        },
+        "swap": {
+          "copies": 43,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 43,
+            "statements": 15
+          },
+          "nothing_lost": 0,
+          "without_verdict": 0
+        },
+        "tail": {
+          "copies": 53,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 53,
+            "statements": 7
+          },
+          "nothing_lost": 0,
+          "without_verdict": 0
+        },
+        "trim": {
+          "copies": 59,
+          "failed": {
+            "dashes": 0,
+            "losses": 0,
+            "sentences": 0,
+            "statements": 3
+          },
+          "nothing_lost": 56,
+          "without_verdict": 0
+        }
+      },
+      "complete": true,
+      "copies": 374,
+      "damaged": {
+        "fresh": {
+          "accepted_all": 0,
+          "complete": true,
+          "copies": 132,
+          "judged": 132,
+          "nothing_lost": 0
+        },
+        "set-s": {
+          "accepted_all": 0,
+          "complete": true,
+          "copies": 87,
+          "judged": 87,
+          "nothing_lost": 0
+        }
+      },
+      "first_attempt": {
+        "count": 374,
+        "of": 374,
+        "share": 1.0
+      },
+      "harmless": {
+        "count": 144,
+        "of": 155,
+        "share": 0.929
+      },
+      "harmless_accepted_all": 34,
+      "harmless_complete": true,
+      "harmless_copies": 155,
+      "judged": 374,
+      "verdicts": {
+        "count": 374,
+        "of": 374,
+        "share": 1.0
+      }
+    }
+  },
+  "fitting": {
+    "harmless": [
+      {
+        "accepted_all": 0,
+        "build": "earlier",
+        "by_kind": {
+          "contract": {
+            "copies": 35,
+            "nothing_lost": 35
+          },
+          "join": {
+            "copies": 40,
+            "nothing_lost": 40
+          }
+        },
+        "judge": "gpt-6-astra",
+        "nothing_lost": 75,
+        "with_verdict": 75
+      },
+      {
+        "accepted_all": 8,
+        "build": "earlier",
+        "by_kind": {
+          "contract": {
+            "copies": 35,
+            "nothing_lost": 30
+          },
+          "join": {
+            "copies": 39,
+            "nothing_lost": 38
+          }
+        },
+        "judge": "private-host/Qwen3.6-35B-A3B",
+        "nothing_lost": 68,
+        "with_verdict": 74
+      },
+      {
+        "accepted_all": 11,
+        "build": "record",
+        "by_kind": {
+          "contract": {
+            "copies": 35,
+            "nothing_lost": 34
+          },
+          "join": {
+            "copies": 39,
+            "nothing_lost": 36
+          }
+        },
+        "judge": "private-host/Qwen3.6-35B-A3B",
+        "nothing_lost": 70,
+        "with_verdict": 74
+      }
+    ],
+    "revisions": {
+      "gpt-6-astra": {
+        "accepted_all_both": 0,
+        "repeat": {
+          "count": 40,
+          "of": 40,
+          "share": 1.0
+        },
+        "runs": {
+          "1": {
+            "accepted_all": 0,
+            "nothing_lost": 24
+          },
+          "2": {
+            "accepted_all": 2,
+            "nothing_lost": 24
+          }
+        }
+      },
+      "private-host/Qwen3.6-35B-A3B": {
+        "accepted_all_both": 0,
+        "repeat": {
+          "count": 36,
+          "of": 40,
+          "share": 0.9
+        },
+        "runs": {
+          "1": {
+            "accepted_all": 2,
+            "nothing_lost": 27
+          },
+          "2": {
+            "accepted_all": 1,
+            "nothing_lost": 29
+          }
+        }
+      }
+    }
+  },
+  "judges": [
+    "gpt-6-astra",
+    "private-host/Qwen3.6-35B-A3B"
+  ],
+  "revisions": {
+    "gpt-6-astra": {
+      "accepted_all_both": 5,
+      "nothing_lost_both": 17,
+      "repeat": {
+        "count": 55,
+        "of": 57,
+        "share": 0.9649
+      },
+      "runs": {
+        "1": {
+          "accepted_all": 6,
+          "by_pages": {
+            "fresh": {
+              "accepted_all": 5,
+              "nothing_lost": 6,
+              "revisions": 30
+            },
+            "set-s": {
+              "accepted_all": 1,
+              "nothing_lost": 13,
+              "revisions": 27
+            }
+          },
+          "first_attempt": {
+            "count": 57,
+            "of": 57,
+            "share": 1.0
+          },
+          "nothing_lost": 19,
+          "sound": {
+            "better": 26,
+            "no difference": 20,
+            "worse": 11
+          },
+          "statements": {
+            "count": 3475,
+            "of": 3502,
+            "share": 0.9923
+          },
+          "verdicts": {
+            "count": 57,
+            "of": 57,
+            "share": 1.0
+          }
+        },
+        "2": {
+          "accepted_all": 5,
+          "by_pages": {
+            "fresh": {
+              "accepted_all": 4,
+              "nothing_lost": 5,
+              "revisions": 30
+            },
+            "set-s": {
+              "accepted_all": 1,
+              "nothing_lost": 12,
+              "revisions": 27
+            }
+          },
+          "first_attempt": {
+            "count": 57,
+            "of": 57,
+            "share": 1.0
+          },
+          "nothing_lost": 17,
+          "sound": {
+            "better": 26,
+            "no difference": 22,
+            "worse": 9
+          },
+          "statements": {
+            "count": 3490,
+            "of": 3520,
+            "share": 0.9915
+          },
+          "verdicts": {
+            "count": 57,
+            "of": 57,
+            "share": 1.0
+          }
+        }
+      },
+      "sound_repeat": {
+        "count": 55,
+        "of": 57,
+        "share": 0.9649
+      }
+    },
+    "private-host/Qwen3.6-35B-A3B": {
+      "accepted_all_both": 8,
+      "nothing_lost_both": 38,
+      "repeat": {
+        "count": 49,
+        "of": 57,
+        "share": 0.8596
+      },
+      "runs": {
+        "1": {
+          "accepted_all": 12,
+          "by_pages": {
+            "fresh": {
+              "accepted_all": 11,
+              "nothing_lost": 18,
+              "revisions": 30
+            },
+            "set-s": {
+              "accepted_all": 1,
+              "nothing_lost": 23,
+              "revisions": 27
+            }
+          },
+          "first_attempt": {
+            "count": 57,
+            "of": 57,
+            "share": 1.0
+          },
+          "nothing_lost": 41,
+          "sound": {
+            "better": 22,
+            "no difference": 33,
+            "worse": 2
+          },
+          "statements": {
+            "count": 2058,
+            "of": 2062,
+            "share": 0.9981
+          },
+          "verdicts": {
+            "count": 57,
+            "of": 57,
+            "share": 1.0
+          }
+        },
+        "2": {
+          "accepted_all": 13,
+          "by_pages": {
+            "fresh": {
+              "accepted_all": 11,
+              "nothing_lost": 20,
+              "revisions": 30
+            },
+            "set-s": {
+              "accepted_all": 2,
+              "nothing_lost": 23,
+              "revisions": 27
+            }
+          },
+          "first_attempt": {
+            "count": 57,
+            "of": 57,
+            "share": 1.0
+          },
+          "nothing_lost": 43,
+          "sound": {
+            "better": 22,
+            "no difference": 34,
+            "worse": 1
+          },
+          "statements": {
+            "count": 2065,
+            "of": 2069,
+            "share": 0.9981
+          },
+          "verdicts": {
+            "count": 57,
+            "of": 57,
+            "share": 1.0
+          }
+        }
+      },
+      "sound_repeat": {
+        "count": 46,
+        "of": 57,
+        "share": 0.807
+      }
+    }
+  },
+  "stopped": [
+    "gpt-6-astra"
+  ]
+}

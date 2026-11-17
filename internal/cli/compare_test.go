@@ -165,10 +165,19 @@ type compareReport struct {
 		Page, Revision int
 	} `json:"em_dashes"`
 	Verdict *struct {
-		Accepted bool     `json:"accepted"`
-		Reasons  []string `json:"reasons"`
+		Require  string        `json:"require"`
+		Accepted bool          `json:"accepted"`
+		Reasons  []string      `json:"reasons"`
+		Kept     compareResult `json:"kept"`
+		Sound    compareResult `json:"sound"`
 	} `json:"verdict"`
 	Error string `json:"error"`
+}
+
+// compareResult is one of the two results of the check in the JSON report.
+type compareResult struct {
+	Passed  bool     `json:"passed"`
+	Reasons []string `json:"reasons"`
 }
 
 // comparedFiles writes the page and a revision of it and returns their directory.
@@ -180,10 +189,11 @@ func comparedFiles(c *qt.C, t *testing.T, revision string) string {
 	return root
 }
 
-func compareJSON(c *qt.C, t *testing.T, root string, model *fakeModel) (compareReport, reviewOutcome) {
+func compareJSON(c *qt.C, t *testing.T, root string, model *fakeModel, more ...string) (compareReport, reviewOutcome) {
 	t.Helper()
-	outcome := runCommand(t, "compare", root, "", "page.md", "revised.md", "--report", "json:-", "--quiet",
-		"--endpoint", model.server.URL, "--model", "judge")
+	arguments := append([]string{"page.md", "revised.md", "--report", "json:-", "--quiet", "--endpoint", model.server.URL, "--model", "judge"},
+		more...)
+	outcome := runCommand(t, "compare", root, "", arguments...)
 	var report compareReport
 	c.Assert(json.Unmarshal([]byte(outcome.stdout), &report), qt.IsNil, qt.Commentf("stdout: %s\nstderr: %s", outcome.stdout, outcome.stderr))
 	return report, outcome
@@ -194,7 +204,7 @@ func TestCompareAcceptsARevisionThatPassesEveryCheck(t *testing.T) {
 	model := newFakeModel(t, revisionJudge(pageNamed, comparedFacts, comparedKept))
 	report, outcome := compareJSON(c, t, comparedFiles(c, t, comparedRevision), model)
 	c.Assert(outcome.code, qt.Equals, 0, qt.Commentf("stderr: %s", outcome.stderr))
-	c.Assert(report.SchemaVersion, qt.Equals, "unswell-compare-v2")
+	c.Assert(report.SchemaVersion, qt.Equals, "unswell-compare-v3")
 	c.Assert(report.Protocol, qt.Equals, "unswell-revision-v3")
 	c.Assert(report.Page.Path, qt.Equals, "page.md")
 	c.Assert(report.Revision.Path, qt.Equals, "revised.md")
@@ -216,6 +226,10 @@ func TestCompareAcceptsARevisionThatPassesEveryCheck(t *testing.T) {
 	c.Assert(report.EmDashes.Revision, qt.Equals, 0)
 	c.Assert(report.Verdict.Accepted, qt.IsTrue)
 	c.Assert(report.Verdict.Reasons, qt.HasLen, 0)
+	// Without the flag everything is required, and each of the two results passed.
+	c.Assert(report.Verdict.Require, qt.Equals, "all")
+	c.Assert(report.Verdict.Kept, qt.DeepEquals, compareResult{Passed: true, Reasons: []string{}})
+	c.Assert(report.Verdict.Sound, qt.DeepEquals, compareResult{Passed: true, Reasons: []string{}})
 
 	calls := model.received()
 	c.Assert(calls, qt.HasLen, 6)
@@ -254,6 +268,8 @@ func TestCompareTextReportNamesEachCheck(t *testing.T) {
 		"Sentences: 1 of 5 compared sentences of the page not in the revision word for word; the judge found each of them there.\n"+
 		"Numbers, code, and links: nothing lost.\n"+
 		"Em dashes: 0 in the page, 0 in the revision.\n"+
+		"Nothing lost: yes.\n"+
+		"Reads less like a model's text: yes.\n"+
 		"Accepted.\n"+
 		"Judge: judge at "+host+".\n"+
 		"The judge did not see which text is the revision. It is a model: name one other than the model that made the revision.\n")
@@ -263,14 +279,85 @@ func TestCompareTextReportNamesEachCheck(t *testing.T) {
 func TestCompareRejectsWhenTheJudgeFollowsTheOrder(t *testing.T) {
 	c := qt.New(t)
 	// A judge that always names text A names the page first and the revision second.
-	alwaysFirst := func(chatCall) string { return `{"more_like_a_model": "A", "reason": "The first one."}` }
 	model := newFakeModel(t, revisionJudge(alwaysFirst, comparedFacts, comparedKept))
 	root := comparedFiles(c, t, comparedRevision)
 	outcome := runCommand(t, "compare", root, "", "page.md", "revised.md", "--quiet", "--endpoint", model.server.URL, "--model", "judge")
 	c.Assert(outcome.code, qt.Equals, 1, qt.Commentf("stderr: %s", outcome.stderr))
 	c.Assert(outcome.stdout, qt.Contains,
 		"Sound: no difference. With the page first the judge named the page, and with the revision first the revision.\n")
-	c.Assert(outcome.stdout, qt.Contains, "Rejected: the judge does not find the revision less like a model's text than the page.\n")
+	// The two results stand apart: nothing is lost, and the revision does not read better.
+	c.Assert(outcome.stdout, qt.Contains, "Nothing lost: yes.\nReads less like a model's text: no.\n"+
+		"Rejected: the judge does not find the revision less like a model's text than the page.\n")
+}
+
+// alwaysFirst answers the blind comparison as a judge that follows the order
+// of the texts: it names the page first and the revision second, which is no
+// difference.
+func alwaysFirst(chatCall) string {
+	return `{"more_like_a_model": "A", "reason": "The first one."}`
+}
+
+func TestCompareAcceptsARevisionThatLosesNothingWhenOnlyThatIsRequired(t *testing.T) {
+	c := qt.New(t)
+	model := newFakeModel(t, revisionJudge(alwaysFirst, comparedFacts, comparedKept))
+	root := comparedFiles(c, t, comparedRevision)
+	report, outcome := compareJSON(c, t, root, model, "--require", "kept")
+	c.Assert(outcome.code, qt.Equals, 0, qt.Commentf("stderr: %s", outcome.stderr))
+	c.Assert(report.Verdict.Require, qt.Equals, "kept")
+	c.Assert(report.Verdict.Accepted, qt.IsTrue)
+	c.Assert(report.Verdict.Reasons, qt.HasLen, 0)
+	c.Assert(report.Verdict.Kept, qt.DeepEquals, compareResult{Passed: true, Reasons: []string{}})
+	// The judge is still asked about the sound, and the report still says what it heard.
+	c.Assert(report.Sound.Verdict, qt.Equals, "no difference")
+	c.Assert(report.Verdict.Sound, qt.DeepEquals, compareResult{Passed: false,
+		Reasons: []string{"the judge does not find the revision less like a model's text than the page"}})
+	c.Assert(model.received(), qt.HasLen, 6)
+
+	text := runCommand(t, "compare", root, "", "page.md", "revised.md", "--require", "kept",
+		"--endpoint", model.server.URL, "--model", "judge")
+	c.Assert(text.code, qt.Equals, 0)
+	c.Assert(text.stdout, qt.Contains, "Sound: no difference.")
+	c.Assert(text.stdout, qt.Contains, "Nothing lost: yes.\nReads less like a model's text: no.\n"+
+		"Accepted, as --require kept asks: nothing is lost.\n")
+	c.Assert(text.stderr, qt.Contains, "compare: revised.md: accepted\n")
+
+	// The same answers without the flag reject the revision.
+	_, strict := compareJSON(c, t, root, model)
+	c.Assert(strict.code, qt.Equals, 1)
+}
+
+func TestCompareRejectsALossWhateverIsRequired(t *testing.T) {
+	c := qt.New(t)
+	// The judge names the page in both orders, and the revision writes a number as words.
+	revision := strings.Replace(comparedRevision, "30 seconds", "half a minute", 1)
+	kept := strings.Replace(comparedKept, "up to 30 seconds", "up to", 1)
+	model := newFakeModel(t, revisionJudge(pageNamed, comparedFacts, kept))
+	root := comparedFiles(c, t, revision)
+	for _, require := range []string{"all", "kept"} {
+		report, outcome := compareJSON(c, t, root, model, "--require", require)
+		c.Assert(outcome.code, qt.Equals, 1, qt.Commentf("require %s, stderr: %s", require, outcome.stderr))
+		c.Assert(report.Verdict.Accepted, qt.IsFalse)
+		c.Assert(report.Verdict.Reasons, qt.DeepEquals, []string{"the revision loses 1 numbers"})
+		c.Assert(report.Verdict.Kept, qt.DeepEquals, compareResult{Passed: false, Reasons: []string{"the revision loses 1 numbers"}})
+		c.Assert(report.Verdict.Sound.Passed, qt.IsTrue)
+	}
+	text := runCommand(t, "compare", root, "", "page.md", "revised.md", "--quiet", "--require", "kept",
+		"--endpoint", model.server.URL, "--model", "judge")
+	c.Assert(text.code, qt.Equals, 1)
+	c.Assert(text.stdout, qt.Contains, "Nothing lost: no.\nReads less like a model's text: yes.\nRejected: the revision loses 1 numbers.\n")
+}
+
+func TestCompareRefusesARequirementItDoesNotKnow(t *testing.T) {
+	c := qt.New(t)
+	model := newFakeModel(t, revisionJudge(pageNamed, comparedFacts, comparedKept))
+	root := comparedFiles(c, t, comparedRevision)
+	outcome := runCommand(t, "compare", root, "", "page.md", "revised.md", "--require", "sound",
+		"--endpoint", model.server.URL, "--model", "judge")
+	c.Assert(outcome.code, qt.Equals, 2)
+	c.Assert(outcome.stderr, qt.Contains, `--require "sound" is not supported: use all or kept`)
+	c.Assert(outcome.stdout, qt.Equals, "")
+	// Nothing was sent.
+	c.Assert(model.received(), qt.HasLen, 0)
 }
 
 func TestCompareRejectsARevisionForEachKindOfDamage(t *testing.T) {

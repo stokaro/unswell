@@ -3,7 +3,8 @@
 Experimental. `unswell compare` checks a revision of a page. A model you name
 reads the page and the revision without a hint of which is which, and names
 the one that reads more like text written by a language model. The command
-then accepts or rejects the revision.
+gives two results, whether the revision loses anything of the page and whether
+it reads less like a model's text, and then accepts or rejects the revision.
 
 The [AI-sounding index](ai-sounding-index.md) takes no part in this. The
 index falls after almost any edit of a run of sentences, also after one that
@@ -19,6 +20,8 @@ Facts: 41 of 41 statements kept.
 Sentences: 9 of 58 compared sentences of the page not in the revision word for word; the judge found each of them there.
 Numbers, code, and links: nothing lost.
 Em dashes: 0 in the page, 0 in the revision.
+Nothing lost: yes.
+Reads less like a model's text: yes.
 Accepted.
 Judge: example-model at api.example.com.
 The judge did not see which text is the revision. It is a model: name one other than the model that made the revision.
@@ -26,7 +29,15 @@ The judge did not see which text is the revision. It is a model: name one other 
 
 ## What is checked
 
-A revision is accepted only if all five checks pass.
+The command runs five checks and gives two results.
+
+- **Nothing lost** needs four of them: the facts, the sentences, the numbers,
+  code, and links, and the em dashes.
+- **Reads less like a model's text** is the fifth, the sound.
+
+A revision is accepted when both hold. With `--require kept` it is accepted
+when nothing is lost, whatever the blind comparison says; see
+[two results](#two-results).
 
 **Sound.** The judge gets the opening of both texts, whole blocks up to about
 450 words, as text A and text B. It is asked which reads more like text
@@ -112,13 +123,37 @@ page. A model that rewrites a sentence often adds one, and the index counts
 it.
 
 The five parts stand in the report one by one, so a rejected revision says
-which check it failed.
+which check it failed. After them the report gives each of the two results on
+a line of its own, and then the verdict.
+
+## Two results
+
+The two results rest on different things. Nothing lost rests on what the
+command compares itself, and on a judge that has to quote the words of the
+revision for every statement and every changed sentence. The sound rests on
+one question that the judge answers in each order of the texts, and the
+revision is better only when the judge names the page both times.
+
+The answer to that question can differ from one run to the next (see
+[measured behavior](#the-two-results-apart)). On pages where a judge mostly
+hears no difference, a single "better" mostly does not come twice. So the two
+results are reported apart, and you choose what a revision has to pass:
+
+| `--require` | A revision is accepted when |
+| --- | --- |
+| `all` (the default) | nothing is lost and the revision reads less like a model's text |
+| `kept` | nothing is lost |
+
+With `--require kept` the judge is still asked about the sound, and the
+report still says what it heard. That answer does not reject the revision and
+gives no reason. Use it where the verdict has to come out the same on the
+next run, such as a check that guards a cleanup of many pages.
 
 ## Exit code
 
 | Code | Meaning |
 | --- | --- |
-| `0` | The revision is accepted. |
+| `0` | The revision is accepted: it passed what `--require` names. |
 | `1` | The revision is rejected. |
 | `2` | The comparison did not complete, or the options were invalid. There is no verdict. |
 | `130` | The run was interrupted. |
@@ -161,16 +196,25 @@ unswell compare /tmp/guide.before.md docs/guide.md --command assistant --command
 Name a judge other than the model that made the revision. A model tends to
 prefer its own text.
 
+To accept a revision that loses nothing, whatever the judge hears:
+
+```sh
+unswell compare docs/guide.md docs/guide.revised.md --require kept \
+  --command assistant --command-arg=--print
+```
+
 `--format`, `--config`, `--profile`, and `--project-root` set how both texts
 are read, as they do for [`unswell check`](inputs.md). A text larger than
 `--max-document-bytes` fails before anything is sent.
 
 `--report json:PATH` writes the complete result with schema
-`unswell-compare-v2`: the judge's answer to each order with its reason, every
+`unswell-compare-v3`: the judge's answer to each order with its reason, every
 statement with its outcome and the quoted words, the statements that were
 left out, the number of sentences that were compared and each suspect with
 the place it was looked for and what the judge said, what was lost, the em
-dashes of both texts, and the verdict with its reasons. A suspect whose
+dashes of both texts, and the verdict. The verdict has `require`, `accepted`
+with its `reasons`, and the two results, `kept` and `sound`, each with
+`passed` and its own `reasons`. A suspect whose
 sentence the revision cut has the words that were left out in `cut`, and
 `padding` is true when the judge called them padding. `--report text:PATH`
 writes the text above.
@@ -366,6 +410,40 @@ way. The check had accepted 4 of 40 revisions of one reviser; asked again
 with the same prompt, the judge named the page in both orders for 1 revision,
 where it had done so for 5, and the check accepted none.
 
+### The two results apart
+
+That finding led to the [two results](#two-results). Their measurement ran
+the same revisions twice with one build, and it gave the check copies that
+change a page without losing anything: two sentences joined, negations
+written as contractions, padding left out. The bars were written on issue 605
+before the run. Eleven of the 14 can be read, and all eleven hold; the run of
+the copies with one judge was stopped when that judge was no longer
+available, and three of its bars are not read. The
+[record](../research/reviews/2026-11-17-two-results/RESULTS.md) recounts the
+numbers, and [ADR 0066](adr/0066-two-results-of-compare.md) has the decision.
+
+| | `gpt-6-astra` | `private-host/Qwen3.6-35B-A3B` |
+| --- | --- | --- |
+| The same result on nothing lost in two runs, of 57 revisions | 55 | 49 |
+| The same verdict of the blind comparison in two runs, of 57 | 55 | 46 |
+| Accepted with `kept` required, first and second run | 19 and 17 | 41 and 43 |
+| Accepted with `all` required, first and second run | 6 and 5 | 12 and 13 |
+| Harmless copies that lose nothing | 93 of the 93 judged, of 155 | 144 of 155 |
+| Damaged copies that lose nothing | 0 of the 105 judged, of 219 | 0 of 219 |
+
+**The first result repeats.** On the fitting half it came out the same on 40
+of 40 revisions with one judge and on 36 of 40 with the other, while no
+revision was accepted twice with all required.
+
+**Harmless edits pass, and damage does not.** The 11 harmless copies that one
+judge rejected all failed on a statement that the judge did not find in the
+copy, and on nothing else.
+
+**The two judges are far apart on the revisions.** One finds nothing lost in
+19 of 57 and the other in 41. Each checked the revisions of the other
+reviser, so the measurement cannot say whether one reviser loses more or one
+judge finds more.
+
 ## Limits
 
 - The check is strict, and most revisions get "no difference". That is not a
@@ -386,7 +464,9 @@ where it had done so for 5, and the check accepted none.
   judge: a sentence is kept when it stands in the revision word for word,
   also inside a longer one.
 - The answer of a judge to the blind comparison of the sound can differ from
-  one run to the next.
+  one run to the next. With `--require kept` it does not decide the verdict.
+  The judge's answers about statements and sentences can differ too, less
+  often.
 - The check rejects many ordinary revisions for one sentence. A reviser that
   rewords freely drops a detail somewhere, and one sentence that the judge
   does not find rejects the revision. The report names the sentence with its
@@ -413,4 +493,6 @@ no call itself. `review.NewRevision` pairs two prepared documents.
 `SuspectsPrompt` return the text for a model; `ParseSound`, `ParseFacts`,
 `ParseKept`, and `ParseSuspects` read its answers; `SoundVerdict`,
 `Confirmed`, `BindFacts`, `Suspects`, `BindSuspects`, `Lost`, `EmDashes`, and
-`Judge` decide. `Suspects` needs no model.
+`Judge` decide. `Suspects` needs no model. `Judge` takes what the revision has
+to pass, `RequireAll` or `RequireKept`, and returns both results in a
+`RevisionVerdict`.

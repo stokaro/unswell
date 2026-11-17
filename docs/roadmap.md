@@ -146,6 +146,13 @@ names; a denial whose negation stands late in its clause
 ([#607](https://github.com/stokaro/unswell/issues/607)); reference pages and
 specifications; and a language other than English.
 
+[ADR 0066](adr/0066-two-results-of-compare.md) makes `unswell compare` say
+apart whether nothing is lost and whether the revision reads less like a
+model's text, and lets a caller require the first alone
+([#605](https://github.com/stokaro/unswell/issues/605)). Open after it: a
+blind comparison that gives the same answer on the next run, and whether a
+revision that loses nothing is worth publishing.
+
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on
 an explicit maintainer request, after the other implementation tasks have a
