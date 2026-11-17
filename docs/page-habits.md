@@ -134,10 +134,14 @@ these counts, and `make check-page-habits` recounts them.
   after a commit that says it removes such wording, the first rule reports
   54 of 985 files before the commit and 55 after it, and the second 41
   and 42.
-- Whether a page that is revised until both rules are quiet reads as a
-  person's has not been measured. A revision by the report of the index did
-  not get there; see
-  [a revised post against human text](ai-sounding-index.md#a-revised-post-against-human-text).
+- A page that is revised until both rules are quiet still reads as a model's
+  to the judges that were asked. In a pilot on the 40 posts of the fitting
+  half, a model got the closing sentences that the first rule lists and took
+  them out: 98 became 4. Three blind judges then picked 25 of the 38 revised
+  posts against human posts, where they had picked 26, and the strictest of
+  them picked all 38 both times. The
+  [record of the pilots](../research/reviews/2026-11-17-revision-pilots/README.md)
+  has two more ways of revising, with the same outcome.
 - The forms are read from the words of a sentence and not from a parse, and
   the words are English. A denial whose negation stands after the sixth word
   of its clause is not counted.

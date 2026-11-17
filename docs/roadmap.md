@@ -137,10 +137,14 @@ other than English; and people as judges.
 [ADR 0065](adr/0065-habits-of-a-page.md) adds two rules for habits of a page
 that no rule counted: paragraphs that end on a denial, and one formal register
 from the first line to the last
-([#603](https://github.com/stokaro/unswell/issues/603)). Open after it: whether
-a page that is revised until both are quiet reads as a person's, which only
-blind judges can say; a denial whose negation stands late in its clause;
-reference pages and specifications; and a language other than English.
+([#603](https://github.com/stokaro/unswell/issues/603)). Pilots on the fitting
+half then showed that a page revised until both are quiet is still told from
+human posts, as is one revised in four rounds by a judge's own remarks
+([record](../research/reviews/2026-11-17-revision-pilots/README.md)). Open
+after it: whether paragraphs that a person wrote change what a blind judge
+names; a denial whose negation stands late in its clause
+([#607](https://github.com/stokaro/unswell/issues/607)); reference pages and
+specifications; and a language other than English.
 
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on

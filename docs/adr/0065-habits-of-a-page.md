@@ -100,13 +100,20 @@ The catalog holds 62 rules. Revision 14 of the rule classes records both as
 general style: the measurement compares sets of pages and does not say who
 wrote one page.
 
+## What a revision by these rules does
+
+Pilots on the fitting half followed the decision
+([record](../../research/reviews/2026-11-17-revision-pilots/README.md)). A
+model that gets the closing sentences takes them out, 98 to 4 on 38 posts,
+and the page still reads as a model's: three blind judges pick 25 of the 38
+revised posts against human posts, where they picked 26, and the strictest
+picks all 38 before and after. A rewrite in the manner of two human posts and
+four rounds of revision by the judge's own remarks moved nothing either. The
+rules name what a reader notices. They are no way to pass for a person.
+
 ## Not covered
 
-Whether a post that is revised until both rules are quiet reads as a
-person's. The [record of the blind check](../../research/reviews/2026-11-15-revision-check/RESULTS.md)
-found that a revision by the report of the index lowers the index and does
-not get there, and the same may hold here; a measurement with blind judges
-has to say. People as judges. A language other than English. A denial whose
+People as judges. A language other than English. A denial whose
 negation stands after the sixth word of its clause.
 
 The [record](../../research/reviews/2026-11-17-page-habits/README.md) holds
