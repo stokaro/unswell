@@ -192,7 +192,8 @@ func TestUniformRegisterTakesItsLimitsFromTheConfiguration(t *testing.T) {
 	loose := "version: 1\nrules:\n  syntax.uniform-register:\n    parameters: {min_sentences: 25, allowed_occurrences: 1}\n"
 	_, found = habitPlaces(c, t, loose, "syntax.uniform-register", page)
 	c.Assert(found, qt.IsTrue)
-	_, found = habitPlaces(c, t, loose, "syntax.uniform-register", habitPage(formalSentences(25), "It doesn't keep the request. Why would it?"))
+	twoCasual := habitPage(formalSentences(25), "It doesn't keep the request. Why would it?")
+	_, found = habitPlaces(c, t, loose, "syntax.uniform-register", twoCasual)
 	c.Assert(found, qt.IsFalse)
 	short := "version: 1\nrules:\n  syntax.uniform-register:\n    parameters: {min_sentences: 10}\n"
 	_, found = habitPlaces(c, t, short, "syntax.uniform-register", habitPage(formalSentences(10)))

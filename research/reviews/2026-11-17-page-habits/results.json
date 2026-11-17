@@ -1,0 +1,715 @@
+{
+  "bars": [
+    {
+      "bar": "quiet on human-blog: syntax.closing-denial-density",
+      "holds": true,
+      "kind": "at most",
+      "limit": 0.05,
+      "value": {
+        "count": 1,
+        "interval": [
+          0.0023,
+          0.07
+        ],
+        "of": 77,
+        "share": 0.013
+      }
+    },
+    {
+      "bar": "quiet on human-blog: syntax.uniform-register",
+      "holds": true,
+      "kind": "at most",
+      "limit": 0.05,
+      "value": {
+        "count": 0,
+        "interval": [
+          0.0,
+          0.0475
+        ],
+        "of": 77,
+        "share": 0.0
+      }
+    },
+    {
+      "bar": "quiet on human-styled: syntax.closing-denial-density",
+      "holds": true,
+      "kind": "at most",
+      "limit": 0.05,
+      "value": {
+        "count": 1,
+        "interval": [
+          0.0009,
+          0.0271
+        ],
+        "of": 205,
+        "share": 0.0049
+      }
+    },
+    {
+      "bar": "quiet on human-styled: syntax.uniform-register",
+      "holds": true,
+      "kind": "at most",
+      "limit": 0.05,
+      "value": {
+        "count": 4,
+        "interval": [
+          0.0076,
+          0.0491
+        ],
+        "of": 205,
+        "share": 0.0195
+      }
+    },
+    {
+      "bar": "quiet on human-docs: syntax.closing-denial-density",
+      "holds": true,
+      "kind": "at most",
+      "limit": 0.05,
+      "value": {
+        "count": 2,
+        "interval": [
+          0.009,
+          0.1119
+        ],
+        "of": 61,
+        "share": 0.0328
+      }
+    },
+    {
+      "bar": "quiet on human-docs: syntax.uniform-register",
+      "holds": true,
+      "kind": "at most",
+      "limit": 0.05,
+      "value": {
+        "count": 2,
+        "interval": [
+          0.009,
+          0.1119
+        ],
+        "of": 61,
+        "share": 0.0328
+      }
+    },
+    {
+      "bar": "posts: syntax.closing-denial-density",
+      "holds": true,
+      "kind": "at least",
+      "limit": 0.35,
+      "value": {
+        "count": 13,
+        "interval": [
+          0.2738,
+          0.608
+        ],
+        "of": 30,
+        "share": 0.4333
+      }
+    },
+    {
+      "bar": "posts: syntax.uniform-register",
+      "holds": true,
+      "kind": "at least",
+      "limit": 0.4,
+      "value": {
+        "count": 18,
+        "interval": [
+          0.4232,
+          0.7541
+        ],
+        "of": 30,
+        "share": 0.6
+      }
+    },
+    {
+      "bar": "posts: either rule",
+      "holds": true,
+      "kind": "at least",
+      "limit": 0.7,
+      "value": {
+        "count": 23,
+        "interval": [
+          0.5907,
+          0.8821
+        ],
+        "of": 30,
+        "share": 0.7667
+      }
+    },
+    {
+      "bar": "fresh model texts: syntax.uniform-register",
+      "holds": true,
+      "kind": "at least",
+      "limit": 0.7,
+      "value": {
+        "count": 110,
+        "interval": [
+          0.8534,
+          0.9541
+        ],
+        "of": 120,
+        "share": 0.9167
+      }
+    }
+  ],
+  "bars_held": 10,
+  "bars_total": 10,
+  "documentation_together": {
+    "denial": {
+      "count": 2,
+      "interval": [
+        0.0045,
+        0.0583
+      ],
+      "of": 121,
+      "share": 0.0165
+    },
+    "register": {
+      "count": 3,
+      "interval": [
+        0.0085,
+        0.0704
+      ],
+      "of": 121,
+      "share": 0.0248
+    }
+  },
+  "fresh_together": {
+    "denial": {
+      "count": 1,
+      "interval": [
+        0.0015,
+        0.0457
+      ],
+      "of": 120,
+      "share": 0.0083
+    },
+    "pages": 120,
+    "register": {
+      "count": 110,
+      "interval": [
+        0.8534,
+        0.9541
+      ],
+      "of": 120,
+      "share": 0.9167
+    }
+  },
+  "pairs": {
+    "development": {
+      "denial": {
+        "after": 88,
+        "before": 95,
+        "gained": 11,
+        "lost": 18
+      },
+      "pairs": 1456,
+      "register": {
+        "after": 41,
+        "before": 43,
+        "gained": 15,
+        "lost": 17
+      }
+    },
+    "test": {
+      "denial": {
+        "after": 55,
+        "before": 54,
+        "gained": 8,
+        "lost": 7
+      },
+      "pairs": 985,
+      "register": {
+        "after": 42,
+        "before": 41,
+        "gained": 12,
+        "lost": 11
+      }
+    }
+  },
+  "rules": {
+    "denial": "syntax.closing-denial-density",
+    "register": "syntax.uniform-register"
+  },
+  "sets": {
+    "fresh-1/measured": {
+      "denial": {
+        "count": 1,
+        "interval": [
+          0.0029,
+          0.0886
+        ],
+        "of": 60,
+        "share": 0.0167
+      },
+      "either": {
+        "count": 54,
+        "interval": [
+          0.7985,
+          0.9534
+        ],
+        "of": 60,
+        "share": 0.9
+      },
+      "pages": 60,
+      "register": {
+        "count": 54,
+        "interval": [
+          0.7985,
+          0.9534
+        ],
+        "of": 60,
+        "share": 0.9
+      }
+    },
+    "fresh-2/measured": {
+      "denial": {
+        "count": 0,
+        "interval": [
+          0.0,
+          0.0602
+        ],
+        "of": 60,
+        "share": 0.0
+      },
+      "either": {
+        "count": 56,
+        "interval": [
+          0.8407,
+          0.9738
+        ],
+        "of": 60,
+        "share": 0.9333
+      },
+      "pages": 60,
+      "register": {
+        "count": 56,
+        "interval": [
+          0.8407,
+          0.9738
+        ],
+        "of": 60,
+        "share": 0.9333
+      }
+    },
+    "human-blog/fitting": {
+      "denial": {
+        "count": 1,
+        "interval": [
+          0.0024,
+          0.0727
+        ],
+        "of": 74,
+        "share": 0.0135
+      },
+      "either": {
+        "count": 1,
+        "interval": [
+          0.0024,
+          0.0727
+        ],
+        "of": 74,
+        "share": 0.0135
+      },
+      "pages": 74,
+      "register": {
+        "count": 0,
+        "interval": [
+          -0.0,
+          0.0493
+        ],
+        "of": 74,
+        "share": 0.0
+      }
+    },
+    "human-blog/measured": {
+      "denial": {
+        "count": 1,
+        "interval": [
+          0.0023,
+          0.07
+        ],
+        "of": 77,
+        "share": 0.013
+      },
+      "either": {
+        "count": 1,
+        "interval": [
+          0.0023,
+          0.07
+        ],
+        "of": 77,
+        "share": 0.013
+      },
+      "pages": 77,
+      "register": {
+        "count": 0,
+        "interval": [
+          0.0,
+          0.0475
+        ],
+        "of": 77,
+        "share": 0.0
+      }
+    },
+    "human-docs/fitting": {
+      "denial": {
+        "count": 0,
+        "interval": [
+          0.0,
+          0.0602
+        ],
+        "of": 60,
+        "share": 0.0
+      },
+      "either": {
+        "count": 1,
+        "interval": [
+          0.0029,
+          0.0886
+        ],
+        "of": 60,
+        "share": 0.0167
+      },
+      "pages": 60,
+      "register": {
+        "count": 1,
+        "interval": [
+          0.0029,
+          0.0886
+        ],
+        "of": 60,
+        "share": 0.0167
+      }
+    },
+    "human-docs/measured": {
+      "denial": {
+        "count": 2,
+        "interval": [
+          0.009,
+          0.1119
+        ],
+        "of": 61,
+        "share": 0.0328
+      },
+      "either": {
+        "count": 4,
+        "interval": [
+          0.0258,
+          0.1568
+        ],
+        "of": 61,
+        "share": 0.0656
+      },
+      "pages": 61,
+      "register": {
+        "count": 2,
+        "interval": [
+          0.009,
+          0.1119
+        ],
+        "of": 61,
+        "share": 0.0328
+      }
+    },
+    "human-styled/fitting": {
+      "denial": {
+        "count": 1,
+        "interval": [
+          0.0008,
+          0.0244
+        ],
+        "of": 228,
+        "share": 0.0044
+      },
+      "either": {
+        "count": 8,
+        "interval": [
+          0.0179,
+          0.0677
+        ],
+        "of": 228,
+        "share": 0.0351
+      },
+      "pages": 228,
+      "register": {
+        "count": 7,
+        "interval": [
+          0.0149,
+          0.062
+        ],
+        "of": 228,
+        "share": 0.0307
+      }
+    },
+    "human-styled/measured": {
+      "denial": {
+        "count": 1,
+        "interval": [
+          0.0009,
+          0.0271
+        ],
+        "of": 205,
+        "share": 0.0049
+      },
+      "either": {
+        "count": 5,
+        "interval": [
+          0.0105,
+          0.0558
+        ],
+        "of": 205,
+        "share": 0.0244
+      },
+      "pages": 205,
+      "register": {
+        "count": 4,
+        "interval": [
+          0.0076,
+          0.0491
+        ],
+        "of": 205,
+        "share": 0.0195
+      }
+    },
+    "model-guided-1/fitting": {
+      "denial": {
+        "count": 1,
+        "interval": [
+          0.0024,
+          0.0727
+        ],
+        "of": 74,
+        "share": 0.0135
+      },
+      "either": {
+        "count": 65,
+        "interval": [
+          0.7847,
+          0.9347
+        ],
+        "of": 74,
+        "share": 0.8784
+      },
+      "pages": 74,
+      "register": {
+        "count": 65,
+        "interval": [
+          0.7847,
+          0.9347
+        ],
+        "of": 74,
+        "share": 0.8784
+      }
+    },
+    "model-guided-2/fitting": {
+      "denial": {
+        "count": 0,
+        "interval": [
+          0.0,
+          0.05
+        ],
+        "of": 73,
+        "share": 0.0
+      },
+      "either": {
+        "count": 64,
+        "interval": [
+          0.782,
+          0.9338
+        ],
+        "of": 73,
+        "share": 0.8767
+      },
+      "pages": 73,
+      "register": {
+        "count": 64,
+        "interval": [
+          0.782,
+          0.9338
+        ],
+        "of": 73,
+        "share": 0.8767
+      }
+    },
+    "model-plain-1/fitting": {
+      "denial": {
+        "count": 0,
+        "interval": [
+          -0.0,
+          0.0493
+        ],
+        "of": 74,
+        "share": 0.0
+      },
+      "either": {
+        "count": 48,
+        "interval": [
+          0.535,
+          0.7476
+        ],
+        "of": 74,
+        "share": 0.6486
+      },
+      "pages": 74,
+      "register": {
+        "count": 48,
+        "interval": [
+          0.535,
+          0.7476
+        ],
+        "of": 74,
+        "share": 0.6486
+      }
+    },
+    "model-plain-2/fitting": {
+      "denial": {
+        "count": 0,
+        "interval": [
+          -0.0,
+          0.0493
+        ],
+        "of": 74,
+        "share": 0.0
+      },
+      "either": {
+        "count": 64,
+        "interval": [
+          0.7688,
+          0.9249
+        ],
+        "of": 74,
+        "share": 0.8649
+      },
+      "pages": 74,
+      "register": {
+        "count": 64,
+        "interval": [
+          0.7688,
+          0.9249
+        ],
+        "of": 74,
+        "share": 0.8649
+      }
+    },
+    "panel/whole": {
+      "denial": {
+        "count": 20,
+        "interval": [
+          0.0286,
+          0.0669
+        ],
+        "of": 455,
+        "share": 0.044
+      },
+      "either": {
+        "count": 176,
+        "interval": [
+          0.3432,
+          0.4323
+        ],
+        "of": 455,
+        "share": 0.3868
+      },
+      "pages": 455,
+      "register": {
+        "count": 159,
+        "interval": [
+          0.3071,
+          0.3944
+        ],
+        "of": 455,
+        "share": 0.3495
+      }
+    },
+    "public-today/whole": {
+      "denial": {
+        "count": 289,
+        "interval": [
+          0.0784,
+          0.0976
+        ],
+        "of": 3302,
+        "share": 0.0875
+      },
+      "either": {
+        "count": 447,
+        "interval": [
+          0.1241,
+          0.1475
+        ],
+        "of": 3302,
+        "share": 0.1354
+      },
+      "pages": 3302,
+      "register": {
+        "count": 202,
+        "interval": [
+          0.0535,
+          0.0699
+        ],
+        "of": 3302,
+        "share": 0.0612
+      }
+    },
+    "set-s/fitting": {
+      "denial": {
+        "count": 22,
+        "interval": [
+          0.3983,
+          0.6929
+        ],
+        "of": 40,
+        "share": 0.55
+      },
+      "either": {
+        "count": 35,
+        "interval": [
+          0.7389,
+          0.9454
+        ],
+        "of": 40,
+        "share": 0.875
+      },
+      "pages": 40,
+      "register": {
+        "count": 24,
+        "interval": [
+          0.446,
+          0.7365
+        ],
+        "of": 40,
+        "share": 0.6
+      }
+    },
+    "set-s/measured": {
+      "denial": {
+        "count": 13,
+        "interval": [
+          0.2738,
+          0.608
+        ],
+        "of": 30,
+        "share": 0.4333
+      },
+      "either": {
+        "count": 23,
+        "interval": [
+          0.5907,
+          0.8821
+        ],
+        "of": 30,
+        "share": 0.7667
+      },
+      "pages": 30,
+      "register": {
+        "count": 18,
+        "interval": [
+          0.4232,
+          0.7541
+        ],
+        "of": 30,
+        "share": 0.6
+      }
+    }
+  }
+}

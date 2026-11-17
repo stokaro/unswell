@@ -114,17 +114,9 @@ func hasNormal(tokens []document.Token, words []int, list []string) bool {
 // when it stands apart from the words around it.
 func lastClause(tokens []document.Token, words []int) []int {
 	separator := -1
-	for index, token := range tokens {
-		if token.Word || token.Protected {
-			continue
-		}
-		switch token.Text {
-		case ";", "—", "–":
+	for index := range tokens {
+		if separates(tokens, index) {
 			separator = index
-		case "-", "--":
-			if index > 0 && index+1 < len(tokens) && tokens[index-1].End < token.Start && token.End < tokens[index+1].Start {
-				separator = index
-			}
 		}
 	}
 	if separator < 0 {
@@ -135,6 +127,22 @@ func lastClause(tokens []document.Token, words []int) []int {
 		return nil
 	}
 	return words[start:]
+}
+
+// separates reports a token that ends a clause: a semicolon, a dash, or a
+// hyphen that stands apart from the words around it.
+func separates(tokens []document.Token, index int) bool {
+	token := tokens[index]
+	if token.Word || token.Protected {
+		return false
+	}
+	switch token.Text {
+	case ";", "—", "–":
+		return true
+	case "-", "--":
+		return index > 0 && index+1 < len(tokens) && tokens[index-1].End < token.Start && token.End < tokens[index+1].Start
+	}
+	return false
 }
 
 // deniesEarly reports a clause that is no condition and no instruction and

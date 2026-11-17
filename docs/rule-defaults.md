@@ -1,6 +1,6 @@
 # Which rules ship enabled
 
-The catalog holds 60 rules. Twenty-seven are enabled by their descriptors and 33
+The catalog holds 62 rules. Twenty-nine are enabled by their descriptors and 33
 are opt-in; strict additionally enables em-dash density and the six rules whose
 load falls on pages that people wrote. This page says how that split was chosen and what each opt-in rule was
 measured at. Every rule also carries its own reason: `unswell rules show ID`
@@ -123,6 +123,32 @@ The emoji rule is lower in 20 and higher in 14, which does not confirm it, and
 
 With the rules that ship on, 11 of those pages have a finding (9.1%); with the
 six others on as well, 61 (50.4%).
+
+## Habits of a page
+
+[ADR 0065](adr/0065-habits-of-a-page.md) adds two rules that look at a page as
+a whole and report it once: `syntax.closing-denial-density`, for paragraphs
+that end by saying what something is not, and `syntax.uniform-register`, for a
+page with no contraction, aside, question, or casual opener. Both ship on, as
+warnings with no gate and no weight. [Habits of a page](page-habits.md) says
+what each reads.
+
+They entered on a comparison of sets of pages, with the bars written on issue
+603 before the rules ran on the measured parts. All 10 hold.
+
+| Pages of the measured parts | Pages | `syntax.closing-denial-density` | `syntax.uniform-register` |
+| --- | ---: | ---: | ---: |
+| Posts of the style-guide set | 30 | 13 (43.3%) | 18 (60.0%) |
+| Blog posts that people wrote before November 2022 | 77 | 1 (1.3%) | 0 (0.0%) |
+| Articles that people wrote under a style guide | 205 | 1 (0.5%) | 4 (2.0%) |
+| Documentation pages that people wrote before November 2022 | 61 | 2 (3.3%) | 2 (3.3%) |
+| Texts that two models wrote under a style guide | 120 | 1 (0.8%) | 110 (91.7%) |
+
+Each is within the limit of ADR 0058 on every kind of page that people wrote.
+On the reference of ADR 0056 neither is confirmed: the files that the first
+reports go from 54 to 55 of 985 after the commit, and those of the second
+from 41 to 42. People who clean AI-sounding wording out of documentation
+don't take these two habits out, so the rules rest on the comparison above.
 
 ## Listing on what editors removed
 

@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.1.0-alpha.18
+
+Two new rules report habits of a page that no rule counted. Both look at the
+page as a whole and report it once, as a warning with no gate and no weight
+in the score ([documentation](docs/page-habits.md),
+[ADR 0065](docs/adr/0065-habits-of-a-page.md)).
+
+`syntax.closing-denial-density` reports a page whose paragraphs end, one
+after the other, by saying what something is not or does not do: "; it does
+not call the service.", "This is a rehearsal, not a migration." It lists each
+such sentence. One of them is an honest limit; the rule reports the page when
+more than two paragraphs end that way and they are at least 8% of its
+paragraphs.
+
+`syntax.uniform-register` reports a page of 25 sentences or more in which no
+sentence has a contraction, an aside in parentheses, a question, an
+exclamation, or a first word "And", "But", or "So". Turn it off for reference
+pages and specifications, which people write that way on purpose.
+
+Both ship on. The bars were written on issue 603 before the rules ran on the
+measured parts, and all 10 hold. Of the 30 posts of the style-guide set of
+the earlier records, the first rule reports 13 and the second 18, and at
+least one of them reports 23. Of 120 texts that two models wrote under a style guide, the
+second reports 110. On pages that people wrote, each rule reports at most 1
+in 30: 1 and 0 of 77 blog posts, 1 and 4 of 205 articles written under a
+style guide, 2 and 2 of 61 documentation pages. The catalog now holds 62
+rules.
+
+What the rules do not show: who wrote a page, and whether a page that is
+revised until both are quiet reads as a person's. People who clean
+AI-sounding wording out of documentation do not take these two habits out, so
+the reference of ADR 0056 does not confirm either rule.
+
 ## 0.1.0-alpha.17
 
 This release closes what the measurement of alpha.16 left open in

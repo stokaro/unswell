@@ -24,39 +24,43 @@ const minAsideWords = 2
 // parentheses, no question, no exclamation, and no sentence that opens with
 // And, But, or So. The page is reported once, at its first sentence.
 func uniformRegister(ctx context.Context, view rule.View, emit rule.Emitter) error {
-	sentences, casual := 0, 0
-	var first *document.Sentence
-	for index := range view.Document.Blocks {
+	sentences := runningSentences(view.Document)
+	casual := 0
+	for _, sentence := range sentences {
 		if err := ctx.Err(); err != nil {
 			return err
 		}
-		block := &view.Document.Blocks[index]
+		if casualSentence(*sentence) {
+			casual++
+		}
+	}
+	p := view.Parameters
+	if len(sentences) == 0 || len(sentences) < p.MinSentences || casual > p.AllowedOccurrences {
+		return ctx.Err()
+	}
+	return emit.Emit(rule.Evidence{Kind: "heuristic", Activation: 1000, Occurrences: []rule.Occurrence{sentenceOccurrence(*sentences[0])},
+		Metrics: []rule.Metric{
+			{Name: "casual-sentences", Value: float64(casual), Unit: "sentences"},
+			{Name: "sentence-denominator", Value: float64(len(sentences)), Unit: "sentences", Onset: float64(p.MinSentences)},
+		}})
+}
+
+// runningSentences returns the sentences of the running paragraphs of a
+// document, in the order of the page. A sentence without a word is left out.
+func runningSentences(doc *document.Document) []*document.Sentence {
+	var sentences []*document.Sentence
+	for index := range doc.Blocks {
+		block := &doc.Blocks[index]
 		if block.Excluded || block.Kind != "paragraph" {
 			continue
 		}
 		for position := range block.Sentences {
-			sentence := &block.Sentences[position]
-			if sentence.Words == 0 {
-				continue
-			}
-			if first == nil {
-				first = sentence
-			}
-			sentences++
-			if casualSentence(*sentence) {
-				casual++
+			if block.Sentences[position].Words > 0 {
+				sentences = append(sentences, &block.Sentences[position])
 			}
 		}
 	}
-	p := view.Parameters
-	if first == nil || sentences < p.MinSentences || casual > p.AllowedOccurrences {
-		return ctx.Err()
-	}
-	return emit.Emit(rule.Evidence{Kind: "heuristic", Activation: 1000, Occurrences: []rule.Occurrence{sentenceOccurrence(*first)},
-		Metrics: []rule.Metric{
-			{Name: "casual-sentences", Value: float64(casual), Unit: "sentences"},
-			{Name: "sentence-denominator", Value: float64(sentences), Unit: "sentences", Onset: float64(p.MinSentences)},
-		}})
+	return sentences
 }
 
 // casualSentence reports a sentence with one of the marks of a person
