@@ -135,8 +135,16 @@ Facts: 41 of 41 statements kept.
 Sentences: 9 of 58 compared sentences of the page not in the revision word for word; the judge found each of them there.
 Numbers, code, and links: nothing lost.
 Em dashes: 0 in the page, 0 in the revision.
+Nothing lost: yes.
+Reads less like a model's text: yes.
 Accepted.
 ```
+
+The last lines give two results apart: whether anything is lost, and whether
+the revision reads less like a model's text. By default a revision needs
+both. With `--require kept` it is accepted when nothing is lost, whatever the
+judge hears; the judge's answer to the blind comparison can differ from one
+run to the next.
 
 The page index plays no part. Name a judge other than the model that made the
 revision.
@@ -144,7 +152,7 @@ revision.
 ## Reports and exit codes
 
 `--report json:PATH` writes the complete result, with schema `unswell-review-v1`,
-`unswell-trim-v1`, or `unswell-compare-v2`: byte spans, the accepted items, and
+`unswell-trim-v1`, or `unswell-compare-v3`: byte spans, the accepted items, and
 the rejected ones with the reason. `--report text:PATH` writes the text shown
 above. SARIF and HTML are not produced.
 

@@ -20,7 +20,7 @@ import (
 )
 
 // compareSchema names the JSON report of the compare command.
-const compareSchema = "unswell-compare-v2"
+const compareSchema = "unswell-compare-v3"
 
 // maxListedLosses bounds each list of lost numbers, code, and links in the
 // text report. The JSON report keeps them whole.
@@ -29,12 +29,16 @@ const maxListedLosses = 12
 type compareOptions struct {
 	modelRunOptions
 	judge modelOptions
+	// require is what a revision has to pass to be accepted: review.RequireAll or review.RequireKept.
+	require string
 }
 
 // compareCommand checks a revision of a page with a model the user names. The
-// model compares the two texts without knowing which is the revision, and the
-// command accepts or rejects the revision. It does not use the page index: an
-// index falls after almost any edit.
+// model compares the two texts without knowing which is the revision. The
+// command gives two results, whether anything is lost and whether the
+// revision reads less like a model's text, and accepts or rejects the
+// revision under the requirement of the run. It does not use the page index:
+// an index falls after almost any edit.
 func compareCommand(environment Environment, code *int) *cobra.Command {
 	var options compareOptions
 	command := &cobra.Command{
@@ -50,9 +54,12 @@ func compareCommand(environment Environment, code *int) *cobra.Command {
 			"sentences that took its place, and the model has to quote the words that still say it. When the\n" +
 			"revision only left words out of a sentence, the command names them, and the model says whether they\n" +
 			"were padding. A sentence with nothing written at its place is reported without a model.\n" +
-			"A revision is accepted when the judge names the page in both orders, at least 98% of the statements are\n" +
-			"kept, every sentence is found, no number, code, or link is lost, and no em dash is added. The page\n" +
-			"index plays no part.\n" +
+			"The command gives two results. Nothing is lost when at least 98% of the statements are kept, every\n" +
+			"sentence is found, no number, code, or link is lost, and no em dash is added. The revision reads less\n" +
+			"like a model's text when the judge names the page in both orders.\n" +
+			"A revision is accepted when both hold. With --require kept it is accepted when nothing is lost,\n" +
+			"whatever the blind comparison says: the answer of a model to that comparison can differ from one run\n" +
+			"to the next. The page index plays no part.\n" +
 			"Both texts leave this machine for the endpoint or program you name. Nothing else does.\n" +
 			"The judge is a model. Name one other than the model that made the revision.",
 		Args: cobra.ExactArgs(2),
@@ -62,6 +69,8 @@ func compareCommand(environment Environment, code *int) *cobra.Command {
 	}
 	modelFlags(command, &options.judge, "", "judging")
 	compareFlags(command, &options.modelRunOptions)
+	command.Flags().StringVar(&options.require, "require", review.RequireAll,
+		"What a revision has to pass: all, or kept to accept a revision that loses nothing whatever the blind comparison says")
 	return command
 }
 
@@ -159,6 +168,9 @@ type compareRun struct {
 
 func newCompareRun(ctx context.Context, environment Environment, options compareOptions, args []string) (compareRun, error) {
 	var run compareRun
+	if options.require != review.RequireAll && options.require != review.RequireKept {
+		return run, fmt.Errorf("--require %q is not supported: use %s or %s", options.require, review.RequireAll, review.RequireKept)
+	}
 	if err := validateModelRun(options.modelRunOptions); err != nil {
 		return run, err
 	}
@@ -190,7 +202,7 @@ func runCompare(ctx context.Context, environment Environment, options compareOpt
 	if err != nil {
 		return err
 	}
-	result := compareSources(ctx, run.prepare, run.client, options.modelRunOptions, run.sources[0], run.sources[1])
+	result := compareSources(ctx, run.prepare, run.client, options, run.sources[0], run.sources[1])
 	// An interrupted run reports nothing.
 	if err := ctx.Err(); errors.Is(err, context.Canceled) {
 		return err
@@ -233,7 +245,7 @@ func comparedSources(root string, paths []string, options modelRunOptions) ([]do
 // compareSources asks the judge about one pair. A failure is recorded on the
 // result, which then has no verdict.
 func compareSources(
-	ctx context.Context, prepare *review.Reviewer, client modelClient, options modelRunOptions, page, revised document.Source,
+	ctx context.Context, prepare *review.Reviewer, client modelClient, options compareOptions, page, revised document.Source,
 ) compareResult {
 	result := compareResult{SchemaVersion: compareSchema, Protocol: review.RevisionProtocol, Version: unswell.Version,
 		Judge: client.identity(), Page: comparedSource{Path: page.Name}, Revision: comparedSource{Path: revised.Name}}
@@ -266,11 +278,12 @@ func preparedRevision(
 }
 
 // judgeRevision asks the judge about the sound, the statements, and the
-// sentences that the revision may have lost, and runs the checks that need no
-// model.
+// sentences that the revision may have lost, runs the checks that need no
+// model, and judges the revision under the requirement of the run.
 func judgeRevision(
-	ctx context.Context, client modelClient, options modelRunOptions, revision *review.Revision, result *compareResult,
+	ctx context.Context, client modelClient, run compareOptions, revision *review.Revision, result *compareResult,
 ) error {
+	options := run.modelRunOptions
 	sound, err := askSound(ctx, client, options, revision)
 	if err != nil {
 		return fmt.Errorf("blind comparison: %w", err)
@@ -290,7 +303,10 @@ func judgeRevision(
 	result.Lost = &lost
 	page, revised := revision.EmDashes()
 	result.EmDashes = &comparedDashes{Page: page, Revision: revised}
-	verdict := revision.Judge(sound.Verdict, checked.Statements, sentences.Suspects)
+	verdict, err := revision.Judge(run.require, sound.Verdict, checked.Statements, sentences.Suspects)
+	if err != nil {
+		return err
+	}
 	result.Verdict = &verdict
 	return nil
 }
@@ -508,19 +524,34 @@ func writeCompareText(writer io.Writer, result compareResult) error {
 	if result.EmDashes != nil {
 		fmt.Fprintf(&text, "Em dashes: %d in the page, %d in the revision.\n", result.EmDashes.Page, result.EmDashes.Revision)
 	}
-	switch {
-	case result.Error != "":
+	if result.Error != "" {
 		fmt.Fprintf(&text, "FAILED: %s\n", excerpt(result.Error, maxReasonText))
-	case result.Verdict.Accepted:
-		text.WriteString("Accepted.\n")
-	default:
-		fmt.Fprintf(&text, "Rejected: %s.\n", strings.Join(result.Verdict.Reasons, "; "))
+	} else {
+		text.WriteString(verdictText(*result.Verdict))
 	}
 	fmt.Fprintf(&text, "Judge: %s.\n", result.Judge)
 	text.WriteString("The judge did not see which text is the revision. " +
 		"It is a model: name one other than the model that made the revision.\n")
 	_, err := io.WriteString(writer, text.String())
 	return err
+}
+
+// verdictText prints the two results of the check, each on its own line, and
+// then the verdict under the requirement of the run.
+func verdictText(verdict review.RevisionVerdict) string {
+	answer := map[bool]string{true: "yes", false: "no"}
+	var text strings.Builder
+	fmt.Fprintf(&text, "Nothing lost: %s.\n", answer[verdict.Kept.Passed])
+	fmt.Fprintf(&text, "Reads less like a model's text: %s.\n", answer[verdict.Sound.Passed])
+	switch {
+	case !verdict.Accepted:
+		fmt.Fprintf(&text, "Rejected: %s.\n", strings.Join(verdict.Reasons, "; "))
+	case verdict.Require == review.RequireKept:
+		text.WriteString("Accepted, as --require kept asks: nothing is lost.\n")
+	default:
+		text.WriteString("Accepted.\n")
+	}
+	return text.String()
 }
 
 func soundText(sound comparedSound) string {

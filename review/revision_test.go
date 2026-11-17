@@ -267,6 +267,60 @@ func TestBindFactsKeepsOnlyAFactThatIsQuotedFromTheRevision(t *testing.T) {
 	c.Assert(linked[0].Outcome, qt.Equals, review.FactKept)
 }
 
+func TestBindFactsReadsAContractionAndACapitalAsTheSameWords(t *testing.T) {
+	statement := []string{"The client does not retry a request that the server rejected."}
+	contracted := strings.Replace(serviceRevision, "is **not** retried", "isn't retried", 1)
+	qt.New(t).Assert(contracted, qt.Contains, "rejected isn't retried")
+	cases := []struct {
+		name    string
+		revised string
+		quote   string
+		outcome string
+	}{
+		{
+			"the quote contracts what the revision writes out", serviceRevision,
+			"A request that the server rejected isn't retried", review.FactKept,
+		},
+		{
+			"the quote writes out what the revision contracts", contracted,
+			"A request that the server rejected is not retried", review.FactKept,
+		},
+		{"a typographic apostrophe", contracted, "A request that the server rejected isn’t retried", review.FactKept},
+		{"another case of the letters", serviceRevision, "a request that the Server rejected is not retried", review.FactKept},
+		// The quote leaves the negation out, so its words do not stand in either revision.
+		{
+			"a quote without the negation, written out", serviceRevision,
+			"A request that the server rejected is retried", review.FactUnquoted,
+		},
+		{"a quote without the negation, contracted", contracted, "A request that the server rejected is retried", review.FactUnquoted},
+		{"other words", contracted, "A request that the server refused isn't retried", review.FactUnquoted},
+		// Written out, the quote has three words, and it still has two as the model gave it.
+		{"too few words as quoted", contracted, "isn't retried", review.FactUnquoted},
+	}
+	for _, test := range cases {
+		t.Run(test.name, func(t *testing.T) {
+			c := qt.New(t)
+			facts, err := revisionOf(c, t, test.revised).BindFacts(statement, []review.FactVerdict{{Fact: 1, Kept: "yes", Quote: test.quote}})
+			c.Assert(err, qt.IsNil)
+			c.Assert(facts[0].Outcome, qt.Equals, test.outcome)
+			// The report keeps the words as the model gave them.
+			c.Assert(facts[0].Quote, qt.Equals, test.quote)
+		})
+	}
+	c := qt.New(t)
+	// "cannot" and "can't" are "can not".
+	unable := strings.Replace(serviceRevision, "is **not** retried", "cannot be retried", 1)
+	c.Assert(unable, qt.Contains, "rejected cannot be retried")
+	quotes := []string{
+		"the server rejected can't be retried", "the server rejected can not be retried", "the server rejected cannot be retried",
+	}
+	for _, quote := range quotes {
+		facts, err := revisionOf(c, t, unable).BindFacts(statement, []review.FactVerdict{{Fact: 1, Kept: "yes", Quote: quote}})
+		c.Assert(err, qt.IsNil)
+		c.Assert(facts[0].Outcome, qt.Equals, review.FactKept, qt.Commentf("quote %q", quote))
+	}
+}
+
 func TestConfirmedKeepsOnlyStatementsThatThePageItselfStates(t *testing.T) {
 	c := qt.New(t)
 	revision := revisionOf(c, t, serviceRevision)
@@ -460,10 +514,73 @@ func TestJudgeAcceptsOnlyARevisionThatPassesEveryCheck(t *testing.T) {
 	for _, test := range cases {
 		t.Run(test.name, func(t *testing.T) {
 			c := qt.New(t)
-			verdict := revisionOf(c, t, test.revised).Judge(test.sound, test.facts, test.sentences)
+			verdict, err := revisionOf(c, t, test.revised).Judge(review.RequireAll, test.sound, test.facts, test.sentences)
+			c.Assert(err, qt.IsNil)
+			c.Assert(verdict.Require, qt.Equals, "all")
 			c.Assert(verdict.Reasons, qt.DeepEquals, test.reasons)
 			c.Assert(verdict.Accepted, qt.Equals, len(test.reasons) == 0)
+			// Under this requirement a revision is accepted exactly when both results pass.
+			c.Assert(verdict.Kept.Passed && verdict.Sound.Passed, qt.Equals, verdict.Accepted)
 		})
+	}
+}
+
+func TestJudgeGivesTheTwoResultsApart(t *testing.T) {
+	const noDifference = "the judge does not find the revision less like a model's text than the page"
+	const morelikeAModel = "the judge finds the revision more like a model's text than the page"
+	gone := []review.Suspect{suspect(review.SentenceMissing, review.FactMissing)}
+	dashed := strings.Replace(serviceRevision, "failure, and the delay", "failure—the delay", 1)
+	cases := []struct {
+		name      string
+		revised   string
+		sound     string
+		sentences []review.Suspect
+		kept      []string
+		heard     []string
+	}{
+		{"nothing is lost and the revision reads better", serviceRevision, review.SoundBetter, nil, []string{}, []string{}},
+		{"nothing is lost and the judge hears no difference", serviceRevision, review.SoundSame, nil, []string{}, []string{noDifference}},
+		{"nothing is lost and the revision reads worse", serviceRevision, review.SoundWorse, nil, []string{}, []string{morelikeAModel}},
+		{
+			"a sentence is gone and the revision reads better", serviceRevision, review.SoundBetter, gone,
+			[]string{"1 sentence of the page is not in the revision"}, []string{},
+		},
+		{
+			"a sentence is gone, a dash is added, and the judge hears no difference", dashed, review.SoundSame, gone,
+			[]string{"1 sentence of the page is not in the revision", "the revision adds 1 em dashes"}, []string{noDifference},
+		},
+	}
+	for _, test := range cases {
+		t.Run(test.name, func(t *testing.T) {
+			c := qt.New(t)
+			revision := revisionOf(c, t, test.revised)
+			all, err := revision.Judge(review.RequireAll, test.sound, kept(50), test.sentences)
+			c.Assert(err, qt.IsNil)
+			onlyKept, err := revision.Judge(review.RequireKept, test.sound, kept(50), test.sentences)
+			c.Assert(err, qt.IsNil)
+			// The two results do not depend on what is required.
+			for _, verdict := range []review.RevisionVerdict{all, onlyKept} {
+				c.Assert(verdict.Kept, qt.DeepEquals, review.RevisionResult{Passed: len(test.kept) == 0, Reasons: test.kept})
+				c.Assert(verdict.Sound, qt.DeepEquals, review.RevisionResult{Passed: len(test.heard) == 0, Reasons: test.heard})
+			}
+			// Everything is required: the reasons of the sound come first, then those of what is lost.
+			c.Assert(all.Reasons, qt.DeepEquals, append(append([]string{}, test.heard...), test.kept...))
+			c.Assert(all.Accepted, qt.Equals, len(test.heard)+len(test.kept) == 0)
+			// Only nothing lost is required: the blind comparison neither rejects the revision nor gives a reason.
+			c.Assert(onlyKept.Require, qt.Equals, "kept")
+			c.Assert(onlyKept.Reasons, qt.DeepEquals, test.kept)
+			c.Assert(onlyKept.Accepted, qt.Equals, len(test.kept) == 0)
+		})
+	}
+}
+
+func TestJudgeRefusesARequirementItDoesNotKnow(t *testing.T) {
+	c := qt.New(t)
+	for _, require := range []string{"", "sound", "ALL", "kept "} {
+		verdict, err := revisionOf(c, t, serviceRevision).Judge(require, review.SoundBetter, kept(4), nil)
+		c.Assert(err, qt.ErrorMatches, `unknown requirement ".*": use "all" or "kept"`, qt.Commentf("requirement %q", require))
+		// A requirement that is not known accepts nothing.
+		c.Assert(verdict.Accepted, qt.IsFalse)
 	}
 }
 

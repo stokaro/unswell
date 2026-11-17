@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.1.0-alpha.19
+
+`unswell compare` now gives two results and lets you choose what a revision
+has to pass ([documentation](docs/compare.md#two-results),
+[ADR 0066](docs/adr/0066-two-results-of-compare.md)).
+
+The command says apart whether nothing is lost (the statements, the
+sentences, the numbers, code, and links are kept, and no em dash is added)
+and whether the revision reads less like a model's text. With `--require all`,
+the default, a revision is accepted when both hold, as before. With
+`--require kept` it is accepted when nothing is lost, whatever the judge
+hears in the blind comparison. The judge is asked about the sound in either
+case, and the report says what it heard.
+
+The reason is that the blind comparison does not repeat. On posts, where a
+judge mostly hears no difference, a "better" from one run came again 3 times
+of 8 with one judge and 0 of 3 with the other. The result on nothing lost
+does repeat: checked twice with one build, it came out the same on 55 and on
+49 of 57 revisions with the two judges. With `kept` required the check
+accepts 19 and 41 of those 57 revisions, where it accepts 6 and 12 with `all`
+required.
+
+A quote of the judge is now compared without regard to case, and a
+contraction of "not" is read as its words. Before, a statement was lost when
+the judge quoted "does not" from a revision that says "doesn't".
+
+The JSON report has the schema `unswell-compare-v3`: the verdict holds
+`require`, `accepted` with its `reasons`, and the two results, `kept` and
+`sound`. `review.Judge` takes the requirement and returns both results.
+
+The bars were written on issue 605 before the run. Eleven of the 14 can be
+read, and all eleven hold: harmless edits pass (144 of 155 copies), no
+damaged copy does (0 of 219), and the result repeats. Three bars of one judge
+are not read, because its run of the copies was stopped after 198 of 374, when
+that judge was no longer available; the issue keeps them open.
+
 ## 0.1.0-alpha.18
 
 Two new rules report habits of a page that no rule counted. Both look at the

@@ -406,8 +406,10 @@ func (r *Revision) Confirmed(facts []string, verdicts []FactVerdict) (confirmed,
 
 // BindFacts gives each statement its outcome in the revision. A fact is kept
 // only when the model says so and quotes at least three words that stand in
-// the revision; the check, not the model, decides. Verdicts are those of
-// ParseKept for the answer to KeptPrompt.
+// the revision; the check, not the model, decides. The words are compared
+// without regard to case, and a contraction of "not" is read as its words, so
+// a quote with "does not" stands in a revision that says "doesn't". Verdicts
+// are those of ParseKept for the answer to KeptPrompt.
 func (r *Revision) BindFacts(facts []string, verdicts []FactVerdict) ([]Fact, error) {
 	return bindFacts(r.revised.source, facts, verdicts)
 }
@@ -416,7 +418,7 @@ func bindFacts(source []byte, facts []string, verdicts []FactVerdict) ([]Fact, e
 	if len(facts) != len(verdicts) {
 		return nil, fmt.Errorf("%d statements have %d verdicts", len(facts), len(verdicts))
 	}
-	text := plainQuote(string(source))
+	text := comparableQuote(string(source))
 	bound := make([]Fact, len(facts))
 	for index, statement := range facts {
 		verdict := verdicts[index]
@@ -426,7 +428,7 @@ func bindFacts(source []byte, facts []string, verdicts []FactVerdict) ([]Fact, e
 		}
 		quote := plainQuote(verdict.Quote)
 		bound[index].Outcome, bound[index].Quote = FactUnquoted, strings.Join(strings.Fields(verdict.Quote), " ")
-		if len(strings.Fields(quote)) >= minQuoteWords && strings.Contains(text, quote) {
+		if len(strings.Fields(quote)) >= minQuoteWords && strings.Contains(text, comparableQuote(verdict.Quote)) {
 			bound[index].Outcome = FactKept
 		}
 	}
@@ -443,6 +445,17 @@ func plainQuote(text string) string {
 	text = markdownLink.ReplaceAllString(text, "$1")
 	text = strings.NewReplacer("*", "", "_", "", "`", "", "‘", "'", "’", "'", "“", `"`, "”", `"`).Replace(text)
 	return strings.Join(strings.Fields(text), " ")
+}
+
+// contractedNot matches a contraction of "not" in lower case, and "cannot".
+var contractedNot = regexp.MustCompile(`\b(?:cannot|[a-z]+n't)\b`)
+
+// comparableQuote is the form in which a quote is looked for in a text:
+// plainQuote in lower case, with the contractions of "not" written out. A
+// reviser that writes "doesn't" for "does not" changes no word of a
+// statement, and a model that quotes one form finds the other.
+func comparableQuote(text string) string {
+	return contractedNot.ReplaceAllStringFunc(strings.ToLower(plainQuote(text)), writtenOut)
 }
 
 // Lost lists what the page carries verbatim and the revision does not.
@@ -621,27 +634,72 @@ func emDashes(document *Document) int {
 	return total
 }
 
-// RevisionVerdict is the outcome of the check. Reasons says why a revision
-// is rejected and is empty for an accepted one.
-type RevisionVerdict struct {
-	Accepted bool     `json:"accepted"`
-	Reasons  []string `json:"reasons"`
+// What a revision has to pass to be accepted.
+const (
+	// RequireAll accepts a revision that loses nothing and reads less like a
+	// model's text in both orders of the blind comparison.
+	RequireAll = "all"
+	// RequireKept accepts a revision that loses nothing, whatever the blind
+	// comparison says.
+	RequireKept = "kept"
+)
+
+// RevisionResult is one of the two results of the check. Reasons says why it
+// did not pass and is empty when it did.
+type RevisionResult struct {
+	Passed  bool     `json:"passed"`
+	Reasons []string `json:"reasons"`
 }
 
-// Judge accepts a revision that reads less like a model's text in both orders
-// of the blind comparison, keeps at least MinFactsKept of the statements,
-// keeps every sentence that Suspects names, loses no number, code, or link,
-// and adds no em dash. sound is the value of SoundVerdict, facts are those of
-// BindFacts, and sentences are the suspects with the outcomes of
-// BindSuspects. A suspect without an outcome counts as lost.
-func (r *Revision) Judge(sound string, facts []Fact, sentences []Suspect) RevisionVerdict {
-	reasons := []string{}
-	for _, reason := range []string{soundReason(sound), factsReason(facts), sentencesReason(sentences), r.lostReason(), r.dashReason()} {
+// RevisionVerdict is the outcome of the check: its two results, and whether
+// the revision is accepted under Require. Kept passes when the revision loses
+// nothing: it keeps at least MinFactsKept of the statements and every
+// sentence that Suspects names, loses no number, code, or link, and adds no
+// em dash. Sound passes when the revision reads less like a model's text in
+// both orders of the blind comparison. Reasons are those of the results that
+// Require names, and it is empty for an accepted revision.
+type RevisionVerdict struct {
+	Require  string         `json:"require"`
+	Accepted bool           `json:"accepted"`
+	Reasons  []string       `json:"reasons"`
+	Kept     RevisionResult `json:"kept"`
+	Sound    RevisionResult `json:"sound"`
+}
+
+// Judge gives the two results of the check and accepts or rejects the
+// revision under require, which is RequireAll or RequireKept. sound is the
+// value of SoundVerdict, facts are those of BindFacts, and sentences are the
+// suspects with the outcomes of BindSuspects. A suspect without an outcome
+// counts as lost. The answer of a model to the blind comparison can differ
+// from one run to the next, so Sound can too; the parts of Kept that need no
+// model cannot.
+func (r *Revision) Judge(require, sound string, facts []Fact, sentences []Suspect) (RevisionVerdict, error) {
+	if require != RequireAll && require != RequireKept {
+		return RevisionVerdict{}, fmt.Errorf("unknown requirement %q: use %q or %q", require, RequireAll, RequireKept)
+	}
+	verdict := RevisionVerdict{
+		Require: require,
+		Reasons: []string{},
+		Kept:    revisionResult(factsReason(facts), sentencesReason(sentences), r.lostReason(), r.dashReason()),
+		Sound:   revisionResult(soundReason(sound)),
+	}
+	if require == RequireAll {
+		verdict.Reasons = append(verdict.Reasons, verdict.Sound.Reasons...)
+	}
+	verdict.Reasons = append(verdict.Reasons, verdict.Kept.Reasons...)
+	verdict.Accepted = len(verdict.Reasons) == 0
+	return verdict, nil
+}
+
+// revisionResult passes when no check gave a reason.
+func revisionResult(reasons ...string) RevisionResult {
+	failed := []string{}
+	for _, reason := range reasons {
 		if reason != "" {
-			reasons = append(reasons, reason)
+			failed = append(failed, reason)
 		}
 	}
-	return RevisionVerdict{Accepted: len(reasons) == 0, Reasons: reasons}
+	return RevisionResult{Passed: len(failed) == 0, Reasons: failed}
 }
 
 func soundReason(sound string) string {
