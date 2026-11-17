@@ -4,9 +4,9 @@ Unswell is distributed as a Go library, CLI archives, two container images, a
 Homebrew formula and a GitHub Action. The MCP image is also described in the
 official MCP Registry. These routes all use the same engine and policy model.
 
-The published release is `v0.1.0-alpha.18`. Its archives, its container images in
+The published release is `v0.1.0-alpha.19`. Its archives, its container images in
 GHCR and on Docker Hub, its MCP Registry entry, and its Go module are verified
-in the [alpha.18 evidence](release/v0.1.0-alpha.18.md). The tap formula and the
+in the [alpha.19 evidence](release/v0.1.0-alpha.19.md). The tap formula and the
 Action default follow through pull requests in their repositories. The
 [alpha distribution evidence](alpha-distribution-evidence.md) records the earlier
 releases. Later changes on `main` need their own release verification.
@@ -39,10 +39,10 @@ The action lives in [stokaro/unswell-action](https://github.com/stokaro/unswell-
 Pin an action commit and an independent CLI version:
 
 ```yaml
-- uses: stokaro/unswell-action@ca4fafb6e9e9ec0cf0520e0ef35fe826eafac1c7
+- uses: stokaro/unswell-action@9cbdb751d51455d5f1ef24c3aa9b024335643799
   id: unswell
   with:
-    version: 0.1.0-alpha.18
+    version: 0.1.0-alpha.19
     config: .unswell.yaml
     paths: |
       README.md
@@ -65,7 +65,7 @@ public download check.
 
 The Action updater verifies all six archives and automatically opens a PR for the
 default CLI version. A maintainer reviews and merges it; tag publication follows
-successful checks on the merged commit. The action's `v0.1.0-alpha.18`
+successful checks on the merged commit. The action's `v0.1.0-alpha.19`
 tag points to the commit in the example above. Existing release tags are not moved.
 
 ## Archives, containers and MCP Registry
