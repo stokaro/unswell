@@ -81,6 +81,18 @@ Each judge checked the revisions of the other reviser: 27 of posts and 30 of fre
 
 Verdicts on the first attempt: 198 of 198, 100.0% of the copies with `gpt-6-astra`, 374 of 374, 100.0% of the copies with `private-host/Qwen3.6-35B-A3B`.
 
+## The same revisions under both judges
+
+The two judges differ much in how many revisions lose nothing, and each had checked the revisions of the other reviser. As a control after the run, `private-host/Qwen3.6-35B-A3B` checked the 57 revisions of its own family that `gpt-6-astra` had checked in its first run. This is no check of a revision: a judge of the reviser's family is what the command warns against.
+
+| Revisions of | Judge | Revisions | Nothing lost |
+| --- | --- | ---: | ---: |
+| `private-host/Qwen3.6-35B-A3B` | `gpt-6-astra` | 57 | 19 |
+| `private-host/Qwen3.6-35B-A3B` | `private-host/Qwen3.6-35B-A3B` | 57 | 23 |
+| `gpt-6-astra` | `private-host/Qwen3.6-35B-A3B` | 57 | 41 |
+
+On the same revisions the two judges agree on 43 of 57, 75.4%, and both find nothing lost in 14. Of the 27 revisions of posts, they find it in 13 and in 15. Of the 30 revisions of fresh texts, they find it in 6 and in 8.
+
 ## The fitting half
 
 The 40 revisions of each reviser in two runs, and 75 harmless copies of the fitting posts.

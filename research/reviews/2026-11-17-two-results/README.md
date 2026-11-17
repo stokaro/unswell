@@ -37,9 +37,13 @@ the run of the copies with one judge was stopped (see below).
 - **Verdicts.** Every pair that was run got a verdict on the first attempt.
 
 One thing came out beside the bars. The two judges are far apart on how many
-revisions lose nothing, 19 against 41 of 57. Each checked the revisions of
-the other reviser, so the record cannot say whether one reviser loses more or
-one judge finds more.
+revisions lose nothing, 19 against 41 of 57, and each checked the revisions
+of the other reviser. A control after the run tells the two apart: the judge
+that found 41 then checked the 57 revisions that the other judge had checked,
+and found nothing lost in 23 of them, where that judge found 19. So it is the
+reviser. The revisions of `gpt-6-astra` lose nothing about twice as often as
+those of `private-host/Qwen3.6-35B-A3B`, whichever judge reads them. The two
+judges still differ on single revisions: they agree on 43 of the 57.
 
 ## The run that was stopped
 
@@ -123,11 +127,20 @@ cannot reach a model. See the
 | `data/copies.jsonl.gz` | each copy that a judge was given: its kind, its pages, whether the check reached a verdict, whether nothing is lost and which checks failed, the verdict of the blind comparison, and whether the pair is accepted with all required |
 | `data/revisions.jsonl.gz` | each revision with its judge and its run: the same parts, and how many statements were checked and found kept |
 | `data/fitting.jsonl.gz` | each pair of the fitting half: the revisions in two runs, and the harmless copies with each judge and build |
+| `data/same.jsonl.gz` | the control: each revision of one reviser under the judge of its own family, with the same parts |
 
 The record holds no text of any page. A post of the style-guide set has the
 number that it has in the earlier records. The copies, the revisions, the
 statements, and the judges' quotes stay with the maintainer, and so do the
 texts that the scripts in `scripts/` need.
+
+## The control is no check
+
+In the control a model judges revisions of its own family, which the command
+warns against: a model tends to prefer its own text. That matters for the
+blind comparison and little for a result that rests on quoted words, and the
+control is read only on nothing lost. It was run after the bars had been
+read, with the build of the measurement, and it moves no bar.
 
 ## Not measured
 

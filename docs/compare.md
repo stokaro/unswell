@@ -439,10 +439,13 @@ revision was accepted twice with all required.
 judge rejected all failed on a statement that the judge did not find in the
 copy, and on nothing else.
 
-**The two judges are far apart on the revisions.** One finds nothing lost in
-19 of 57 and the other in 41. Each checked the revisions of the other
-reviser, so the measurement cannot say whether one reviser loses more or one
-judge finds more.
+**It is the reviser that decides how much is lost.** One judge finds nothing
+lost in 19 of 57 revisions and the other in 41, and each had checked the
+revisions of the other reviser. A control after the run gave the second judge
+the 57 revisions that the first had checked: it finds nothing lost in 23 of
+them. So the revisions of one reviser lose nothing about twice as often as
+those of the other, whichever judge reads them. On single revisions the two
+judges agree on 43 of the 57.
 
 ## Limits
 

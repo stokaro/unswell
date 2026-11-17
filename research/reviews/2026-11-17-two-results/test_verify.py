@@ -234,6 +234,55 @@ class RowsTest(unittest.TestCase):
             verify.results(self.root)
 
 
+class ControlTest(unittest.TestCase):
+    def setUp(self):
+        self.directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.directory.cleanup)
+        self.root = copy_of_record(self.directory.name)
+
+    def test_the_two_judges_are_read_on_the_same_revisions(self):
+        found = verify.results(HERE)["same_revisions"]
+        self.assertEqual(found["revisions"], 57)
+        self.assertEqual((found["reviser"], found["judge_of_own_family"], found["judge_of_other_family"]), (QWEN, QWEN, GPT))
+        # The count of the other judge is that of its first run of the measurement.
+        self.assertEqual(found["other_family"], verify.results(HERE)["revisions"][GPT]["runs"]["1"]["nothing_lost"])
+        self.assertLessEqual(found["both"], min(found["own_family"], found["other_family"]))
+        self.assertEqual(sum(part["revisions"] for part in found["by_pages"].values()), 57)
+
+    def test_an_agreement_is_counted_on_each_revision(self):
+        def turn(rows):
+            for row in rows:
+                if row["verdict"]:
+                    keep(row)
+
+        rewrite(self.root, "same", turn)
+        found = verify.results(self.root)["same_revisions"]
+        self.assertEqual(found["own_family"], 57)
+        self.assertEqual(found["both"], found["other_family"])
+        self.assertEqual(found["agree"]["count"], found["other_family"])
+
+    def test_the_control_does_not_move_a_bar(self):
+        before = verify.results(self.root)["bars"]
+
+        def spoil(rows):
+            for row in rows:
+                if row["verdict"]:
+                    lose(row)
+
+        rewrite(self.root, "same", spoil)
+        self.assertEqual(verify.results(self.root)["bars"], before)
+
+    def test_a_control_row_of_another_judge_is_refused(self):
+        rewrite(self.root, "same", lambda rows: rows[0].update(judge=GPT))
+        with self.assertRaisesRegex(verify.Malformed, "judge of its own family"):
+            verify.results(self.root)
+
+    def test_a_control_without_one_of_the_revisions_is_refused(self):
+        rewrite(self.root, "same", lambda rows: rows[1:])
+        with self.assertRaisesRegex(verify.Malformed, "each once"):
+            verify.results(self.root)
+
+
 class CountsTest(unittest.TestCase):
     def row(self, page, run, lost, sound="no difference", verdict=True):
         row = {"page": page, "run": run, "verdict": verdict}

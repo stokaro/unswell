@@ -146,6 +146,20 @@ def render(result):
     lines += [""] + pages_table(result)
     first = ", ".join(f"{cell(result['copies'][judge]['first_attempt'])} of the copies with `{judge}`" for judge in result["judges"])
     lines += ["", f"Verdicts on the first attempt: {first}."]
+    found = result["same_revisions"]
+    lines += ["", "## The same revisions under both judges", "",
+              f"The two judges differ much in how many revisions lose nothing, and each had checked the revisions of the other "
+              f"reviser. As a control after the run, `{found['judge_of_own_family']}` checked the {found['revisions']} revisions of its "
+              f"own family that `{found['judge_of_other_family']}` had checked in its first run. This is no check of a revision: a "
+              "judge of the reviser's family is what the command warns against.", "",
+              "| Revisions of | Judge | Revisions | Nothing lost |", "| --- | --- | ---: | ---: |",
+              f"| `{found['reviser']}` | `{found['judge_of_other_family']}` | {found['revisions']} | {found['other_family']} |",
+              f"| `{found['reviser']}` | `{found['judge_of_own_family']}` | {found['revisions']} | {found['own_family']} |",
+              f"| `{found['other_reviser']['reviser']}` | `{found['other_reviser']['judge']}` | {found['other_reviser']['revisions']} | "
+              f"{found['other_reviser']['nothing_lost']} |", "",
+              f"On the same revisions the two judges agree on {cell(found['agree'])}, and both find nothing lost in {found['both']}. "
+              + " ".join(f"Of the {part['revisions']} revisions of {PAGES[pages]}, they find it in {part['other_family']} and in "
+                         f"{part['own_family']}." for pages, part in found["by_pages"].items())]
     lines += ["", "## The fitting half", "",
               "The 40 revisions of each reviser in two runs, and 75 harmless copies of the fitting posts.", ""]
     lines += fitting_tables(result)
