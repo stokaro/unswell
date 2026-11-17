@@ -416,9 +416,7 @@ That finding led to the [two results](#two-results). Their measurement ran
 the same revisions twice with one build, and it gave the check copies that
 change a page without losing anything: two sentences joined, negations
 written as contractions, padding left out. The bars were written on issue 605
-before the run. Eleven of the 14 can be read, and all eleven hold; the run of
-the copies with one judge was stopped when that judge was no longer
-available, and three of its bars are not read. The
+before the run, and all 14 hold. The
 [record](../research/reviews/2026-11-17-two-results/RESULTS.md) recounts the
 numbers, and [ADR 0066](adr/0066-two-results-of-compare.md) has the decision.
 
@@ -428,8 +426,8 @@ numbers, and [ADR 0066](adr/0066-two-results-of-compare.md) has the decision.
 | The same verdict of the blind comparison in two runs, of 57 | 55 | 46 |
 | Accepted with `kept` required, first and second run | 19 and 17 | 41 and 43 |
 | Accepted with `all` required, first and second run | 6 and 5 | 12 and 13 |
-| Harmless copies that lose nothing | 93 of the 93 judged, of 155 | 144 of 155 |
-| Damaged copies that lose nothing | 0 of the 105 judged, of 219 | 0 of 219 |
+| Harmless copies that lose nothing | 155 of 155 | 144 of 155 |
+| Damaged copies that lose nothing | 0 of 219 | 0 of 219 |
 
 **The first result repeats.** On the fitting half it came out the same on 40
 of 40 revisions with one judge and on 36 of 40 with the other, while no
@@ -441,11 +439,19 @@ copy, and on nothing else.
 
 **It is the reviser that decides how much is lost.** One judge finds nothing
 lost in 19 of 57 revisions and the other in 41, and each had checked the
-revisions of the other reviser. A control after the run gave the second judge
-the 57 revisions that the first had checked: it finds nothing lost in 23 of
-them. So the revisions of one reviser lose nothing about twice as often as
-those of the other, whichever judge reads them. On single revisions the two
-judges agree on 43 of the 57.
+revisions of the other reviser. Two controls after the run gave each judge
+the 57 revisions of its own family as well.
+
+| Revisions of | Nothing lost with `gpt-6-astra` | With `private-host/Qwen3.6-35B-A3B` |
+| --- | --- | --- |
+| `private-host/Qwen3.6-35B-A3B` | 19 of 57 | 23 of 57 |
+| `gpt-6-astra` | 49 of 57 | 41 of 57 |
+
+So the revisions of one reviser lose nothing about twice as often as those of
+the other, whichever judge reads them. The judge matters less: each finds
+nothing lost more often in the revisions of its own family, by 8 and by 4 of
+57, where two runs of one judge differ by 2. On single revisions the two
+judges agree on 43 and on 47 of the 57.
 
 ## Limits
 

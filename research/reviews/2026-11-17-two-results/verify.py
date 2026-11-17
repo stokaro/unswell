@@ -37,12 +37,13 @@ REVISIONS = {"set-s": 27, "fresh": 30}
 RUNS = (1, 2)
 # The fitting half: 40 revisions for each judge and run, and 75 harmless copies for each judge and build.
 FITTING = {"revision": 40, "harmless": 75}
-# The run of the copies with this judge was stopped when the judge was no longer available. Its
-# copies are those that had been judged by then, and a bar that needs all of them is not read.
-STOPPED = (GPT,)
-# A control after the run: the revisions of this reviser under the judge of its own family. The other judge had
-# checked them, so the two judges can be read on the same revisions. It is no check of a revision.
-SAME = QWEN35
+# The run of the copies with this judge was made in three parts: twice the judge was no longer available, and the
+# run went on with the same build when it was again. A copy belongs to the part that gave it its verdict, and the
+# copies were judged in the order of the file. A judge that is not named here judged all its copies in one part.
+PARTS = {GPT: (198, 55, 121)}
+# Two controls after the run: the revisions of each reviser under the judge of its own family. The other judge had
+# checked them, so the two judges can be read on the same revisions. Neither is a check of a revision.
+SAME = (QWEN35, GPT)
 # The bars, as they were written on issue 605 before the run on the measured part.
 BARS = {"harmless_pass": 0.85, "damaged_pass": 2, "repeat": 0.85, "verdicts": 0.95}
 
@@ -90,6 +91,8 @@ def check_copy(row, seen):
     if not isinstance(row.get("page"), str) or key in seen:
         fail(f"{where}: listed twice or without a page")
     seen.add(key)
+    if row.get("part") not in range(1, len(PARTS.get(row["judge"], (0,))) + 1):
+        fail(f"{where}: a part that the run of this judge did not have")
     check_result(row, where)
 
 
@@ -122,12 +125,13 @@ def check_fitting(row, seen):
 
 
 def check_same(row, seen):
-    where = f"control {row.get('page')}"
-    if row.get("judge") != SAME or row.get("reviser") != SAME or row.get("pages") not in PAGES:
-        fail(f"{where}: the control is the revisions of one reviser under the judge of its own family")
-    if not isinstance(row.get("page"), str) or row["page"] in seen:
+    where = f"control {row.get('judge')} {row.get('page')}"
+    if row.get("judge") not in SAME or row.get("reviser") != row["judge"] or row.get("pages") not in PAGES:
+        fail(f"{where}: a control is the revisions of one reviser under the judge of its own family")
+    key = (row["judge"], row.get("page"))
+    if not isinstance(row.get("page"), str) or key in seen:
         fail(f"{where}: listed twice or without a page")
-    seen.add(row["page"])
+    seen.add(key)
     check_result(row, where)
 
 
@@ -140,10 +144,22 @@ def passed(rows):
 
 
 def judged_all(judge, what, found, expected):
-    """Whether a judge has a row for every copy of a group. Only a stopped run may have fewer."""
-    if found > expected or (found < expected and judge not in STOPPED):
+    """A judge has a row for every copy of a group, and no other."""
+    if found != expected:
         fail(f"{judge}: {found} {what}, and the record says {expected}")
-    return found == expected
+
+
+def part_counts(judge, mine):
+    """What each part of the run of a judge found, so that a reader can see whether the parts differ."""
+    sizes = PARTS.get(judge, (len(mine),))
+    parts = []
+    for number, size in enumerate(sizes, start=1):
+        rows = [row for row in mine if row["part"] == number]
+        judged_all(judge, f"copies in part {number}", len(rows), size)
+        harmless, damaged = [row for row in rows if row["kind"] in HARMLESS], [row for row in rows if row["kind"] in DAMAGE]
+        parts.append({"part": number, "copies": len(rows), "harmless": share(passed(harmless), len(harmless)),
+                      "damaged": share(passed(damaged), len(damaged)), "verdicts": share(sum(row["verdict"] for row in rows), len(rows))})
+    return parts
 
 
 def copy_counts(copies):
@@ -152,11 +168,12 @@ def copy_counts(copies):
     for judge in JUDGES:
         mine = [row for row in copies if row["judge"] == judge]
         harmless = [row for row in mine if row["kind"] in HARMLESS]
-        cell = {"copies": every, "judged": len(mine), "complete": judged_all(judge, "copies", len(mine), every),
-                "harmless": share(passed(harmless), len(harmless)), "harmless_copies": COPIES["harmless"],
-                "harmless_complete": judged_all(judge, "harmless copies", len(harmless), COPIES["harmless"]),
+        judged_all(judge, "copies", len(mine), every)
+        judged_all(judge, "harmless copies", len(harmless), COPIES["harmless"])
+        cell = {"copies": every, "parts": part_counts(judge, mine), "harmless": share(passed(harmless), len(harmless)),
                 "verdicts": share(sum(row["verdict"] for row in mine), len(mine)),
                 "first_attempt": share(sum(1 for row in mine if row["verdict"] and not row["retried"]), len(mine)),
+                "retried": sum(1 for row in mine if row["retried"]),
                 "harmless_accepted_all": sum(1 for row in harmless if row["verdict"] and row["accepted"]),
                 "by_kind": {}, "damaged": {}}
         for kind in DAMAGE + HARMLESS:
@@ -166,9 +183,9 @@ def copy_counts(copies):
                                      "failed": {check: sum(1 for row in rows if row["verdict"] and check in row["failed"]) for check in CHECKS}}
         for pages in PAGES:
             rows = [row for row in mine if row["kind"] in DAMAGE and row["pages"] == pages]
-            cell["damaged"][pages] = {"copies": COPIES["damaged"][pages], "judged": len(rows),
-                                      "complete": judged_all(judge, f"damaged copies of {pages}", len(rows), COPIES["damaged"][pages]),
-                                      "nothing_lost": passed(rows), "accepted_all": sum(1 for row in rows if row["verdict"] and row["accepted"])}
+            judged_all(judge, f"damaged copies of {pages}", len(rows), COPIES["damaged"][pages])
+            cell["damaged"][pages] = {"copies": len(rows), "nothing_lost": passed(rows),
+                                      "accepted_all": sum(1 for row in rows if row["verdict"] and row["accepted"])}
         result[judge] = cell
     return result
 
@@ -213,22 +230,27 @@ def revision_counts(revisions):
 
 
 def same_counts(same, revisions):
-    """The same revisions under both judges: what each found, and how often they agree on a revision."""
-    other = REVISER[SAME]
-    first = {row["page"]: row for row in revisions if row["judge"] == other and row["run"] == 1}
-    if len(same) != sum(REVISIONS.values()) or {row["page"] for row in same} != set(first):
-        fail("the control has the revisions that the other judge checked, each once")
-    both = [(row, first[row["page"]]) for row in same if row["verdict"] and first[row["page"]]["verdict"]]
-    by_pages = {pages: {"revisions": sum(1 for mine, _ in both if mine["pages"] == pages),
-                        "own_family": sum(1 for mine, _ in both if mine["pages"] == pages and mine["nothing_lost"]),
-                        "other_family": sum(1 for mine, theirs in both if mine["pages"] == pages and theirs["nothing_lost"])} for pages in PAGES}
-    elsewhere = [row for row in revisions if row["judge"] == SAME and row["run"] == 1 and row["verdict"]]
-    return {"reviser": SAME, "judge_of_own_family": SAME, "judge_of_other_family": other, "revisions": len(both),
-            "own_family": sum(1 for mine, _ in both if mine["nothing_lost"]), "other_family": sum(1 for _, theirs in both if theirs["nothing_lost"]),
-            "both": sum(1 for mine, theirs in both if mine["nothing_lost"] and theirs["nothing_lost"]),
-            "agree": share(sum(1 for mine, theirs in both if mine["nothing_lost"] == theirs["nothing_lost"]), len(both)),
-            "by_pages": by_pages,
-            "other_reviser": {"reviser": other, "judge": SAME, "revisions": len(elsewhere), "nothing_lost": passed(elsewhere)}}
+    """The revisions of each reviser under both judges: what each found, and how often they agree on a revision."""
+    controls = []
+    for reviser in SAME:
+        other = REVISER[reviser]
+        mine = [row for row in same if row["judge"] == reviser]
+        first = {row["page"]: row for row in revisions if row["judge"] == other and row["run"] == 1}
+        if len(mine) != sum(REVISIONS.values()) or {row["page"] for row in mine} != set(first):
+            fail(f"the control of {reviser} has the revisions that the other judge checked, each once")
+        both = [(row, first[row["page"]]) for row in mine if row["verdict"] and first[row["page"]]["verdict"]]
+        by_pages = {pages: {"revisions": sum(1 for own, _ in both if own["pages"] == pages),
+                            "own_family": sum(1 for own, _ in both if own["pages"] == pages and own["nothing_lost"]),
+                            "other_family": sum(1 for own, theirs in both if own["pages"] == pages and theirs["nothing_lost"])}
+                    for pages in PAGES}
+        controls.append({"reviser": reviser, "judge_of_own_family": reviser, "judge_of_other_family": other, "revisions": len(both),
+                         "without_verdict": len(mine) - sum(1 for row in mine if row["verdict"]),
+                         "own_family": sum(1 for own, _ in both if own["nothing_lost"]),
+                         "other_family": sum(1 for _, theirs in both if theirs["nothing_lost"]),
+                         "both": sum(1 for own, theirs in both if own["nothing_lost"] and theirs["nothing_lost"]),
+                         "agree": share(sum(1 for own, theirs in both if own["nothing_lost"] == theirs["nothing_lost"]), len(both)),
+                         "by_pages": by_pages})
+    return controls
 
 
 def fitting_counts(fitting):
@@ -259,30 +281,25 @@ def fitting_counts(fitting):
 def bars(copies, revisions):
     """Each bar of the issue with the number that it is read on and whether it holds."""
     rows = []
-    # A bar on copies is read only when the judge saw every copy that the bar is about; None says it was not read.
     for judge in JUDGES:
-        cell = copies[judge]
-        value = cell["harmless"]
-        rows.append({"bar": "G1", "judge": judge, "read_on": "harmless and trimmed copies", "value": value, "of_all": cell["harmless_copies"],
-                     "kind": "at least", "limit": BARS["harmless_pass"],
-                     "holds": value["count"] >= BARS["harmless_pass"] * value["of"] if cell["harmless_complete"] else None})
+        value = copies[judge]["harmless"]
+        rows.append({"bar": "G1", "judge": judge, "read_on": "harmless and trimmed copies", "value": value, "kind": "at least",
+                     "limit": BARS["harmless_pass"], "holds": value["count"] >= BARS["harmless_pass"] * value["of"]})
     for judge in JUDGES:
         for pages in PAGES:
             cell = copies[judge]["damaged"][pages]
-            rows.append({"bar": "G2", "judge": judge, "read_on": f"damaged copies of {pages}", "value": share(cell["nothing_lost"], cell["judged"]),
-                         "of_all": cell["copies"], "kind": "at most", "limit": BARS["damaged_pass"],
-                         "holds": cell["nothing_lost"] <= BARS["damaged_pass"] if cell["complete"] else None})
+            rows.append({"bar": "G2", "judge": judge, "read_on": f"damaged copies of {pages}", "value": share(cell["nothing_lost"], cell["copies"]),
+                         "kind": "at most", "limit": BARS["damaged_pass"], "holds": cell["nothing_lost"] <= BARS["damaged_pass"]})
     for judge in JUDGES:
         value = revisions[judge]["repeat"]
         rows.append({"bar": "G3", "judge": judge, "read_on": "revisions with a verdict in both runs", "value": value, "kind": "at least",
                      "limit": BARS["repeat"], "holds": value["count"] >= BARS["repeat"] * value["of"]})
     for judge in JUDGES:
-        runs = [("the copies", copies[judge]["verdicts"], copies[judge]["copies"], copies[judge]["complete"])]
-        runs += [(f"the revisions, run {run}", revisions[judge]["runs"][str(run)]["verdicts"], revisions[judge]["runs"][str(run)]["verdicts"]["of"],
-                  True) for run in RUNS]
-        for name, value, of_all, complete in runs:
-            rows.append({"bar": "G4", "judge": judge, "read_on": name, "value": value, "of_all": of_all, "kind": "at least",
-                         "limit": BARS["verdicts"], "holds": value["count"] >= BARS["verdicts"] * value["of"] if complete else None})
+        runs = [("the copies", copies[judge]["verdicts"])]
+        runs += [(f"the revisions, run {run}", revisions[judge]["runs"][str(run)]["verdicts"]) for run in RUNS]
+        for name, value in runs:
+            rows.append({"bar": "G4", "judge": judge, "read_on": name, "value": value, "kind": "at least", "limit": BARS["verdicts"],
+                         "holds": value["count"] >= BARS["verdicts"] * value["of"]})
     return rows
 
 
@@ -294,10 +311,9 @@ def results(root=ROOT):
             check(row, seen)
     counted_copies, counted_revisions = copy_counts(copies), revision_counts(revisions)
     read_bars = bars(counted_copies, counted_revisions)
-    return {"judges": list(JUDGES), "stopped": list(STOPPED), "bars": read_bars, "bars_total": len(read_bars),
-            "bars_read": sum(1 for bar in read_bars if bar["holds"] is not None), "bars_held": sum(1 for bar in read_bars if bar["holds"]),
+    return {"judges": list(JUDGES), "bars": read_bars, "bars_total": len(read_bars), "bars_held": sum(1 for bar in read_bars if bar["holds"]),
             "copies": counted_copies, "revisions": counted_revisions, "fitting": fitting_counts(fitting),
-            "same_revisions": same_counts(same, revisions)}
+            "controls": same_counts(same, revisions)}
 
 
 def digests(root):
@@ -319,7 +335,7 @@ def main(root=ROOT, write="--write" in sys.argv[1:]):
             path.write_text(text)
         elif not path.exists() or path.read_text() != text:
             fail(f"{name} is not what the data give; run verify.py --write and read the difference")
-    print(f"two results: {result['bars_read']} of {result['bars_total']} registered bars are read, and {result['bars_held']} of them hold")
+    print(f"two results: {result['bars_held']} of {result['bars_total']} registered bars hold")
     return result
 
 

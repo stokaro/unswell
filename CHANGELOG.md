@@ -30,11 +30,11 @@ The JSON report has the schema `unswell-compare-v3`: the verdict holds
 `require`, `accepted` with its `reasons`, and the two results, `kept` and
 `sound`. `review.Judge` takes the requirement and returns both results.
 
-The bars were written on issue 605 before the run. Eleven of the 14 can be
-read, and all eleven hold: harmless edits pass (144 of 155 copies), no
-damaged copy does (0 of 219), and the result repeats. Three bars of one judge
-are not read, because its run of the copies was stopped after 198 of 374, when
-that judge was no longer available; the issue keeps them open.
+The bars were written on issue 605 before the run, and all 14 hold: harmless
+edits pass (155 and 144 of 155 copies with the two judges), no damaged copy
+does (0 of 219 with either), and the result repeats. Eleven bars were read at
+the release. The other three belong to one judge, whose run of the copies was
+finished after it with the build of the measurement.
 
 ## 0.1.0-alpha.18
 
