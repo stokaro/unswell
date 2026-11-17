@@ -6,6 +6,7 @@ usage: export.py <workspace> <record dir>
 copies     one row for each copy of a measured page and judge: what the whole check did with it
 revisions  one row for each revision, judge, and run: what the whole check did with it
 fitting    one row for each pair of the fitting half: the revisions in two runs, and the harmless copies
+same       one row for each revision of one reviser under the judge of its own family, as a control
 
 The posts of set S are numbered as in the earlier records: in the order of a salted hash whose salt stays in the
 workspace. The record holds neither their names nor their words.
@@ -130,3 +131,14 @@ for judge, build, name in (("gpt", "earlier", "compare-split1-harmless-gpt.jsonl
                         **result(row, retried)})
 fitting.sort(key=lambda r: (r["what"], r["judge"], r["build"], r["kind"], r["page"], r["run"]))
 write("fitting", fitting)
+
+# ---- a control: the revisions of one reviser under the judge of its own family ----
+# The two judges found nothing lost in very different numbers of revisions, and each had checked the revisions of
+# the other reviser. Here one judge checks the revisions that the other judge checked.
+same = []
+for name in ("compare-test21s-qwen.jsonl", "compare-test21s-fresh-qwen.jsonl"):
+    for row, retried in last_attempts(name):
+        same.append({"judge": MODELS["qwen"], "reviser": MODELS["qwen"], "pages": pages_of(row["set"]), "page": unit(row["id"], row["set"]),
+                     **result(row, retried)})
+same.sort(key=lambda r: (r["pages"], r["page"]))
+write("same", same)

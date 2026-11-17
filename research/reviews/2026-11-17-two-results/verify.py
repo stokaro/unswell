@@ -16,7 +16,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-DATA = ("copies", "revisions", "fitting")
+DATA = ("copies", "revisions", "fitting", "same")
 
 GPT, QWEN35 = "gpt-6-astra", "private-host/Qwen3.6-35B-A3B"
 JUDGES = (GPT, QWEN35)
@@ -40,6 +40,9 @@ FITTING = {"revision": 40, "harmless": 75}
 # The run of the copies with this judge was stopped when the judge was no longer available. Its
 # copies are those that had been judged by then, and a bar that needs all of them is not read.
 STOPPED = (GPT,)
+# A control after the run: the revisions of this reviser under the judge of its own family. The other judge had
+# checked them, so the two judges can be read on the same revisions. It is no check of a revision.
+SAME = QWEN35
 # The bars, as they were written on issue 605 before the run on the measured part.
 BARS = {"harmless_pass": 0.85, "damaged_pass": 2, "repeat": 0.85, "verdicts": 0.95}
 
@@ -115,6 +118,16 @@ def check_fitting(row, seen):
     if not isinstance(row.get("page"), str) or key in seen:
         fail(f"{where}: listed twice or without a page")
     seen.add(key)
+    check_result(row, where)
+
+
+def check_same(row, seen):
+    where = f"control {row.get('page')}"
+    if row.get("judge") != SAME or row.get("reviser") != SAME or row.get("pages") not in PAGES:
+        fail(f"{where}: the control is the revisions of one reviser under the judge of its own family")
+    if not isinstance(row.get("page"), str) or row["page"] in seen:
+        fail(f"{where}: listed twice or without a page")
+    seen.add(row["page"])
     check_result(row, where)
 
 
@@ -199,6 +212,25 @@ def revision_counts(revisions):
     return result
 
 
+def same_counts(same, revisions):
+    """The same revisions under both judges: what each found, and how often they agree on a revision."""
+    other = REVISER[SAME]
+    first = {row["page"]: row for row in revisions if row["judge"] == other and row["run"] == 1}
+    if len(same) != sum(REVISIONS.values()) or {row["page"] for row in same} != set(first):
+        fail("the control has the revisions that the other judge checked, each once")
+    both = [(row, first[row["page"]]) for row in same if row["verdict"] and first[row["page"]]["verdict"]]
+    by_pages = {pages: {"revisions": sum(1 for mine, _ in both if mine["pages"] == pages),
+                        "own_family": sum(1 for mine, _ in both if mine["pages"] == pages and mine["nothing_lost"]),
+                        "other_family": sum(1 for mine, theirs in both if mine["pages"] == pages and theirs["nothing_lost"])} for pages in PAGES}
+    elsewhere = [row for row in revisions if row["judge"] == SAME and row["run"] == 1 and row["verdict"]]
+    return {"reviser": SAME, "judge_of_own_family": SAME, "judge_of_other_family": other, "revisions": len(both),
+            "own_family": sum(1 for mine, _ in both if mine["nothing_lost"]), "other_family": sum(1 for _, theirs in both if theirs["nothing_lost"]),
+            "both": sum(1 for mine, theirs in both if mine["nothing_lost"] and theirs["nothing_lost"]),
+            "agree": share(sum(1 for mine, theirs in both if mine["nothing_lost"] == theirs["nothing_lost"]), len(both)),
+            "by_pages": by_pages,
+            "other_reviser": {"reviser": other, "judge": SAME, "revisions": len(elsewhere), "nothing_lost": passed(elsewhere)}}
+
+
 def fitting_counts(fitting):
     result = {"revisions": {}, "harmless": []}
     for judge in JUDGES:
@@ -255,8 +287,8 @@ def bars(copies, revisions):
 
 
 def results(root=ROOT):
-    copies, revisions, fitting = read(root, "copies"), read(root, "revisions"), read(root, "fitting")
-    for rows, check in ((copies, check_copy), (revisions, check_revision), (fitting, check_fitting)):
+    copies, revisions, fitting, same = read(root, "copies"), read(root, "revisions"), read(root, "fitting"), read(root, "same")
+    for rows, check in ((copies, check_copy), (revisions, check_revision), (fitting, check_fitting), (same, check_same)):
         seen = set()
         for row in rows:
             check(row, seen)
@@ -264,7 +296,8 @@ def results(root=ROOT):
     read_bars = bars(counted_copies, counted_revisions)
     return {"judges": list(JUDGES), "stopped": list(STOPPED), "bars": read_bars, "bars_total": len(read_bars),
             "bars_read": sum(1 for bar in read_bars if bar["holds"] is not None), "bars_held": sum(1 for bar in read_bars if bar["holds"]),
-            "copies": counted_copies, "revisions": counted_revisions, "fitting": fitting_counts(fitting)}
+            "copies": counted_copies, "revisions": counted_revisions, "fitting": fitting_counts(fitting),
+            "same_revisions": same_counts(same, revisions)}
 
 
 def digests(root):
