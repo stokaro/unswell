@@ -90,6 +90,11 @@ closing denial that the rule counts.
 The counts with three forms are those of the earlier record on each of the
 4,947 pages.
 
+The published binary of `v0.1.0-alpha.20` was run on the same texts after the
+release, beside the build of the measurement. It gives the same row for each
+of the 4,947 pages; see the
+[alpha.20 evidence](../../../docs/release/v0.1.0-alpha.20.md).
+
 ## Data
 
 | File | Rows |
