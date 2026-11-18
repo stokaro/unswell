@@ -190,8 +190,8 @@ func deniesEarly(tokens []document.Token, words []int) bool {
 	return false
 }
 
-// deniesLate reports a clause that denies after a long subject: "Replaying an
-// old history on a database that holds data is not a plan for a cutover." Its
+// deniesLate reports a clause that denies after a long subject: "The list of
+// pages that the crawler reads at night is not a map of the whole site." Its
 // last negation stands past the first words, with a few words after it, and
 // denies the verb of the main clause. "Not ... until" states a time, and a
 // negation inside quotation marks is quoted.

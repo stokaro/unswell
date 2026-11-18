@@ -117,8 +117,8 @@ rules name what a reader notices. They are no way to pass for a person.
 November 18, 2026
 ([issue 607](https://github.com/stokaro/unswell/issues/607)). The third form
 needs the negation among the first six words, so a closing sentence with a
-long subject was not counted: "Replaying an old history on a database that
-holds data is not a plan for a cutover."
+long subject was not counted: "The list of pages that the crawler reads at
+night is not a map of the whole site."
 
 A fourth form counts a last clause whose negation stands past the sixth
 word, follows its verb, and has at most nine words after it. A negation that

@@ -6,7 +6,7 @@ forms, and one of them needs the negation among the first six words of the
 main clause. A closing sentence with a long subject was not counted:
 
 ```text
-Replaying an old history on a database that holds data is not a plan for a cutover.
+The list of pages that the crawler reads at night is not a map of the whole site.
 ```
 
 This record measures a fourth form, for a negation that follows its verb
@@ -69,9 +69,10 @@ changed", and "which may not be there".
 
 So the form leaves alone a negation whose verb stands in a relative clause.
 "That", "which", or "who" before the verb opens such a clause, and the clause
-has closed only when a finite verb of its own stands between: in "a database
-that holds data is not a plan", "holds" closes it. For this the rule reads
-the parts of speech of the words. The form also leaves alone a negation after
+has closed only when a finite verb of its own stands between: in "the pages
+that the crawler reads at night is not a map", "reads" closes it. For this
+the rule reads the parts of speech of the words. The form also leaves alone a
+negation after
 "what", "why", "how", or "where", the verbs "may", "might", "should", and
 "must", "not ... until", and a negation inside quotation marks.
 

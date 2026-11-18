@@ -5,8 +5,8 @@
 `syntax.closing-denial-density` reads a fourth form of a denial
 ([documentation](docs/page-habits.md#the-fourth-form-of-a-denial)). The rule
 needed the negation among the first six words of a main clause, so it did
-not count a closing sentence with a long subject: "Replaying an old history
-on a database that holds data is not a plan for a cutover." It now counts a
+not count a closing sentence with a long subject: "The list of pages that
+the crawler reads at night is not a map of the whole site." It now counts a
 last clause whose negation follows its verb later, with at most nine words
 after it. A negation in a relative clause or in quotation marks, "may not",
 "should not", and "not ... until" are left alone. The rule reads the parts
