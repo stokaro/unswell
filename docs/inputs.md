@@ -278,8 +278,11 @@ file that the grammars accept is read from its own bytes as before.
   tag with a later `>` in its block can still be excluded as `unparsed`.
 - A table row with an empty cell written as two adjacent pipes.
 - A list item that starts with a link whose label holds a character reference,
-  such as `[Install &amp; use](#install)`. In MDX such a list still fails the
-  file.
+  such as `[Install &amp; use](#install)`.
+
+In MDX the same repairs and exclusions apply to what the Markdown grammars
+reject. An unclosed JSX element and a damaged tag or expression are still
+errors of the file.
 
 The inline grammar can also accept a block and drop a code span that holds a
 `<`, as in ``Use `<total target-rule diagnostics>` here.`` It gives no error.

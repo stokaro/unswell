@@ -34,6 +34,14 @@ block, and the whole file failed. The extractor now treats it as one damaged
 block: it repairs the block when a repair applies and excludes it as
 `unparsed` otherwise. A timeout and a canceled run are still errors.
 
+MDX recovers a block that the Markdown grammar rejects, as Markdown does. A
+list item that starts with `[Install &amp; use](#install)` failed the whole
+MDX file, because MDX parsed the blocks once without recovery. MDX reads the
+list now, and it excludes a run that stays rejected as `unparsed`. Its report
+also put such a run at the wrong place after indented prose; the span is now
+right. An unclosed JSX element and a damaged tag or expression are still
+errors.
+
 ## 0.1.0-alpha.20
 
 `syntax.closing-denial-density` reads a fourth form of a denial

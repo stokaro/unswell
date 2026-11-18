@@ -233,7 +233,13 @@ func emptyMarkdownRow(line []byte) bool {
 }
 
 func (m markdownInput) span(node *ts.Node) document.Span {
-	start, end := int(node.StartByte()), int(node.EndByte())
+	return m.sourceSpan(int(node.StartByte()), int(node.EndByte()))
+}
+
+// sourceSpan maps a range of the prepared input to the document source. It
+// leaves out inserted bytes and, for MDX, goes back through the indentation
+// that was removed.
+func (m markdownInput) sourceSpan(start, end int) document.Span {
 	span := document.Span{
 		Start: start - sort.SearchInts(m.inserted, start),
 		End:   end - sort.SearchInts(m.inserted, end),

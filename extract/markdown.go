@@ -109,7 +109,8 @@ func readMarkdownBlocks(
 // in source coordinates. The engine keeps such a run incomplete.
 func excludeUnparsed(doc *document.Document, input markdownInput, blanked []document.Span) {
 	for _, region := range blanked {
-		span := document.Span{Start: input.offset(region.Start), End: min(input.offset(region.End), len(doc.Source))}
+		span := input.sourceSpan(region.Start, region.End)
+		span.End = min(span.End, len(doc.Source))
 		if span.End > span.Start {
 			doc.Excluded = append(doc.Excluded, document.Exclusion{Span: span, Reason: UnparsedReason})
 		}
