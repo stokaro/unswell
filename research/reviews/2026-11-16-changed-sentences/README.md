@@ -123,8 +123,9 @@ seen.
 
 **The first start** showed 4 such copies of 261, all of posts. Two were
 short sentences: the rule did not compare a sentence with fewer than three
-content words, and "We did not run it for this post." without its "not"
-passed. Two stood where the engine reads no prose, in the text of an image
+content words, and a sentence such as "We did not try it on this page."
+without its "not" passed. Two stood where the engine reads no prose, in the
+text of an image
 and in an indented block. It was stopped during its judged stage; the
 verdicts on 66 and 56 damaged copies and on 39 revisions had been seen as
 counts, and no answer of a judge. The command now reads every line outside

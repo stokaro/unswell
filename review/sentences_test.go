@@ -436,14 +436,14 @@ func TestSuspectsReadEveryLineOutsideFencedCode(t *testing.T) {
 	// Each is a line of the page, and a reviser can change what it says.
 	page := "---\ntitle: Lock waits\n---\n\n# Do not deploy during a lock wait\n\n" + lockWait + "\n\n" +
 		"![The plan pane warns that the plan is out of date.](plan.png)\n\n" +
-		"    The history table stays in place while the next change is added.\n\n" +
+		"    The old index is kept on disk while the new one is built.\n\n" +
 		"| Setting | Meaning |\n| --- | --- |\n| lock_timeout | The longest wait for a lock before the statement fails |\n\n" +
 		"```sh\nmake deploy before the lock\n```\n"
 	changed := strings.NewReplacer(
 		"title: Lock waits", "title: Waiting",
 		"# Do not deploy", "# Deploy",
 		"warns that the plan is out of date", "says that the plan is up to date",
-		"while the next change is added", "after the next change is added",
+		"while the new one is built", "after the new one is built",
 		"The longest wait", "The shortest wait",
 		"make deploy before the lock", "make deploy after the lock",
 	).Replace(page)
@@ -460,7 +460,7 @@ func TestSuspectsReadEveryLineOutsideFencedCode(t *testing.T) {
 	c.Assert(found, qt.DeepEquals, map[string]string{
 		"Do not deploy during a lock wait":                                          review.SentenceNegation,
 		"The plan pane warns that the plan is out of date.":                         review.SentenceReworded,
-		"The history table stays in place while the next change is added.":          review.SentenceReworded,
+		"The old index is kept on disk while the new one is built.":                 review.SentenceReworded,
 		"| lock_timeout | The longest wait for a lock before the statement fails |": review.SentenceReworded,
 	})
 	c.Assert(revision.Lost().Code, qt.DeepEquals, []string{"make deploy before the lock"})

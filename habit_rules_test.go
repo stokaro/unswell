@@ -43,9 +43,9 @@ const (
 	deniesAfterASemi = "The check compares two schemas. The comparison runs on a copy; it does not call the service."
 	deniesWithATail  = "We ran the plan on a copy. This is a rehearsal, not a migration."
 	deniesContracted = "The tool prints the plan. It doesn't apply it."
-	deniesTwice      = "The report lists every statement. It neither repairs SQL nor approves the next plan."
+	deniesTwice      = "The report lists every statement. It neither fixes a file nor signs the next run."
 	deniesAfterADash = "The files stay as they are. The history is read from the directory — the runner never edits one."
-	deniesLate       = "We replayed the history. Replaying an old history on a database that holds data is not a plan for a cutover."
+	deniesLate       = "The crawler keeps a list. The list of pages that the crawler reads at night is not a map of the whole site."
 	endsOnAStatement = "The runner reads the old history. It keeps every file as it is."
 )
 
@@ -62,7 +62,7 @@ func TestClosingDenialDensityCountsParagraphsThatEndOnADenial(t *testing.T) {
 		},
 		{
 			"a contraction, neither and nor, and a dash", habitPage(deniesContracted, deniesTwice, deniesAfterADash),
-			[]string{"It doesn't apply it.", "It neither repairs SQL nor approves the next plan.",
+			[]string{"It doesn't apply it.", "It neither fixes a file nor signs the next run.",
 				"The history is read from the directory — the runner never edits one."},
 		},
 		{"two are allowed", habitPage(deniesPlainly, deniesWithATail, endsOnAStatement), nil},
@@ -94,7 +94,7 @@ func TestClosingDenialDensityCountsParagraphsThatEndOnADenial(t *testing.T) {
 				"The check runs on a copy. The check that runs on the copy of the old history doesn't call the service.",
 				"The second pass is safe. The second pass over a copy of the history cannot change a file.",
 				"The plan is printed. The command shows it; the command that prints the plan for review does not apply it."),
-			[]string{"Replaying an old history on a database that holds data is not a plan for a cutover.",
+			[]string{"The list of pages that the crawler reads at night is not a map of the whole site.",
 				"The check that runs on the copy of the old history doesn't call the service.",
 				"The second pass over a copy of the history cannot change a file.",
 				"The command shows it; the command that prints the plan for review does not apply it."},

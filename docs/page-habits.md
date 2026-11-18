@@ -36,8 +36,8 @@ A last sentence denies in one of four forms:
 - Its main clause has a negation among the first six words: "It does not
   approve the plan."
 - Its last clause has a long subject, and the negation follows the verb
-  after it: "Replaying an old history on a database that holds data is not a
-  plan for a cutover." The negation stands past the sixth word and has at
+  after it: "The list of pages that the crawler reads at night is not a map
+  of the whole site." The negation stands past the sixth word and has at
   most nine words after it.
 
 A negation is "not", "cannot", "never", "neither", "nor", or a word that ends

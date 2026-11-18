@@ -49,8 +49,9 @@ is cut into sentences. Fenced code is compared as code, as before.
 
 **A short sentence is compared by all its words.** ADR 0062 did not compare a
 sentence with fewer than three content words, because two words are in some
-other sentence by accident. "We did not run it for this post." has two, and
-without its "not" it passed. Such a sentence is now compared word for word
+other sentence by accident. A sentence such as "We did not try it on this
+page." has two, and without its "not" it passed. Such a sentence is now
+compared word for word
 like any other, and its counterpart is looked for by all its words.
 
 **Each sentence takes its own place.** A page can say one sentence twice; a
