@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-alpha.20
 
 `syntax.closing-denial-density` reads a fourth form of a denial
 ([documentation](docs/page-habits.md#the-fourth-form-of-a-denial)). The rule
