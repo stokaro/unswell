@@ -79,7 +79,7 @@ func maskListLineLinkEscapes(source, line []byte, lineStart int, masked *[]byte)
 	}
 	lastCloseParen := bytes.LastIndexByte(line, ')')
 	for pos := content; pos < len(line); pos++ {
-		if line[pos] != '[' || escapedMarkdownBracket(line, pos) {
+		if line[pos] != '[' || markdownEscaped(line, pos) {
 			continue
 		}
 		close := markdownLinkLabelEnd(line, pos)
@@ -106,7 +106,8 @@ func maskLinkLabelEscapes(source, line []byte, lineStart, start, end int, masked
 	}
 }
 
-func escapedMarkdownBracket(line []byte, pos int) bool {
+// markdownEscaped reports whether an odd number of backslashes precedes pos.
+func markdownEscaped(line []byte, pos int) bool {
 	backslashes := 0
 	for pos > 0 && line[pos-1] == '\\' {
 		backslashes++

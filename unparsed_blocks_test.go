@@ -16,8 +16,7 @@ func TestUnparsedBlockKeepsFindingsAndFailsTheGate(t *testing.T) {
 	engine, err := unswell.New(unswell.Options{})
 	c.Assert(err, qt.IsNil)
 	source := "It is important to note that the client retries.\n\n" +
-		"| Target rule           | `<rule-name>`                             |\n" +
-		"| Diagnostics           | `<total target-rule diagnostics>`         |\n"
+		"<ins data-ad-format 5 > b\n"
 	result, err := engine.AnalyzeAll(t.Context(), []document.Source{
 		{Name: "guide.md", Format: document.Markdown, Bytes: []byte(source)},
 	})
@@ -28,6 +27,25 @@ func TestUnparsedBlockKeepsFindingsAndFailsTheGate(t *testing.T) {
 	c.Assert(result.Findings[0].RuleID, qt.Equals, "filler.announced-importance")
 	c.Assert(result.Errors, qt.HasLen, 2)
 	c.Assert(result.Errors[0].Path, qt.Equals, "guide.md")
+}
+
+// A block that the extractor repairs for the grammar is analyzed like any
+// other: the run is complete and the code span stays out of the prose.
+func TestRepairedBlockStaysComplete(t *testing.T) {
+	c := qt.New(t)
+	engine, err := unswell.New(unswell.Options{})
+	c.Assert(err, qt.IsNil)
+	source := "It is important to note that the client retries.\n\n" +
+		"| Target rule           | `<rule-name>`                             |\n" +
+		"| Diagnostics           | `<total target-rule diagnostics>`         |\n"
+	result, err := engine.AnalyzeAll(t.Context(), []document.Source{
+		{Name: "guide.md", Format: document.Markdown, Bytes: []byte(source)},
+	})
+	c.Assert(err, qt.IsNil)
+	c.Assert(result.Status, qt.Equals, "complete")
+	c.Assert(result.Errors, qt.HasLen, 0)
+	c.Assert(result.Findings, qt.HasLen, 1)
+	c.Assert(result.Findings[0].RuleID, qt.Equals, "filler.announced-importance")
 }
 
 // A document without a defect stays complete.

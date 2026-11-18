@@ -74,10 +74,19 @@ func extractMarkdown(
 	}
 }
 
-// retryAfterOrphan blanks the run of lines at an orphaned table delimiter.
+// retryAfterOrphan prepares one more read after an orphaned table delimiter.
+// A zero-width cell is the known cause, so the first retry fills every such
+// cell with a marker. An orphan that remains has another cause, and the run of
+// lines at it is blanked.
 func retryAfterOrphan(err error, input markdownInput, blanked []document.Span) (markdownInput, []document.Span, bool) {
 	var orphan *orphanedDelimiterError
-	if !errors.As(err, &orphan) || len(blanked) >= maxUnparsedRegions {
+	if !errors.As(err, &orphan) {
+		return input, blanked, false
+	}
+	if filled, moved, ok := fillEmptyCells(input, blanked); ok {
+		return filled, moved, true
+	}
+	if len(blanked) >= maxUnparsedRegions {
 		return input, blanked, false
 	}
 	return blankAt(input, orphan.position, blanked)
