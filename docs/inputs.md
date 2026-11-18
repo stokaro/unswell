@@ -260,11 +260,30 @@ and the line of the first one. Findings from the rest of the file are reported.
 On 2,133 public documentation pages, 15 failed as a whole before this change and
 none does after it; pages that parsed before give the same findings.
 
+Five kinds of Markdown that the grammars reject are repaired, and then they
+parse completely, with no exclusion and no error. A repair changes only the
+bytes that a grammar reads. Reported spans refer to the original source, and a
+file that the grammars accept is read from its own bytes as before.
+
+- An HTML block in a list item or a quote that ends at a blank line, with more
+  of the item or the quote after it. The block needs four bytes. A lone `<p>`
+  is not repaired, and the lines after it are excluded as `unparsed`.
+- A code span that holds angle brackets, such as `` `<path to file>` ``.
+- An HTML tag that never closes: a `<` with no `>` after it in the same block.
+  With an attribute value, as in `<ins data-ad-slot="1"`, the tag is excluded
+  like other inline HTML, up to its last attribute value. Without one, the
+  bracket is literal and the text is prose, as in CommonMark. An unfinished
+  tag with a later `>` in its block can still be excluded as `unparsed`.
+- A table row with an empty cell written as two adjacent pipes.
+- A list item that starts with a link whose label holds a character reference,
+  such as `[Install &amp; use](#install)`. In MDX such a list still fails the
+  file.
+
 A lone `|` after a Markdown table ends the table. Following prose retains its
 paragraph or list-item context, including inside quoted blocks. The scanner
 adapter handles this boundary without changing source bytes. Rows with two or
-more pipes still support empty cells. A table that the grammar builds with an
-orphaned delimiter is excluded as an `unparsed` run; see the [boundary investigation](../research/parsers/markdown-lone-pipe.md).
+more pipes still support empty cells. A table that the grammar still builds
+with an orphaned delimiter is excluded as an `unparsed` run; see the [boundary investigation](../research/parsers/markdown-lone-pipe.md).
 
 There is no dedicated Zsh grammar in this backend. Zsh uses the Bash grammar;
 extended Zsh syntax can fail explicitly. Bash also has upstream parsing limits,

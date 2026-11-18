@@ -3,6 +3,8 @@ package extract
 import (
 	"bytes"
 	"context"
+	"errors"
+	"maps"
 	"strings"
 
 	ts "github.com/odvcencio/gotreesitter"
@@ -25,14 +27,32 @@ func inlineSyntax(ctx context.Context, source []byte) (syntaxTree, error) {
 	if err != nil {
 		return syntaxTree{}, err
 	}
-	if len(comments) == 0 {
+	if len(comments) != 0 {
+		parsed, err := parseInlineBoundaries(ctx, source, comments)
+		if !errors.Is(err, errInvalidSyntax) {
+			return parsed, err
+		}
+	}
+	// The grammar still rejects the block. Two more defects have a repair.
+	if !maskInlineDefects(source, comments) {
 		return syntaxTree{}, invalidSyntax("markdown_inline")
 	}
+	parsed, err := parseInlineBoundaries(ctx, source, comments)
+	if err != nil && ctx.Err() == nil {
+		// A repair that fails leaves the block rejected, as it was.
+		return syntaxTree{}, invalidSyntax("markdown_inline")
+	}
+	return parsed, err
+}
+
+// parseInlineBoundaries parses a repaired buffer and accepts the tree only
+// when each expected boundary is a node of its kind.
+func parseInlineBoundaries(ctx context.Context, source []byte, expected map[document.Span]string) (syntaxTree, error) {
 	parsed, err := parseSyntax(ctx, source, "markdown_inline")
 	if err != nil {
 		return syntaxTree{}, err
 	}
-	if err := verifyInlineBoundaries(ctx, parsed, comments); err != nil {
+	if err := verifyInlineBoundaries(ctx, parsed, maps.Clone(expected)); err != nil {
 		parsed.tree.Release()
 		return syntaxTree{}, err
 	}

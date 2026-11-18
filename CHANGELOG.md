@@ -9,6 +9,15 @@ because the JavaScript grammar that checks a tag reads those names as
 keywords. A tag that fails is now checked once more with such attribute names
 respelled. A damaged tag is still an error.
 
+More Markdown parses completely ([documentation](docs/inputs.md#alpha-limits)).
+Five kinds of input gave an `unparsed` exclusion and an incomplete run, and
+they are now read like other Markdown. One is an HTML block in a list item or
+a quote that a blank line ends. Two are inline: a code span that holds angle
+brackets, and an HTML tag that never closes. One is a table row with an empty
+cell written as `||`. The last is a list item that starts with a link whose
+label holds a character reference such as `&amp;`. A page that parsed before
+gives the same blocks and exclusions.
+
 ## 0.1.0-alpha.20
 
 `syntax.closing-denial-density` reads a fourth form of a denial

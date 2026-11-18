@@ -23,38 +23,82 @@ const (
 const markdownFramePrefix = 3
 
 // parseMarkdownBlocks parses the block structure of a prepared document. When
-// the grammar rejects it, the run of lines at the first defect is replaced by
-// line breaks of the same length and the document is parsed again. Offsets stay
-// valid. The blanked runs are returned in prepared coordinates so the caller
-// can record them as exclusions; nothing in them is extracted as prose.
+// the grammar rejects it, the document is repaired and parsed again. A defect
+// of a known kind gets a repair of the same length that keeps the text in the
+// document. For any other defect the run of lines at it is replaced by line
+// breaks of the same length. Offsets stay valid. The blanked runs are returned
+// in prepared coordinates so the caller can record them as exclusions; nothing
+// in them is extracted as prose.
 func parseMarkdownBlocks(ctx context.Context, input markdownInput) (syntaxTree, markdownInput, []document.Span, error) {
 	syntax, err := parseSyntax(ctx, input.source, "markdown")
 	if err == nil || !errors.Is(err, errInvalidSyntax) {
 		return syntax, input, nil, err
 	}
-	source := slices.Clone(input.source)
-	var blanked []document.Span
-	for parses := 0; parses < maxRecoveryParses && len(blanked) <= maxUnparsedRegions; parses++ {
-		position, found, locateErr := firstSyntaxDefect(ctx, source)
-		if locateErr != nil || !found {
-			return syntaxTree{}, input, nil, err
+	recovery := markdownRecovery{source: slices.Clone(input.source)}
+	for parses := 0; parses < maxRecoveryParses && len(recovery.blanked) <= maxUnparsedRegions; parses++ {
+		// The first repair needs no tree. The later ones start from a defect.
+		if (parses > 0 || !shadowLabelEntities(recovery.source)) && !recovery.repairDefect(ctx) {
+			break
 		}
-		region, ok := nextRegion(source, position, blanked)
-		if !ok {
-			return syntaxTree{}, input, nil, err
-		}
-		blankRegion(source, region)
-		blanked = mergeRegions(blanked, region)
-		recovered, parseErr := parseSyntax(ctx, source, "markdown")
+		recovered, parseErr := recovery.parse(ctx)
 		if parseErr == nil {
-			input.source = source
-			return recovered, input, blanked, nil
+			input.source = recovery.source
+			return recovered, input, recovery.blanked, nil
 		}
 		if !errors.Is(parseErr, errInvalidSyntax) {
 			return syntaxTree{}, input, nil, parseErr
 		}
 	}
 	return syntaxTree{}, input, nil, err
+}
+
+// markdownRecovery is the state of one recovery: the bytes that the block
+// grammar sees and what was done to them.
+type markdownRecovery struct {
+	source  []byte
+	blanked []document.Span // runs replaced by line breaks, reported as unparsed
+	html    []document.Span // HTML blocks rewritten so that the grammar ends them
+}
+
+// repairDefect repairs the source at its defects. It rewrites the HTML blocks
+// that the grammar fails to end. When there is none, it blanks the run of
+// lines at the first defect.
+func (r *markdownRecovery) repairDefect(ctx context.Context) bool {
+	position, rewritten, found := locateDefects(ctx, r.source)
+	if !found {
+		return false
+	}
+	if len(rewritten) > 0 {
+		r.html = append(r.html, rewritten...)
+		return true
+	}
+	region, ok := nextRegion(r.source, position, r.blanked)
+	if !ok {
+		return false
+	}
+	blankRegion(r.source, region)
+	r.blanked = mergeRegions(r.blanked, region)
+	return true
+}
+
+// parse parses the repaired source. A tree in which a rewritten HTML block is
+// no longer an HTML block is refused like a tree with an error: its lines
+// would be read as prose.
+func (r *markdownRecovery) parse(ctx context.Context) (syntaxTree, error) {
+	syntax, err := parseSyntax(ctx, r.source, "markdown")
+	if err != nil {
+		return syntaxTree{}, err
+	}
+	kept := slices.DeleteFunc(slices.Clone(r.html), func(run document.Span) bool { return coveredBy(run, r.blanked) })
+	held, err := rewrittenAsHTML(ctx, syntax, kept)
+	if err == nil && !held {
+		err = invalidSyntax("markdown")
+	}
+	if err != nil {
+		syntax.tree.Release()
+		return syntaxTree{}, err
+	}
+	return syntax, nil
 }
 
 // orphanedDelimiterError reports a pipe token outside a table row that the
@@ -79,25 +123,34 @@ func blankAt(input markdownInput, position int, blanked []document.Span) (markdo
 	return input, mergeRegions(blanked, region), true
 }
 
-// firstSyntaxDefect returns the start of the first error or missing node.
-func firstSyntaxDefect(ctx context.Context, source []byte) (int, bool, error) {
-	loose, err := parseSyntaxTree(ctx, source, "markdown")
+// locateDefects returns the start of the first error or missing node. On the
+// way it rewrites in source every HTML block that holds such a node and that
+// maskOpenHTML can repair, and returns the rewritten runs.
+func locateDefects(ctx context.Context, source []byte) (int, []document.Span, bool) {
+	// The tree keeps its input and may read it again, so it gets a copy and
+	// the rewrites go to source.
+	loose, err := parseSyntaxTree(ctx, slices.Clone(source), "markdown")
 	if err != nil {
-		return 0, false, err
+		return 0, nil, false
 	}
 	defer loose.tree.Release()
 	position, found := -1, false
-	err = walkSyntax(ctx, loose.tree.RootNode(), 0, func(node *ts.Node) (bool, error) {
-		if found {
-			return true, nil
+	var rewritten []document.Span
+	// A walk that fails below the first defect has still found it. The next
+	// parse reports a canceled context.
+	_ = walkSyntax(ctx, loose.tree.RootNode(), 0, func(node *ts.Node) (bool, error) {
+		if !node.IsError() && !node.IsMissing() {
+			return !node.HasErrorOrMissing(), nil
 		}
-		if node.IsError() || node.IsMissing() {
+		if !found {
 			position, found = int(node.StartByte()), true
-			return true, nil
 		}
-		return !node.HasErrorOrMissing(), nil
+		if run, changed := maskOpenHTML(loose, node, source); changed {
+			rewritten = append(rewritten, run)
+		}
+		return true, nil
 	})
-	return position, found, err
+	return position, rewritten, found
 }
 
 // nextRegion picks the run of nonblank lines at position. When that run is
