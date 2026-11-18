@@ -1,6 +1,10 @@
 ---
 // One sentence a reader must not miss. Used sparingly; a page with three of
 // them has none.
+//
+// The box is a div. A page writes the text of a note as a paragraph, and a
+// paragraph cannot hold another one: a browser closes the outer paragraph at
+// once, so the box stays empty and the text falls out under it.
 ---
 
-<p class="u-note"><slot /></p>
+<div class="u-note"><slot /></div>
