@@ -23,6 +23,10 @@ export const sidebar = [
 		],
 	},
 	{
+		label: 'Research',
+		items: [{ label: 'What two months of measurement taught us', slug: 'research-report' }],
+	},
+	{
 		label: 'Configure',
 		items: [{ label: 'Configuration & profiles', slug: 'configuration' }],
 	},

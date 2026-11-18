@@ -33,6 +33,13 @@
 	--u-teal-tint: #e3eef0;
 	--u-green: #2e7d4f;
 
+	/* The series colors of a chart. They are no brand colors: each set was checked
+	 * for a reader with a color-vision deficiency and against both surfaces, and
+	 * research/report-v3/build.py checks them again on every run. */
+	--u-chart-1: #2a78d6;
+	--u-chart-2: #eb6834;
+	--u-chart-3: #1baf7a;
+
 	/* The terminal card keeps its own ground in both themes: it is a picture of
 	   a terminal, and a terminal is dark. */
 	--u-terminal-bg: #1b1f22;
@@ -72,6 +79,10 @@
 		--u-teal-tint: #17302f;
 		--u-green: #6cc48d;
 
+		--u-chart-1: #3987e5;
+		--u-chart-2: #d95926;
+		--u-chart-3: #199e70;
+
 		--u-terminal-bg: #101314;
 		--u-terminal-fg: #e8ebea;
 	}
@@ -98,6 +109,10 @@
 	--u-amber-tint: #322814;
 	--u-teal-tint: #17302f;
 	--u-green: #6cc48d;
+
+	--u-chart-1: #3987e5;
+	--u-chart-2: #d95926;
+	--u-chart-3: #199e70;
 
 	--u-terminal-bg: #101314;
 	--u-terminal-fg: #e8ebea;
@@ -864,6 +879,136 @@ starlight-toc a[aria-current='true']:hover {
 
 .u-tag--off {
 	color: var(--u-faint);
+}
+
+/* --------------------------------------------------------------- figures -- */
+
+/* A figure of the research report. The drawing keeps its width on a phone and
+ * scrolls sideways there, so that its labels stay readable. */
+.u-figure {
+	margin: 2rem 0;
+}
+
+.u-figure__plot {
+	overflow-x: auto;
+	padding: 1rem 1rem 0.5rem;
+	background: var(--u-card);
+	border: 1px solid var(--u-border-light);
+	border-radius: 6px;
+}
+
+.u-figure__plot svg {
+	display: block;
+	width: 100%;
+	min-width: 38rem;
+	height: auto;
+	font-family: var(--u-mono);
+	font-size: 11px;
+}
+
+.u-figure figcaption {
+	margin-top: 0.75rem;
+	font-size: 0.9375rem;
+	color: var(--u-muted);
+}
+
+.u-figure figcaption strong {
+	color: var(--u-ink);
+}
+
+/* The caption is written as a paragraph in the page; it runs on after the number. */
+.u-figure figcaption p {
+	display: inline;
+}
+
+.u-figure__table {
+	margin-top: 0.5rem;
+}
+
+.u-figure__table caption {
+	padding: 0.5rem 0 0.25rem;
+	text-align: left;
+	font-family: var(--u-mono);
+	font-size: 0.8125rem;
+	color: var(--u-muted);
+}
+
+.u-fig-s1 {
+	fill: var(--u-chart-1);
+}
+
+.u-fig-s2 {
+	fill: var(--u-chart-2);
+}
+
+.u-fig-s3 {
+	fill: var(--u-chart-3);
+}
+
+.u-fig-stroke-s1 {
+	stroke: var(--u-chart-1);
+}
+
+.u-fig-stroke-s2 {
+	stroke: var(--u-chart-2);
+}
+
+.u-fig-stroke-s3 {
+	stroke: var(--u-chart-3);
+}
+
+.u-fig-zero {
+	stroke-width: 2;
+}
+
+.u-fig-hatch {
+	stroke: var(--u-card);
+	stroke-width: 2;
+}
+
+/* A dot wears a ring in the color of the surface, so it stays apart from the
+ * line it sits on. */
+.u-fig-dot {
+	stroke: var(--u-card);
+	stroke-width: 2;
+}
+
+/* A label keeps a halo in the color of the surface, so a line of the grid that
+ * passes behind it does not strike it through. */
+.u-fig-text,
+.u-fig-muted {
+	paint-order: stroke;
+	stroke: var(--u-card);
+	stroke-width: 3px;
+	stroke-linejoin: round;
+}
+
+.u-fig-text {
+	fill: var(--u-ink);
+}
+
+.u-fig-muted {
+	fill: var(--u-muted);
+}
+
+.u-fig-title {
+	fill: var(--u-ink);
+	font-weight: 600;
+}
+
+.u-fig-grid {
+	stroke: var(--u-border-light);
+	stroke-width: 1;
+}
+
+.u-fig-ref {
+	stroke: var(--u-muted);
+	stroke-width: 1;
+}
+
+.u-fig-link {
+	stroke: var(--u-hairline);
+	stroke-width: 2;
 }
 
 /* ---------------------------------------------------------------- footer -- */

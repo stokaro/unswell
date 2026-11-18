@@ -29,6 +29,13 @@ observations; neither proves the other.
 
 ## What the recorded experiments show
 
+The [research report](https://unswell.dev/edge/research-report/) on the site
+tells the whole course of this work, from the first commit to
+`v0.1.0-alpha.20`: what each phase asked, what was measured, and which results
+were negative. Its figures are built from the records by
+`research/report-v3/build.py`, and `make check-research-report` checks every
+number of its prose against its source.
+
 The [learning-data investigation](research/learning-data-methods.md) compares
 source-span and intent learning, LLM annotation, explanation supervision,
 weak supervision, and Python libraries against completed local experiments.

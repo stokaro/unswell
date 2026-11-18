@@ -1,0 +1,905 @@
+{
+  "schema": "unswell-docs-research-report-v1",
+  "figures": {
+    "timeline": {
+      "title": "Commits on the main branch by week, with the releases of each week",
+      "sources": [
+        "research/report-v3/data/history.json"
+      ],
+      "panels": [
+        {
+          "form": "columns",
+          "unit": "count",
+          "series": [
+            {
+              "key": "commits",
+              "label": "Commits"
+            }
+          ],
+          "rows": [
+            {
+              "label": "Sep 7",
+              "note": "2026-W37",
+              "values": {
+                "commits": {
+                  "value": 175,
+                  "text": "175"
+                }
+              },
+              "events": [
+                "alpha.1",
+                "alpha.2",
+                "alpha.3",
+                "alpha.4"
+              ]
+            },
+            {
+              "label": "Sep 14",
+              "note": "2026-W38",
+              "values": {
+                "commits": {
+                  "value": 61,
+                  "text": "61"
+                }
+              },
+              "events": []
+            },
+            {
+              "label": "Sep 21",
+              "note": "2026-W39",
+              "values": {
+                "commits": {
+                  "value": 16,
+                  "text": "16"
+                }
+              },
+              "events": []
+            },
+            {
+              "label": "Sep 28",
+              "note": "2026-W40",
+              "values": {
+                "commits": {
+                  "value": 17,
+                  "text": "17"
+                }
+              },
+              "events": []
+            },
+            {
+              "label": "Oct 5",
+              "note": "2026-W41",
+              "values": {
+                "commits": {
+                  "value": 21,
+                  "text": "21"
+                }
+              },
+              "events": []
+            },
+            {
+              "label": "Oct 12",
+              "note": "2026-W42",
+              "values": {
+                "commits": {
+                  "value": 3,
+                  "text": "3"
+                }
+              },
+              "events": []
+            },
+            {
+              "label": "Oct 19",
+              "note": "2026-W43",
+              "values": {
+                "commits": {
+                  "value": 10,
+                  "text": "10"
+                }
+              },
+              "events": []
+            },
+            {
+              "label": "Oct 26",
+              "note": "2026-W44",
+              "values": {
+                "commits": {
+                  "value": 7,
+                  "text": "7"
+                }
+              },
+              "events": []
+            },
+            {
+              "label": "Nov 2",
+              "note": "2026-W45",
+              "values": {
+                "commits": {
+                  "value": 45,
+                  "text": "45"
+                }
+              },
+              "events": []
+            },
+            {
+              "label": "Nov 9",
+              "note": "2026-W46",
+              "values": {
+                "commits": {
+                  "value": 107,
+                  "text": "107"
+                }
+              },
+              "events": [
+                "alpha.5",
+                "alpha.6",
+                "alpha.7",
+                "alpha.8",
+                "alpha.9",
+                "alpha.10",
+                "alpha.11",
+                "alpha.12",
+                "alpha.13",
+                "alpha.14",
+                "alpha.15"
+              ]
+            },
+            {
+              "label": "Nov 16",
+              "note": "2026-W47",
+              "values": {
+                "commits": {
+                  "value": 18,
+                  "text": "18"
+                }
+              },
+              "events": [
+                "alpha.16",
+                "alpha.17",
+                "alpha.18",
+                "alpha.19",
+                "alpha.20"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "bars": {
+      "title": "Bars written before a run, by record: how many held",
+      "sources": [
+        "research/reviews/2026-11-12-human-reference/results.json",
+        "research/reviews/2026-11-15-style-guide-text/results.json",
+        "research/reviews/2026-11-15-revision-check/results.json",
+        "research/reviews/2026-11-15-sentence-check/results.json",
+        "research/reviews/2026-11-16-changed-sentences/results.json",
+        "research/reviews/2026-11-16-left-out-words/results.json",
+        "research/reviews/2026-11-17-page-habits/results.json",
+        "research/reviews/2026-11-17-two-results/results.json",
+        "research/reviews/2026-11-18-late-denial/results.json"
+      ],
+      "panels": [
+        {
+          "form": "bars",
+          "unit": "count",
+          "series": [
+            {
+              "key": "held",
+              "label": "Held"
+            },
+            {
+              "key": "failed",
+              "label": "Did not hold",
+              "hatched": true
+            }
+          ],
+          "stacked": true,
+          "rows": [
+            {
+              "label": "Human reference, index and fix, Nov 12",
+              "values": {
+                "held": {
+                  "value": 19,
+                  "text": "19"
+                },
+                "failed": {
+                  "value": 1,
+                  "text": "1"
+                }
+              },
+              "total": "19 of 20"
+            },
+            {
+              "label": "Text under a style guide, Nov 15",
+              "values": {
+                "held": {
+                  "value": 17,
+                  "text": "17"
+                },
+                "failed": {
+                  "value": 0,
+                  "text": "0"
+                }
+              },
+              "total": "17 of 17"
+            },
+            {
+              "label": "A revision, checked blind, Nov 15",
+              "values": {
+                "held": {
+                  "value": 8,
+                  "text": "8"
+                },
+                "failed": {
+                  "value": 10,
+                  "text": "10"
+                }
+              },
+              "total": "8 of 18"
+            },
+            {
+              "label": "Sentences of a revision, Nov 15",
+              "values": {
+                "held": {
+                  "value": 22,
+                  "text": "22"
+                },
+                "failed": {
+                  "value": 0,
+                  "text": "0"
+                }
+              },
+              "total": "22 of 22"
+            },
+            {
+              "label": "Every changed sentence, Nov 16",
+              "values": {
+                "held": {
+                  "value": 31,
+                  "text": "31"
+                },
+                "failed": {
+                  "value": 1,
+                  "text": "1"
+                }
+              },
+              "total": "31 of 32"
+            },
+            {
+              "label": "Words left out, Nov 16",
+              "values": {
+                "held": {
+                  "value": 38,
+                  "text": "38"
+                },
+                "failed": {
+                  "value": 0,
+                  "text": "0"
+                }
+              },
+              "total": "38 of 38"
+            },
+            {
+              "label": "Habits of a page, Nov 17",
+              "values": {
+                "held": {
+                  "value": 10,
+                  "text": "10"
+                },
+                "failed": {
+                  "value": 0,
+                  "text": "0"
+                }
+              },
+              "total": "10 of 10"
+            },
+            {
+              "label": "Two results of the check, Nov 17",
+              "values": {
+                "held": {
+                  "value": 14,
+                  "text": "14"
+                },
+                "failed": {
+                  "value": 0,
+                  "text": "0"
+                }
+              },
+              "total": "14 of 14"
+            },
+            {
+              "label": "A late denial, Nov 18",
+              "values": {
+                "held": {
+                  "value": 7,
+                  "text": "7"
+                },
+                "failed": {
+                  "value": 0,
+                  "text": "0"
+                }
+              },
+              "total": "7 of 7"
+            }
+          ]
+        }
+      ]
+    },
+    "defaults": {
+      "title": "Rules on documentation pages that people wrote: pages with a finding",
+      "sources": [
+        "research/reviews/2026-11-12-human-reference/results.json"
+      ],
+      "panels": [
+        {
+          "form": "bars",
+          "unit": "share",
+          "series": [
+            {
+              "key": "pages",
+              "label": "Pages with a finding"
+            }
+          ],
+          "max": 0.3,
+          "reference": {
+            "value": 0.05,
+            "label": "one page in twenty"
+          },
+          "rows": [
+            {
+              "label": "`filler.wordy-phrase`",
+              "values": {
+                "pages": {
+                  "value": 0.2479,
+                  "text": "30 of 121",
+                  "detail": "24.8%"
+                }
+              }
+            },
+            {
+              "label": "`syntax.long-sentence`",
+              "values": {
+                "pages": {
+                  "value": 0.1818,
+                  "text": "22 of 121",
+                  "detail": "18.2%"
+                }
+              }
+            },
+            {
+              "label": "`filler.instruction-scaffolding`",
+              "values": {
+                "pages": {
+                  "value": 0.0909,
+                  "text": "11 of 121",
+                  "detail": "9.1%"
+                }
+              }
+            },
+            {
+              "label": "`hype.vague-praise`",
+              "values": {
+                "pages": {
+                  "value": 0.0909,
+                  "text": "11 of 121",
+                  "detail": "9.1%"
+                }
+              }
+            },
+            {
+              "label": "`repetition.adjacent-word`",
+              "values": {
+                "pages": {
+                  "value": 0.0744,
+                  "text": "9 of 121",
+                  "detail": "7.4%"
+                }
+              }
+            },
+            {
+              "label": "`format.decorative-emoji`",
+              "values": {
+                "pages": {
+                  "value": 0.0579,
+                  "text": "7 of 121",
+                  "detail": "5.8%"
+                }
+              }
+            },
+            {
+              "label": "`filler.nominal-support`",
+              "values": {
+                "pages": {
+                  "value": 0.0248,
+                  "text": "3 of 121",
+                  "detail": "2.5%"
+                }
+              }
+            },
+            {
+              "label": "`format.em-dash-frequency`",
+              "values": {
+                "pages": {
+                  "value": 0.0165,
+                  "text": "2 of 121",
+                  "detail": "1.7%"
+                }
+              }
+            },
+            {
+              "label": "`repetition.near-sentence`",
+              "values": {
+                "pages": {
+                  "value": 0.0165,
+                  "text": "2 of 121",
+                  "detail": "1.7%"
+                }
+              }
+            },
+            {
+              "label": "`filler.announced-importance`",
+              "values": {
+                "pages": {
+                  "value": 0.0083,
+                  "text": "1 of 121",
+                  "detail": "0.8%"
+                }
+              }
+            },
+            {
+              "label": "`filler.evaluative-closure`",
+              "values": {
+                "pages": {
+                  "value": 0.0083,
+                  "text": "1 of 121",
+                  "detail": "0.8%"
+                }
+              }
+            },
+            {
+              "label": "`repetition.exact-sentence`",
+              "values": {
+                "pages": {
+                  "value": 0.0083,
+                  "text": "1 of 121",
+                  "detail": "0.8%"
+                }
+              }
+            },
+            {
+              "label": "`repetition.repeated-claim`",
+              "values": {
+                "pages": {
+                  "value": 0.0083,
+                  "text": "1 of 121",
+                  "detail": "0.8%"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "separation": {
+      "title": "How well the index tells a model's text from blog posts of people",
+      "sources": [
+        "research/reviews/2026-11-15-style-guide-text/results.json"
+      ],
+      "panels": [
+        {
+          "form": "dumbbell",
+          "unit": "auc",
+          "series": [
+            {
+              "key": "before",
+              "label": "Marks alone"
+            },
+            {
+              "key": "after",
+              "label": "With the rhythm reading"
+            }
+          ],
+          "min": 0.0,
+          "max": 1.0,
+          "reference": {
+            "value": 0.5,
+            "label": "chance"
+          },
+          "rows": [
+            {
+              "label": "Posts of the style-guide set",
+              "values": {
+                "before": {
+                  "value": 0.247,
+                  "text": "0.25"
+                },
+                "after": {
+                  "value": 0.87,
+                  "text": "0.87"
+                }
+              }
+            },
+            {
+              "label": "Guided texts, first writer",
+              "values": {
+                "before": {
+                  "value": 0.279,
+                  "text": "0.28"
+                },
+                "after": {
+                  "value": 0.979,
+                  "text": "0.98"
+                }
+              }
+            },
+            {
+              "label": "Guided texts, second writer",
+              "values": {
+                "before": {
+                  "value": 0.265,
+                  "text": "0.27"
+                },
+                "after": {
+                  "value": 0.988,
+                  "text": "0.99"
+                }
+              }
+            },
+            {
+              "label": "Plain texts, first writer",
+              "values": {
+                "before": {
+                  "value": 0.481,
+                  "text": "0.48"
+                },
+                "after": {
+                  "value": 0.841,
+                  "text": "0.84"
+                }
+              }
+            },
+            {
+              "label": "Plain texts, second writer",
+              "values": {
+                "before": {
+                  "value": 0.776,
+                  "text": "0.78"
+                },
+                "after": {
+                  "value": 0.861,
+                  "text": "0.86"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "revision": {
+      "title": "A revision by the report: what the index reads and what blind judges pick",
+      "sources": [
+        "research/reviews/2026-11-17-revision-pilots/results.json"
+      ],
+      "panels": [
+        {
+          "form": "bars",
+          "unit": "index",
+          "series": [
+            {
+              "key": "before",
+              "label": "As published"
+            },
+            {
+              "key": "after",
+              "label": "After the revision"
+            }
+          ],
+          "title": "Median index of the posts",
+          "max": 100,
+          "rows": [
+            {
+              "label": "Median index",
+              "values": {
+                "before": {
+                  "value": 68,
+                  "text": "68"
+                },
+                "after": {
+                  "value": 24,
+                  "text": "24"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "form": "bars",
+          "unit": "share",
+          "series": [
+            {
+              "key": "before",
+              "label": "As published"
+            },
+            {
+              "key": "after",
+              "label": "After the revision"
+            }
+          ],
+          "title": "Posts that a judge picks as the model's text",
+          "max": 1.0,
+          "rows": [
+            {
+              "label": "Three judges together",
+              "values": {
+                "before": {
+                  "value": 0.6842,
+                  "text": "26 of 38",
+                  "detail": "68.4%"
+                },
+                "after": {
+                  "value": 0.6579,
+                  "text": "25 of 38",
+                  "detail": "65.8%"
+                }
+              }
+            },
+            {
+              "label": "`gpt-6-astra`",
+              "values": {
+                "before": {
+                  "value": 1.0,
+                  "text": "38 of 38",
+                  "detail": "100.0%"
+                },
+                "after": {
+                  "value": 1.0,
+                  "text": "38 of 38",
+                  "detail": "100.0%"
+                }
+              }
+            },
+            {
+              "label": "`Qwen3.8-27B`",
+              "values": {
+                "before": {
+                  "value": 0.6842,
+                  "text": "26 of 38",
+                  "detail": "68.4%"
+                },
+                "after": {
+                  "value": 0.5789,
+                  "text": "22 of 38",
+                  "detail": "57.9%"
+                }
+              }
+            },
+            {
+              "label": "`Qwen3.6-35B-A3B`",
+              "values": {
+                "before": {
+                  "value": 0.2895,
+                  "text": "11 of 38",
+                  "detail": "28.9%"
+                },
+                "after": {
+                  "value": 0.2368,
+                  "text": "9 of 38",
+                  "detail": "23.7%"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "compare": {
+      "title": "The check of a revision: what passes as nothing lost",
+      "sources": [
+        "research/reviews/2026-11-17-two-results/results.json"
+      ],
+      "panels": [
+        {
+          "form": "bars",
+          "unit": "share",
+          "series": [
+            {
+              "key": "gpt",
+              "label": "Judge `gpt-6-astra`"
+            },
+            {
+              "key": "qwen",
+              "label": "Judge `Qwen3.6-35B-A3B`"
+            }
+          ],
+          "title": "Copies of a page with one sentence changed",
+          "max": 1.0,
+          "rows": [
+            {
+              "label": "Harmless copies",
+              "values": {
+                "gpt": {
+                  "value": 1.0,
+                  "text": "155 of 155",
+                  "detail": "100.0%"
+                },
+                "qwen": {
+                  "value": 0.929,
+                  "text": "144 of 155",
+                  "detail": "92.9%"
+                }
+              }
+            },
+            {
+              "label": "Damaged copies",
+              "values": {
+                "gpt": {
+                  "value": 0.0,
+                  "text": "0 of 219",
+                  "detail": "0.0%"
+                },
+                "qwen": {
+                  "value": 0.0,
+                  "text": "0 of 219",
+                  "detail": "0.0%"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "form": "bars",
+          "unit": "share",
+          "series": [
+            {
+              "key": "gpt",
+              "label": "Judge `gpt-6-astra`"
+            },
+            {
+              "key": "qwen",
+              "label": "Judge `Qwen3.6-35B-A3B`"
+            }
+          ],
+          "title": "Revisions by a model, by the model that revised",
+          "max": 1.0,
+          "rows": [
+            {
+              "label": "Revised by `Qwen3.6-35B-A3B`",
+              "values": {
+                "gpt": {
+                  "value": 0.3333,
+                  "text": "19 of 57",
+                  "detail": "33.3%"
+                },
+                "qwen": {
+                  "value": 0.4035,
+                  "text": "23 of 57",
+                  "detail": "40.4%"
+                }
+              }
+            },
+            {
+              "label": "Revised by `gpt-6-astra`",
+              "values": {
+                "gpt": {
+                  "value": 0.8596,
+                  "text": "49 of 57",
+                  "detail": "86.0%"
+                },
+                "qwen": {
+                  "value": 0.7193,
+                  "text": "41 of 57",
+                  "detail": "71.9%"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "habits": {
+      "title": "Pages that each rule for a habit of a page reports, by who wrote them",
+      "sources": [
+        "research/reviews/2026-11-18-late-denial/results.json",
+        "research/reviews/2026-11-17-page-habits/results.json"
+      ],
+      "panels": [
+        {
+          "form": "bars",
+          "unit": "share",
+          "series": [
+            {
+              "key": "denial",
+              "label": "Paragraphs end on a denial"
+            },
+            {
+              "key": "register",
+              "label": "One formal register"
+            }
+          ],
+          "max": 1.0,
+          "reference": {
+            "value": 0.05,
+            "label": "limit on pages of people"
+          },
+          "rows": [
+            {
+              "label": "Posts of the style-guide set",
+              "values": {
+                "denial": {
+                  "value": 0.4667,
+                  "text": "14 of 30",
+                  "detail": "46.7%"
+                },
+                "register": {
+                  "value": 0.6,
+                  "text": "18 of 30",
+                  "detail": "60.0%"
+                }
+              }
+            },
+            {
+              "label": "Texts of two models under a style guide",
+              "values": {
+                "denial": {
+                  "value": 0.0083,
+                  "text": "1 of 120",
+                  "detail": "0.8%"
+                },
+                "register": {
+                  "value": 0.9167,
+                  "text": "110 of 120",
+                  "detail": "91.7%"
+                }
+              }
+            },
+            {
+              "label": "Blog posts of people",
+              "values": {
+                "denial": {
+                  "value": 0.013,
+                  "text": "1 of 77",
+                  "detail": "1.3%"
+                },
+                "register": {
+                  "value": 0.0,
+                  "text": "0 of 77",
+                  "detail": "0.0%"
+                }
+              }
+            },
+            {
+              "label": "Articles of people",
+              "values": {
+                "denial": {
+                  "value": 0.0146,
+                  "text": "3 of 205",
+                  "detail": "1.5%"
+                },
+                "register": {
+                  "value": 0.0195,
+                  "text": "4 of 205",
+                  "detail": "2.0%"
+                }
+              }
+            },
+            {
+              "label": "Documentation pages of people",
+              "values": {
+                "denial": {
+                  "value": 0.0492,
+                  "text": "3 of 61",
+                  "detail": "4.9%"
+                },
+                "register": {
+                  "value": 0.0328,
+                  "text": "2 of 61",
+                  "detail": "3.3%"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

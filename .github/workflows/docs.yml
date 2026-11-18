@@ -59,7 +59,7 @@ jobs:
         working-directory: docs/site
         env:
           DOCS_VERSION: edge
-        run: npm run build && npm run check:links && npm run check:pages-root
+        run: npm run build && npm run check:links && npm run check:pages-root && npm run check:repo-links
 
   deploy:
     name: Deploy to GitHub Pages
