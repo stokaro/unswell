@@ -28,6 +28,12 @@ grammar. It keeps the new reading only when the grammar returns a code span at
 the same bytes. A block whose spans the grammar reads gives the same result as
 before.
 
+A block at which the inline parser stops no longer fails its file. A paragraph
+such as `<ins data-ad-format==` made the parser stop before the end of the
+block, and the whole file failed. The extractor now treats it as one damaged
+block: it repairs the block when a repair applies and excludes it as
+`unparsed` otherwise. A timeout and a canceled run are still errors.
+
 ## 0.1.0-alpha.20
 
 `syntax.closing-denial-density` reads a fourth form of a denial

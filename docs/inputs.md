@@ -252,7 +252,9 @@ This is not a substitute for a compiler or a language-specific linter.
 
 Markdown and MDX degrade by block. When the inline grammar rejects one block, or
 the block grammar rejects a run of lines, that part is excluded with the reason
-`unparsed` and the rest of the file is analyzed. At most eight such runs are
+`unparsed` and the rest of the file is analyzed. A block at which the inline
+parser stops before the end of its text, such as `<ins data-ad-format=>`, is
+rejected in the same way; a timeout is still an error of the file. At most eight such runs are
 excluded per file; a file that needs more fails as a whole. A run that holds half
 of a fenced block extends to the closing fence. The run is still incomplete, the
 gate cannot pass, and the error names the file, the number of excluded blocks,
