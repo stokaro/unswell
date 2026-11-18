@@ -84,12 +84,13 @@ jobs:
         with:
           version: ${{ github.ref_name }}
           config: .unswell.yaml
-          # The action runs the CLI with its default analysis timeout of 30
-          # seconds. The whole repository needs longer on a hosted runner, so
-          # this job checks the user documentation.
-          paths: |
-            README.md
-            docs
+          # The whole repository, as a project of this size would check itself.
+          # The CLI stops an analysis after 30 seconds by default, and a hosted
+          # runner needs longer for about 1,600 documents, so the job sets the
+          # limit and the number of workers.
+          paths: .
+          timeout: 10m
+          jobs: 4
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
