@@ -1,0 +1,32 @@
+---
+// The opening picture of the research report.
+//
+// Two pages, before and after a revision. The marks that the rules name are
+// gone from the second one, the lines of the prose are the same, and one
+// bracket leads both to the same blind reading. It carries no number: the
+// figures further down the page hold those, each from its record.
+//
+// The picture is inline so that the style sheet paints it. Its classes take the
+// tokens of the site, so one drawing serves both themes.
+const label = 'Named marks disappear from a revision, but blind readers still recognize the text as model-like.';
+---
+
+<div class="u-hero">
+	<svg viewBox="0 0 720 280" width="720" height="280" role="img" aria-label={label}>
+		<text class="u-hero-label" x="224" y="32">before</text>
+		<text class="u-hero-label" x="496" y="32">after</text>
+
+		<rect class="u-hero-page" x="134" y="48" width="180" height="134" rx="2"></rect>
+		<path class="u-hero-prose" d="M154 72h113 M154 85h135 M154 98h91 M154 120h123 M154 133h135 M154 146h97 M154 159h117"></path>
+		<path class="u-hero-marks" d="M276 70h11 M252 95v6 M258 95v6 M282 117l5 3-5 3 M259 144h14 M281 157h8"></path>
+
+		<path class="u-hero-arrow" d="M337 115h46 m-6-5 6 5-6 5"></path>
+
+		<rect class="u-hero-page" x="406" y="48" width="180" height="134" rx="2"></rect>
+		<path class="u-hero-prose" d="M426 72h113 M426 85h135 M426 98h91 M426 120h123 M426 133h135 M426 146h97 M426 159h117"></path>
+
+		<path class="u-hero-reading" d="M224 194v15h272v-15 M360 209v14"></path>
+		<text class="u-hero-label" x="360" y="240">blind reading</text>
+		<text class="u-hero-result" x="360" y="258">still model-like</text>
+	</svg>
+</div>

@@ -568,6 +568,18 @@ starlight-toc a[aria-current='true']:hover {
 	margin: 0;
 }
 
+/* The text of a card and of a note arrives as paragraphs. The box sets the
+ * space around them, so the first and the last one bring none of their own. */
+.u-card__body > :first-child,
+.u-note > :first-child {
+	margin-top: 0;
+}
+
+.u-card__body > :last-child,
+.u-note > :last-child {
+	margin-bottom: 0;
+}
+
 .u-note {
 	border: 1px solid var(--u-hairline);
 	border-inline-start: 3px solid var(--u-teal-dark);
@@ -882,6 +894,73 @@ starlight-toc a[aria-current='true']:hover {
 }
 
 /* --------------------------------------------------------------- figures -- */
+
+/* The opening picture of a report. It stands on the page itself, with no box. */
+.u-hero {
+	margin: 1.5rem 0 2.5rem;
+	overflow-x: auto;
+}
+
+.u-hero svg {
+	display: block;
+	width: 100%;
+	min-width: 30rem;
+	max-width: 45rem;
+	height: auto;
+	margin-inline: auto;
+	font-family: var(--u-mono);
+	font-size: 11px;
+}
+
+.u-hero-page {
+	fill: var(--u-panel);
+	stroke: var(--u-hairline);
+	stroke-width: 1;
+}
+
+.u-hero-prose,
+.u-hero-marks {
+	fill: none;
+	stroke-width: 2;
+	stroke-linecap: round;
+}
+
+.u-hero-prose {
+	stroke: var(--u-muted);
+}
+
+.u-hero-marks {
+	stroke: var(--u-teal-dark);
+}
+
+.u-hero-arrow,
+.u-hero-reading {
+	fill: none;
+	stroke-width: 1;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.u-hero-arrow {
+	stroke: var(--u-muted);
+}
+
+.u-hero-reading {
+	stroke: var(--u-hairline);
+}
+
+.u-hero-label,
+.u-hero-result {
+	text-anchor: middle;
+}
+
+.u-hero-label {
+	fill: var(--u-muted);
+}
+
+.u-hero-result {
+	fill: var(--u-ink);
+}
 
 /* A figure of the research report. The drawing keeps its width on a phone and
  * scrolls sideways there, so that its labels stay readable. */

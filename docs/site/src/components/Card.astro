@@ -3,10 +3,12 @@ interface Props {
 	label: string;
 }
 
+// The body is a div: a page writes its text as a paragraph, and a paragraph
+// cannot hold another one.
 const { label } = Astro.props;
 ---
 
 <div class="u-card">
 	<p class="u-card__label">{label}</p>
-	<p class="u-card__body"><slot /></p>
+	<div class="u-card__body"><slot /></div>
 </div>

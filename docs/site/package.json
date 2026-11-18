@@ -16,12 +16,14 @@
     "check:links:selftest": "node scripts/check-links.mjs --selftest",
     "check:pages-root": "node scripts/check-pages-root.mjs",
     "check:pages-root:selftest": "node scripts/check-pages-root.mjs --selftest",
+    "check:markup": "node scripts/check-markup.mjs",
+    "check:markup:selftest": "node scripts/check-markup.mjs --selftest",
     "check:repo-links": "node scripts/check-repo-links.mjs",
     "check:repo-links:selftest": "node scripts/check-repo-links.mjs --selftest",
     "versions:selftest": "node scripts/gen-versions.mjs --selftest",
     "root-assets:selftest": "node scripts/publish-root-assets.mjs --selftest",
     "deployment-candidate:selftest": "node scripts/check-deployment-candidate.mjs --selftest",
-    "selftest": "npm run versions:selftest && npm run root-assets:selftest && npm run check:links:selftest && npm run check:pages-root:selftest && npm run check:repo-links:selftest && npm run deployment-candidate:selftest"
+    "selftest": "npm run versions:selftest && npm run root-assets:selftest && npm run check:links:selftest && npm run check:pages-root:selftest && npm run check:repo-links:selftest && npm run check:markup:selftest && npm run deployment-candidate:selftest"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",
