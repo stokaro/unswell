@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+An MDX page with an attribute named `class` or `for` is read
+([#620](https://github.com/stokaro/unswell/issues/620)). The tag
+`<p class="note">` stopped the scan with "invalid or unterminated MDX tag",
+because the JavaScript grammar that checks a tag reads those names as
+keywords. A tag that fails is now checked once more with such attribute names
+respelled. A damaged tag is still an error.
+
 ## 0.1.0-alpha.20
 
 `syntax.closing-denial-density` reads a fourth form of a denial

@@ -65,7 +65,8 @@ or expression is evaluated. These regions carry `mdx-expression`, `mdx-tag`,
 and `mdx-esm` exclusion reasons. Expressions insert protected boundaries.
 
 MDX supports fragments, nested components, and indented headings, lists and
-paragraphs. Fenced and inline code remain protected. As in
+paragraphs. An attribute may carry a name that JavaScript reserves, such as
+`class` or `for`. Fenced and inline code remain protected. As in
 [MDX syntax](https://mdxjs.com/docs/what-is-mdx/), literal opening braces and
 angle brackets must be escaped, and comments use `{/* ... */}`. MDX comments
 are excluded expression content; they do not activate Unswell suppressions.
