@@ -1,9 +1,9 @@
 ---
-title: What two months of measurement taught us about AI-sounding prose.
+title: What two months of measurement taught me about AI-sounding prose.
 accent: measurement
 eyebrow: Research report
-lead: Unswell set out to find the wording that makes technical prose read as a model's and to say what to rewrite. This report follows the project from its first commit in September 2026 to version alpha.20, through the methods that failed their own tests and the few that held.
-description: A research report on Unswell. What the project tried between September and November 2026, how each method was measured, which results were negative, and what the product does as a result.
+lead: I built Unswell to find the wording that makes technical prose read as a model's and to say what to rewrite. This report follows the project from its first commit in September 2026 to version alpha.20, through the methods that failed their own tests and the few that held.
+description: A research report on Unswell by Denis Vojtuk. What I tried between September and November 2026, how each method was measured, which results were negative, and what the product does as a result.
 tableOfContents:
   minHeadingLevel: 2
   maxHeadingLevel: 3
@@ -11,7 +11,10 @@ tableOfContents:
 
 import Figure from '../../components/Figure.astro';
 import Note from '../../components/Note.astro';
+import Byline from '../../components/Byline.astro';
 import ReportHero from '../../components/ReportHero.astro';
+
+<Byline author="Denis Vojtuk" date="November 18, 2026" />
 
 <ReportHero />
 
@@ -19,14 +22,14 @@ import ReportHero from '../../components/ReportHero.astro';
 
 Unswell is a linter for English prose in documentation. It started as a set of rules for formulaic wording and grew, by trial and error, into three tools: rules that report a construction, an index that says how much a page reads like a model's text, and a check of what a revision lost.
 
-This report covers the work from September 7 to November 18, 2026. Most of what we tried did not pass the test we had set for it beforehand. Statistical detectors of generated text did not transfer to technical prose. Learned selectors of sentences did not beat a word list. Rules that looked precise fired as often on sentences that editors left alone as on those they changed.
+This report covers the work from September 7 to November 18, 2026. Most of what I tried did not pass the test I had set for it beforehand. Statistical detectors of generated text did not transfer to technical prose. Learned selectors of sentences did not beat a word list. Rules that looked precise fired as often on sentences that editors left alone as on those they changed.
 
-Three things held. An index of six typographic and lexical marks, with a second reading of sentence rhythm, tells the pages before a cleanup commit from the pages of people. A fix that needs no model lowered that index on every page of its test. And a check of a revision caught every damaged copy of a page that we gave it.
+Three things held. An index of six typographic and lexical marks, with a second reading of sentence rhythm, tells the pages before a cleanup commit from the pages of people. A fix that needs no model lowered that index on every page of its test. And a check of a revision caught every damaged copy of a page that I gave it.
 
 The main result is a limit. A model that revises a post by the tool's report takes out what the rules name, and blind judges still pick the post as the model's text about as often as before. The rules name habits that a reader notices. Removing them does not make a text read as a person's.
 
 <Note>
-Every annotator, reviewer, and judge in this report is a language model. No number here is a human judgment, except where the text names professional writers or editors of a public data set. The maintainer accepted that for this work in [ADR 0041](https://github.com/stokaro/unswell/blob/main/docs/adr/0041-assistant-review-acceptance.md).
+Every annotator, reviewer, and judge in this report is a language model. No number here is a human judgment, except where the text names professional writers or editors of a public data set. I accepted that for this work in [ADR 0041](https://github.com/stokaro/unswell/blob/main/docs/adr/0041-assistant-review-acceptance.md).
 </Note>
 
 ## The question
@@ -52,7 +55,7 @@ No record in the repository holds the text of a page. A record keeps counts, has
 
 ## How a result is admitted
 
-Four habits of the project decide what counts as a result. They came out of mistakes, mostly of the kind where a number looked good on the pages that had shaped the method.
+Four habits decide what counts as a result here. They came out of my mistakes, mostly of the kind where a number looked good on the pages that had shaped the method.
 
 **The bar comes first.** A threshold is written on the issue before the run that it judges. A run that misses it is recorded as it is.
 
@@ -86,20 +89,20 @@ The linter was quiet on real pages. So the goal became recall: of the 123 events
 
 Contextual rules helped a little. Learned selectors of sentences, from small encoders to fitted classifiers, stayed below a plain lexical baseline. Pipelines that asked a model to audit a whole page recognized more events and lost others. One recognized 55 of 123 events and lost 44 that had been recognized before ([ADR 0044](https://github.com/stokaro/unswell/blob/main/docs/adr/0044-joint-wording-audit-rejected.md)). Another raised recall from 96 to 104 of the 123 events, but in the cohort of whole documents only 77.4% of its criticisms were useful ([ADR 0045](https://github.com/stokaro/unswell/blob/main/docs/adr/0045-separated-admission-rejected.md)).
 
-In the same weeks the project read the literature on detecting generated text and tried what it could run offline: its own simple measures on public data sets, and published detectors on its own kinds of text. Table 1 has six of those screens. Each had a rule written before the run.
+In the same weeks I read the literature on detecting generated text and tried what could run offline: my own simple measures on public data sets, and published detectors on the project's kinds of text. Table 1 has six of those screens. Each had a rule written before the run.
 
 | Screen | What was tried | Result | Required |
 | --- | --- | --- | --- |
-| [Span examples](https://github.com/stokaro/unswell/blob/main/research/origin/runs/2026-11-07-span-example-screen/README.md) | Our own margin over nearest example spans, after a published idea: area under the curve | 0.544 | at least 0.70 |
-| [ARB transfer](https://github.com/stokaro/unswell/blob/main/research/origin/runs/2026-11-08-arb-transfer/README.md) | Our measure of lexical richness on rewrites matched by source: area under the curve | 0.632 | 0.65 |
+| [Span examples](https://github.com/stokaro/unswell/blob/main/research/origin/runs/2026-11-07-span-example-screen/README.md) | My own margin over nearest example spans, after a published idea: area under the curve | 0.544 | at least 0.70 |
+| [ARB transfer](https://github.com/stokaro/unswell/blob/main/research/origin/runs/2026-11-08-arb-transfer/README.md) | My measure of lexical richness on rewrites matched by source: area under the curve | 0.632 | 0.65 |
 | [Mixed-authorship spans](https://github.com/stokaro/unswell/blob/main/research/origin/runs/2026-11-08-heterogeneous-spans-transfer/README.md) | The same measure on spans that a model replaced: share caught | 5.65% | 10% |
 | [RACE checkpoint](https://github.com/stokaro/unswell/blob/main/research/origin/runs/2026-11-09-race-transfer/README.md) | A published checkpoint on the matched rewrites: area under the curve | 0.692 | at least 0.75 |
 | [EditLens on old documents](https://github.com/stokaro/unswell/blob/main/research/origin/runs/2026-11-10-editlens-historical-controls/README.md) | A published detector on technical documents that people wrote: documents flagged | 20 of 462 | zero flags |
 | [MELD](https://github.com/stokaro/unswell/blob/main/research/origin/runs/2026-11-11-meld-feasibility/RESULT.md) | A published detector on text that a model polished: responses flagged | 31/228 | at least 20% |
 
-*Table 1. Six screens of signals of origin, each against the rule that was registered for it. The first three test the project's own measures on public data. The last three test published detectors.*
+*Table 1. Six screens of signals of origin, each against the rule that was registered for it. The first three test my own measures on public data. The last three test published detectors.*
 
-The published detectors may well do what their papers report on the benchmarks of those papers. On rewrites of a person's text and on technical documentation that a model has polished, neither they nor our own measures reached the floors that would let a linter act on them.
+The published detectors may well do what their papers report on the benchmarks of those papers. On rewrites of a person's text and on technical documentation that a model has polished, neither they nor my own measures reached the floors that would let a linter act on them.
 
 By November 11 more than 60 frozen pilots had failed the screen of 123 events, and the engine reached 45 of them. [ADR 0046](https://github.com/stokaro/unswell/blob/main/docs/adr/0046-assistant-panel-corpus.md) gave three reasons. The reference was too small to learn from. It was exposed, since every hypothesis had its one run on the same pages. And the corpus that the plan had called for, with labels by two human raters, did not exist.
 
@@ -109,7 +112,7 @@ The screen was retired, and the question was turned around. Instead of asking a 
 
 That showed why the linter had been quiet. Phrase rules had shipped with a handful of examples, and many rules were off because nobody had measured them. A fitted word model did not carry over either: with repositories held out it reached 18.7% recall at 85% precision on generated documents, and no recall at that precision on 164 real pages ([ADR 0047](https://github.com/stokaro/unswell/blob/main/docs/adr/0047-qualified-defaults-and-assistant-review.md)). The two reviewers agreed on which sentences need revision with a kappa of 0.43.
 
-Then came the comparison with people, and it was sobering ([ADR 0052](https://github.com/stokaro/unswell/blob/main/docs/adr/0052-claims-follow-human-references.md)). Three professional writers who edited the same paragraphs agree on which words to change with a kappa of 0.11. On documentation that maintainers reworded, the default rules flag 4.0% of the reworded sentences and 4.2% of the others. A rule set that fires as often on kept sentences as on reworded ones cannot claim to find what an editor would change, and the project stopped claiming it.
+Then came the comparison with people, and it was sobering ([ADR 0052](https://github.com/stokaro/unswell/blob/main/docs/adr/0052-claims-follow-human-references.md)). Three professional writers who edited the same paragraphs agree on which words to change with a kappa of 0.11. On documentation that maintainers reworded, the default rules flag 4.0% of the reworded sentences and 4.2% of the others. A rule set that fires as often on kept sentences as on reworded ones cannot claim to find what an editor would change, and I stopped claiming it.
 
 A second look at pages of people gave the defaults their limit. On 121 documentation pages from before November 2022, 61 had a finding of a default rule. A rule now ships on only if it reports on at most one in twenty such pages, and six rules were turned off ([ADR 0058](https://github.com/stokaro/unswell/blob/main/docs/adr/0058-default-rules-quiet-on-human-pages.md)).
 
@@ -143,13 +146,13 @@ Two findings shaped it. The blind answer does not repeat: on posts, a "better" f
 What the check of a revision lets through as "nothing lost". Above: copies of a page with one sentence changed. No damaged copy passes with either judge. Below: revisions that two models made, read by both judges. The model that revised decides more than the judge that reads, and each judge is a little kinder to revisions of its own family.
 </Figure>
 
-The last rules came from one post. The maintainer read it and named what gives it away, and two of those things could be counted: paragraph after paragraph ends by saying what something is not, and the page never leaves one formal register. Both rules report a page once.
+The last rules came from one post. I read it and named what gives it away, and two of those things could be counted: paragraph after paragraph ends by saying what something is not, and the page never leaves one formal register. Both rules report a page once.
 
 <Figure id="habits" number={6}>
 Pages that each of the two rules reports, on the measured parts. The line is the limit for a rule that ships on. The denials are a habit of that blog and not of the two writer models. The single register is a habit of all of them.
 </Figure>
 
-### The result that did not go our way
+### The result that did not go my way
 
 The goal for the last week was plain: after a revision by the tool's report, a post should not be told from an article that a person wrote. The bar said that a panel of three judges may pick the revised post as the model's text in at most 55% of cases.
 
@@ -161,7 +164,7 @@ Three pilots on the fitting half then tried harder ([record](https://github.com/
 The first pilot, on 38 posts. Above: what the product reads. Below: how many of the posts each judge picks as the model's text, against posts of people. The index falls by two thirds and the judges barely move.
 </Figure>
 
-One of the three judges explains part of this. It named the model's text in 147 of 147 pairs in which two models had written under a style guide from the outline of a human post. Whatever that judge reads lies beyond the habits that our rules name.
+One of the three judges explains part of this. It named the model's text in 147 of 147 pairs in which two models had written under a style guide from the outline of a human post. Whatever that judge reads lies beyond the habits that the rules name.
 
 ## What held and what did not
 
@@ -177,11 +180,11 @@ One of the three judges explains part of this. It named the model's text in 147 
 | A check of what a revision lost | Catches every damaged copy. Shipped. |
 | A revision that reads as a person's | Not reached by any revision that a model made. |
 
-## What we learned about measuring
+## What I learned about measuring
 
 **A number that moves is not yet a result.** The index fell after almost any edit. Only a comparison that did not use the index showed that some of those edits made the text worse.
 
-**A judge has to be asked twice.** A blind verdict that comes out differently on the next run cannot gate a cleanup of many pages. We found that out because two records had run the same revisions twice.
+**A judge has to be asked twice.** A blind verdict that comes out differently on the next run cannot gate a cleanup of many pages. I found that out because two records had run the same revisions twice.
 
 **A judge is kinder to its own family.** Each of the two judges found nothing lost more often in revisions by its own family of models. The check warns against such a pairing, and the measurement shows why.
 

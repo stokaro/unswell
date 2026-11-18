@@ -895,6 +895,15 @@ starlight-toc a[aria-current='true']:hover {
 
 /* --------------------------------------------------------------- figures -- */
 
+/* The author and the date of a report, under its lead. */
+.u-byline {
+	margin: 0 0 1.5rem;
+	font-family: var(--u-mono);
+	font-size: 0.8125rem;
+	letter-spacing: 0.02em;
+	color: var(--u-muted);
+}
+
 /* The opening picture of a report. It stands on the page itself, with no box. */
 .u-hero {
 	margin: 1.5rem 0 2.5rem;
@@ -908,58 +917,36 @@ starlight-toc a[aria-current='true']:hover {
 	max-width: 45rem;
 	height: auto;
 	margin-inline: auto;
-	font-family: var(--u-mono);
-	font-size: 11px;
 }
 
-.u-hero-page {
-	fill: var(--u-panel);
-	stroke: var(--u-hairline);
-	stroke-width: 1;
-}
-
-.u-hero-prose,
-.u-hero-marks {
+.u-hero-line {
 	fill: none;
-	stroke-width: 2;
-	stroke-linecap: round;
-}
-
-.u-hero-prose {
-	stroke: var(--u-muted);
-}
-
-.u-hero-marks {
-	stroke: var(--u-teal-dark);
-}
-
-.u-hero-arrow,
-.u-hero-reading {
-	fill: none;
-	stroke-width: 1;
+	stroke-width: 1.5;
 	stroke-linecap: round;
 	stroke-linejoin: round;
 }
 
-.u-hero-arrow {
+.u-hero-ink {
+	stroke: var(--u-ink);
+}
+
+.u-hero-muted {
 	stroke: var(--u-muted);
 }
 
-.u-hero-reading {
+.u-hero-hair {
 	stroke: var(--u-hairline);
+	stroke-width: 1;
 }
 
-.u-hero-label,
-.u-hero-result {
-	text-anchor: middle;
+.u-hero-accent {
+	stroke: var(--u-teal-dark);
 }
 
-.u-hero-label {
-	fill: var(--u-muted);
-}
-
-.u-hero-result {
-	fill: var(--u-ink);
+.u-hero-quiet {
+	fill: var(--u-panel);
+	stroke: var(--u-border-light);
+	stroke-width: 1;
 }
 
 /* A figure of the research report. The drawing keeps its width on a phone and
