@@ -1,32 +1,108 @@
 ---
 // The opening picture of the research report.
 //
-// Two pages, before and after a revision. The marks that the rules name are
-// gone from the second one, the lines of the prose are the same, and one
-// bracket leads both to the same blind reading. It carries no number: the
-// figures further down the page hold those, each from its record.
+// It shows the way the work was done and nothing of how it ended. From the
+// left, a handful of tries runs into a bar that was set before the run. Behind
+// the bar stands a column of pages that were held back to measure on. One line
+// goes on, fans out into the next tries, and meets the next bar. The picture is
+// open at its right edge.
 //
-// The picture is inline so that the style sheet paints it. Its classes take the
-// tokens of the site, so one drawing serves both themes.
-const label = 'Named marks disappear from a revision, but blind readers still recognize the text as model-like.';
+// It is inline so that the style sheet paints it. Its classes take the tokens of
+// the site, so one drawing serves both themes. It holds no text and no number.
+const label = 'Tries branch through successive rounds: each meets a bar that was set beforehand, and what passes feeds the next tries.';
 ---
 
 <div class="u-hero">
-	<svg viewBox="0 0 720 280" width="720" height="280" role="img" aria-label={label}>
-		<text class="u-hero-label" x="224" y="32">before</text>
-		<text class="u-hero-label" x="496" y="32">after</text>
-
-		<rect class="u-hero-page" x="134" y="48" width="180" height="134" rx="2"></rect>
-		<path class="u-hero-prose" d="M154 72h113 M154 85h135 M154 98h91 M154 120h123 M154 133h135 M154 146h97 M154 159h117"></path>
-		<path class="u-hero-marks" d="M276 70h11 M252 95v6 M258 95v6 M282 117l5 3-5 3 M259 144h14 M281 157h8"></path>
-
-		<path class="u-hero-arrow" d="M337 115h46 m-6-5 6 5-6 5"></path>
-
-		<rect class="u-hero-page" x="406" y="48" width="180" height="134" rx="2"></rect>
-		<path class="u-hero-prose" d="M426 72h113 M426 85h135 M426 98h91 M426 120h123 M426 133h135 M426 146h97 M426 159h117"></path>
-
-		<path class="u-hero-reading" d="M224 194v15h272v-15 M360 209v14"></path>
-		<text class="u-hero-label" x="360" y="240">blind reading</text>
-		<text class="u-hero-result" x="360" y="258">still model-like</text>
+	<svg viewBox="0 0 720 240" width="720" height="240" role="img" aria-label={label}>
+		<rect class="u-hero-quiet" x="158" y="46" width="30" height="148" rx="2"></rect>
+		<path class="u-hero-line u-hero-hair" d="M 164 58 H 182"></path>
+		<path class="u-hero-line u-hero-hair" d="M 164 70 H 182"></path>
+		<path class="u-hero-line u-hero-hair" d="M 164 82 H 182"></path>
+		<path class="u-hero-line u-hero-hair" d="M 164 94 H 182"></path>
+		<path class="u-hero-line u-hero-hair" d="M 164 106 H 182"></path>
+		<path class="u-hero-line u-hero-hair" d="M 164 118 H 182"></path>
+		<path class="u-hero-line u-hero-hair" d="M 164 130 H 182"></path>
+		<path class="u-hero-line u-hero-hair" d="M 164 142 H 182"></path>
+		<path class="u-hero-line u-hero-hair" d="M 164 154 H 182"></path>
+		<path class="u-hero-line u-hero-hair" d="M 164 166 H 182"></path>
+		<path class="u-hero-line u-hero-hair" d="M 164 178 H 182"></path>
+		<path class="u-hero-line u-hero-ink" d="M 144 38 L 144 202"></path>
+		<path class="u-hero-line u-hero-ink" d="M 139 38 H 149"></path>
+		<path class="u-hero-line u-hero-ink" d="M 139 202 H 149"></path>
+		<rect class="u-hero-quiet" x="320" y="46" width="30" height="148" rx="2"></rect>
+		<path class="u-hero-line u-hero-hair" d="M 326 58 H 344"></path>
+		<path class="u-hero-line u-hero-hair" d="M 326 70 H 344"></path>
+		<path class="u-hero-line u-hero-hair" d="M 326 82 H 344"></path>
+		<path class="u-hero-line u-hero-hair" d="M 326 94 H 344"></path>
+		<path class="u-hero-line u-hero-hair" d="M 326 106 H 344"></path>
+		<path class="u-hero-line u-hero-hair" d="M 326 118 H 344"></path>
+		<path class="u-hero-line u-hero-hair" d="M 326 130 H 344"></path>
+		<path class="u-hero-line u-hero-hair" d="M 326 142 H 344"></path>
+		<path class="u-hero-line u-hero-hair" d="M 326 154 H 344"></path>
+		<path class="u-hero-line u-hero-hair" d="M 326 166 H 344"></path>
+		<path class="u-hero-line u-hero-hair" d="M 326 178 H 344"></path>
+		<path class="u-hero-line u-hero-ink" d="M 306 38 L 306 202"></path>
+		<path class="u-hero-line u-hero-ink" d="M 301 38 H 311"></path>
+		<path class="u-hero-line u-hero-ink" d="M 301 202 H 311"></path>
+		<rect class="u-hero-quiet" x="482" y="46" width="30" height="148" rx="2"></rect>
+		<path class="u-hero-line u-hero-hair" d="M 488 58 H 506"></path>
+		<path class="u-hero-line u-hero-hair" d="M 488 70 H 506"></path>
+		<path class="u-hero-line u-hero-hair" d="M 488 82 H 506"></path>
+		<path class="u-hero-line u-hero-hair" d="M 488 94 H 506"></path>
+		<path class="u-hero-line u-hero-hair" d="M 488 106 H 506"></path>
+		<path class="u-hero-line u-hero-hair" d="M 488 118 H 506"></path>
+		<path class="u-hero-line u-hero-hair" d="M 488 130 H 506"></path>
+		<path class="u-hero-line u-hero-hair" d="M 488 142 H 506"></path>
+		<path class="u-hero-line u-hero-hair" d="M 488 154 H 506"></path>
+		<path class="u-hero-line u-hero-hair" d="M 488 166 H 506"></path>
+		<path class="u-hero-line u-hero-hair" d="M 488 178 H 506"></path>
+		<path class="u-hero-line u-hero-ink" d="M 468 38 L 468 202"></path>
+		<path class="u-hero-line u-hero-ink" d="M 463 38 H 473"></path>
+		<path class="u-hero-line u-hero-ink" d="M 463 202 H 473"></path>
+		<rect class="u-hero-quiet" x="644" y="46" width="30" height="148" rx="2"></rect>
+		<path class="u-hero-line u-hero-hair" d="M 650 58 H 668"></path>
+		<path class="u-hero-line u-hero-hair" d="M 650 70 H 668"></path>
+		<path class="u-hero-line u-hero-hair" d="M 650 82 H 668"></path>
+		<path class="u-hero-line u-hero-hair" d="M 650 94 H 668"></path>
+		<path class="u-hero-line u-hero-hair" d="M 650 106 H 668"></path>
+		<path class="u-hero-line u-hero-hair" d="M 650 118 H 668"></path>
+		<path class="u-hero-line u-hero-hair" d="M 650 130 H 668"></path>
+		<path class="u-hero-line u-hero-hair" d="M 650 142 H 668"></path>
+		<path class="u-hero-line u-hero-hair" d="M 650 154 H 668"></path>
+		<path class="u-hero-line u-hero-hair" d="M 650 166 H 668"></path>
+		<path class="u-hero-line u-hero-hair" d="M 650 178 H 668"></path>
+		<path class="u-hero-line u-hero-ink" d="M 630 38 L 630 202"></path>
+		<path class="u-hero-line u-hero-ink" d="M 625 38 H 635"></path>
+		<path class="u-hero-line u-hero-ink" d="M 625 202 H 635"></path>
+		<path class="u-hero-line u-hero-muted" d="M 32 62 H 144"></path>
+		<path class="u-hero-line u-hero-muted" d="M 32 88 H 144"></path>
+		<path class="u-hero-line u-hero-muted" d="M 32 120 H 144"></path>
+		<path class="u-hero-line u-hero-muted" d="M 32 152 H 144"></path>
+		<path class="u-hero-line u-hero-muted" d="M 32 178 H 144"></path>
+		<path class="u-hero-line u-hero-muted" d="M 188 120 C 214 120 224 62 272 62 H 306"></path>
+		<path class="u-hero-line u-hero-muted" d="M 188 120 C 214 120 224 88 272 88 H 306"></path>
+		<path class="u-hero-line u-hero-muted" d="M 188 120 C 214 120 224 120 272 120 H 306"></path>
+		<path class="u-hero-line u-hero-muted" d="M 188 120 C 214 120 224 152 272 152 H 306"></path>
+		<path class="u-hero-line u-hero-muted" d="M 188 120 C 214 120 224 178 272 178 H 306"></path>
+		<path class="u-hero-line u-hero-muted" d="M 350 120 C 376 120 386 62 434 62 H 468"></path>
+		<path class="u-hero-line u-hero-muted" d="M 350 120 C 376 120 386 88 434 88 H 468"></path>
+		<path class="u-hero-line u-hero-muted" d="M 350 120 C 376 120 386 120 434 120 H 468"></path>
+		<path class="u-hero-line u-hero-muted" d="M 350 120 C 376 120 386 152 434 152 H 468"></path>
+		<path class="u-hero-line u-hero-muted" d="M 350 120 C 376 120 386 178 434 178 H 468"></path>
+		<path class="u-hero-line u-hero-muted" d="M 512 120 C 538 120 548 62 596 62 H 630"></path>
+		<path class="u-hero-line u-hero-muted" d="M 512 120 C 538 120 548 88 596 88 H 630"></path>
+		<path class="u-hero-line u-hero-muted" d="M 512 120 C 538 120 548 120 596 120 H 630"></path>
+		<path class="u-hero-line u-hero-muted" d="M 512 120 C 538 120 548 152 596 152 H 630"></path>
+		<path class="u-hero-line u-hero-muted" d="M 512 120 C 538 120 548 178 596 178 H 630"></path>
+		<path class="u-hero-line u-hero-ink" d="M 144 120 H 188"></path>
+		<path class="u-hero-line u-hero-hair" d="M 144 88 H 170"></path>
+		<path class="u-hero-line u-hero-accent" d="M 306 120 H 350"></path>
+		<path class="u-hero-line u-hero-hair" d="M 306 88 H 332"></path>
+		<path class="u-hero-line u-hero-ink" d="M 468 120 H 512"></path>
+		<path class="u-hero-line u-hero-hair" d="M 468 88 H 494"></path>
+		<path class="u-hero-line u-hero-ink" d="M 630 120 H 674"></path>
+		<path class="u-hero-line u-hero-hair" d="M 630 88 H 656"></path>
+		<path class="u-hero-line u-hero-ink" d="M 674 120 C 681 120 684 111 688 106"></path>
+		<path class="u-hero-line u-hero-muted" d="M 674 120 C 681 120 684 130 688 134"></path>
 	</svg>
 </div>

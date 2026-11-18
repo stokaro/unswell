@@ -24,7 +24,7 @@ export const sidebar = [
 	},
 	{
 		label: 'Research',
-		items: [{ label: 'What two months of measurement taught us', slug: 'research-report' }],
+		items: [{ label: 'What two months of measurement taught me', slug: 'research-report' }],
 	},
 	{
 		label: 'Configure',
