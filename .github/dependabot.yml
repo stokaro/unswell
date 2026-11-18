@@ -9,6 +9,10 @@ updates:
       # #264 and #277: These source tags and proxy-reported revisions are unavailable.
       - dependency-name: github.com/bioshock/gospacy/v3
         versions: [3.8.14-port.3, 3.8.14-port.4, 3.8.14-port.5, 3.8.14-port.6]
+      # #592: A newer tagger model changes what the rules and the fixer do on the same text, and every bar of
+      # the records was measured with 3.2.3. An upgrade is a measured change of its own.
+      - dependency-name: github.com/jdkato/prose/v3
+        versions: [">= 3.3.0"]
     groups:
       shared-go-dependencies:
         group-by: dependency-name
