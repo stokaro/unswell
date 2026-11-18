@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/nlp"
 	"github.com/stokaro/unswell/rule"
 )
 
@@ -21,17 +22,22 @@ func habitRules() []rule.Rule {
 			"The check compares two schemas, and it runs in a minute.\n\n" +
 			"We ran the plan on a copy. The copy has the same tables.\n", Format: document.Markdown})
 	denial.Contexts, denial.RequiresStructure = []string{"paragraph"}, true
+	denial.Requires = append(denial.Requires, nlp.POS)
+	denial.Version = "2"
 	denial.TermExemptions = false
 	denial.Defaults.Enabled = true
 	denial.Defaults.Parameters = rule.Parameters{AllowedOccurrences: 2, Onset: 8}
 	denial.Parameters = []string{"allowed_occurrences", "onset"}
 	denial.Description = "Counts the paragraphs of two sentences or more whose last sentence denies: a last clause after a " +
-		"semicolon or a dash that opens with a negation, a tail of the form \", not X\", or a main clause with its negation " +
-		"among the first six words. Reports the page once when more than allowed_occurrences paragraphs end that way and " +
+		"semicolon or a dash that opens with a negation, a tail of the form \", not X\", a main clause with its negation " +
+		"among the first six words, or a clause whose negation follows its verb after a long subject, with at most nine " +
+		"words after it. Reports the page once when more than allowed_occurrences paragraphs end that way and " +
 		"they are at least onset percent of those paragraphs."
 	denial.Limitations += " One denial at the end of a paragraph is an honest limit; the rule reports a habit, not a sentence." +
 		" A condition, a question, an instruction, a sentence that addresses the reader, and \"not only\", \"not yet\"," +
-		" and the like are not counted. The forms are English, and they are read from the words, not from a parse."
+		" and the like are not counted. After a long subject, a negation in a relative clause or in quotation marks," +
+		" \"may not\", \"should not\", and \"not until\" are not counted either. The forms are English, and they" +
+		" are read from the words and their parts of speech, not from a parse."
 	register := surfacePattern("syntax.uniform-register",
 		"This page never leaves one formal register: no contraction, no aside in parentheses, no question, and no "+
 			"sentence that opens with And, But, or So. Say one or two things the way you would to a colleague.",

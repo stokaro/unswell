@@ -45,6 +45,7 @@ const (
 	deniesContracted = "The tool prints the plan. It doesn't apply it."
 	deniesTwice      = "The report lists every statement. It neither repairs SQL nor approves the next plan."
 	deniesAfterADash = "The files stay as they are. The history is read from the directory — the runner never edits one."
+	deniesLate       = "We replayed the history. Replaying an old history on a database that holds data is not a plan for a cutover."
 	endsOnAStatement = "The runner reads the old history. It keeps every file as it is."
 )
 
@@ -88,9 +89,37 @@ func TestClosingDenialDensityCountsParagraphsThatEndOnADenial(t *testing.T) {
 				"The runner stops. The fix has not been released yet."), nil,
 		},
 		{
-			"a negation far from the start of the sentence is not counted",
+			"a negation after a long subject",
+			habitPage(deniesLate,
+				"The check runs on a copy. The check that runs on the copy of the old history doesn't call the service.",
+				"The second pass is safe. The second pass over a copy of the history cannot change a file.",
+				"The plan is printed. The command shows it; the command that prints the plan for review does not apply it."),
+			[]string{"Replaying an old history on a database that holds data is not a plan for a cutover.",
+				"The check that runs on the copy of the old history doesn't call the service.",
+				"The second pass over a copy of the history cannot change a file.",
+				"The command shows it; the command that prints the plan for review does not apply it."},
+		},
+		{
+			"a late negation in a clause inside the sentence is not counted",
 			habitPage(deniesPlainly, deniesWithATail,
-				"The runner stops. The runner reads every file of the old history in order and does not stop early."), nil,
+				"The runner stops. It prints every row of the old history that the second pass does not match.",
+				"The runner stops. The report lists the files of the old history that are not in the new one.",
+				"The runner stops. It skips the files of the old history that exist on disk but are not listed.",
+				"The runner stops. The report of the last run says what the runner does not cover."), nil,
+		},
+		{
+			"a late hedge, advice, time, and quotation are not denials",
+			habitPage(deniesPlainly, deniesWithATail,
+				"The runner stops. A file of the old history in a shared directory may not be there.",
+				"The runner stops. A file of the old history in a shared directory should not be edited.",
+				"The runner stops. The second pass over the old history does not start until the first ends.",
+				"The runner stops. A comment in the old wrapper gives the reason: \"the runner does not manage roles.\""), nil,
+		},
+		{
+			"a late negation with a long rest of the sentence is not counted",
+			habitPage(deniesPlainly, deniesWithATail,
+				"The runner stops. The second pass over the old history does not read any of the files of the first pass "+
+					"again in the same run."), nil,
 		},
 		{
 			"list items, headings, and code are not paragraphs",
