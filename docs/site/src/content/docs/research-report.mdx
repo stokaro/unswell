@@ -1,0 +1,267 @@
+---
+title: What two months of measurement taught us about AI-sounding prose.
+accent: measurement
+eyebrow: Research report
+lead: Unswell set out to find the wording that makes technical prose read as a model's and to say what to rewrite. This report follows the project from its first commit in September 2026 to version alpha.20, through the methods that failed their own tests and the few that held.
+description: A research report on Unswell. What the project tried between September and November 2026, how each method was measured, which results were negative, and what the product does as a result.
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 3
+---
+
+import Figure from '../../components/Figure.astro';
+import Note from '../../components/Note.astro';
+
+## Abstract
+
+Unswell is a linter for English prose in documentation. It started as a set of rules for formulaic wording and grew, by trial and error, into three tools: rules that report a construction, an index that says how much a page reads like a model's text, and a check of what a revision lost.
+
+This report covers the work from September 7 to November 18, 2026. Most of what we tried did not pass the test we had set for it beforehand. Statistical detectors of generated text did not transfer to technical prose. Learned selectors of sentences did not beat a word list. Rules that looked precise fired as often on sentences that editors left alone as on those they changed.
+
+Three things held. An index of six typographic and lexical marks, with a second reading of sentence rhythm, tells the pages before a cleanup commit from the pages of people. A fix that needs no model lowered that index on every page of its test. And a check of a revision caught every damaged copy of a page that we gave it.
+
+The main result is a limit. A model that revises a post by the tool's report takes out what the rules name, and blind judges still pick the post as the model's text about as often as before. The rules name habits that a reader notices. Removing them does not make a text read as a person's.
+
+<Note>
+Every annotator, reviewer, and judge in this report is a language model. No number here is a human judgment, except where the text names professional writers or editors of a public data set. The maintainer accepted that for this work in [ADR 0041](https://github.com/stokaro/unswell/blob/main/docs/adr/0041-assistant-review-acceptance.md).
+</Note>
+
+## The question
+
+The typical reader of a finding already knows where the text came from. They asked a model for a README, and they want the stock phrases and the rhetorical templates pointed at, each with a reason. Their question is what to rewrite.
+
+That was not clear from the start. The first weeks mixed two aims: naming constructions worth rewriting, and telling generated text from human text. [ADR 0037](https://github.com/stokaro/unswell/blob/main/docs/adr/0037-diagnostics-not-authorship.md) separated them on September 11. Unswell gives style diagnostics. An estimate of origin can exist as research, off by default, and it can never fail a build.
+
+The second aim came back in a narrower form in November, as an index of how much a page *sounds* like a model's. That index says nothing about who wrote a page, and a person who writes in short even sentences gets the same number.
+
+## Materials
+
+The measurements used six kinds of text.
+
+- **Labeled pages.** A model annotated 123 editorial events on 36 documentation pages. For six weeks this was the screen that every new method had to pass.
+- **The panel corpus.** Seven sets of generated and real documentation pages, 3,795 documents in all, with 11,322 findings that two models from different families reviewed ([the second report](https://github.com/stokaro/unswell/blob/main/research/report-v2.md)).
+- **Edits by people.** Paragraphs that professional writers edited, from the Beemo and LAMP data sets, and documentation that maintainers reworded in pull requests.
+- **Cleanup commits.** Files before and after a commit whose message says that it removes AI-sounding wording: 959 pairs from 648 repositories for fitting and 597 pairs from 423 for the test ([ADR 0056](https://github.com/stokaro/unswell/blob/main/docs/adr/0056-rules-tested-on-de-slop-commits.md)).
+- **Text under a style guide.** Posts of one product blog that a model wrote under the blog's style guide, and texts that two models wrote from the outlines of human posts, with and without a style guide.
+- **Pages of people.** Blog posts, articles written under a style guide, and documentation pages, all from before November 2022.
+
+No record in the repository holds the text of a page. A record keeps counts, hashes, and the scripts that made them.
+
+## How a result is admitted
+
+Four habits of the project decide what counts as a result. They came out of mistakes, mostly of the kind where a number looked good on the pages that had shaped the method.
+
+**The bar comes first.** A threshold is written on the issue before the run that it judges. A run that misses it is recorded as it is.
+
+**Half of the pages are held back.** A hash assigns each page to a fitting half or to a measured half. Forms, weights, and limits are chosen on the first. The bars are read on the second.
+
+**A record recounts itself.** A record carries a program that recomputes every number of its results from the data beside it, and the repository's check runs those programs.
+
+**The published binary is tried again.** After a release, the binary from the release page is run on the same texts and has to give the same rows.
+
+<Figure id="bars" number={1}>
+Bars that were written on an issue before the run, for the nine records from November 12 on. One record stands out: the revision of posts held 8 of 18 bars, and that failure is the main result of this report.
+</Figure>
+
+## Results
+
+<Figure id="timeline" number={2}>
+Commits on the main branch by week, from the first commit to alpha.20. The history has 480 commits and 20 releases. No release came out between alpha.4 on September 13 and alpha.5 on November 11.
+</Figure>
+
+### September: an engine, and a question about origin
+
+The first alpha shipped on the day of the first commit: a Go library, a command, and an extractor that finds prose in Markdown, comments, and string literals. Within a week the project also had a statistical side, with features, calibration, and a channel for estimates of origin.
+
+The first report closed that line of work. Two frozen hypotheses about rules did not replicate. An effect of +2.96 points in development became +0.41 points on text that the screening had not seen ([the first report](https://github.com/stokaro/unswell/blob/main/research/report-v1.md)). The one signal that survived was lexical. It separated generated documentation from human code comments at recall 0.875 and a false-flag rate of 0.052, after three attempts on prepared features that turned out to measure length.
+
+What a reader receives from the catalog, that report found, follows the length of the text, then its kind, then the model that wrote it. Whether a model wrote it comes last.
+
+### September to November: recall on labeled pages
+
+The linter was quiet on real pages. So the goal became recall: of the 123 events that a reviewer had marked, how many does a method find, and how many of its findings does the reviewer accept? The bar was 80% of the events and 85% of the findings.
+
+Contextual rules helped a little. Learned selectors of sentences, from small encoders to fitted classifiers, stayed below a plain lexical baseline. Pipelines that asked a model to audit a whole page recognized more events and lost others. One recognized 55 of 123 events and lost 44 that had been recognized before ([ADR 0044](https://github.com/stokaro/unswell/blob/main/docs/adr/0044-joint-wording-audit-rejected.md)). Another raised recall from 96 to 104 of the 123 events, but in the cohort of whole documents only 77.4% of its criticisms were useful ([ADR 0045](https://github.com/stokaro/unswell/blob/main/docs/adr/0045-separated-admission-rejected.md)).
+
+In the same weeks the project read the literature on detecting generated text and tried what it could run offline: its own simple measures on public data sets, and published detectors on its own kinds of text. Table 1 has six of those screens. Each had a rule written before the run.
+
+| Screen | What was tried | Result | Required |
+| --- | --- | --- | --- |
+| [Span examples](https://github.com/stokaro/unswell/blob/main/research/origin/runs/2026-11-07-span-example-screen/README.md) | Our own margin over nearest example spans, after a published idea: area under the curve | 0.544 | at least 0.70 |
+| [ARB transfer](https://github.com/stokaro/unswell/blob/main/research/origin/runs/2026-11-08-arb-transfer/README.md) | Our measure of lexical richness on rewrites matched by source: area under the curve | 0.632 | 0.65 |
+| [Mixed-authorship spans](https://github.com/stokaro/unswell/blob/main/research/origin/runs/2026-11-08-heterogeneous-spans-transfer/README.md) | The same measure on spans that a model replaced: share caught | 5.65% | 10% |
+| [RACE checkpoint](https://github.com/stokaro/unswell/blob/main/research/origin/runs/2026-11-09-race-transfer/README.md) | A published checkpoint on the matched rewrites: area under the curve | 0.692 | at least 0.75 |
+| [EditLens on old documents](https://github.com/stokaro/unswell/blob/main/research/origin/runs/2026-11-10-editlens-historical-controls/README.md) | A published detector on technical documents that people wrote: documents flagged | 20 of 462 | zero flags |
+| [MELD](https://github.com/stokaro/unswell/blob/main/research/origin/runs/2026-11-11-meld-feasibility/RESULT.md) | A published detector on text that a model polished: responses flagged | 31/228 | at least 20% |
+
+*Table 1. Six screens of signals of origin, each against the rule that was registered for it. The first three test the project's own measures on public data. The last three test published detectors.*
+
+The published detectors may well do what their papers report on the benchmarks of those papers. On rewrites of a person's text and on technical documentation that a model has polished, neither they nor our own measures reached the floors that would let a linter act on them.
+
+By November 11 more than 60 frozen pilots had failed the screen of 123 events, and the engine reached 45 of them. [ADR 0046](https://github.com/stokaro/unswell/blob/main/docs/adr/0046-assistant-panel-corpus.md) gave three reasons. The reference was too small to learn from. It was exposed, since every hypothesis had its one run on the same pages. And the corpus that the plan had called for, with labels by two human raters, did not exist.
+
+### November 11 to 13: what editors change
+
+The screen was retired, and the question was turned around. Instead of asking a method to find marked events, two reviewers from different model families judged what the engine reported.
+
+That showed why the linter had been quiet. Phrase rules had shipped with a handful of examples, and many rules were off because nobody had measured them. A fitted word model did not carry over either: with repositories held out it reached 18.7% recall at 85% precision on generated documents, and no recall at that precision on 164 real pages ([ADR 0047](https://github.com/stokaro/unswell/blob/main/docs/adr/0047-qualified-defaults-and-assistant-review.md)). The two reviewers agreed on which sentences need revision with a kappa of 0.43.
+
+Then came the comparison with people, and it was sobering ([ADR 0052](https://github.com/stokaro/unswell/blob/main/docs/adr/0052-claims-follow-human-references.md)). Three professional writers who edited the same paragraphs agree on which words to change with a kappa of 0.11. On documentation that maintainers reworded, the default rules flag 4.0% of the reworded sentences and 4.2% of the others. A rule set that fires as often on kept sentences as on reworded ones cannot claim to find what an editor would change, and the project stopped claiming it.
+
+A second look at pages of people gave the defaults their limit. On 121 documentation pages from before November 2022, 61 had a finding of a default rule. A rule now ships on only if it reports on at most one in twenty such pages, and six rules were turned off ([ADR 0058](https://github.com/stokaro/unswell/blob/main/docs/adr/0058-default-rules-quiet-on-human-pages.md)).
+
+<Figure id="defaults" number={3}>
+Rules on the 121 documentation pages that people wrote, by the share of pages with a finding. The six rules past the line ship off since then. They name real defects of lean writing, and the strict profile turns them on.
+</Figure>
+
+### November 14 and 15: an index of a page
+
+Single findings had failed as a measure, so the next attempt looked at the page as a whole. People who clean a README of AI-sounding wording remove a short list of things: em dashes, arrows, emoji in headings and at list items, bold labels in lists, and stock words. The index counts six such marks and gives a page a number from 0 to 100.
+
+On held-out pairs it does what it was built for. It separates pages before a cleanup commit from README files of people with an area under the curve of 0.87, and it puts 18 of 566 of those README files at its highest level. `unswell fix` replaces the marks without a model. On 83 pages it lowered the index on all 83.
+
+Then the index met text that it could not read. A model that writes under a style guide leaves almost none of the six marks. On 76 posts of one product blog, written by a model under the blog's style guide, the index gave 71 of the posts its lowest level ([ADR 0060](https://github.com/stokaro/unswell/blob/main/docs/adr/0060-rhythm-reading.md)).
+
+What gives such a post away is its rhythm: run after run of plain statements of similar length. The index got a second reading that counts those runs.
+
+<Figure id="separation" number={4}>
+How well the index tells texts written by a model from blog posts of people, on the measured half. Half is chance, and a value under it means that the posts of people carried more of the marks. With the rhythm reading every set is told apart, and 14 of 352 pages of people are at the highest level.
+</Figure>
+
+### November 15 to 18: checking a revision
+
+An index invites a shortcut: revise until the number falls. It falls after almost any edit of a run of sentences. A report that asked for longer sentences took the median index of 40 posts from 69 to 23, while three judges found the revision more like a model's text than the original on 24 of the 40 ([ADR 0061](https://github.com/stokaro/unswell/blob/main/docs/adr/0061-blind-check-of-a-revision.md)). A writer who watched the index would have kept those revisions.
+
+So the product got a command that looks at a revision without the index. `unswell compare` matches the sentences of a page with those of its revision, sends every changed sentence to a judge, names the words that were left out, and asks the judge blind which of the two texts reads more like a model's.
+
+Two findings shaped it. The blind answer does not repeat: on posts, a "better" from one run came again 3 times of 8 with one judge and 0 of 3 with the other ([ADR 0066](https://github.com/stokaro/unswell/blob/main/docs/adr/0066-two-results-of-compare.md)). The result on what was lost does repeat, on 55 of 57 revisions with one judge and 49 of 57 with the other. The command now reports the two apart and lets a caller require the stable one alone.
+
+<Figure id="compare" number={5}>
+What the check of a revision lets through as "nothing lost". Above: copies of a page with one sentence changed. No damaged copy passes with either judge. Below: revisions that two models made, read by both judges. The model that revised decides more than the judge that reads, and each judge is a little kinder to revisions of its own family.
+</Figure>
+
+The last rules came from one post. The maintainer read it and named what gives it away, and two of those things could be counted: paragraph after paragraph ends by saying what something is not, and the page never leaves one formal register. Both rules report a page once.
+
+<Figure id="habits" number={6}>
+Pages that each of the two rules reports, on the measured parts. The line is the limit for a rule that ships on. The denials are a habit of that blog and not of the two writer models. The single register is a habit of all of them.
+</Figure>
+
+### The result that did not go our way
+
+The goal for the last week was plain: after a revision by the tool's report, a post should not be told from an article that a person wrote. The bar said that a panel of three judges may pick the revised post as the model's text in at most 55% of cases.
+
+It did not hold. Against blog posts of people, the panel picked 22 of 30 posts as they were published, and 22 of 30 after a revision by either model ([record](https://github.com/stokaro/unswell/blob/main/research/reviews/2026-11-15-revision-check/RESULTS.md)).
+
+Three pilots on the fitting half then tried harder ([record](https://github.com/stokaro/unswell/blob/main/research/reviews/2026-11-17-revision-pilots/README.md)). In the first, a model got the report and the list of closing sentences, and took them out: 98 such sentences became 4. In the second it rewrote each post in the manner of two human posts. In the third, six posts went through four rounds in which the strictest judge said why it took the post for a model's and the reviser got those remarks. That judge named the post in all 60 of its judgments.
+
+<Figure id="revision" number={7}>
+The first pilot, on 38 posts. Above: what the product reads. Below: how many of the posts each judge picks as the model's text, against posts of people. The index falls by two thirds and the judges barely move.
+</Figure>
+
+One of the three judges explains part of this. It named the model's text in 147 of 147 pairs in which two models had written under a style guide from the outline of a human post. Whatever that judge reads lies beyond the habits that our rules name.
+
+## What held and what did not
+
+| Tried | Outcome |
+| --- | --- |
+| Statistical detection of generated text | Did not transfer to technical prose. Kept as research, off by default. |
+| Recall on a small set of labeled pages | More than 60 pilots failed. The screen was retired. |
+| A fitted word model, sentence embeddings | No recall on real pages. Stopped. |
+| Rules as a stand-in for an editor | At chance against what editors changed. The claim was withdrawn. |
+| Rules that ship on by default | Kept under a limit of one page of people in twenty. |
+| An index of a page, with a fix | Held on pages that no fitting had seen. Shipped. |
+| A blind verdict as a gate | Does not repeat between runs. Reported, and no longer required. |
+| A check of what a revision lost | Catches every damaged copy. Shipped. |
+| A revision that reads as a person's | Not reached by any revision that a model made. |
+
+## What we learned about measuring
+
+**A number that moves is not yet a result.** The index fell after almost any edit. Only a comparison that did not use the index showed that some of those edits made the text worse.
+
+**A judge has to be asked twice.** A blind verdict that comes out differently on the next run cannot gate a cleanup of many pages. We found that out because two records had run the same revisions twice.
+
+**A judge is kinder to its own family.** Each of the two judges found nothing lost more often in revisions by its own family of models. The check warns against such a pairing, and the measurement shows why.
+
+**Held-back pages get used up.** A changed rule that is run again on the measured half has seen those pages once already. The record of the last rule says so, and two of its bars held at their limit.
+
+**Small references mislead.** A screen of 123 events absorbed six weeks. Every method had one run on the same 36 pages, so a failure said as much about those pages as about the method.
+
+## Limits
+
+The rules and the index read English. The judges are models, and where people's judgments exist (three writers on one set of paragraphs) they agree with each other only weakly. The pages are blog posts, articles, and documentation; reference pages and specifications, which people often write in one register on purpose, are outside every measurement.
+
+The posts of the product blog come from one blog and one style guide. The two habits that the last rules name were found on them, and the denials did not show up in the texts of the two other models.
+
+Unswell is an alpha. Its rules and defaults still change with what the next measurement finds.
+
+## References
+
+Each entry was opened and checked against its page on November 18, 2026. The headings say what the project did with a work.
+
+### Run by the project
+
+The method, the model, or the code of these works was run.
+
+- Kangxi Wu, Liang Pang, Huawei Shen and others (2023). [LLMDet: A Third Party Large Language Models Generated Text Detection Tool](https://aclanthology.org/2023.findings-emnlp.139/). Findings of EMNLP 2023. Its reference code was run on authored controls, and its proxy calculation and classifier were ported to Go with numerical parity. The full detector was not reproduced.
+- Yang Li, Qiang Sheng, Zhengjia Wang and others (2026). [Beyond the Final Actor: Modeling the Dual Roles of Creator and Editor for Fine-Grained LLM-Generated Text Detection](https://aclanthology.org/2026.acl-long.235/). ACL 2026. The released checkpoint was run on rewrites matched by source. It missed the rule that was set for it and was retired.
+- Katherine Thai, Bradley Emi, Elyas Masrour and others (2025). [EditLens: Quantifying the Extent of AI Editing in Text](https://arxiv.org/abs/2510.03154). arXiv. A pinned conversion of the authors' checkpoint was run in several screens. It did well on rewrites of general text and flagged technical documents that people wrote, so the score was not adopted.
+- Chenjun Li, Cheng Wan, Haomiao Chen and others (2026). [MELD: Multi-Task Equilibrated Learning Detector for AI-Generated Text](https://arxiv.org/abs/2605.06903). arXiv. A pinned checkpoint was run on technical documents. It missed the floor for text that a model polished.
+- David Heineman, Yao Dou, Mounica Maddela and others (2023). [Dancing Between Success and Failure: Edit-level Simplification Evaluation using SALSA](https://aclanthology.org/2023.emnlp-main.211/). EMNLP 2023. Its model was run on constructed technical controls as a screen of whether an edit helps. The screen was rejected.
+- Liyan Tang, Philippe Laban, Greg Durrett (2024). [MiniCheck: Efficient Fact-Checking of LLMs on Grounding Documents](https://aclanthology.org/2024.emnlp-main.499/). EMNLP 2024. Its model was run as a screen of whether an edit keeps the meaning. It let unsafe edits through, and the screen was rejected.
+- Seungone Kim, Juyoung Suk, Shayne Longpre and others (2024). [Prometheus 2: An Open Source Language Model Specialized in Evaluating Other Language Models](https://aclanthology.org/2024.emnlp-main.248/). EMNLP 2024. A local checkpoint was run as a judge with a rubric. The admission screen failed.
+- Francesco Ortame, Roberto Navigli (2026). [Variable-size Discovery and Representation of Atomic Propositions](https://aclanthology.org/2026.emnlp-main.2302/). EMNLP 2026. Its implementation was run to score the overlap of propositions between sentences. The screen stopped as a negative result.
+
+### Method taken over
+
+An idea of these works was rebuilt in the project's own code.
+
+- Dmitry Kobak, Rita González-Márquez, Emőke-Ágnes Horvát and others (2025). [Delving into LLM-assisted writing in biomedical publications through excess vocabulary](https://arxiv.org/abs/2406.07016). Science Advances. Its excess-frequency method was applied to the project's own matched documents, and its word list was read as phrase candidates. Most candidates turned out to be words of the writing task.
+- Alex Reinhart, Ben Markey, Michael Laudenbach and others (2025). [Do LLMs write like humans? Variation in grammatical and rhetorical styles](https://arxiv.org/abs/2410.16107). PNAS. Its comparison of corpora by grammatical and rhetorical features was the model for the first study. The two hypotheses that were frozen from it did not replicate.
+- Swati Rallapalli, Shannon Gallagher, Ronald Yurko and others (2026). [Interpretable Stylistic Variation in Human and LLM Writing Across Genres, Models, and Decoding Strategies](https://arxiv.org/abs/2604.14111). arXiv. Three design choices came from it: compare within a document role, treat variants of one model as one family, and hold out a family of generators.
+- Ryuto Koike, Masahiro Kaneko, Ayana Niwa and others (2026). [ExaGPT: Example-Based Machine-Generated Text Detection for Human Interpretability](https://aclanthology.org/2026.findings-acl.380/). Findings of ACL 2026. A simpler margin over nearest examples was built after it and tested. It did worse than a lexical measure and was retired; the paper's own method was not reproduced.
+- Yassir El Attar, Esra Dönmez, Maximilian Maurer and others (2026). [A Systematic Analysis of Linguistic Features in AI-Generated English Text Detection Across Domains and Models](https://aclanthology.org/2026.findings-aacl.10/). Findings of IJCNLP-AACL 2026. A small ensemble of features without a language model was built after its approach. It stayed below the floor on rewrites.
+- Zhengyang Shan, Yukyung Lee, Sophie Hao (2026). [AI Writers Have a Consistent Stylometric Footprint, but AI Editors Do Not](https://aclanthology.org/2026.emnlp-main.1725/). EMNLP 2026. The two features that it reports, lexical richness and token entropy, were tested with the project's tokenizer. Full generations moved in the paper's direction, and edits by a model did not.
+- thinkst. [ZipPy](https://github.com/thinkst/zippy). GitHub. Its compression idea was rebuilt in Go as the project's own measurement. The recorded run showed no benefit.
+- KensioSoftware. [Where the rules came from](https://github.com/KensioSoftware/kensio.ai/blob/e86fd6a4ff9ad8fc6576348f00c2140c3536744c/plugins/technical-prose-style/skills/technical-prose-style/references/measurements.md). GitHub. Five of its measured sentence shapes were tried as candidate locations on labeled pages. Too many matches fell away from any marked event, and no rule followed.
+
+### Data
+
+These data sets were used as a corpus or as a reference.
+
+- Ekaterina Artemova, Jason Lucas, Saranya Venkatraman and others (2025). [Beemo: Benchmark of Expert-edited Machine-generated Outputs](https://huggingface.co/datasets/toloka/beemo). Hugging Face dataset. Its model answers edited by experts are one of the human references for `unswell trim`.
+- Tuhin Chakrabarty, Philippe Laban, Chien-Sheng Wu (2025). [Can AI writing be salvaged? Mitigating Idiosyncrasies and Improving Human-AI Alignment in the Writing Process through Edits](https://arxiv.org/abs/2409.14509). CHI 2025. Its paragraphs edited by professional writers gave the agreement between writers and the test of models as judges of writing.
+- Masato Mita, Keisuke Sakaguchi, Masato Hagiwara and others (2024). [Towards Automated Document Revision: Grammatical Error Correction, Fluency Edits, and Beyond](https://aclanthology.org/2024.bea-1.21/). BEA 2024. Its corpus of editors' revisions was imported and checked. No model result rests on it.
+- Gaetano Perrone, Simon Pietro Romano (2026). [ARB: A Matched Authorship-Rewriting Benchmark Dataset for AI-Text Detector Evaluation](https://arxiv.org/abs/2607.29539). arXiv. Its rewrites matched by source were the test bed of several origin screens.
+- Open Text Detector (2026). [Heterogeneous AI Spans: Human/AI Mixed Documents](https://huggingface.co/datasets/open-text-detector/heterogeneous-ai-spans). Hugging Face dataset. Its documents with known replaced spans were used for a transfer screen.
+- Nils Dycke, Marina Sakharova, Nico Daheim and others (2026). ['Your AI Text is not Mine': Redefining and Evaluating AI-generated Text Detection under Realistic Assumptions](https://arxiv.org/abs/2606.04906). arXiv. Its user-study documents were used to test two lexical features.
+- Jerry999 (2026). [AI-Writing-Effect: content-paired human / AI-rewritten conference-paper prose](https://huggingface.co/datasets/Jerry999/AIWritingEffect). Hugging Face dataset. Its paired academic paragraphs were used for origin-feature screens.
+- TextSight (2026). [AI text detection: a control set that does not flatter detectors](https://huggingface.co/datasets/textsightai/ai-text-detection-benchmark-2026). Hugging Face dataset. Its passages were the target of a transfer of two frozen scores. Neither met both gates.
+- Kenichiro Ando, Satoshi Sekine, Mamoru Komachi (2024). [WikiSQE: A Large-Scale Dataset for Sentence Quality Estimation in Wikipedia](https://arxiv.org/abs/2305.05928). AAAI 2024. A simple classifier was trained on its sentences marked as vague and tried on labeled pages. It covered too few missed events.
+
+### Compared with
+
+These tools were baselines of a comparison.
+
+- vale-cli. [Vale](https://github.com/vale-cli/vale). GitHub. Its Google and Microsoft styles were baselines in the experiment with `unswell fix`.
+- btford. [write-good](https://github.com/btford/write-good). GitHub. A baseline in the same experiment, and the best of the three linters there.
+
+### Read
+
+These works were read and cited. Nothing of them was run.
+
+- Chantal Shaib, Tuhin Chakrabarty, Diego Garcia-Olano and others (2025). [Measuring AI "Slop" in Text](https://arxiv.org/abs/2509.19163). arXiv. The closest study, with spans marked by professional editors. Its data was not public when the comparison with editors was made.
+- Weixin Liang, Mert Yuksekgonul, Yining Mao and others (2023). [GPT detectors are biased against non-native English writers](https://arxiv.org/abs/2304.02819). Patterns. The source of a limit that the project records: no language background is inferred from prose.
+- Walter Laurito, Benjamin Davis, Peli Grietzer and others (2025). [AI-AI Bias: large language models favor communications generated by large language models](https://arxiv.org/abs/2407.12856). PNAS. Published support for the finding that judge models prefer raw model text.
+- Samuel Paech, Allen Roush, Judah Goldfeder and others (2025). [Antislop: A Comprehensive Framework for Identifying and Eliminating Repetitive Patterns in Language Models](https://arxiv.org/abs/2510.15061). arXiv. The word lists of its companion project were read as candidates. They come from creative writing and did not fit documentation.
+- Shoumik Saha, Soheil Feizi (2025). [Almost AI, Almost Human: The Challenge of Detecting AI-Polished Writing](https://aclanthology.org/2025.findings-acl.1303/). Findings of ACL 2025. Independent support for making no claim of origin: detectors flag lightly polished human text.
+- WikiProject AI Cleanup. [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing). Wikipedia. A list of constructions that editors curate. Its phrases overlap with the candidates that were tested.
+- Liam Dugan, Alyssa Hwang, Filip Trhlík and others (2024). [RAID: A Shared Benchmark for Robust Evaluation of Machine-Generated Text Detectors](https://aclanthology.org/2024.acl-long.674/). ACL 2024. Read for its robustness dimensions, which went into the plan of partitions.
+- Junchao Wu, Yefeng Liu, Chenyu Zhu and others (2026). [DetectRL-X: Towards Reliable Multilingual and Real-World LLM-Generated Text Detection](https://aclanthology.org/2026.acl-long.1773/). ACL 2026. Read for its taxonomy of operations, which defined the operations of the controlled experiment.
+- Guangsheng Bao, Yanbin Zhao, Zhiyang Teng and others (2024). [Fast-DetectGPT: Efficient Zero-Shot Detection of Machine-Generated Text via Conditional Probability Curvature](https://proceedings.iclr.cc/paper_files/paper/2024/hash/6b8c6f846c3575e1d1ad496abea28826-Abstract-Conference.html). ICLR 2024. Reviewed and not run: it needs token probabilities from a language model.
+- Abhimanyu Hans, Avi Schwarzschild, Valeriia Cherepanova and others (2024). [Spotting LLMs With Binoculars: Zero-Shot Detection of Machine-Generated Text](https://proceedings.mlr.press/v235/hans24a.html). ICML 2024. Reviewed and not run: it loads two large models.
+- amperser. [proselint](https://github.com/amperser/proselint). GitHub. Listed in the audit of sources as a baseline of phrases and readability.
+- retextjs. [retext](https://github.com/retextjs/retext). GitHub. Listed in the same audit, as a baseline of phrases and readability.
+- textlint. [textlint](https://github.com/textlint/textlint). GitHub. Its fixer was reviewed in the audit of sources.
+- languagetool-org. [LanguageTool](https://github.com/languagetool-org/languagetool). GitHub. Its exceptions for repetition served as controls in a pass on Unswell's own rules.
+- Automattic. [Harper](https://github.com/Automattic/harper). GitHub. Its guards for repeated words became counterexamples in the same pass.
+- bheijden. [slop](https://github.com/bheijden/slop). GitHub. Its audit with matched controls was read as a method reference.

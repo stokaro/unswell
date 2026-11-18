@@ -1,0 +1,101 @@
+---
+// One figure of the research report: a drawing, a caption, and the same numbers
+// as a table.
+//
+// The data file is written by `python3 research/report-v3/build.py --write`,
+// which reads every plotted value from a record of the repository. `make check`
+// runs the same program without --write, so a figure cannot show a number that
+// its record does not hold. The drawing and the table below it are made from
+// one object, so they cannot disagree with each other either.
+import report from '../data/research-report.json';
+import { layout } from '../lib/chart.mjs';
+
+const expectedSchema = 'unswell-docs-research-report-v1';
+if (report.schema !== expectedSchema) {
+	throw new Error(`research report schema is ${report.schema}, expected ${expectedSchema}`);
+}
+
+interface Props {
+	id: string;
+	number: number;
+}
+
+const { id, number } = Astro.props;
+const figure = (report.figures as Record<string, any>)[id];
+if (!figure) {
+	throw new Error(`the research report has no figure called ${id}`);
+}
+const drawn = layout(figure);
+const hatch = `u-fig-hatch-${id}`;
+const code = (label: string) => label.split('`');
+---
+
+<figure class="u-figure" id={`figure-${id}`}>
+	<div class="u-figure__plot">
+		<svg viewBox={`0 0 ${drawn.width} ${drawn.height}`} width={drawn.width} height={drawn.height} role="img" aria-label={figure.title}>
+			<defs>
+				<pattern id={hatch} patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+					<rect width="6" height="6" class="u-fig-s2" />
+					<line x1="0" y1="0" x2="0" y2="6" class="u-fig-hatch" />
+				</pattern>
+			</defs>
+			{drawn.lines.map((line) => (
+				<line x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2} class={line.class}>
+					{line.title && <title>{line.title}</title>}
+				</line>
+			))}
+			{drawn.paths.map((path) => (
+				<path d={path.d} class={path.hatched ? undefined : path.class} fill={path.hatched ? `url(#${hatch})` : undefined}>
+					<title>{path.title}</title>
+				</path>
+			))}
+			{drawn.dots.map((dot) => (
+				<circle cx={dot.cx} cy={dot.cy} r={dot.r} class={`${dot.class} u-fig-dot`}>
+					<title>{dot.title}</title>
+				</circle>
+			))}
+			{drawn.titles.map((title) => (
+				<text x={title.x} y={title.y} class="u-fig-title">{title.text}</text>
+			))}
+			{drawn.legends.map((entry) => (
+				<g>
+					<rect x={entry.x} y={entry.y} width="14" height="10" rx="2" class={entry.hatched ? undefined : `u-fig-s${entry.slot}`} fill={entry.hatched ? `url(#${hatch})` : undefined} />
+					<text x={entry.x + 20} y={entry.y + 9} class="u-fig-text">{entry.text}</text>
+				</g>
+			))}
+			{drawn.texts.map((text) => (
+				<text x={text.x + (text.shift ?? 0)} y={text.y} text-anchor={text.anchor} class={text.class}>{text.text}</text>
+			))}
+		</svg>
+	</div>
+	<figcaption>
+		<strong>Figure {number}.</strong> <slot />
+	</figcaption>
+	<details class="u-figure__table">
+		<summary>The numbers of figure {number}</summary>
+		{figure.panels.map((panel: any) => (
+			<table>
+				{panel.title && <caption>{panel.title}</caption>}
+				<thead>
+					<tr>
+						<th scope="col"></th>
+						{panel.series.map((series: any) => <th scope="col">{code(series.label).map((part, index) => (index % 2 ? <code>{part}</code> : part))}</th>)}
+						{panel.rows.some((row: any) => row.events) && <th scope="col">Releases</th>}
+					</tr>
+				</thead>
+				<tbody>
+					{panel.rows.map((row: any) => (
+						<tr>
+							<th scope="row">{code(row.label).map((part, index) => (index % 2 ? <code>{part}</code> : part))}</th>
+							{panel.series.map((series: any) => {
+								const cell = row.values[series.key];
+								return <td>{cell.text}{cell.detail ? `, ${cell.detail}` : ''}</td>;
+							})}
+							{panel.rows.some((other: any) => other.events) && <td>{(row.events ?? []).join(', ')}</td>}
+						</tr>
+					))}
+				</tbody>
+			</table>
+		))}
+	</details>
+</figure>
