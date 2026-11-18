@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"slices"
 	"strings"
 
 	ts "github.com/odvcencio/gotreesitter"
@@ -49,6 +50,23 @@ func (m *mdxMasker) candidate(source []byte, kind string) (bool, error) {
 	if kind == "tag" {
 		input = mdxTagProgram(input)
 	}
+	ok, err := m.accepts(source, input, kind)
+	if ok || err != nil || kind != "tag" {
+		return ok, err
+	}
+	// HTML names attributes "class" and "for", and JSX allows them. The
+	// JavaScript grammar reads such a name as a keyword and rejects the tag, so
+	// a tag that failed is tried once more with those names respelled.
+	respelled := mdxKeywordAttributes(input)
+	if respelled == input {
+		return false, nil
+	}
+	return m.accepts(source, respelled, kind)
+}
+
+// accepts parses one candidate program and reports whether it is the complete
+// construct of its kind. The source is the candidate as the page wrote it.
+func (m *mdxMasker) accepts(source []byte, input, kind string) (bool, error) {
 	m.remaining -= len(input)
 	if m.remaining < 0 {
 		return false, fmt.Errorf("MDX syntax exceeds the parse-input budget (16 times source bytes plus 64 KiB)")
@@ -75,6 +93,95 @@ func (m *mdxMasker) candidate(source []byte, kind string) (bool, error) {
 		return m.tag(source, root, syntax.lang)
 	}
 	return true, nil
+}
+
+// javascriptWords are the words that JavaScript reserves or reads in a special
+// way. Each is a legal name of a JSX attribute.
+var javascriptWords = []string{"async", "await", "break", "case", "catch", "class", "const", "continue", "debugger",
+	"default", "delete", "do", "else", "enum", "export", "extends", "false", "finally", "for", "function", "get", "if",
+	"import", "in", "instanceof", "let", "new", "null", "of", "return", "set", "static", "super", "switch", "this",
+	"throw", "true", "try", "typeof", "var", "void", "while", "with", "yield"}
+
+// mdxKeywordAttributes respells each attribute name of a tag that is a word of
+// JavaScript: its first letter becomes a capital, so the length of the tag
+// stays the same. Only a name counts: a word after white space, outside
+// quotes and braces, and before "=", white space, "/", or ">". A word inside
+// an attribute value is left as it is, so a damaged expression stays damaged.
+func mdxKeywordAttributes(tag string) string {
+	out := []byte(tag)
+	var values tagValues
+	for pos := 1; pos < len(out); pos++ {
+		outside, escaped := values.read(out[pos])
+		if escaped {
+			pos++
+		} else if outside {
+			pos = respellAttributeName(out, pos)
+		}
+	}
+	return string(out)
+}
+
+// tagValues follows the attribute values of a tag: its strings and the braces
+// of its expressions.
+type tagValues struct {
+	depth int
+	quote byte
+}
+
+// read takes the next byte of a tag. It reports whether the byte stands
+// outside every value, and whether it escapes the byte after it.
+func (v *tagValues) read(char byte) (outside, escapes bool) {
+	if v.quote != 0 {
+		return false, v.quoted(char)
+	}
+	switch char {
+	case '"', '\'':
+		v.quote = char
+	case '`':
+		if v.depth == 0 {
+			return true, false
+		}
+		v.quote = char
+	case '{':
+		v.depth++
+	case '}':
+		v.depth--
+	default:
+		return v.depth == 0, false
+	}
+	return false, false
+}
+
+// quoted takes a byte inside a string and reports whether it escapes the byte
+// after it. A backslash does that in a string of an expression, and stands for
+// itself in the string of a plain attribute.
+func (v *tagValues) quoted(char byte) bool {
+	if char == '\\' && v.depth > 0 {
+		return true
+	}
+	if char == v.quote {
+		v.quote = 0
+	}
+	return false
+}
+
+// respellAttributeName capitalizes the lowercase word at pos when it is an
+// attribute name and a word of JavaScript, and returns the place of its last
+// byte, or pos when no word starts there.
+func respellAttributeName(tag []byte, pos int) int {
+	const space = " \t\r\n"
+	lower := func(char byte) bool { return char >= 'a' && char <= 'z' }
+	if !lower(tag[pos]) || strings.IndexByte(space, tag[pos-1]) < 0 {
+		return pos
+	}
+	end := pos
+	for end < len(tag) && lower(tag[end]) {
+		end++
+	}
+	if end < len(tag) && strings.IndexByte(space+"=/>", tag[end]) >= 0 && slices.Contains(javascriptWords, string(tag[pos:end])) {
+		tag[pos] -= 'a' - 'A'
+	}
+	return end - 1
 }
 
 func mdxESMProgram(root *ts.Node, lang *ts.Language) bool {

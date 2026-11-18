@@ -106,6 +106,55 @@ func TestMDXGrammarBoundaries(t *testing.T) {
 	}
 }
 
+func TestMDXAttributeNamedAsAJavaScriptWord(t *testing.T) {
+	for name, test := range map[string]struct{ tag, source string }{
+		"class":           {`<p class="note">`, `<p class="note">The server reads the request.</p>`},
+		"for":             {`<label for="name">`, `<label for="name">The server reads the request.</label>`},
+		"class of a part": {`<Note class="wide">`, `<Note class="wide">The server reads the request.</Note>`},
+		"two attributes": {`<div id="a" class="note" data-kind="for">`,
+			`<div id="a" class="note" data-kind="for">The server reads the request.</div>`},
+		"without a value": {`<track default kind="captions" />`, `<track default kind="captions" /> The server reads the request.`},
+		"over two lines":  {"<div\n  class=\"note\"\n>", "<div\n  class=\"note\"\n>\n\nThe server reads the request.\n\n</div>"},
+	} {
+		t.Run(name, func(t *testing.T) {
+			c := qt.New(t)
+			source := "# Page\n\nThe client opens a connection.\n\n" + test.source + "\n\nThe server answers.\n"
+			doc, err := extract.Parse(t.Context(), document.Source{Name: "page.mdx", Format: document.MDX,
+				Bytes: []byte(source)}, extract.Options{IncludeStructure: true})
+			c.Assert(err, qt.IsNil)
+			c.Assert(string(doc.Source), qt.Equals, source)
+			text := mdxText(doc)
+			for _, expected := range []string{"The client opens a connection.", "The server reads the request.", "The server answers."} {
+				c.Assert(text, qt.Contains, expected)
+			}
+			for _, absent := range []string{"class", "note", "captions", "name"} {
+				c.Assert(text, qt.Not(qt.Contains), absent)
+			}
+			assertMDXExclusion(t, doc, test.tag, "mdx-tag")
+			assertMDXMapping(t, doc, source)
+		})
+	}
+}
+
+func TestMDXAttributeNameDoesNotExcuseADamagedTag(t *testing.T) {
+	// The second reading of a tag respells an attribute name and nothing else: a word of JavaScript inside a value
+	// is still read by the grammar, and a tag that is damaged stays an error.
+	for _, source := range []string{
+		`<p class=>The server reads the request.</p>`,
+		`<p class="note>The server reads the request.</p>`,
+		`<a href={class}>The server reads the request.</a>`,
+		`<a href={for}>The server reads the request.</a>`,
+		`<p class="note">The server reads the request.</div>`,
+		`<p class="note">The server reads the request.`,
+	} {
+		t.Run(source[:min(22, len(source))], func(t *testing.T) {
+			_, err := extract.Parse(t.Context(), document.Source{Name: "broken.mdx", Format: document.MDX,
+				Bytes: []byte(source)}, extract.Options{})
+			qt.New(t).Assert(err, qt.IsNotNil)
+		})
+	}
+}
+
 func TestMDXMarkdownProtection(t *testing.T) {
 	c := qt.New(t)
 	source := "<Panel>\n\n```mdx\n{unclosed\n<Invalid\nimport broken\n```\n\n" +
