@@ -279,6 +279,15 @@ file that the grammars accept is read from its own bytes as before.
   such as `[Install &amp; use](#install)`. In MDX such a list still fails the
   file.
 
+The inline grammar can also accept a block and drop a code span that holds a
+`<`, as in ``Use `<total target-rule diagnostics>` here.`` It gives no error.
+The rules then read the words of the span as prose, and the grammar can take
+the text between two such spans for code. The extractor parses such a block
+again with the bracket masked for the grammar. It uses the new reading only
+when the grammar returns a code span at the bytes of each span that CommonMark
+pairs. Otherwise the first reading stays. The extractor does not parse a block
+again when the grammar reads its spans.
+
 A lone `|` after a Markdown table ends the table. Following prose retains its
 paragraph or list-item context, including inside quoted blocks. The scanner
 adapter handles this boundary without changing source bytes. Rows with two or

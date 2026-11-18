@@ -2,6 +2,10 @@ package extract
 
 import (
 	"bytes"
+	"context"
+	"slices"
+
+	ts "github.com/odvcencio/gotreesitter"
 
 	"github.com/stokaro/unswell/document"
 )
@@ -24,16 +28,8 @@ import (
 // bracket is literal text and is overwritten with other punctuation.
 func maskInlineDefects(source []byte, expected map[document.Span]string) bool {
 	changed := false
-	for _, span := range codeSpans(source) {
-		code := source[span.Start:span.End]
-		if bytes.IndexByte(code, '<') < 0 {
-			continue
-		}
-		for index, char := range code {
-			if char == '<' {
-				code[index] = 'x'
-			}
-		}
+	for _, span := range bracketCodeSpans(source) {
+		maskOpenBrackets(source[span.Start:span.End])
 		expected[span] = "code_span"
 		changed = true
 	}
@@ -135,6 +131,77 @@ func htmlValueEnd(source []byte, pos int) int {
 		return -1
 	}
 	return end
+}
+
+// restoreCodeSpans repairs a tree that the grammar built without an error and
+// without a code span that CommonMark has. With a "<" inside the span the
+// grammar can drop the span silently: its words become prose, and its
+// backticks can pair with those of the next span. Such a span gets the same
+// repair as in a rejected block. The repaired tree is used only when it has a
+// code span at each of those spans; otherwise the reading stays as it was. A
+// block whose tree has every such span is left alone.
+func restoreCodeSpans(ctx context.Context, original syntaxTree, source []byte) syntaxTree {
+	lost := lostCodeSpans(ctx, original, source)
+	if len(lost) == 0 {
+		return original
+	}
+	trial := bytes.Clone(source)
+	expected := make(map[document.Span]string, len(lost))
+	for _, span := range lost {
+		maskOpenBrackets(trial[span.Start:span.End])
+		expected[span] = "code_span"
+	}
+	repaired, err := parseInlineBoundaries(ctx, trial, expected)
+	if err != nil {
+		return original
+	}
+	original.tree.Release()
+	copy(source, trial)
+	return repaired
+}
+
+// lostCodeSpans returns the code spans that hold a "<" and that the tree does
+// not have as a code span node at the same bytes.
+func lostCodeSpans(ctx context.Context, syntax syntaxTree, source []byte) []document.Span {
+	paired := bracketCodeSpans(source)
+	if len(paired) == 0 {
+		return nil
+	}
+	found := make(map[document.Span]bool)
+	err := walkSyntax(ctx, syntax.tree.RootNode(), 0, func(node *ts.Node) (bool, error) {
+		if node.Type(syntax.lang) != "code_span" {
+			return false, nil
+		}
+		found[syntaxSpan(node, 0)] = true
+		return true, nil
+	})
+	if err != nil && ctx.Err() != nil {
+		return nil
+	}
+	// A tree that is too deep to walk hides its spans: the grammar nests one
+	// level for each inline element before a span that it dropped. The spans
+	// not seen count as lost, and the repaired tree decides.
+	return slices.DeleteFunc(paired, func(span document.Span) bool { return found[span] })
+}
+
+// bracketCodeSpans returns the code spans of codeSpans that hold a "<".
+func bracketCodeSpans(source []byte) []document.Span {
+	if bytes.IndexByte(source, '`') < 0 || bytes.IndexByte(source, '<') < 0 {
+		return nil
+	}
+	return slices.DeleteFunc(codeSpans(source), func(span document.Span) bool {
+		return bytes.IndexByte(source[span.Start:span.End], '<') < 0
+	})
+}
+
+// maskOpenBrackets overwrites each "<" of a code span. A ">" stays, because it
+// may end markup that began before the span.
+func maskOpenBrackets(code []byte) {
+	for index, char := range code {
+		if char == '<' {
+			code[index] = 'x'
+		}
+	}
 }
 
 // codeSpans pairs backtick runs as CommonMark does: a run opens a code span

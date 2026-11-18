@@ -18,6 +18,16 @@ cell written as `||`. The last is a list item that starts with a link whose
 label holds a character reference such as `&amp;`. A page that parsed before
 gives the same blocks and exclusions.
 
+Every block now protects a code span that holds a `<`
+([#626](https://github.com/stokaro/unswell/issues/626)). In a paragraph such as
+``Use `<total target-rule diagnostics>` here.`` the inline grammar gave no
+error and dropped the span. The rules then read the words of the span as
+prose, and the grammar could take the text between two such spans for code.
+The extractor now parses such a block again with the bracket masked for the
+grammar. It keeps the new reading only when the grammar returns a code span at
+the same bytes. A block whose spans the grammar reads gives the same result as
+before.
+
 ## 0.1.0-alpha.20
 
 `syntax.closing-denial-density` reads a fourth form of a denial
