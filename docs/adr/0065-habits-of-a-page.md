@@ -33,7 +33,8 @@ most one in twenty of them.
    reports the page once, with each such sentence, when more than two
    paragraphs end that way and they are at least 8% of those paragraphs.
 
-2. **A denial has one of three forms**, read from the words of the last
+2. **A denial has one of three forms** (a fourth came later, see below),
+   read from the words of the last
    sentence: a last clause after a semicolon or a dash that opens with a
    negation; a tail ", not X"; a main clause with its negation among the
    first six words. A contraction of "not" is a negation, so a reviser who
@@ -111,10 +112,49 @@ picks all 38 before and after. A rewrite in the manner of two human posts and
 four rounds of revision by the judge's own remarks moved nothing either. The
 rules name what a reader notices. They are no way to pass for a person.
 
+## A fourth form of a denial
+
+November 18, 2026
+([issue 607](https://github.com/stokaro/unswell/issues/607)). The third form
+needs the negation among the first six words, so a closing sentence with a
+long subject was not counted: "Replaying an old history on a database that
+holds data is not a plan for a cutover."
+
+A fourth form counts a last clause whose negation stands past the sixth
+word, follows its verb, and has at most nine words after it. A negation that
+far into a sentence often belongs to a smaller clause, so the form leaves
+alone a relative clause, a clause after "what", "why", "how", or "where",
+"may not" and "should not", "not ... until", and quotation marks. To tell a
+relative clause that has closed from one that has not, the rule now reads the
+parts of speech of the words, and its version is 2.
+
+The form was chosen on the fitting halves. Its first definition reported 7 of
+228 articles of people there, because it counted negations in relative
+clauses. The measured parts had been run once with three forms, so the run of
+this form was their second use. The bars were written on the issue before it,
+and all 7 hold:
+
+| Pages of the measured parts | Pages | Reported with three forms | With four |
+| --- | ---: | ---: | ---: |
+| Posts of the style-guide set | 30 | 13 (43.3%) | 14 (46.7%) |
+| Blog posts that people wrote before November 2022 | 77 | 1 (1.3%) | 1 (1.3%) |
+| Articles that people wrote under a style guide | 205 | 1 (0.5%) | 3 (1.5%) |
+| Documentation pages that people wrote before November 2022 | 61 | 2 (3.3%) | 3 (4.9%) |
+| Texts that two models wrote under a style guide | 120 | 1 (0.8%) | 1 (0.8%) |
+
+On the posts the rule counts 79 closing denials where it counted 68. Two bars
+hold at their limit: the form adds 3 reported pages of people, where 3 were
+allowed, and the documentation pages stand at 3 of 61, where a fourth page
+would pass one in twenty. A later change that makes the rule report more has
+no room left on those pages.
+
+The [record](../../research/reviews/2026-11-18-late-denial/README.md) holds
+the counts and recounts them.
+
 ## Not covered
 
-People as judges. A language other than English. A denial whose
-negation stands after the sixth word of its clause.
+People as judges. A language other than English. A relative clause without
+"that" after a long subject, which the fourth form takes for the main clause.
 
 The [record](../../research/reviews/2026-11-17-page-habits/README.md) holds
 the counts and recounts them, and [the documentation](../page-habits.md) says

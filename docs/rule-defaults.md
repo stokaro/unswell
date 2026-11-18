@@ -144,6 +144,10 @@ They entered on a comparison of sets of pages, with the bars written on issue
 | Documentation pages that people wrote before November 2022 | 61 | 2 (3.3%) | 2 (3.3%) |
 | Texts that two models wrote under a style guide | 120 | 1 (0.8%) | 110 (91.7%) |
 
+The first rule has had a fourth form of a denial since
+[issue 607](https://github.com/stokaro/unswell/issues/607). With it the rule
+reports 14, 1, 3, 3, and 1 of the pages of those five rows.
+
 Each is within the limit of ADR 0058 on every kind of page that people wrote.
 On the reference of ADR 0056 neither is confirmed: the files that the first
 reports go from 54 to 55 of 985 after the commit, and those of the second

@@ -142,9 +142,10 @@ half then showed that a page revised until both are quiet is still told from
 human posts, as is one revised in four rounds by a judge's own remarks
 ([record](../research/reviews/2026-11-17-revision-pilots/README.md)). Open
 after it: whether paragraphs that a person wrote change what a blind judge
-names; a denial whose negation stands late in its clause
-([#607](https://github.com/stokaro/unswell/issues/607)); reference pages and
-specifications; and a language other than English.
+names; reference pages and specifications; and a language other than English.
+The first rule has since got a fourth form, for a denial whose negation
+stands late in its clause
+([#607](https://github.com/stokaro/unswell/issues/607)).
 
 [ADR 0066](adr/0066-two-results-of-compare.md) makes `unswell compare` say
 apart whether nothing is lost and whether the revision reads less like a
