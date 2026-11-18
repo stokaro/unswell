@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased
+
+`syntax.closing-denial-density` reads a fourth form of a denial
+([documentation](docs/page-habits.md#the-fourth-form-of-a-denial)). The rule
+needed the negation among the first six words of a main clause, so it did
+not count a closing sentence with a long subject: "Replaying an old history
+on a database that holds data is not a plan for a cutover." It now counts a
+last clause whose negation follows its verb later, with at most nine words
+after it. A negation in a relative clause or in quotation marks, "may not",
+"should not", and "not ... until" are left alone. The rule reads the parts
+of speech of the words for this, and its version is 2.
+
+The bars were written on issue 607 before the run, and all 7 hold. On the 30
+measured posts the rule counts 79 closing denials where it counted 68, and it
+reports 14 posts where it reported 13. Of 343 pages that people wrote it
+reports 7 where it reported 4, within one page in twenty for each kind.
+
 ## 0.1.0-alpha.19
 
 `unswell compare` now gives two results and lets you choose what a revision

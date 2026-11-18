@@ -15,6 +15,8 @@ const (
 	denialReach = 6
 	// denialTail bounds the words after ", not" at the end of a sentence.
 	denialTail = 12
+	// denialLateTail bounds the words after a negation that stands late in its clause.
+	denialLateTail = 9
 )
 
 // denialWords deny what a clause says. A word that ends in n't counts too.
@@ -36,6 +38,25 @@ var boundedNegations = []string{"only", "just", "uncommon", "unusual", "necessar
 
 // statusWords make a negation a report of where things stand now.
 var statusWords = []string{"yet", "anymore"}
+
+// denyingVerbs stand before a negation that denies a fact: "is not", "does
+// not", "can't". A contraction is cut after its verb, so "ca" and "wo" are
+// here too. "May not" hedges and "should not" advises, and neither denies.
+var denyingVerbs = []string{"is", "are", "was", "were", "am", "do", "does", "did", "has", "have", "had", "can", "ca", "could",
+	"will", "wo", "would"}
+
+// embeddingWords open a clause that runs to the end of its sentence. A
+// negation after one of them belongs to that clause.
+var embeddingWords = []string{"where", "why", "how", "what"}
+
+// relativeWords open a clause that can close before the verb of the main clause.
+var relativeWords = []string{"that", "which", "who", "whom", "whose"}
+
+// finiteTags are the tags of a verb that a clause can stand on.
+var finiteTags = []string{"VBZ", "VBP", "VBD", "MD"}
+
+// quotationMarks open and close the words of someone else.
+var quotationMarks = []string{"\"", "“", "”", "``", "''"}
 
 // closingDenials reports a page whose paragraphs end on a denial: a last
 // sentence that says what something is not, or what it does not do. The page
@@ -69,9 +90,10 @@ func closingDenials(ctx context.Context, view rule.View, emit rule.Emitter) erro
 }
 
 // closingDenial reports a sentence that says what something is not or does
-// not do, in one of three forms: a last clause after a semicolon or a dash
-// that opens with a negation, a tail of the form ", not X", or a main clause
-// with its negation among the first words.
+// not do, in one of four forms: a last clause after a semicolon or a dash
+// that opens with a negation, a tail of the form ", not X", a main clause
+// with its negation among the first words, or a clause whose negation stands
+// late, after a long subject.
 func closingDenial(sentence document.Sentence) bool {
 	text := strings.TrimSpace(sentence.Text)
 	if strings.HasSuffix(text, "?") || strings.HasSuffix(text, ":") {
@@ -81,12 +103,16 @@ func closingDenial(sentence document.Sentence) bool {
 	if len(words) < 3 || hasNormal(sentence.Tokens, words, statusWords) {
 		return false
 	}
+	// The last clause is what a sentence ends on, so a late negation is read there.
+	last := words
 	if tail := lastClause(sentence.Tokens, words); tail != nil {
 		if deniesEarly(sentence.Tokens, tail) {
 			return true
 		}
+		last = tail
 	}
-	return commaNot(sentence.Tokens) || (!addressesReader(sentence.Tokens, words) && deniesEarly(sentence.Tokens, words))
+	return commaNot(sentence.Tokens) || (!addressesReader(sentence.Tokens, words) && deniesEarly(sentence.Tokens, words)) ||
+		deniesLate(sentence.Tokens, last)
 }
 
 // wordIndexes returns the positions of the words among the tokens.
@@ -162,6 +188,92 @@ func deniesEarly(tokens []document.Token, words []int) bool {
 		return true
 	}
 	return false
+}
+
+// deniesLate reports a clause that denies after a long subject: "Replaying an
+// old history on a database that holds data is not a plan for a cutover." Its
+// last negation stands past the first words, with a few words after it, and
+// denies the verb of the main clause. "Not ... until" states a time, and a
+// negation inside quotation marks is quoted.
+func deniesLate(tokens []document.Token, words []int) bool {
+	position := lastNegation(tokens, words)
+	after := len(words) - 1 - position
+	if position < denialReach || after < 1 || after > denialLateTail {
+		return false
+	}
+	verb := deniedVerb(tokens, words, position)
+	if verb < 0 || frameWord(tokens[words[position+1]], boundedNegations...) || hasNormal(tokens, words[position+1:], []string{"until"}) {
+		return false
+	}
+	return !quoted(tokens, words[position]) && statesFact(tokens, words[:verb]) && mainVerb(tokens, words, verb)
+}
+
+// quoted reports a token inside quotation marks: the words of someone else,
+// which the sentence repeats and does not say.
+func quoted(tokens []document.Token, index int) bool {
+	marks := 0
+	for _, token := range tokens[:index] {
+		if !token.Word && !token.Protected && slices.Contains(quotationMarks, token.Text) {
+			marks++
+		}
+	}
+	return marks%2 == 1
+}
+
+// lastNegation returns the position of the last negation among the words, or -1.
+func lastNegation(tokens []document.Token, words []int) int {
+	for position, index := range slices.Backward(words) {
+		if negation(tokens[index]) {
+			return position
+		}
+	}
+	return -1
+}
+
+// deniedVerb returns the position of the verb that a negation denies: the
+// word "cannot", or one of denyingVerbs right before the negation or
+// contracted with it. It returns -1 when the negation follows no such verb.
+func deniedVerb(tokens []document.Token, words []int, position int) int {
+	normal := strings.ReplaceAll(tokens[words[position]].Normal, "’", "'")
+	if stem, contracted := strings.CutSuffix(normal, "n't"); normal == "cannot" || (contracted && slices.Contains(denyingVerbs, stem)) {
+		return position
+	}
+	if position > 0 && frameWord(tokens[words[position-1]], denyingVerbs...) {
+		return position - 1
+	}
+	return -1
+}
+
+// statesFact reports the words before a verb that give no instruction, open
+// no condition, time, reason, or embedded question, and do not address the
+// reader.
+func statesFact(tokens []document.Token, before []int) bool {
+	if len(before) == 0 || frameWord(tokens[before[0]], instructionOpeners...) {
+		return false
+	}
+	return !hasNormal(tokens, before, clauseOpeners) && !hasNormal(tokens, before, embeddingWords) && !hasNormal(tokens, before, readerWords)
+}
+
+// mainVerb reports a verb that stands in no relative clause. A clause that
+// "that", "which", or "who" opens before the verb has to close first: it has a
+// finite verb of its own, and "and", "but", or "or" does not join the verb to
+// it. "The rows that the pass does not match" denies nothing about the rows.
+func mainVerb(tokens []document.Token, words []int, verb int) bool {
+	opener := -1
+	for position := verb - 1; position >= 0 && opener < 0; position-- {
+		if frameWord(tokens[words[position]], relativeWords...) {
+			opener = position
+		}
+	}
+	if opener < 0 {
+		return true
+	}
+	if frameWord(tokens[words[verb-1]], "and", "but", "or") {
+		return false
+	}
+	return slices.ContainsFunc(words[opener+1:verb], func(index int) bool {
+		return !tokens[index].Protected && slices.Contains(finiteTags, tokens[index].Tag)
+	})
 }
 
 // addressesReader reports a sentence that speaks to the reader in its first words.

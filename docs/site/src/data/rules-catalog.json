@@ -1081,7 +1081,7 @@
       "rules": [
         {
           "id": "syntax.closing-denial-density",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "document",
@@ -1094,8 +1094,8 @@
           "weight": 0,
           "cap": 0,
           "summary": "Several paragraphs end by saying what something is not; end most of them on what it is or does.",
-          "description": "Counts the paragraphs of two sentences or more whose last sentence denies: a last clause after a semicolon or a dash that opens with a negation, a tail of the form \", not X\", or a main clause with its negation among the first six words. Reports the page once when more than allowed_occurrences paragraphs end that way and they are at least onset percent of those paragraphs.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. One denial at the end of a paragraph is an honest limit; the rule reports a habit, not a sentence. A condition, a question, an instruction, a sentence that addresses the reader, and \"not only\", \"not yet\", and the like are not counted. The forms are English, and they are read from the words, not from a parse."
+          "description": "Counts the paragraphs of two sentences or more whose last sentence denies: a last clause after a semicolon or a dash that opens with a negation, a tail of the form \", not X\", a main clause with its negation among the first six words, or a clause whose negation follows its verb after a long subject, with at most nine words after it. Reports the page once when more than allowed_occurrences paragraphs end that way and they are at least onset percent of those paragraphs.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. One denial at the end of a paragraph is an honest limit; the rule reports a habit, not a sentence. A condition, a question, an instruction, a sentence that addresses the reader, and \"not only\", \"not yet\", and the like are not counted. After a long subject, a negation in a relative clause or in quotation marks, \"may not\", \"should not\", and \"not until\" are not counted either. The forms are English, and they are read from the words and their parts of speech, not from a parse."
         },
         {
           "id": "syntax.long-sentence",
