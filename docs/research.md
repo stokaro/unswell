@@ -36,6 +36,12 @@ were negative. Its figures are built from the records by
 `research/report-v3/build.py`, and `make check-research-report` checks every
 number of its prose against its source.
 
+The [review of published methods and open-source projects](research/method-re-review.md)
+has one row for each method that this project read or ran. A row says what
+the method claims, what was tested here, whether the conclusion still follows
+now that the screen of 123 events is retired, and whether a trial is worth
+its cost.
+
 The [learning-data investigation](research/learning-data-methods.md) compares
 source-span and intent learning, LLM annotation, explanation supervision,
 weak supervision, and Python libraries against completed local experiments.
