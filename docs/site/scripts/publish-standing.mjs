@@ -13,9 +13,15 @@ import { extname, join } from 'node:path';
 import { StandingPages } from '../src/lib/docs-origin.mjs';
 import { isVersionFolder } from './gen-versions.mjs';
 
-// ASSET_FOLDERS hold what a page loads: the bundles and images of the build,
-// and the search index.
-const ASSET_FOLDERS = ['_astro', 'pagefind'];
+// BUNDLES holds what a page loads: the bundles and images of the build. Their
+// names carry a hash of their content, so this folder is merged into the one
+// that the latest release may already have put at the root.
+const BUNDLES = '_astro';
+
+// SEARCH is the search index. The root keeps the index of the latest release
+// when it has one; the index of this build is published only into a root
+// without one.
+const SEARCH = 'pagefind';
 
 // ROOT_FILE_TYPES are the files of public/ that a page names at the root, such
 // as its icon and the picture of a shared link.
@@ -36,14 +42,18 @@ export function publish(distDir, siteDir, pages = StandingPages) {
 		cpSync(join(distDir, page), join(siteDir, page), { recursive: true });
 		written.push(`${page}/`);
 	}
-	for (const folder of ASSET_FOLDERS) {
-		if (!existsSync(join(distDir, folder))) continue;
-		rmSync(join(siteDir, folder), { recursive: true, force: true });
-		cpSync(join(distDir, folder), join(siteDir, folder), { recursive: true });
-		written.push(`${folder}/`);
+	if (existsSync(join(distDir, BUNDLES))) {
+		cpSync(join(distDir, BUNDLES), join(siteDir, BUNDLES), { recursive: true });
+		written.push(`${BUNDLES}/`);
+	}
+	if (existsSync(join(distDir, SEARCH)) && !existsSync(join(siteDir, SEARCH))) {
+		cpSync(join(distDir, SEARCH), join(siteDir, SEARCH), { recursive: true });
+		written.push(`${SEARCH}/`);
 	}
 	for (const entry of readdirSync(distDir, { withFileTypes: true })) {
 		if (!entry.isFile() || !ROOT_FILE_TYPES.has(extname(entry.name))) continue;
+		// A file that the latest release already put at the root stays.
+		if (existsSync(join(siteDir, entry.name))) continue;
 		cpSync(join(distDir, entry.name), join(siteDir, entry.name));
 		written.push(entry.name);
 	}
@@ -84,6 +94,20 @@ function selftest() {
 		assert(!existsSync(join(site, 'sitemap-index.xml')), 'the sitemap of the build stays behind');
 		assert(!existsSync(join(site, 'CNAME')), 'the CNAME is the business of another step');
 		assert(written.includes('report/') && written.includes('_astro/'), 'the names are reported');
+
+		// A root that the latest release already filled keeps its own search
+		// index and its own files, and gains the bundles of this build.
+		const filled = join(tmp, '_filled');
+		mkdirSync(join(filled, '_astro'), { recursive: true });
+		mkdirSync(join(filled, 'pagefind'), { recursive: true });
+		writeFileSync(join(filled, '_astro', 'release.css'), 'css of the release');
+		writeFileSync(join(filled, 'pagefind', 'index.js'), 'search of the release');
+		writeFileSync(join(filled, 'favicon.svg'), 'icon of the release');
+		publish(dist, filled, ['report']);
+		assert(readFileSync(join(filled, 'pagefind', 'index.js'), 'utf8') === 'search of the release', 'the search index of the release stays');
+		assert(readFileSync(join(filled, 'favicon.svg'), 'utf8') === 'icon of the release', 'a root file of the release stays');
+		assert(existsSync(join(filled, '_astro', 'release.css')) && existsSync(join(filled, '_astro', 'page.css')), 'the bundles are merged');
+		assert(existsSync(join(filled, 'card.jpg')), 'a file that only this build has is added');
 
 		let refused = false;
 		try {

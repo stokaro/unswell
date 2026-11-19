@@ -40,6 +40,19 @@ export function BasePath(version) {
 	return version === Standing ? '/' : `/${version}/`;
 }
 
+// AtRoot reports whether a build is served at the root of the site. The latest
+// release is: a reader who types the bare domain gets its pages there, with no
+// version in the address and no redirect. The assembly asks for that build with
+// DOCS_AT_ROOT=1 beside the version. The standing build is at the root too.
+export function AtRoot(env) {
+	return env.DOCS_AT_ROOT === '1' || (env.DOCS_VERSION || 'edge') === Standing;
+}
+
+// BuildBase is the base of the build that an environment describes.
+export function BuildBase(env) {
+	return AtRoot(env) ? '/' : BasePath(env.DOCS_VERSION || 'edge');
+}
+
 // RootURL is the absolute URL of a file published at the site root, beside the
 // version folders rather than inside one.
 export function RootURL(name) {

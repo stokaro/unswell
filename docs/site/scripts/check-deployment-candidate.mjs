@@ -26,8 +26,26 @@ export function readRedirectTarget(html) {
 	return match ? match[1] : null;
 }
 
-// evaluate decides one attempt. It is separate from the fetching so the
-// selftest can exercise every outcome without a network.
+// evaluateRoot decides an apex that holds the latest release itself: the front
+// page of the documentation, and a version list that names a release this
+// deploy built as the one at the root.
+export function evaluateRoot({ rootStatus, rootBody, index }, expectedVersions) {
+	if (rootStatus !== 200) return { ok: false, reason: `the apex answered ${rootStatus}` };
+	if (!rootBody.includes('<main') || !rootBody.includes('Unswell')) {
+		return { ok: false, reason: 'the apex is neither the front page of the documentation nor the redirect stub' };
+	}
+	if (index === null || index.atRoot !== true || typeof index.default !== 'string') {
+		return { ok: false, reason: 'the apex holds a page, and versions.json does not say which release it is' };
+	}
+	if (expectedVersions.length > 0 && !expectedVersions.includes(index.default)) {
+		return { ok: false, reason: `the apex holds ${index.default}, which this deploy did not build` };
+	}
+	return { ok: true, version: index.default };
+}
+
+// evaluate decides one attempt at an apex that redirects into a version
+// folder. It is separate from the fetching so the selftest can exercise every
+// outcome without a network.
 export function evaluate({ rootStatus, rootBody, versionStatus, versionBody }, expectedVersions) {
 	if (rootStatus !== 200) return { ok: false, reason: `the apex answered ${rootStatus}` };
 	const target = readRedirectTarget(rootBody);
@@ -55,23 +73,27 @@ async function attempt(expectedVersions) {
 	const rootResponse = await fetch(`${Origin}/`, { redirect: 'follow' });
 	const rootBody = await rootResponse.text();
 	const target = readRedirectTarget(rootBody);
-	if (rootResponse.status !== 200 || target === null) {
-		return evaluate(
-			{ rootStatus: rootResponse.status, rootBody, versionStatus: 0, versionBody: '' },
+	let served;
+	if (rootResponse.status === 200 && target === null) {
+		// No stub: the apex has to be the latest release itself.
+		const listResponse = await fetch(`${Origin}/versions.json`, { redirect: 'follow' });
+		let index = null;
+		try {
+			index = listResponse.status === 200 ? JSON.parse(await listResponse.text()) : null;
+		} catch {
+			index = null;
+		}
+		served = evaluateRoot({ rootStatus: rootResponse.status, rootBody, index }, expectedVersions);
+	} else if (rootResponse.status !== 200) {
+		served = evaluate({ rootStatus: rootResponse.status, rootBody, versionStatus: 0, versionBody: '' }, expectedVersions);
+	} else {
+		const versionResponse = await fetch(`${Origin}/${target}/`, { redirect: 'follow' });
+		const versionBody = await versionResponse.text();
+		served = evaluate(
+			{ rootStatus: rootResponse.status, rootBody, versionStatus: versionResponse.status, versionBody },
 			expectedVersions
 		);
 	}
-	const versionResponse = await fetch(`${Origin}/${target}/`, { redirect: 'follow' });
-	const versionBody = await versionResponse.text();
-	const served = evaluate(
-		{
-			rootStatus: rootResponse.status,
-			rootBody,
-			versionStatus: versionResponse.status,
-			versionBody,
-		},
-		expectedVersions
-	);
 	if (!served.ok) return served;
 	for (const page of StandingPages) {
 		const response = await fetch(`${Origin}/${page}/`, { redirect: 'follow' });
@@ -127,6 +149,13 @@ function selftest() {
 		evaluate(good, ['edge']).reason.includes('did not build'),
 		'a version this deploy did not build fails and says so'
 	);
+	const front = { rootStatus: 200, rootBody: '<title>Unswell</title><main>front page</main>' };
+	const atRoot = { default: 'v0.1.0-alpha.3', atRoot: true, versions: [] };
+	assert(evaluateRoot({ ...front, index: atRoot }, ['edge', 'v0.1.0-alpha.3']).version === 'v0.1.0-alpha.3', 'a release at the apex passes');
+	assert(!evaluateRoot({ ...front, index: atRoot }, ['edge']).ok, 'a release at the apex that this deploy did not build fails');
+	assert(!evaluateRoot({ ...front, index: { default: 'v0.1.0-alpha.3' } }, []).ok, 'a page at the apex without its release named fails');
+	assert(!evaluateRoot({ ...front, index: null }, []).ok, 'a page at the apex without a version list fails');
+	assert(!evaluateRoot({ rootStatus: 200, rootBody: '<html>GitHub Pages</html>', index: atRoot }, []).ok, 'a foreign page at the apex fails');
 	assert(evaluateStanding('report', { status: 200, body: '<main>the report</main>' }).ok, 'a page at the root passes');
 	assert(!evaluateStanding('report', { status: 404, body: '' }).ok, 'a missing page of no version fails');
 	assert(

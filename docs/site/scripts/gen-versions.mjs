@@ -17,6 +17,11 @@
 // A page of no version is the other way round. The standing build puts the
 // page itself at the root, and every version folder gets a stub that sends an
 // old address of that page under a version to the one address it has now.
+//
+// The latest release is at the root too, once its tag can be built that way:
+// the bare domain then shows its pages with no redirect. Its own folder holds
+// only stubs that lead to the root, so an address with that version in it
+// still works, and no stub at the root is needed.
 import { existsSync, mkdtempSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -93,16 +98,21 @@ export function computeDefault(slugs) {
 	return best ? best.slug : EDGE;
 }
 
-export function buildIndex(slugs) {
+// buildIndex lists the versions for the picker. With atRoot the index says that
+// the root of the site holds the default version, so a picker leads there and
+// not into the folder of stubs.
+export function buildIndex(slugs, atRoot = false) {
 	const tags = slugs
 		.filter((slug) => parseSemver(slug))
 		.sort((a, b) => compareSemver(parseSemver(b), parseSemver(a)));
 	const ordered = [];
 	if (slugs.includes(EDGE)) ordered.push(EDGE);
 	ordered.push(...tags);
+	const latest = computeDefault(slugs);
 	return {
-		default: computeDefault(slugs),
-		versions: ordered.map((slug) => ({ slug, label: slug })),
+		default: latest,
+		...(atRoot ? { atRoot: true } : {}),
+		versions: ordered.map((slug) => ({ slug, label: slug === latest && slug !== EDGE ? `${slug} (latest)` : slug })),
 	};
 }
 
@@ -179,6 +189,23 @@ export function renderStandingRedirectHtml(page, shared = { title: null, tags: [
 	return renderStub(`${PAGES_PREFIX}/${page}/`, shared, 'and belongs to no version');
 }
 
+// renderRootRedirectHtml is the stub inside the folder of the latest release.
+// The root of the site holds that release, so its address with the version
+// leads to the same page at the root. The empty page is the front page.
+export function renderRootRedirectHtml(page, shared = { title: null, tags: [] }) {
+	if (page !== '' && !PAGE_RE.test(page)) {
+		throw new Error(`page path ${JSON.stringify(page)} cannot be published as an address`);
+	}
+	return renderStub(`${PAGES_PREFIX}/${page === '' ? '' : `${page}/`}`, shared, 'at the root of the site, which holds the latest release');
+}
+
+// rootPages lists the pages that stand at the root of the assembly itself:
+// every folder with an index.html that is no version folder and no folder of
+// assets.
+export function rootPages(dir) {
+	return pagePaths(dir, '').filter((page) => !isVersionFolder(page.split('/')[0]));
+}
+
 function renderStub(target, shared, where) {
 	const tags = shared.tags.map((tag) => `    ${tag}\n`).join('');
 	return `<!doctype html>
@@ -242,14 +269,25 @@ function renderVersionsJson(index) {
 // root of the assembly already, put there by the standing build: a version
 // folder then loses its own copy of the page, if its tag still built one, and
 // gets the stub in its place.
-export function generate(dir, standing = []) {
-	const slugs = readdirSync(dir, { withFileTypes: true })
+//
+// It also takes the release whose pages the root holds, when the assembly
+// built the latest release there. That release has to be the newest one, and
+// its folder is written here as stubs that lead to the root.
+export function generate(dir, standing = [], latestAtRoot = null) {
+	const listed = readdirSync(dir, { withFileTypes: true })
 		.filter((entry) => entry.isDirectory() && isVersionFolder(entry.name))
 		.map((entry) => entry.name);
-	const index = buildIndex(slugs);
+	const slugs = latestAtRoot !== null && !listed.includes(latestAtRoot) ? [...listed, latestAtRoot] : listed;
+	const index = buildIndex(slugs, latestAtRoot !== null);
+	if (latestAtRoot !== null) {
+		if (index.default !== latestAtRoot) {
+			throw new Error(`the root holds ${latestAtRoot}, and the newest release is ${index.default}`);
+		}
+		if (!existsSync(join(dir, 'index.html'))) throw new Error('the root of the assembly holds no front page');
+	}
 	writeFileSync(join(dir, 'versions.json'), renderVersionsJson(index));
-	writeFileSync(join(dir, 'index.html'), renderRedirectHtml(index.default));
 	writeFileSync(join(dir, '404.html'), renderNotFoundHtml());
+	if (latestAtRoot === null) writeFileSync(join(dir, 'index.html'), renderRedirectHtml(index.default));
 	for (const page of standing) {
 		const published = join(dir, page, 'index.html');
 		if (!existsSync(published)) throw new Error(`the page of no version ${page} is not at the root of the assembly`);
@@ -259,6 +297,18 @@ export function generate(dir, standing = []) {
 			mkdirSync(join(dir, slug, page), { recursive: true });
 			writeFileSync(join(dir, slug, page, 'index.html'), stub);
 		}
+	}
+	if (latestAtRoot !== null) {
+		// The folder of the latest release: a stub for the front page and for
+		// every page at the root, and nothing else.
+		const atRoot = ['', ...rootPages(dir)];
+		rmSync(join(dir, latestAtRoot), { recursive: true, force: true });
+		for (const page of atRoot) {
+			const shared = sharedHead(readFileSync(join(dir, page, 'index.html'), 'utf8'));
+			mkdirSync(join(dir, latestAtRoot, page), { recursive: true });
+			writeFileSync(join(dir, latestAtRoot, page, 'index.html'), renderRootRedirectHtml(page, shared));
+		}
+		return { ...index, pages: [] };
 	}
 	const pages = pagePaths(dir, index.default).filter((page) => !standing.includes(page.split('/')[0]));
 	for (const page of pages) {
@@ -419,6 +469,56 @@ function selftest() {
 			rmSync(standingRoot, { recursive: true, force: true });
 		}
 
+		// The latest release at the root: the root keeps its pages, its folder
+		// holds stubs, and the picker is told where that release lives.
+		const rootSite = mkdtempSync(join(tmpdir(), 'unswell-docs-at-root-'));
+		try {
+			for (const version of ['edge', 'v0.1.0-alpha.2']) mkdirSync(join(rootSite, version));
+			for (const page of ['guide', 'guide/deep', '_astro/chunk', 'pagefind']) mkdirSync(join(rootSite, page), { recursive: true });
+			const front = '<html><head><title>Unswell</title></head><body><main>front</main></body></html>';
+			const guide = '<html><head><title>Guide | Unswell</title></head><body><main>guide</main></body></html>';
+			writeFileSync(join(rootSite, 'guide', 'index.html'), guide);
+			writeFileSync(join(rootSite, 'guide', 'deep', 'index.html'), guide);
+			writeFileSync(join(rootSite, '_astro', 'chunk', 'index.html'), 'asset');
+			writeFileSync(join(rootSite, 'pagefind', 'index.html'), 'search');
+			let noFront = false;
+			try {
+				generate(rootSite, [], 'v0.1.0-alpha.3');
+			} catch {
+				noFront = true;
+			}
+			assert(noFront, 'a root without a front page is refused');
+			writeFileSync(join(rootSite, 'index.html'), front);
+			const made = generate(rootSite, [], 'v0.1.0-alpha.3');
+			assert(made.default === 'v0.1.0-alpha.3' && made.atRoot === true, 'the index says that the root holds the default version');
+			assert(made.versions.map((v) => v.slug).join(',') === 'edge,v0.1.0-alpha.3,v0.1.0-alpha.2', 'the release at the root is listed');
+			assert(made.versions[1].label === 'v0.1.0-alpha.3 (latest)', 'the latest release says so in the picker');
+			assert(readFileSync(join(rootSite, 'index.html'), 'utf8') === front, 'the front page at the root is the page itself');
+			assert(readFileSync(join(rootSite, 'guide', 'index.html'), 'utf8') === guide, 'a page at the root is left as it is');
+			const home = readFileSync(join(rootSite, 'v0.1.0-alpha.3', 'index.html'), 'utf8');
+			assert(home.includes('location.replace("/"'), 'the folder of the latest release leads to the root');
+			const deep = readFileSync(join(rootSite, 'v0.1.0-alpha.3', 'guide', 'deep', 'index.html'), 'utf8');
+			assert(deep.includes('location.replace("/guide/deep/"'), 'a page of the latest release leads to the same page at the root');
+			assert(deep.includes('<title>Guide | Unswell</title>'), 'such a stub names its page');
+			assert(!existsSync(join(rootSite, 'v0.1.0-alpha.3', '_astro')), 'assets get no stub');
+			assert(!existsSync(join(rootSite, 'v0.1.0-alpha.3', 'edge')), 'a version folder is no page of the root');
+			assert(JSON.parse(readFileSync(join(rootSite, 'versions.json'), 'utf8')).atRoot === true, 'versions.json carries it');
+			const again = generate(rootSite, [], 'v0.1.0-alpha.3');
+			assert(again.versions.length === 3, 'the folder of stubs is not counted twice on a second run');
+			let stale = false;
+			try {
+				generate(rootSite, [], 'v0.1.0-alpha.2');
+			} catch {
+				stale = true;
+			}
+			assert(stale, 'a root that holds an older release than the newest is refused');
+		} finally {
+			rmSync(rootSite, { recursive: true, force: true });
+		}
+		assert(computeDefault(['edge', 'v0.1.0-alpha.9', 'v0.1.0-alpha.10']) === 'v0.1.0-alpha.10', 'the newest release is found among tags');
+		const legacy = buildIndex(['edge', 'v0.1.0-alpha.3']);
+		assert(legacy.atRoot === undefined, 'an assembly with the redirect does not claim the root');
+
 		// 404.html sends an address under a version to the same page without it.
 		assert(versionlessPath('/v0.1.0-alpha.2/research-report/') === '/research-report/', 'a removed release goes to the stub');
 		assert(versionlessPath('/v0.1.0-alpha.2/guides/install') === '/guides/install/', 'a nested page keeps its path');
@@ -444,8 +544,15 @@ function main() {
 		selftest();
 		return;
 	}
+	if (arg === '--latest') {
+		// The newest release among the names on standard input, one per line,
+		// or nothing when none of them is a release.
+		const names = readFileSync(0, 'utf8').split('\n').map((name) => name.trim()).filter((name) => parseSemver(name));
+		if (names.length > 0) console.log(computeDefault(names));
+		return;
+	}
 	if (!arg) {
-		console.error('usage: node scripts/gen-versions.mjs <site-dir> | --selftest');
+		console.error('usage: node scripts/gen-versions.mjs <site-dir> [--latest-at-root <release>] | --latest | --selftest');
 		process.exitCode = 2;
 		return;
 	}
@@ -454,8 +561,11 @@ function main() {
 		process.exitCode = 2;
 		return;
 	}
-	const index = generate(arg, StandingPages);
-	console.log(`wrote ${join(arg, 'versions.json')} (default=${index.default}) and ${index.pages.length} addresses without a version`);
+	const flag = process.argv.indexOf('--latest-at-root');
+	const latestAtRoot = flag === -1 ? null : process.argv[flag + 1];
+	const index = generate(arg, StandingPages, latestAtRoot);
+	const where = latestAtRoot === null ? `${index.pages.length} addresses without a version` : 'the latest release at the root';
+	console.log(`wrote ${join(arg, 'versions.json')} (default=${index.default}) and ${where}`);
 }
 
 if (process.argv[1] && process.argv[1].endsWith('gen-versions.mjs')) {
