@@ -21,6 +21,16 @@ func fixture() fstest.MapFS {
 		".github/workflows/ci.yml": {Data: []byte("uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09\n" +
 			"os: [ubuntu-latest, macos-latest, windows-latest]\nGOTOOLCHAIN: local\ngo-version-file: go.mod\n" +
 			"run: scripts/modules.sh test\nrun: make check\n")},
+		"result.go":       {Data: []byte("package unswell\n\nconst Version = \"0.1.0-alpha.21\"\n")},
+		"mcp/server.json": {Data: []byte("{\"version\": \"0.1.0-alpha.21\", \"identifier\": \"ghcr.io/stokaro/unswell-mcp:0.1.0-alpha.21\"}\n")},
+		"CHANGELOG.md":    {Data: []byte("# Changelog\n\n## 0.1.0-alpha.21\n\n## 0.1.0-alpha.20\n")},
+		"README.md":       {Data: []byte("The published release is `v0.1.0-alpha.21`.\n")},
+		"docs/installation.md": {Data: []byte("The published release is `v0.1.0-alpha.21`. Its archives are public.\n" +
+			"    version: 0.1.0-alpha.21\n")},
+		"docs/containers.md": {Data: []byte("  ghcr.io/stokaro/unswell:0.1.0-alpha.21 \\\n  \"ghcr.io/stokaro/unswell-mcp:0.1.0-alpha.21\"\n")},
+		"docs/site/src/content/docs/getting-started.mdx": {Data: []byte("The published release is `v0.1.0-alpha.21`. Pin it.\n" +
+			"go install github.com/stokaro/unswell/cmd/unswell@v0.1.0-alpha.21\n    version: 0.1.0-alpha.21\n")},
+		"docs/site/src/content/docs/ci-action-mcp.mdx": {Data: []byte("          version: 0.1.0-alpha.21\n")},
 	}
 }
 
