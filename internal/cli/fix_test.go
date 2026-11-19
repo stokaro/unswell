@@ -147,6 +147,28 @@ func TestFixWritesOnRequest(t *testing.T) {
 		`0 marks removed in 0 pages of 1 document\.\nWritten to 0 files\. Review the change before you keep it\.\n(?s:.*)`)
 }
 
+func TestFixChangesTheProseOfAnMDXPage(t *testing.T) {
+	c := qt.New(t)
+	root := t.TempDir()
+	component := "<Note title=\"A dash — in an attribute\">\n  The note warns — then it stops.\n</Note>\n\n"
+	page := "import Note from './Note.astro';\n\n# Client\n\nA seamless client — it retries → then it waits.\n\n" +
+		component + "The total is {items.map((item) => item.name + ' — ' + item.size)} items.\n\n" + fixPlain + "\n"
+	writeDraft(c, root, "guide.mdx", page, 0o600)
+	outcome := runFix(t, root, "guide.mdx", "--write", "--quiet")
+	c.Assert(outcome.code, qt.Equals, 0, qt.Commentf("stderr: %s", outcome.stderr))
+	c.Assert(outcome.stdout, qt.Matches, `guide\.mdx: AI-sounding index \d+ -> \d+; removed 2 em dashes, 1 arrow\. `+
+		`Left for you: 1 stock word\.\n3 marks removed in 1 page of 1 document\.\n(?s:.*)`)
+	data, err := fs.ReadFile(os.DirFS(root), "guide.mdx")
+	c.Assert(err, qt.IsNil)
+	// The prose changes, in the page and inside the component. The import,
+	// the attribute, and the expression stay byte for byte.
+	want := strings.NewReplacer(
+		"A seamless client — it retries → then it waits.", "A seamless client, it retries -> then it waits.",
+		"The note warns — then it stops.", "The note warns, then it stops.",
+	).Replace(page)
+	c.Assert(string(data), qt.Equals, want)
+}
+
 func TestFixLeavesAPageAtTheLevelLow(t *testing.T) {
 	c := qt.New(t)
 	root := t.TempDir()

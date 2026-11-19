@@ -237,10 +237,12 @@ func blockSource(block document.Block, source []byte) []byte {
 	return source[block.Span.Start:block.Span.End]
 }
 
-// aiSounding computes the index of one Markdown page. It returns nil for a
-// document that is not a Markdown page, where the index was not measured.
+// aiSounding computes the index of one Markdown or MDX page. An MDX page is
+// read as the Markdown it holds: the text inside a component is prose, and
+// the tags, attributes, and expressions are outside the count. It returns nil
+// for a document of another format, where the index was not measured.
 func aiSounding(doc document.Document) *AISounding {
-	if doc.Format != document.Markdown {
+	if doc.Format != document.Markdown && doc.Format != document.MDX {
 		return nil
 	}
 	counts := make([]int, len(aiSignals))

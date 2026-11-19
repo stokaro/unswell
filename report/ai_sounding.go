@@ -28,7 +28,7 @@ const (
 	maxAIMarkLines     = 60
 )
 
-// aiSoundingLines reports the page index of the Markdown pages of a run: one
+// aiSoundingLines reports the page index of the Markdown and MDX pages of a run: one
 // line for each page above the low level, most marked first, with its two
 // readings, the place of each listed mark and what to do with it, then the
 // count by level and what the index is. A run without a measured page adds
@@ -47,7 +47,7 @@ func aiSoundingLines(result unswell.RunResult) []string {
 	}
 	lines := append(aiSoundingPages(measured), aiAdviceLines(measured)...)
 	if len(measured) > 1 {
-		lines = append(lines, fmt.Sprintf("AI-sounding index over %d Markdown pages: %d high, %d elevated, %d low.",
+		lines = append(lines, fmt.Sprintf("AI-sounding index over %d pages: %d high, %d elevated, %d low.",
 			len(measured), levels[unswell.AISoundingHigh], levels[unswell.AISoundingElevated], levels[unswell.AISoundingLow]))
 	}
 	return append(lines, "The index is the higher of two readings: the marks that people remove when they clean AI-sounding wording "+

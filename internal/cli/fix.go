@@ -41,7 +41,7 @@ func fixCommand(environment Environment) *cobra.Command {
 	command := &cobra.Command{
 		Use:   "fix [paths...]",
 		Short: "Remove the marks that the AI-sounding index counts, without a model",
-		Long: "Fix replaces the marks of the AI-sounding index that have a mechanical replacement in Markdown pages.\n" +
+		Long: "Fix replaces the marks of the AI-sounding index that have a mechanical replacement in Markdown and MDX pages.\n" +
 			"An em dash becomes a comma, a period between two full clauses, or a colon after the short label of a list item.\n" +
 			"An emoji leaves a heading or the start of a list item.\n" +
 			"An arrow becomes \"->\". A bold label at the start of a list item loses its asterisks.\n" +
@@ -110,7 +110,7 @@ func (d fixedDocument) outcome() string {
 	case d.Error != "":
 		return "failed: " + excerpt(d.Error, maxReasonText)
 	case !d.Indexed:
-		return "no index: not a Markdown page of 150 prose words or more"
+		return "no index: not a Markdown or MDX page of 150 prose words or more"
 	case d.LeftLow:
 		return fmt.Sprintf("index %d, marks low: left as it is", d.Before)
 	}
@@ -384,7 +384,8 @@ func writeFixText(writer io.Writer, result fixResult, written bool) error {
 	fmt.Fprintf(&text, "%s removed in %s of %s.\n", plural(summary.Removed, "mark"), plural(summary.Changed, "page"),
 		plural(summary.Documents, "document"))
 	if summary.Unindexed > 0 {
-		fmt.Fprintf(&text, "Without an index (not a Markdown page of 150 prose words or more): %s.\n", plural(summary.Unindexed, "document"))
+		fmt.Fprintf(&text, "Without an index (not a Markdown or MDX page of 150 prose words or more): %s.\n",
+			plural(summary.Unindexed, "document"))
 	}
 	if summary.Low > 0 {
 		fmt.Fprintf(&text, "Left as they are, with their marks at the level low: %s. Use --include-low to replace those marks too.\n",

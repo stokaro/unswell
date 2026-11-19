@@ -33,7 +33,7 @@ func TestTextReportNamesThePageIndex(t *testing.T) {
 	one := textReport(c, t, markdownPage("guide.md", "# Client\n\n"+plain+"\n"))
 	c.Assert(one, qt.Contains, "AI-sounding index: 23 of 100 (low; marks 23, rhythm 0) in guide.md: none of its marks.\n")
 	c.Assert(one, qt.Contains, "It is not a probability and does not say who wrote a page.")
-	c.Assert(one, qt.Not(qt.Contains), "Markdown pages:")
+	c.Assert(one, qt.Not(qt.Contains), "AI-sounding index over")
 
 	dashes := strings.Repeat("It connects — then it waits. ", 12)
 	many := textReport(c, t,
@@ -41,12 +41,14 @@ func TestTextReportNamesThePageIndex(t *testing.T) {
 		markdownPage("b.md", "# Client\n\n"+dashes+plain+"\n"),
 		markdownPage("c.md", "# Client\n\nIt connects — then it waits. "+plain+"\n"),
 		markdownPage("short.md", "# Client\n\nIt connects — then it waits.\n"),
+		document.Source{Name: "d.mdx", Format: document.MDX, Bytes: []byte("# Client\n\n<Note>\n  " + plain + "\n</Note>\n")},
 		document.Source{Name: "client.go", Format: document.Go,
 			Bytes: []byte("package client\n\n// Start opens the connection.\nfunc Start() {}\n")},
 	)
 	c.Assert(many, qt.Matches, `(?s).*AI-sounding index: \d+ of 100 \(high; marks \d+, rhythm \d+\) in b\.md: 12 em dashes\.\n.*`)
 	c.Assert(many, qt.Matches, `(?s).*AI-sounding index: \d+ of 100 \(elevated; marks \d+, rhythm \d+\) in c\.md: 1 em dash\.\n.*`)
-	c.Assert(many, qt.Contains, "AI-sounding index over 3 Markdown pages: 1 high, 1 elevated, 1 low.\n")
+	// The count takes Markdown and MDX pages together.
+	c.Assert(many, qt.Contains, "AI-sounding index over 4 pages: 1 high, 1 elevated, 2 low.\n")
 	// Each page above the low level lists where its marks are.
 	c.Assert(many, qt.Contains, "\n  b.md:3:13: em dash; write a comma\n  b.md:3:42: em dash; write a comma\n")
 	c.Assert(strings.Count(many, "\n  b.md:3:"), qt.Equals, 12)

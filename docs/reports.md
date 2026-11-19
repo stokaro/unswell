@@ -22,7 +22,7 @@ still retain paths, coordinates, messages, metrics and score traces. With it,
 saved reports can show highlighted paragraphs after originals change or disappear.
 
 The text, Markdown, and JSON reports carry the
-[AI-sounding index](ai-sounding-index.md) of each Markdown page with the
+[AI-sounding index](ai-sounding-index.md) of each Markdown or MDX page with the
 places of its marks. A mark holds its position and no source text, except that
 a `stock-word` mark holds its word of the fixed list. A run of sentences is
 one mark with the number of its sentences.

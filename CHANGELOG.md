@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+An MDX page gets the AI-sounding index
+([#631](https://github.com/stokaro/unswell/issues/631),
+[ADR 0067](docs/adr/0067-page-index-for-mdx.md)). `unswell check` gave the
+index to Markdown pages only, so a documentation site written in MDX had
+findings and no index. An MDX page of 150 prose words or more is now read as
+the Markdown it holds: the text inside a component counts, and a tag, an
+attribute, an expression, or an `import` line adds no mark. A component ends
+a run of sentences. `unswell fix` changes the prose of an MDX page and leaves
+its code byte for byte. The weights are those of Markdown pages; no reference
+of MDX pages was measured. The summary line of the text report now says
+"pages" where it said "Markdown pages".
+
 ## 0.1.0-alpha.21
 
 The GitHub Action declares its `timeout` and `jobs` inputs again

@@ -66,7 +66,7 @@ contexts, the rule catalog, the effective policy and its hash, and the build ver
 }
 ```
 
-The result of a Markdown source holds its
+The result of a Markdown or MDX source holds its
 [AI-sounding index](ai-sounding-index.md) under `documents[].ai_sounding`:
 its two readings, the place of each mark, the advice per kind of mark, and a
 mechanical fix where one exists. A run of sentences has no fix; its advice
