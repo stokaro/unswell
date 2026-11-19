@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.0-alpha.25
+
+The checker is the same as in alpha.24. This release moves the pages of the
+site, which are built from a release.
+
+The latest release is at the root of the site. `unswell.dev/` is its front
+page and `unswell.dev/getting-started/` is a page of it, and neither address
+redirects. An address with the version of the latest release in it leads to
+the same page at the root. Earlier releases stay in their folders.
+
+The research report belongs to no version. Its address is
+`unswell.dev/research-report/`, and the copies inside the releases lead there.
+
+The configuration page says what the `strict` profile adds to `technical`: the
+rules that only `strict` runs, the rules whose single match fails the gate
+there alone, and the lower index at which its gate fails a paragraph or a
+sentence. The table is generated from the engine.
+
 ## 0.1.0-alpha.24
 
 The checker is the same as in alpha.23. This release moves the pages of the
