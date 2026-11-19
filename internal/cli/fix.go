@@ -384,7 +384,8 @@ func writeFixText(writer io.Writer, result fixResult, written bool) error {
 	fmt.Fprintf(&text, "%s removed in %s of %s.\n", plural(summary.Removed, "mark"), plural(summary.Changed, "page"),
 		plural(summary.Documents, "document"))
 	if summary.Unindexed > 0 {
-		fmt.Fprintf(&text, "Without an index (not a Markdown or MDX page of 150 prose words or more): %s.\n", plural(summary.Unindexed, "document"))
+		fmt.Fprintf(&text, "Without an index (not a Markdown or MDX page of 150 prose words or more): %s.\n",
+			plural(summary.Unindexed, "document"))
 	}
 	if summary.Low > 0 {
 		fmt.Fprintf(&text, "Left as they are, with their marks at the level low: %s. Use --include-low to replace those marks too.\n",

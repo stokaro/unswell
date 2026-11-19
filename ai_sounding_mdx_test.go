@@ -37,8 +37,8 @@ func TestAISoundingIndexReadsAnMDXPage(t *testing.T) {
 	c.Assert(index.Level, qt.Equals, unswell.AISoundingHigh)
 
 	// The same prose without the marks is low, as it is in a Markdown page.
-	plain := aiSounding(c, t, "guide.mdx", document.MDX, "import Note from './Note.astro';\n\n# Client\n\n<Note>\n  A short note.\n</Note>\n\n"+
-		plainProse+"\n")
+	plain := aiSounding(c, t, "guide.mdx", document.MDX,
+		"import Note from './Note.astro';\n\n# Client\n\n<Note>\n  A short note.\n</Note>\n\n"+plainProse+"\n")
 	c.Assert(plain.Index, qt.Equals, 23)
 	c.Assert(plain.Level, qt.Equals, unswell.AISoundingLow)
 
