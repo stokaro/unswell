@@ -13,8 +13,8 @@ import Note from '../../components/Note.astro';
 ## Extraction picks the prose
 
 Each format has a grammar, and the grammar says which regions hold English.
-Markdown contributes headings, paragraphs, list items and GFM table cells. A
-source file contributes its comments and its string literals. Plain text
+Markdown contributes headings, paragraphs, list items and GFM table cells; a
+source file contributes its comments and its string literals; plain text
 contributes paragraphs.
 
 <Note>
@@ -22,17 +22,23 @@ contributes paragraphs.
 </Note>
 
 Inside Markdown, inline code, fenced and indented code, raw HTML, image syntax,
-link destinations and front matter are protected. Link labels stay prose. Quoted
-blocks are left out unless `analysis.include_quotes` turns them on.
+link destinations and front matter are protected, while link labels stay prose.
+Quoted blocks are left out unless `analysis.include_quotes` turns them on.
 
 Inside source files, several regions are recorded as deliberate exclusions rather
-than checked. A shebang or a tool directive comment such as `nolint` or
-`eslint-disable` is a `directive`. An indented example inside a comment is
-`comment-code`. The tag and example sections of a JSDoc or Javadoc comment are
-`doc-tag` and `doc-example`. A shell literal that holds a program for another
-interpreter is an `embedded-program`. A Python byte literal is a `byte-literal`.
-An expression inside a string is an `interpolation`, and it inserts a protected
-boundary so the words on either side cannot form a false phrase.
+than checked:
+
+| Region | Recorded as |
+| --- | --- |
+| A shebang, or a tool directive comment such as `nolint` or `eslint-disable` | `directive` |
+| An indented example inside a comment | `comment-code` |
+| The tag and example sections of a JSDoc or Javadoc comment | `doc-tag` and `doc-example` |
+| A shell literal that holds a program for another interpreter | `embedded-program` |
+| A Python byte literal | `byte-literal` |
+| An expression inside a string | `interpolation` |
+
+An interpolation also inserts a protected boundary, so the words on either side
+of it can't form a false phrase.
 
 Every excluded region keeps its byte span and its reason, and a saved report
 carries that list. Import paths, re-export module paths and Go struct tags are
@@ -40,8 +46,8 @@ excluded as technical metadata; strings in exported declarations stay checked.
 
 One language check runs per block. A block with at least 20 letters, more than
 half of them outside the Latin script, is recorded as a `non-latin-prose`
-exclusion and the rest of the document is still checked. The block keeps its
-position, so block numbering and finding fingerprints do not move.
+exclusion and the rest of the document is still checked. Because the block keeps
+its position, block numbering and finding fingerprints stay where they were.
 
 ## Units
 
@@ -70,33 +76,34 @@ one they measure through `scope`, and a document-scope rule such as
 
 ## Rules and activation
 
-A rule is a versioned descriptor plus an implementation. The descriptor names the
-contexts it applies to, the NLP capabilities it needs, its correlation group, its
-default severity and gate, its weight and cap, and the limits its author recorded.
-The [rules catalog](/rules/) lists every builtin rule as the engine reports it.
+A rule is a versioned descriptor plus an implementation. In the descriptor are
+the contexts the rule applies to, the NLP capabilities it needs, its correlation
+group, its default severity and gate, its weight and cap, and the limits its
+author recorded. To see every builtin rule as the engine reports it, open the
+[rules catalog](/rules/).
 
 Evaluation produces evidence with original source locations and an activation in
-integer thousandths. An exact phrase match activates fully. A density or length
-rule ramps linearly from its onset to its saturation, so a text just past the
-threshold does not score like a text far past it.
+integer thousandths (1000 is full). An exact phrase match activates fully. A
+density or length rule ramps instead: linearly from its onset to its saturation,
+so a text just past the threshold scores well below one far past it.
 
-A rule that exhausts its own `analysis.max_candidates` budget on a document
-abstains with the reason `budget_exhausted`. Its partial findings are dropped, the
-other rules keep theirs, and the report names the abstention. The run stays
+When a rule exhausts its own `analysis.max_candidates` budget on a document, it
+abstains with the reason `budget_exhausted`: its partial findings are dropped,
+the other rules keep theirs, and the report names the abstention. The run stays
 complete.
 
 ## Scores
 
 For each sentence and paragraph the engine multiplies activation by weight. It
-sorts the contributions by descending raw value, and stable identifiers break
-ties. Within one correlation group, identical or nested evidence contributes only
-its strongest signal. Rule caps and group caps then limit the rest, and the total
-stops at 100.
+then sorts the contributions by descending raw value (stable identifiers break
+ties). Within one correlation group, identical or nested evidence contributes
+only its strongest signal. After that come the caps: rule caps and group caps
+limit the rest, and the total stops at 100.
 
 The trace records the raw and effective points of every contribution, and the
 reason for each reduction. Sentence and paragraph assessments stay independent: a
-sentence total never joins its paragraph again. A clean paragraph appended to a
-document cannot lower the index of an existing one.
+sentence total never joins its paragraph again. So a clean paragraph appended to
+a document leaves the index of every existing paragraph where it was.
 
 Document statistics report the raw paragraph maximum, the nearest-rank median and
 P90, and the eligible flagged fraction.
@@ -109,22 +116,26 @@ P90, and the eligible flagged fraction.
 
 ## The gate
 
-Three things can fail a run. A rule set to `gate: forbid` fails whenever it
-matches. A local score gate fails a unit whose effective score reaches the
-configured threshold and which has at least `min_words` words. An operational
-error or an incomplete analysis fails regardless of policy, and `--no-gate` cannot
-pass either.
+Three things can fail a run:
 
-Gate decisions use effective values, which means the values that remain once
-source permissions apply. Document summary statistics stay raw. Derived gate
-diagnostics arrive after suppressions, no permission covers them, and they never
-feed back into scoring.
+- a rule set to `gate: forbid`, whenever it matches;
+- a local score gate, for a unit whose effective score reaches the configured
+  threshold and which has at least `min_words` words;
+- an operational error or an incomplete analysis, whatever the policy says: both
+  still fail under `--no-gate`.
+
+Gate decisions use effective values (the values that remain once source
+permissions apply), while document summary statistics stay raw. Derived gate
+diagnostics arrive after suppressions: no permission covers them, and scoring
+goes on without them.
 
 ## What the alpha does not do
 
-Thresholds are initial editorial policy, not measured precision. Every builtin
-rule is marked experimental, and no editorial model has met the criteria for use
-in the product. POS-based chunks are surface candidates, not grammatical
-dependencies. Lexical overlap is not a claim of semantic equivalence. An exact
-phrase match establishes a configured condition; it does not prove that an editor
-would reject the sentence.
+- Thresholds are initial editorial policy. Nobody has measured their precision
+  yet.
+- Every builtin rule is marked experimental, and no editorial model has met the
+  criteria for use in the product.
+- POS-based chunks are surface candidates (they aren't grammatical dependencies).
+- Lexical overlap makes no claim of semantic equivalence.
+- An exact phrase match establishes a configured condition. Whether an editor
+  would reject the sentence is still for the editor to say.

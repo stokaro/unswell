@@ -37,15 +37,16 @@ jobs:
             src
 ```
 
-The CLI release has to exist already. The action verifies the downloaded archive's
-SHA-256, passes each input as a process argument, and preserves the pass, failure
-and error outcomes rather than collapsing them. It exposes the JSON and SARIF file
-paths as step outputs. After installation the analysis is offline.
+The CLI release has to exist before the action runs. Once it does, the action
+verifies the downloaded archive's SHA-256, passes each input as a process
+argument, and keeps the pass, failure and error outcomes apart (it doesn't
+collapse them into one). The JSON and SARIF file paths come back as step outputs,
+and after installation the analysis is offline.
 
-The action repository has a `Verify published release` workflow that proves bad
-prose and malformed source fail their steps with the expected codes and report
-contents. Unit tests against local archives do not replace that public download
-check.
+Unit tests against local archives can't stand in for a check of the public
+download. So the action repository has a `Verify published release` workflow: it
+proves that bad prose and malformed source fail their steps with the expected
+codes and report contents.
 
 ## Any other runner
 
@@ -60,17 +61,17 @@ unswell check README.md docs/ src/ \
 ```
 
 Exit code 1 is a policy failure and should fail the job. Exit code 2 is an
-operational error, and treating it as a pass is how a broken parse becomes a green
-build. `--no-gate` collects findings without failing on style, which suits a
-reporting job, and it still fails on an operational error.
+operational error; treat it as a pass, and a broken parse becomes a green build.
+For a reporting job there's `--no-gate`, which collects findings without failing
+on style (it still fails on an operational error).
 
 For a repository with existing debt, `--baseline .unswell-baseline.json
---gate-mode new` accepts what was reviewed and gates what is new. The baseline
-path belongs to the invoking workflow, so a pull request cannot point the run at a
-different debt file through YAML.
+--gate-mode new` accepts what was reviewed and gates what is new. Because the
+baseline path belongs to the invoking workflow, a pull request has no way to
+point the run at a different debt file through YAML.
 
 <Note>
-  A source pull request must not control its own policy. Pin the release, pin the
+  A source pull request must not control its own policy: pin the release, pin the
   profile version, and compare the configuration hash from `unswell config
   explain` against the value you reviewed.
 </Note>
@@ -79,15 +80,15 @@ different debt file through YAML.
 
 The SARIF report is validated against the published 2.1.0 schema and was imported
 by Sarif.Multitool, the reference implementation, with no validation results at
-any level. That is one report accepted by one consumer. Other consumers apply
-their own rules, and GitHub code scanning in particular enforces limits that check
-does not exercise.
+any level. That's one report accepted by one consumer. Other consumers apply
+their own rules: GitHub code scanning, in particular, enforces limits of its own,
+and only an upload to it tests those.
 
 ## The MCP server
 
 `unswell-mcp` is a separate executable and a separate Go module, so the MCP SDK
-stays out of the core module. Both executables share the extraction, policy,
-rules, scores, gate and source coordinates.
+stays out of the core module. What the two executables share is the engine:
+extraction, policy, rules, scores, gate and source coordinates.
 
 ```sh
 make build-mcp
@@ -96,20 +97,21 @@ bin/unswell-mcp --config /absolute/path/to/project/.unswell.yaml
 
 Configure a stdio client to launch the absolute executable path with `--config`
 and the policy path as separate arguments. The executable reserves stdout for
-protocol frames; startup errors, help and `--version` go to stderr. Omitting
-`--config` uses builtin defaults rather than searching for a file. `--timeout 30s`
-bounds each check, to a maximum of five minutes.
+protocol frames; startup errors, help and `--version` go to stderr. Without
+`--config` the server uses builtin defaults (it doesn't search for a file), and
+`--timeout 30s` bounds each check, to a maximum of five minutes.
 
 Four tools. The first two run the fixed policy:
 
 `unswell_describe` takes an empty object, or a logical file such as
-`{"file":"docs/reference/api.md"}` to resolve the file overrides that would apply.
-It opens no source file. It returns the supported formats and contexts, the rule
-catalog, the effective policy with its hash, and the build version.
+`{"file":"docs/reference/api.md"}` to resolve the file overrides that would apply
+(it opens no source file). What comes back is the supported formats and contexts,
+the rule catalog, the effective policy with its hash, and the build version.
 
 `unswell_check` takes source contents directly, between 1 and 256 of them. Each
-`name` labels evidence and takes part in exception matching, and is never opened
-as a file. Omit `format` to infer the grammar from the name or a shebang.
+`name` labels evidence and takes part in exception matching; the server never
+opens it as a file. If you omit `format`, the grammar is inferred from the name
+or a shebang.
 
 ```json
 {
@@ -125,8 +127,8 @@ as a file. Omit `format` to infer the grammar from the name or a shebang.
 
 The response carries an `outcome` beside the engine result: `pass`,
 `policy_failure`, or `error` with `isError` set. Malformed tool arguments return a
-tool error before analysis and may carry no engine result at all. A transport
-cancellation is not a pass either.
+tool error before analysis and may carry no engine result at all. And a transport
+cancellation leaves the draft unchecked, so check it again.
 
 <Note>
   Tool arguments cannot disable the gate, change a rule or supply configuration.
@@ -135,18 +137,19 @@ cancellation is not a pass either.
 
 The other two tools let the calling assistant review a draft in context.
 `unswell_review_request` returns the editorial rubric and the document's items:
-sentences, paragraphs without separate sentences, and longer fragments. The
-assistant decides which items need revision and sends its flags to
-`unswell_review_submit`. The server binds each quote to an exact byte range and
-rejects a flag whose quote does not occur inside one segment of its item. These
-findings are the assistant's own judgments. They are advisory and never reach the
-gate.
+sentences, paragraphs without separate sentences, and longer fragments. Which
+items need revision is the assistant's call, and it sends its flags to
+`unswell_review_submit`. There the server binds each quote to an exact byte range
+and rejects a flag whose quote does not occur inside one segment of its item.
+Since these findings are the assistant's own judgments, they stay advisory: the
+gate ignores them.
 
 Repeat `--feature ID` at startup to collect block measurements, and
 `--feature activation/<rule id>` to collect one rule's activation. The rule has to
-exist in the startup catalog, and selecting it does not enable it. Clients cannot
-change the selection, and these measurements change neither the gate nor any
-probability.
+exist in the startup catalog, and selecting it does not enable it. The selection
+is fixed while the server runs (clients can't change it). The measurements are
+for reading only: the gate and every probability stay the same with or without
+them.
 
 `--baseline` with `--gate-mode new` loads reviewed debt once at startup. Tools can
 inspect the selection and check drafts under it; they cannot create or update it.
@@ -155,10 +158,10 @@ Restart after a reviewed update.
 ## Checking Unswell with Unswell
 
 `make dogfood` runs the built CLI over this repository under its own strict
-policy. It then feeds a deliberate violation through five contexts, and each one
-has to exit 1.
+policy, then feeds a deliberate violation through five contexts (each one has to
+exit 1).
 
 `make dogfood-mcp` does the same work through bounded MCP subprocesses and compares
-their combined results with the complete CLI scan. Policy hashes, build revisions, findings,
-exclusions, gate outcomes and the measurements that were asked for all have to
-match.
+their combined results with the complete CLI scan. Everything has to match: policy
+hashes, build revisions, findings, exclusions, gate outcomes and the measurements
+that were asked for.

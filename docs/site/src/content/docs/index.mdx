@@ -18,7 +18,7 @@ import Note from '../../components/Note.astro';
 import Terminal from '../../components/Terminal.astro';
 
 <CtaRow>
-  <Button href="/getting-started/">Get started →</Button>
+  <Button href="/getting-started/" arrow>Get started</Button>
   <Button href="https://play.unswell.dev" variant="outline" external>Try it in the browser</Button>
   <CopyField command="brew install stokaro/unswell/unswell" />
 </CtaRow>
@@ -59,10 +59,10 @@ ask a model that you name. They are separate from the check and its gate; see
 ## Why a linter
 
 Wording is a policy your project can state, argue about and version, so a linter
-is the place to put it. Unswell ships builtin rules with weights, caps and default
-severities, and a configuration file decides which of them your project cares
-about. The alpha index is an editorial-policy index from 0 to 100. It is not a
-probability, and no score claims to know who wrote anything.
+is the place to put it. The alpha index isn't a probability, and no score claims
+to know who wrote anything: it's an editorial-policy index from 0 to 100. Unswell
+ships builtin rules with weights, caps and default severities, and a
+configuration file decides which of them your project cares about.
 
 ## What fires, and what does not
 
@@ -81,10 +81,10 @@ In an earlier strict-profile run, rules fired at different rates. The run covere
 
 On prose someone wrote, the structural rules do the work. The phrase rules match
 exact wordings such as a chat acknowledgment or a stock opening, and an engineer
-writing documentation does not produce those, so they stay silent. They earn
+writing documentation does not produce those, so they stay silent. But they earn
 their keep on text pasted out of an assistant's reply, which does contain them.
 
-That is a deliberate trade. A phrase rule that fired on ordinary documentation
+That's a deliberate trade. A phrase rule that fired on ordinary documentation
 would be a phrase rule you turn off. Silence on clean prose is the correct
 behavior for a linter, and it is why `unswell check` on a well-edited repository
 reports long sentences and little else.

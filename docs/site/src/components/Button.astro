@@ -5,13 +5,18 @@
 // leading slash, such as `/rules/`. This resolves it against the version base,
 // the same rewrite the Markdown pipeline applies to prose links. An address with
 // a scheme is left alone.
+//
+// `arrow` draws an arrow after the label. The arrow says "this goes on" and is
+// no part of the label, so it stays out of the page text and a screen reader
+// skips it.
 interface Props {
 	href: string;
 	variant?: 'solid' | 'outline';
 	external?: boolean;
+	arrow?: boolean;
 }
 
-const { href, variant = 'solid', external = false } = Astro.props;
+const { href, variant = 'solid', external = false, arrow = false } = Astro.props;
 const target = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(href)
 	? href
 	: `${import.meta.env.BASE_URL}${href.replace(/^\//, '')}`;
@@ -22,5 +27,5 @@ const target = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(href)
 	href={target}
 	rel={external ? 'noopener' : undefined}
 >
-	<slot />
+	<slot />{arrow && <span aria-hidden="true"> →</span>}
 </a>

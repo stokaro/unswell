@@ -20,24 +20,24 @@ unswell check README.md docs/ \
   --report markdown:artifacts/unswell.md
 ```
 
-Source text is omitted unless `--include-source` asks for it. Without it a report
-still keeps paths, coordinates, messages, metrics and score traces. With it, a
-saved report can highlight the paragraph after the original has changed or
-disappeared. Reports can hold internal prose, so choose their access accordingly.
+Source text is omitted unless `--include-source` asks for it. Without the flag a
+report still keeps paths, coordinates, messages, metrics and score traces; with
+it, a saved report can highlight the paragraph after the original has changed or
+disappeared. Reports can hold internal prose, so choose who can read them.
 
 A regular-file report is written to a temporary file in the destination directory
-and renamed after serialization succeeds. The CLI rejects duplicate destinations,
-writing over an input, a symlink destination and an existing hard link to an
-input. A requested output that fails gives exit code 2.
+and renamed after serialization succeeds. The CLI rejects four kinds of
+destination: a duplicate, an input file, a symlink, and an existing hard link to
+an input. If a requested output fails, the exit code is 2.
 
 ## What each format is for
 
 `text` is the terminal. It strips terminal control sequences.
 
-`json` is the durable one. It is generated from the public Go types by
-`cmd/genschema`, validated against the embedded versioned schema, and `make
-schema` detects drift. `unswell report` reads it back, checks required fields and
-rejects contradictory completion states. Reload it into another format without the
+`json` is the durable one. Its schema is generated from the public Go types by
+`cmd/genschema` (`make schema` detects drift). `unswell report` reads a saved
+report back, validates it against the embedded versioned schema, and rejects
+contradictory completion states. Reload it into another format without the
 sources:
 
 ```sh
@@ -49,14 +49,14 @@ refuses every external resource, so the check needs no network. Columns are
 Unicode code points; byte spans stay original UTF-8 offsets.
 
 The run properties carry the gate decision, the assessments, the manifest, the
-suppressions and any measurements. A consumer that keeps `properties` can recover
-everything the JSON holds. Permitted findings appear as accepted `inSource`
-suppressions with their reasons, and existing debt maps to
+suppressions and any measurements, so a consumer that keeps `properties` can
+recover everything the JSON holds. Permitted findings appear as accepted
+`inSource` suppressions with their reasons, and existing debt maps to
 `baselineState: unchanged`.
 
-`html` is one file with embedded styling and an optional filtering script, and it
-stays readable without JavaScript. Source and paths go through Go's HTML escaping;
-user text never becomes trusted markup.
+`html` is one file with embedded styling and an optional filtering script (it
+stays readable without JavaScript). Source and paths go through Go's HTML
+escaping: user text reaches the page as text and nothing else.
 
 `markdown` escapes table and formatting characters.
 
@@ -66,19 +66,23 @@ user text never becomes trusted markup.
   wrong.
 </Note>
 
-JSON and SARIF keep every finding regardless of display filters. `--max-findings`
-and `--min-severity` change the terminal, not the record and not the gate.
+JSON and SARIF keep every finding, whatever the display filters say.
+`--max-findings` and `--min-severity` change what the terminal shows; the record
+and the gate still see everything.
 
 ## The AI-sounding index
 
 For a Markdown page of 150 prose words or more the text, Markdown and JSON
 reports carry an index from 0 to 100 with the levels `low`, `elevated` and
-`high`. It is the higher of two readings. One counts em dashes, emoji in
-headings and at the start of list items, arrows, stock words and bold labels in
-lists. The other counts runs of sentences that look alike: plain statements of
-one length in a row, and sentences in a row that open with their subject. The
-report lists where each mark is and what to do with it. The index has no gate
-and is not a probability.
+`high`. It's the higher of two readings:
+
+- the marks: em dashes, emoji in headings and at the start of list items, arrows,
+  stock words and bold labels in lists;
+- the rhythm: runs of sentences that look alike, which means plain statements of
+  one length in a row, and sentences in a row that open with their subject.
+
+The index is not a probability and has no gate. What it gives you is a list:
+where each mark is, and what to do with it.
 
 `unswell fix` removes the marks that have a mechanical replacement, without a
 model, and writes only with `--write`. A run of sentences has none and is left
@@ -124,8 +128,8 @@ reduced by a correlation group or a rule cap says so.
 ## Accepting existing debt
 
 A baseline records a decision to accept the findings and scored units a tree
-already has. It does not delete them: the findings, the permissions and the raw
-and effective scores all stay in the result.
+already has. Everything it accepts stays in the result: the findings, the
+permissions, and the raw and effective scores.
 
 ```sh
 unswell baseline create . --output .unswell-baseline.json
@@ -144,9 +148,9 @@ emphasis can change without invalidating debt; negation, numbers, identifier cas
 and protected code stay significant.
 
 Coverage is explicit. Debt in a file the run did not select stays unobserved and
-survives an update. A missing entry in an observed file is stale, and only an
-explicit `baseline update` removes it. A deleted file is unobserved too: this
-implementation does not infer deletion from an omitted path.
+survives an update, and that includes a deleted file (this implementation doesn't
+infer deletion from an omitted path). In an observed file, a missing entry is
+stale, and only an explicit `baseline update` removes it.
 
 The artifact holds hashes and metadata, with no source prose and no timestamps.
-The limits are 16 MiB, 20000 accepted entries and 10000 documents.
+Its limits: 16 MiB, 20000 accepted entries and 10000 documents.
