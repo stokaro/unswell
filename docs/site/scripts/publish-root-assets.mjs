@@ -48,12 +48,15 @@ export const GENERATED_ROOT_FILES = ['versions.json', 'index.html', '404.html'];
 //
 // The pages of no version are in no version's sitemap, so they get a small
 // sitemap of their own at the root.
-export function renderRobots(defaultSlug, standing = []) {
+//
+// When the root holds the latest release, its sitemap is at the root as well.
+export function renderRobots(defaultSlug, standing = [], atRoot = false) {
 	const own = standing.length > 0 ? `Sitemap: ${Origin}/${STANDING_SITEMAP}\n` : '';
+	const sitemap = atRoot ? `${Origin}/sitemap-index.xml` : `${Origin}/${defaultSlug}/sitemap-index.xml`;
 	return `User-agent: *
 Allow: /
 
-Sitemap: ${Origin}/${defaultSlug}/sitemap-index.xml
+Sitemap: ${sitemap}
 ${own}`;
 }
 
@@ -71,7 +74,7 @@ ${urls}</urlset>
 // it wrote. A missing or empty source throws rather than being skipped: past
 // this step the artifact uploads, and a missing CNAME takes the domain down
 // with nothing red anywhere.
-export function publish(siteDir, defaultSlug, siteRoot = defaultSiteRoot, standing = StandingPages) {
+export function publish(siteDir, defaultSlug, siteRoot = defaultSiteRoot, standing = StandingPages, atRoot = false) {
 	const written = [];
 	for (const asset of COPIED_ASSETS) {
 		const source = join(siteRoot, asset.source);
@@ -85,7 +88,7 @@ export function publish(siteDir, defaultSlug, siteRoot = defaultSiteRoot, standi
 	if (cname !== Host) {
 		throw new Error(`CNAME names ${cname}, not ${Host}`);
 	}
-	writeFileSync(join(siteDir, 'robots.txt'), renderRobots(defaultSlug, standing));
+	writeFileSync(join(siteDir, 'robots.txt'), renderRobots(defaultSlug, standing, atRoot));
 	written.push('robots.txt');
 	if (standing.length > 0) {
 		writeFileSync(join(siteDir, STANDING_SITEMAP), renderStandingSitemap(standing));
@@ -102,6 +105,8 @@ function selftest() {
 	assert(renderRobots('edge').includes(`${Origin}/edge/sitemap-index.xml`), 'robots names the sitemap');
 	assert(renderRobots('edge').includes('User-agent: *'), 'robots addresses every crawler');
 	assert(!renderRobots('edge').includes(STANDING_SITEMAP), 'a site without pages of no version names one sitemap');
+	assert(renderRobots('v1.0.0', [], true).includes(`Sitemap: ${Origin}/sitemap-index.xml`), 'a release at the root has its sitemap there');
+	assert(!renderRobots('v1.0.0', [], true).includes('/v1.0.0/'), 'and robots names no version folder then');
 	assert(renderRobots('edge', ['report']).includes(`${Origin}/${STANDING_SITEMAP}`), 'robots names the sitemap of those pages');
 	assert(renderStandingSitemap(['report']).includes(`<loc>${Origin}/report/</loc>`), 'that sitemap lists the page at the root');
 
@@ -163,11 +168,11 @@ function main() {
 	const siteDir = command;
 	const defaultSlug = rest[0];
 	if (!siteDir || !defaultSlug) {
-		console.error('usage: node scripts/publish-root-assets.mjs <site-dir> <default-version> | --selftest');
+		console.error('usage: node scripts/publish-root-assets.mjs <site-dir> <default-version> [--at-root] | --selftest');
 		process.exitCode = 2;
 		return;
 	}
-	const written = publish(siteDir, defaultSlug);
+	const written = publish(siteDir, defaultSlug, defaultSiteRoot, StandingPages, rest.includes('--at-root'));
 	console.log(`published ${written.join(', ')} into ${siteDir}`);
 }
 

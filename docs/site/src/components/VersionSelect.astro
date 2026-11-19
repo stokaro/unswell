@@ -11,15 +11,26 @@
 // this build's own version, which is the honest answer to "what am I reading".
 //
 // A page of no version has no picker: there is nothing to switch.
-import { Standing } from '../lib/docs-origin.mjs';
+//
+// The latest release is served at the root of the site. Its pages name their
+// version here like any other, and the picker knows that their address has no
+// version in it.
+import { BuildBase, Standing } from '../lib/docs-origin.mjs';
 
 const version = process.env.DOCS_VERSION || 'edge';
 const standing = version === Standing;
+const base = BuildBase(process.env);
 ---
 
 {standing ? null : (
 <div class="u-version">
-	<select class="u-version__select" data-version-select data-current={version} aria-label="Documentation version">
+	<select
+		class="u-version__select"
+		data-version-select
+		data-current={version}
+		data-base={base}
+		aria-label="Documentation version"
+	>
 		<option value={version} selected>{version}</option>
 	</select>
 	<svg class="u-version__chevron" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
@@ -34,16 +45,22 @@ const standing = version === Standing;
 	if (select instanceof HTMLSelectElement) {
 		const current = select.dataset.current ?? 'edge';
 		// The route within this version, so switching keeps the reader on the same
-		// page where that page exists.
-		const route = window.location.pathname.replace(`/${current}/`, '');
+		// page where that page exists. The base is the root for the latest
+		// release and the version folder for every other build.
+		const base = select.dataset.base ?? `/${current}/`;
+		const path = window.location.pathname;
+		const route = path.startsWith(base) ? path.slice(base.length) : '';
+		// The version that the root of the site holds, once the list has said so.
+		let atRoot = null;
 
 		const navigate = async (slug) => {
-			const candidate = `/${slug}/${route}`;
+			const home = slug === atRoot ? '/' : `/${slug}/`;
+			const candidate = `${home}${route}`;
 			try {
 				const probe = await fetch(candidate, { method: 'HEAD' });
-				window.location.assign(probe.ok ? candidate : `/${slug}/`);
+				window.location.assign(probe.ok ? candidate : home);
 			} catch {
-				window.location.assign(`/${slug}/`);
+				window.location.assign(home);
 			}
 		};
 
@@ -57,6 +74,7 @@ const standing = version === Standing;
 				if (!response.ok) return;
 				const index = await response.json();
 				if (!Array.isArray(index.versions)) return;
+				if (index.atRoot === true && typeof index.default === 'string') atRoot = index.default;
 				select.replaceChildren(
 					...index.versions.map((entry) => {
 						const option = document.createElement('option');

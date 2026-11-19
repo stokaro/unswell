@@ -10,6 +10,12 @@
 # report. They are built once from the current tree, so such a page has one
 # address and changes with every deploy.
 #
+# The latest release is built into the root itself, so the bare domain shows its
+# pages with no redirect and no version in the address. Its own folder then
+# holds stubs that lead to the root. A tag from before the site could be built
+# that way keeps the earlier layout: a folder of its own and a redirect at the
+# apex.
+#
 # The workflow calls this, and so can a maintainer. Running the same steps by
 # hand is the only way to see what a deploy would publish before it publishes.
 set -euo pipefail
@@ -58,16 +64,28 @@ build_version() {
   cp -R "$source/dist/." "$output/$version/"
 }
 
+# build_root renders the latest release into the root of the assembly. It
+# takes the release and the site directory of its tag.
+build_root() {
+  local version=$1
+  local source=$2
+  DOCS_VERSION=$version DOCS_AT_ROOT=1 ASTRO_TELEMETRY_DISABLED=1 npm --prefix "$source" run build
+  cp -R "$source/dist/." "$output/"
+}
+
 rm -rf "$output"
 mkdir -p "$output"
 
 printf 'Building edge from the current tree.\n'
 build_version edge "$site"
 
+# at_root names the release that the root holds, when there is one.
+at_root=''
 if [[ $edge_only == false ]]; then
   tags=$(mktemp)
   trap 'rm -f "$tags"' EXIT
   git tag --list 'v*' | sort -V | tail -n "$max_tags" >"$tags"
+  latest=$(git tag --list 'v*' | node "$site/scripts/gen-versions.mjs" --latest)
   while read -r tag; do
     [[ -n $tag ]] || continue
     printf 'Building %s.\n' "$tag"
@@ -76,7 +94,12 @@ if [[ $edge_only == false ]]; then
     # A tag older than this site has no docs/site to build. Its folder is then
     # rendered from the current tree under that version's base. The two cases do
     # not make the same promise, so the log says which one happened.
-    if [[ -f "$workdir/docs/site/package.json" ]]; then
+    if [[ $tag == "$latest" ]] && grep -q 'DOCS_AT_ROOT' "$workdir/docs/site/src/lib/docs-origin.mjs" 2>/dev/null; then
+      printf 'Release %s is the latest one; its pages go to the root.\n' "$tag"
+      DOCS_VERSION=$tag ASTRO_TELEMETRY_DISABLED=1 npm --prefix "$workdir/docs/site" ci
+      build_root "$tag" "$workdir/docs/site"
+      at_root=$tag
+    elif [[ -f "$workdir/docs/site/package.json" ]]; then
       DOCS_VERSION=$tag ASTRO_TELEMETRY_DISABLED=1 npm --prefix "$workdir/docs/site" ci
       build_version "$tag" "$workdir/docs/site"
     else
@@ -94,9 +117,17 @@ printf 'Building the pages of no version from the current tree.\n'
 DOCS_VERSION=standing ASTRO_TELEMETRY_DISABLED=1 npm --prefix "$site" run build
 node "$site/scripts/publish-standing.mjs" "$site/dist" "$output"
 
-node "$site/scripts/gen-versions.mjs" "$output"
+if [[ -n $at_root ]]; then
+  node "$site/scripts/gen-versions.mjs" "$output" --latest-at-root "$at_root"
+else
+  node "$site/scripts/gen-versions.mjs" "$output"
+fi
 default=$(node -e 'process.stdout.write(require(process.argv[1]).default)' "$output/versions.json")
-node "$site/scripts/publish-root-assets.mjs" "$output" "$default"
+if [[ -n $at_root ]]; then
+  node "$site/scripts/publish-root-assets.mjs" "$output" "$default" --at-root
+else
+  node "$site/scripts/publish-root-assets.mjs" "$output" "$default"
+fi
 node "$site/scripts/check-pages-root.mjs" --dist "$output"
 
 printf 'Assembled %s with default version %s.\n' "$output" "$default"

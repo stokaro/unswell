@@ -11,7 +11,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join, posix, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { BasePath, isStandingPath, Standing } from '../src/lib/docs-origin.mjs';
+import { BuildBase, isStandingPath, Standing } from '../src/lib/docs-origin.mjs';
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const defaultDist = join(scriptDir, '..', 'dist');
@@ -154,7 +154,7 @@ function main() {
 		return;
 	}
 	const version = process.env.DOCS_VERSION || 'edge';
-	const base = BasePath(version);
+	const base = BuildBase(process.env);
 	const distIndex = process.argv.indexOf('--dist');
 	const distDir = distIndex === -1 ? defaultDist : resolve(process.argv[distIndex + 1]);
 	if (!existsSync(distDir)) {

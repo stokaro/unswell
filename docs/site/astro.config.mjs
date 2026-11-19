@@ -6,16 +6,16 @@ import { satteri } from '@astrojs/markdown-satteri';
 
 import markdownBaseLinks from './src/lib/markdown-base-links.mjs';
 import { sidebar } from './src/sidebar.mjs';
-import { Origin, BasePath, RepositoryURL, isStandingPath } from './src/lib/docs-origin.mjs';
+import { Origin, BuildBase, RepositoryURL, isStandingPath } from './src/lib/docs-origin.mjs';
 
 // One version per build. The deploy runs this build once per version and copies
 // each dist/ into its own folder of the Pages artifact, so a page built here
 // only ever addresses its own version. One more build, `standing`, holds the
-// pages that belong to no version and is served at the root of the site.
-const DOCS_VERSION = process.env.DOCS_VERSION || 'edge';
-
+// pages that belong to no version and is served at the root of the site. The
+// latest release is built a second way, with DOCS_AT_ROOT=1: its pages are
+// served at the root, so the bare domain shows them with no redirect.
 const site = Origin;
-const base = BasePath(DOCS_VERSION);
+const base = BuildBase(process.env);
 
 export default defineConfig({
 	site,
