@@ -19,7 +19,7 @@
 
 const EXTERNAL = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i;
 
-export default function markdownBaseLinks(base) {
+export default function markdownBaseLinks(base, isRootPath = () => false) {
 	if (!base.startsWith('/') || !base.endsWith('/')) {
 		throw new Error(`base must have a leading and a trailing slash: ${base}`);
 	}
@@ -32,6 +32,9 @@ export default function markdownBaseLinks(base) {
 				if (typeof href !== 'string') return;
 				if (href === '' || href.startsWith('#') || EXTERNAL.test(href)) return;
 				if (!href.startsWith('/')) return;
+				// A page of no version is served at the root of the site, so a
+				// link to it keeps its address in every build.
+				if (isRootPath(href.split(/[?#]/)[0])) return;
 				if (href === base || href.startsWith(base)) return;
 				ctx.setProperty(node, 'href', `${base}${href.slice(1)}`);
 			},

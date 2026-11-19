@@ -13,9 +13,15 @@
 // gets an address without a version, a stub that sends the reader to the page
 // of the latest release, and 404.html sends an address of a release that is no
 // longer built to that stub.
+//
+// A page of no version is the other way round. The standing build puts the
+// page itself at the root, and every version folder gets a stub that sends an
+// old address of that page under a version to the one address it has now.
 import { existsSync, mkdtempSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+
+import { StandingPages } from '../src/lib/docs-origin.mjs';
 
 // The site root. Empty: the documentation is served at the apex of its own
 // domain, so there is nothing between the root and a version folder.
@@ -162,7 +168,18 @@ export function sharedHead(html) {
 // link to it shows as a link to the page.
 export function renderPageRedirectHtml(defaultSlug, page, shared = { title: null, tags: [] }) {
 	if (!PAGE_RE.test(page)) throw new Error(`page path ${JSON.stringify(page)} cannot be published as an address`);
-	const target = `${PAGES_PREFIX}/${defaultSlug}/${page}/`;
+	return renderStub(`${PAGES_PREFIX}/${defaultSlug}/${page}/`, shared, 'in the latest release');
+}
+
+// renderStandingRedirectHtml is the stub inside a version folder at the old
+// address of a page that belongs to no version. It sends the reader to the
+// page at the root of the site.
+export function renderStandingRedirectHtml(page, shared = { title: null, tags: [] }) {
+	if (!PAGE_RE.test(page)) throw new Error(`page path ${JSON.stringify(page)} cannot be published as an address`);
+	return renderStub(`${PAGES_PREFIX}/${page}/`, shared, 'and belongs to no version');
+}
+
+function renderStub(target, shared, where) {
 	const tags = shared.tags.map((tag) => `    ${tag}\n`).join('');
 	return `<!doctype html>
 <html lang="en">
@@ -175,7 +192,7 @@ ${tags}    <script>location.replace(${JSON.stringify(target)} + location.search 
     <noscript><meta http-equiv="refresh" content="0; url=${target}" /></noscript>
   </head>
   <body>
-    <p>This page is at <a href="${target}">${target}</a> in the latest release.</p>
+    <p>This page is at <a href="${target}">${target}</a> ${where}.</p>
   </body>
 </html>
 `;
@@ -221,7 +238,11 @@ function renderVersionsJson(index) {
 	return `${JSON.stringify(index, null, 2)}\n`;
 }
 
-export function generate(dir) {
+// generate takes the routes of the pages of no version. Each has to be at the
+// root of the assembly already, put there by the standing build: a version
+// folder then loses its own copy of the page, if its tag still built one, and
+// gets the stub in its place.
+export function generate(dir, standing = []) {
 	const slugs = readdirSync(dir, { withFileTypes: true })
 		.filter((entry) => entry.isDirectory() && isVersionFolder(entry.name))
 		.map((entry) => entry.name);
@@ -229,7 +250,17 @@ export function generate(dir) {
 	writeFileSync(join(dir, 'versions.json'), renderVersionsJson(index));
 	writeFileSync(join(dir, 'index.html'), renderRedirectHtml(index.default));
 	writeFileSync(join(dir, '404.html'), renderNotFoundHtml());
-	const pages = pagePaths(dir, index.default);
+	for (const page of standing) {
+		const published = join(dir, page, 'index.html');
+		if (!existsSync(published)) throw new Error(`the page of no version ${page} is not at the root of the assembly`);
+		const stub = renderStandingRedirectHtml(page, sharedHead(readFileSync(published, 'utf8')));
+		for (const slug of slugs) {
+			rmSync(join(dir, slug, page), { recursive: true, force: true });
+			mkdirSync(join(dir, slug, page), { recursive: true });
+			writeFileSync(join(dir, slug, page, 'index.html'), stub);
+		}
+	}
+	const pages = pagePaths(dir, index.default).filter((page) => !standing.includes(page.split('/')[0]));
 	for (const page of pages) {
 		// A page with the name of a version would shadow that version's folder.
 		if (isVersionFolder(page.split('/')[0])) {
@@ -352,6 +383,42 @@ function selftest() {
 		}
 		assert(refused, 'a page with the name of a version is refused');
 
+		// A page of no version: the root keeps the page, and each version folder
+		// gets a stub at the old address in place of its own copy.
+		const standingRoot = mkdtempSync(join(tmpdir(), 'unswell-docs-standing-'));
+		try {
+			for (const version of ['edge', 'v0.1.0-alpha.3', 'v0.1.0-alpha.2']) mkdirSync(join(standingRoot, version));
+			mkdirSync(join(standingRoot, 'v0.1.0-alpha.3', 'report', 'part'), { recursive: true });
+			writeFileSync(join(standingRoot, 'v0.1.0-alpha.3', 'report', 'index.html'), 'the copy a tag built');
+			writeFileSync(join(standingRoot, 'v0.1.0-alpha.3', 'report', 'part', 'index.html'), 'a page below it');
+			mkdirSync(join(standingRoot, 'v0.1.0-alpha.3', 'guide'));
+			writeFileSync(join(standingRoot, 'v0.1.0-alpha.3', 'guide', 'index.html'), 'page');
+			let missing = false;
+			try {
+				generate(standingRoot, ['report']);
+			} catch {
+				missing = true;
+			}
+			assert(missing, 'a page of no version that is not at the root is refused');
+			mkdirSync(join(standingRoot, 'report'));
+			const real =
+				'<html><head><title>The report | Unswell</title><meta property="og:title" content="The report"></head>' +
+				'<body><main>text</main></body></html>';
+			writeFileSync(join(standingRoot, 'report', 'index.html'), real);
+			const made = generate(standingRoot, ['report']);
+			assert(readFileSync(join(standingRoot, 'report', 'index.html'), 'utf8') === real, 'the page at the root is left as it is');
+			assert(made.pages.join(',') === 'guide', 'a page of no version gets no stub to a version');
+			for (const version of ['edge', 'v0.1.0-alpha.3', 'v0.1.0-alpha.2']) {
+				const old = readFileSync(join(standingRoot, version, 'report', 'index.html'), 'utf8');
+				assert(old.includes('location.replace("/report/"'), `${version} sends its old address to the root`);
+				assert(old.includes('<title>The report | Unswell</title>'), `${version} names the page in its stub`);
+			}
+			assert(!existsSync(join(standingRoot, 'v0.1.0-alpha.3', 'report', 'part')), 'the copy that a tag built is gone');
+			assert(existsSync(join(standingRoot, 'guide', 'index.html')), 'a page of the version keeps its stub at the root');
+		} finally {
+			rmSync(standingRoot, { recursive: true, force: true });
+		}
+
 		// 404.html sends an address under a version to the same page without it.
 		assert(versionlessPath('/v0.1.0-alpha.2/research-report/') === '/research-report/', 'a removed release goes to the stub');
 		assert(versionlessPath('/v0.1.0-alpha.2/guides/install') === '/guides/install/', 'a nested page keeps its path');
@@ -387,7 +454,7 @@ function main() {
 		process.exitCode = 2;
 		return;
 	}
-	const index = generate(arg);
+	const index = generate(arg, StandingPages);
 	console.log(`wrote ${join(arg, 'versions.json')} (default=${index.default}) and ${index.pages.length} addresses without a version`);
 }
 

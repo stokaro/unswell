@@ -16,7 +16,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { Host, Origin } from '../src/lib/docs-origin.mjs';
+import { Host, Origin, StandingPages } from '../src/lib/docs-origin.mjs';
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const defaultSiteRoot = join(scriptDir, '..');
@@ -45,11 +45,25 @@ export const GENERATED_ROOT_FILES = ['versions.json', 'index.html', '404.html'];
 // Every other version is reachable and indexable, but only one of them should
 // be the copy a search engine prefers, and that is the one the canonical links
 // of the default version already name.
-export function renderRobots(defaultSlug) {
+//
+// The pages of no version are in no version's sitemap, so they get a small
+// sitemap of their own at the root.
+export function renderRobots(defaultSlug, standing = []) {
+	const own = standing.length > 0 ? `Sitemap: ${Origin}/${STANDING_SITEMAP}\n` : '';
 	return `User-agent: *
 Allow: /
 
 Sitemap: ${Origin}/${defaultSlug}/sitemap-index.xml
+${own}`;
+}
+
+export const STANDING_SITEMAP = 'sitemap-standing.xml';
+
+export function renderStandingSitemap(standing) {
+	const urls = standing.map((page) => `  <url><loc>${Origin}/${page}/</loc></url>\n`).join('');
+	return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}</urlset>
 `;
 }
 
@@ -57,7 +71,7 @@ Sitemap: ${Origin}/${defaultSlug}/sitemap-index.xml
 // it wrote. A missing or empty source throws rather than being skipped: past
 // this step the artifact uploads, and a missing CNAME takes the domain down
 // with nothing red anywhere.
-export function publish(siteDir, defaultSlug, siteRoot = defaultSiteRoot) {
+export function publish(siteDir, defaultSlug, siteRoot = defaultSiteRoot, standing = StandingPages) {
 	const written = [];
 	for (const asset of COPIED_ASSETS) {
 		const source = join(siteRoot, asset.source);
@@ -71,8 +85,12 @@ export function publish(siteDir, defaultSlug, siteRoot = defaultSiteRoot) {
 	if (cname !== Host) {
 		throw new Error(`CNAME names ${cname}, not ${Host}`);
 	}
-	writeFileSync(join(siteDir, 'robots.txt'), renderRobots(defaultSlug));
+	writeFileSync(join(siteDir, 'robots.txt'), renderRobots(defaultSlug, standing));
 	written.push('robots.txt');
+	if (standing.length > 0) {
+		writeFileSync(join(siteDir, STANDING_SITEMAP), renderStandingSitemap(standing));
+		written.push(STANDING_SITEMAP);
+	}
 	return written;
 }
 
@@ -83,6 +101,9 @@ function selftest() {
 
 	assert(renderRobots('edge').includes(`${Origin}/edge/sitemap-index.xml`), 'robots names the sitemap');
 	assert(renderRobots('edge').includes('User-agent: *'), 'robots addresses every crawler');
+	assert(!renderRobots('edge').includes(STANDING_SITEMAP), 'a site without pages of no version names one sitemap');
+	assert(renderRobots('edge', ['report']).includes(`${Origin}/${STANDING_SITEMAP}`), 'robots names the sitemap of those pages');
+	assert(renderStandingSitemap(['report']).includes(`<loc>${Origin}/report/</loc>`), 'that sitemap lists the page at the root');
 
 	const tmp = mkdtempSync(join(tmpdir(), 'unswell-docs-root-'));
 	try {
@@ -105,6 +126,10 @@ function selftest() {
 		assert(written.includes('.nojekyll'), 'the Jekyll marker is published');
 		assert(readFileSync(join(assembly, 'og-image.png'), 'utf8') === 'png', 'the picture of a shared link is at the root');
 		assert(statSync(join(assembly, 'robots.txt')).size > 0, 'robots.txt has content');
+		assert(written.includes(STANDING_SITEMAP), 'the sitemap of the pages of no version is published');
+		const plain = join(tmp, '_plain');
+		mkdirSync(plain);
+		assert(!publish(plain, 'edge', fakeSiteRoot, []).includes(STANDING_SITEMAP), 'no such pages, no such sitemap');
 
 		writeFileSync(join(fakeSiteRoot, 'public', 'CNAME'), 'example.com\n');
 		let refused = false;

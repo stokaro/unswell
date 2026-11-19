@@ -6,11 +6,12 @@ import { satteri } from '@astrojs/markdown-satteri';
 
 import markdownBaseLinks from './src/lib/markdown-base-links.mjs';
 import { sidebar } from './src/sidebar.mjs';
-import { Origin, BasePath, RepositoryURL } from './src/lib/docs-origin.mjs';
+import { Origin, BasePath, RepositoryURL, isStandingPath } from './src/lib/docs-origin.mjs';
 
 // One version per build. The deploy runs this build once per version and copies
 // each dist/ into its own folder of the Pages artifact, so a page built here
-// only ever addresses its own version.
+// only ever addresses its own version. One more build, `standing`, holds the
+// pages that belong to no version and is served at the root of the site.
 const DOCS_VERSION = process.env.DOCS_VERSION || 'edge';
 
 const site = Origin;
@@ -24,7 +25,7 @@ export default defineConfig({
 		// links as site routes, `/rules/`, and the plugin puts this build's
 		// version in front of them.
 		processor: satteri({
-			hastPlugins: [markdownBaseLinks(base)],
+			hastPlugins: [markdownBaseLinks(base, isStandingPath)],
 		}),
 	},
 	integrations: [

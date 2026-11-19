@@ -4,7 +4,12 @@
 // point is TypeScript inside node_modules and Node refuses to strip types
 // there. The link gate reads this module instead, so the sidebar the gate
 // checks is the sidebar the site renders.
-import { PlaygroundOrigin } from './lib/docs-origin.mjs';
+import { PlaygroundOrigin, RootURL, Standing } from './lib/docs-origin.mjs';
+
+// The research report belongs to no version. The standing build holds the page
+// itself, and every other build links to its one address at the root.
+const standing = (process.env.DOCS_VERSION || 'edge') === Standing;
+const report = { label: 'What two months of measurement taught me' };
 
 export const sidebar = [
 	{
@@ -24,7 +29,7 @@ export const sidebar = [
 	},
 	{
 		label: 'Research',
-		items: [{ label: 'What two months of measurement taught me', slug: 'research-report' }],
+		items: [standing ? { ...report, slug: 'research-report' } : { ...report, link: RootURL('research-report/') }],
 	},
 	{
 		label: 'Configure',

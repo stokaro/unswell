@@ -62,6 +62,14 @@ jobs:
           DOCS_VERSION: edge
         run: npm run build && npm run check:links && npm run check:pages-root && npm run check:repo-links && npm run check:markup
 
+      # The research report belongs to no version, so the build above does not
+      # hold it. The standing build does, with the root of the site as its base.
+      - name: Build and check the pages of no version
+        working-directory: docs/site
+        env:
+          DOCS_VERSION: standing
+        run: npm run build && npm run check:links && npm run check:repo-links && npm run check:markup
+
   deploy:
     name: Deploy to GitHub Pages
     needs: check

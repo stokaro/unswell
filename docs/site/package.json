@@ -23,7 +23,8 @@
     "versions:selftest": "node scripts/gen-versions.mjs --selftest",
     "root-assets:selftest": "node scripts/publish-root-assets.mjs --selftest",
     "deployment-candidate:selftest": "node scripts/check-deployment-candidate.mjs --selftest",
-    "selftest": "npm run versions:selftest && npm run root-assets:selftest && npm run check:links:selftest && npm run check:pages-root:selftest && npm run check:repo-links:selftest && npm run check:markup:selftest && npm run deployment-candidate:selftest"
+    "standing:selftest": "node scripts/publish-standing.mjs --selftest",
+    "selftest": "npm run versions:selftest && npm run root-assets:selftest && npm run standing:selftest && npm run check:links:selftest && npm run check:pages-root:selftest && npm run check:repo-links:selftest && npm run check:markup:selftest && npm run deployment-candidate:selftest"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",

@@ -10,7 +10,7 @@
 //
 // Pages serves a new artifact a few seconds after the API reports success, so
 // the check retries before it fails.
-import { Origin } from '../src/lib/docs-origin.mjs';
+import { Origin, StandingPages } from '../src/lib/docs-origin.mjs';
 
 const DEFAULT_ATTEMPTS = 10;
 const DEFAULT_DELAY_MS = 6000;
@@ -42,6 +42,15 @@ export function evaluate({ rootStatus, rootBody, versionStatus, versionBody }, e
 	return { ok: true, version: target };
 }
 
+// evaluateStanding decides whether an address serves a page of no version.
+// The page itself has a main element. A stub that leads elsewhere has none,
+// and that is what the address held before the page moved to the root.
+export function evaluateStanding(page, { status, body }) {
+	if (status !== 200) return { ok: false, reason: `/${page}/ answered ${status}` };
+	if (!body.includes('<main')) return { ok: false, reason: `/${page}/ is not the page itself` };
+	return { ok: true };
+}
+
 async function attempt(expectedVersions) {
 	const rootResponse = await fetch(`${Origin}/`, { redirect: 'follow' });
 	const rootBody = await rootResponse.text();
@@ -54,7 +63,7 @@ async function attempt(expectedVersions) {
 	}
 	const versionResponse = await fetch(`${Origin}/${target}/`, { redirect: 'follow' });
 	const versionBody = await versionResponse.text();
-	return evaluate(
+	const served = evaluate(
 		{
 			rootStatus: rootResponse.status,
 			rootBody,
@@ -63,6 +72,13 @@ async function attempt(expectedVersions) {
 		},
 		expectedVersions
 	);
+	if (!served.ok) return served;
+	for (const page of StandingPages) {
+		const response = await fetch(`${Origin}/${page}/`, { redirect: 'follow' });
+		const standing = evaluateStanding(page, { status: response.status, body: await response.text() });
+		if (!standing.ok) return standing;
+	}
+	return served;
 }
 
 function sleep(ms) {
@@ -110,6 +126,12 @@ function selftest() {
 	assert(
 		evaluate(good, ['edge']).reason.includes('did not build'),
 		'a version this deploy did not build fails and says so'
+	);
+	assert(evaluateStanding('report', { status: 200, body: '<main>the report</main>' }).ok, 'a page at the root passes');
+	assert(!evaluateStanding('report', { status: 404, body: '' }).ok, 'a missing page of no version fails');
+	assert(
+		evaluateStanding('report', { status: 200, body: '<script>location.replace("/v1/report/")</script>' }).reason.includes('not the page'),
+		'a stub at that address fails and says so'
 	);
 	console.log('check-deployment-candidate.mjs --selftest: OK');
 }

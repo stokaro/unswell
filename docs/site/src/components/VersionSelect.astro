@@ -9,9 +9,15 @@
 //
 // Without JavaScript, and before the fetch answers, the control still shows
 // this build's own version, which is the honest answer to "what am I reading".
+//
+// A page of no version has no picker: there is nothing to switch.
+import { Standing } from '../lib/docs-origin.mjs';
+
 const version = process.env.DOCS_VERSION || 'edge';
+const standing = version === Standing;
 ---
 
+{standing ? null : (
 <div class="u-version">
 	<select class="u-version__select" data-version-select data-current={version} aria-label="Documentation version">
 		<option value={version} selected>{version}</option>
@@ -21,6 +27,7 @@ const version = process.env.DOCS_VERSION || 'edge';
 		></path>
 	</svg>
 </div>
+)}
 
 <script>
 	const select = document.querySelector('select[data-version-select]');

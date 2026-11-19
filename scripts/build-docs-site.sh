@@ -6,6 +6,10 @@
 # version keeps the pages it shipped with. The root holds versions.json, the
 # apex redirect, the CNAME and robots.txt.
 #
+# The root also holds the pages that belong to no version, such as the research
+# report. They are built once from the current tree, so such a page has one
+# address and changes with every deploy.
+#
 # The workflow calls this, and so can a maintainer. Running the same steps by
 # hand is the only way to see what a deploy would publish before it publishes.
 set -euo pipefail
@@ -82,6 +86,13 @@ if [[ $edge_only == false ]]; then
     git worktree remove --force "$workdir" || true
   done <"$tags"
 fi
+
+# The pages of no version go to the root before the version list is written:
+# that step replaces each version's own copy of such a page with a stub that
+# leads to the root, and it reads the page at the root to do so.
+printf 'Building the pages of no version from the current tree.\n'
+DOCS_VERSION=standing ASTRO_TELEMETRY_DISABLED=1 npm --prefix "$site" run build
+node "$site/scripts/publish-standing.mjs" "$site/dist" "$output"
 
 node "$site/scripts/gen-versions.mjs" "$output"
 default=$(node -e 'process.stdout.write(require(process.argv[1]).default)' "$output/versions.json")

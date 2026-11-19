@@ -18,11 +18,26 @@ export const Origin = 'https://unswell.dev';
 // Host is the same address as the Pages CNAME file spells it.
 export const Host = 'unswell.dev';
 
-// BasePath is the site-root-relative prefix every page of one version lives
+// Standing names the build of the pages that belong to no version. An article
+// says the same thing whatever release a reader has installed, so it is built
+// once from the current tree and served at the root of the site, beside the
+// version folders and inside none of them.
+export const Standing = 'standing';
+
+// StandingPages are the routes of those pages, without slashes.
+export const StandingPages = ['research-report'];
+
+// isStandingPath reports whether a site-root-relative path addresses a
+// standing page or something below one.
+export function isStandingPath(path) {
+	return StandingPages.some((page) => path === `/${page}` || path.startsWith(`/${page}/`));
+}
+
+// BasePath is the site-root-relative prefix every page of one build lives
 // under, with leading and trailing slashes. It is a function because the
-// version is chosen per build.
+// version is chosen per build. The standing build lives at the root.
 export function BasePath(version) {
-	return `/${version}/`;
+	return version === Standing ? '/' : `/${version}/`;
 }
 
 // RootURL is the absolute URL of a file published at the site root, beside the
