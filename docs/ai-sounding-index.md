@@ -1,7 +1,7 @@
 # AI-sounding index and `unswell fix`
 
-`unswell check` gives every Markdown page of 150 prose words or more an index
-from 0 to 100. The index is the higher of two readings of the page. The first
+`unswell check` gives every Markdown or MDX page of 150 prose words or more an
+index from 0 to 100. The index is the higher of two readings of the page. The first
 counts the marks that people remove when they clean AI-sounding wording out of
 documentation. The second reads the rhythm of the sentences: runs of
 sentences that look alike, which is what remains in a page that a model wrote
@@ -52,9 +52,17 @@ reading and [ADR 0060](adr/0060-rhythm-reading.md) those of the second.
 | `elevated` | 40 to 69 |
 | `high` | 70 or more |
 
-The index has no gate and does not change the exit code. A file that is not
-Markdown gets no index, and neither does a page with fewer than 150 prose
+The index has no gate and does not change the exit code. A file of another
+format gets no index, and neither does a page with fewer than 150 prose
 words.
+
+An MDX page is read as the Markdown it holds. The text inside a component is
+prose and counts. Tags, attributes, expressions in braces, and `import` and
+`export` lines are code: a dash or an arrow there is no mark, and
+`unswell fix` leaves it as it is. A component ends a run of sentences, as a
+heading does. The weights and the levels are those of Markdown pages, and the
+reading of MDX pages has no measurement of its own
+([ADR 0067](adr/0067-page-index-for-mdx.md)).
 
 Two rules of `unswell check` report two habits of a page that the index does
 not count: paragraphs that end on a denial, and one formal register from the
@@ -533,3 +541,5 @@ a human post on the same subject, so it does not go by the subject of a post.
   pages it wrote a period for 184 dashes and a comma for 2,553.
 - A page that the engine cannot parse as Markdown fails in `unswell fix` as
   it does in `unswell check`.
+- The reference holds Markdown files. An MDX page gets the same weights, and
+  no reference of MDX pages was measured.

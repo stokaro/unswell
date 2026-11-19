@@ -38,7 +38,7 @@ constructions, long sentences, and emoji in headings. It explains each finding,
 gives the same result on every run, and can fail a build on wording your
 project has decided to refuse.
 
-`unswell check` also gives each Markdown page an
+`unswell check` also gives each Markdown or MDX page an
 [AI-sounding index](docs/ai-sounding-index.md) from 0 to 100 and lists the
 marks behind it: em dashes, emoji in headings and list items, arrows, stock
 words, bold labels in lists. On pages from before a commit that removes

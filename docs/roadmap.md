@@ -154,6 +154,11 @@ model's text, and lets a caller require the first alone
 blind comparison that gives the same answer on the next run, and whether a
 revision that loses nothing is worth publishing.
 
+[ADR 0067](adr/0067-page-index-for-mdx.md) gives an MDX page the AI-sounding
+index of its prose, with the weights of Markdown pages, and lets `unswell fix`
+change it ([#631](https://github.com/stokaro/unswell/issues/631)). Open after
+it: a reference of MDX pages before and after a cleanup.
+
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on
 an explicit maintainer request, after the other implementation tasks have a
