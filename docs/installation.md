@@ -40,7 +40,7 @@ The action lives in [stokaro/unswell-action](https://github.com/stokaro/unswell-
 Pin an action commit and an independent CLI version:
 
 ```yaml
-- uses: stokaro/unswell-action@1badb2d15384e23218b4fd2d29ec77f5b7fa6922
+- uses: stokaro/unswell-action@664a3e95d9d6a65fc1cd84c69cd216649134b608
   id: unswell
   with:
     version: 0.1.0-alpha.24
@@ -68,7 +68,7 @@ public download check.
 
 The Action updater verifies all six archives and automatically opens a PR for the
 default CLI version. A maintainer reviews and merges it; tag publication follows
-successful checks on the merged commit. The action's `v0.1.0-alpha.23`
+successful checks on the merged commit. The action's `v0.1.0-alpha.24`
 tag points to the commit in the example above. Existing release tags are not moved.
 
 ## Archives, containers and MCP Registry
