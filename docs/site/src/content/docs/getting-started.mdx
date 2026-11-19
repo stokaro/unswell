@@ -24,9 +24,9 @@ defaults and the artifact formats all change during the alpha.
 </CtaRow>
 
 The tap is [stokaro/homebrew-unswell](https://github.com/stokaro/homebrew-unswell).
-Its formula picks a checked release archive for macOS or Linux on ARM64 or AMD64.
-`brew install --HEAD stokaro/unswell/unswell` builds the default branch with Go
-instead. The formula moves to a new release through a pull request in the tap, so
+Its formula picks a checked release archive for macOS or Linux on ARM64 or AMD64
+(`brew install --HEAD stokaro/unswell/unswell` builds the default branch with Go
+instead). The formula moves to a new release through a pull request in the tap, so
 `brew info stokaro/unswell/unswell` shows the version it installs.
 
 ### Go
@@ -36,12 +36,13 @@ go install github.com/stokaro/unswell/cmd/unswell@v0.1.0-alpha.20
 ```
 
 From a checkout, `go build -o bin/unswell ./cmd/unswell` uses the minimum Go
-version declared in `go.mod`. The runtime needs neither cgo nor a network.
+version declared in `go.mod`. The result is a pure Go binary (no cgo) that runs
+offline.
 
 ### Container
 
 Two images exist: one for the CLI, one for the MCP server. Both are public in
-GHCR and built for Linux AMD64 and ARM64. Docker Hub mirrors the release with
+GHCR and built for Linux AMD64 and ARM64, and Docker Hub mirrors the release with
 matching digests. Mount your sources read-only; a scan makes no network request.
 
 ### GitHub Action
@@ -60,6 +61,8 @@ matching digests. Mount your sources read-only; a scan makes no network request.
 
 Pin the action commit and the CLI version separately. The action verifies the
 downloaded archive's SHA-256 and exposes the JSON and SARIF paths as step outputs.
+For a large repository, its `timeout` and `jobs` inputs set the limit for the
+whole analysis (the CLI default is 30 seconds) and the number of workers.
 
 ## Write a policy and run it
 
@@ -72,10 +75,10 @@ unswell config init --profile technical
 unswell check README.md docs/
 ```
 
-A recursive scan inside a Git repository selects tracked files. Named files may be
-untracked, and they bypass the recursive include and exclude patterns. Outside
-Git, a directory argument walks the filesystem within the project root. Symlinks
-are not followed.
+Symlinks are not followed. A recursive scan inside a Git repository selects
+tracked files; files you name yourself may be untracked, and they bypass the
+recursive include and exclude patterns. Outside Git, a directory argument walks
+the filesystem within the project root.
 
 Check a draft that is not on disk with `--stdin`, which needs a logical name or an
 explicit format so the extractor knows which grammar to use:
@@ -115,11 +118,12 @@ The rest is the message: what to change, in the imperative.
 
 ## The gate
 
-Severity and the gate are separate settings. A rule with `gate: forbid` fails the
-run whenever it matches. A local score gate fails a sentence or paragraph whose
-effective score reaches the configured threshold, provided the unit has at least
-`min_words` words. Display filters such as `--max-findings` and `--min-severity`
-never change the decision.
+Severity and the gate are separate settings: severity is for display, and the
+gate decides the exit code. A rule with `gate: forbid` fails the run whenever it
+matches. A local score gate fails a sentence or paragraph whose effective score
+reaches the configured threshold, provided the unit has at least `min_words`
+words. Display filters such as `--max-findings` and `--min-severity` change what
+you see, and the decision stays the same.
 
 <Terminal
   caption="docs — a clean run"
@@ -134,20 +138,21 @@ never change the decision.
 Exit codes are `0` for a complete pass, `1` for a complete policy failure, `2` for
 an operational error or an incomplete analysis, and `130` for cancellation. A scan
 that finds no applicable prose fails unless `--allow-empty` says otherwise.
-`--no-gate` reports findings without the style failure; it does not hide an
-operational error.
+`--no-gate` reports findings without the style failure; an operational error
+still exits 2.
 
-An analysis that runs longer than `--timeout`, 30 seconds by default, ends with
-an operational error. `--jobs` sets the number of workers. By default the check
-uses the available processors, at most eight, and the result does not depend on
-that number.
+An analysis that runs longer than `--timeout` (30 seconds by default) ends with
+an operational error. `--jobs` sets the number of workers; by default the check
+uses the available processors, at most eight. The result is the same for any
+number of workers.
 
 <Note>
-  A failed check is a reason to revise the wording. It is not a reason to add a
-  suppression, and an assistant that adds one to pass has not done the work.
+  A failed check is a reason to revise the wording. An assistant that adds a
+  suppression to pass has skipped the work: a suppression is for wording that has
+  to stay.
 </Note>
 
 <CtaRow>
-  <Button href="/how-it-works/">How it works →</Button>
+  <Button href="/how-it-works/" arrow>How it works</Button>
   <Button href="/configuration/" variant="outline">Write the policy</Button>
 </CtaRow>

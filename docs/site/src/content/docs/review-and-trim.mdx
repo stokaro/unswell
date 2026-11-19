@@ -13,8 +13,9 @@ import Note from '../../components/Note.astro';
 `unswell check`, the Go library, the GitHub Action and the MCP server send nothing
 anywhere. `unswell review`, `unswell trim`, and `unswell compare` send the
 complete text of every selected document to the endpoint or the local program
-you name, and to nothing else. An API key goes to that endpoint in the `Authorization` header. It is not
-written to a report or to an error message.
+you name, and to nothing else. An API key goes to that endpoint in the
+`Authorization` header, and nowhere else: reports and error messages leave it
+out.
 
 Without a named model these commands fail before they read a document.
 
@@ -35,27 +36,28 @@ unswell review README.md docs \
 ```
 
 `--api-key-env` names the environment variable that holds the key, so the key
-never appears in a command line. Plain `http` is accepted for this machine only,
-and a model served here needs no key.
+never appears in a command line. Plain `http` is accepted for this machine only
+(a model served here needs no key).
 
-A local program can be the model. It reads the prompt on standard input and
-prints the answer on standard output. It runs by its arguments, without a shell,
-in an empty temporary directory:
+A local program can be the model too: it reads the prompt on standard input and
+prints the answer on standard output. Unswell runs it by its arguments, without a
+shell, in an empty temporary directory:
 
 ```sh
 unswell trim docs/guide.md --command assistant --command-arg=--print
 ```
 
 Paths, `--stdin`, `--filename`, `--format`, `--config` and `--profile` select and
-extract documents as they do for `unswell check`. The model is asked about the
+extract documents as they do for `unswell check`, so the model is asked about the
 same prose that the rules see. Code blocks and protected identifiers are context.
 
 ## Review
 
-A rule names a construction. It cannot tell that a sentence repeats an earlier
-one or that an opening adds nothing. `unswell review` asks the model to read the
-whole document and flag items under a fixed rubric of seven categories. Unswell
-binds every flag to source bytes and drops a flag that does not quote its item.
+A rule names a construction, but it can't tell that a sentence repeats an earlier
+one or that an opening adds nothing. For that, `unswell review` asks the model to
+read the whole document and flag items under a fixed rubric of seven categories.
+Unswell then binds every flag to source bytes and drops a flag that does not
+quote its item.
 
 ```text
 docs/guide.md:3:1: review [empty_framing] The opening only announces the statement.
@@ -67,7 +69,7 @@ Findings are a model's judgment, bound to source bytes. They are advisory and ne
 
 `--confirm-model` names a second model that answers `yes`, `no` or `uncertain`
 for every bound flag without seeing the first model's reasons. The text report
-then lists the flags it accepted. That gives a shorter list.
+then lists only the flags it accepted, which makes for a shorter list.
 
 ## Trim
 
@@ -81,7 +83,7 @@ proposes, and a deterministic check keeps a proposal only if all of this holds:
 - No code or link is removed, and a kept word keeps its quotation marks and its
   emphasis markers.
 
-Only sentences that lie in one piece of source are offered. A sentence with
+Only sentences that lie in one piece of source are offered: a sentence with
 inline code, a link or emphasis inside is left alone, as are headings, tables and
 code.
 
@@ -95,22 +97,22 @@ Nothing was written. Use --write to apply these trims.
 A trim only deletes words. A deleted word can still carry meaning that the check cannot see.
 ```
 
-Files change only with `--write`. The command reads each file again first and
-leaves it alone if it changed during the run or is read-only. Review the change
-in your version control before you keep it.
+Files change only with `--write`. Before it writes, the command reads each file
+again and leaves it alone if it changed during the run or is read-only. Review
+the change in your version control before you keep it.
 
 <Note>
-  The check is exact about words and knows nothing about their meaning. A removed
+  The check is exact about words and knows nothing about their meaning: a removed
   adjective can be the point of a sentence, so read each trim.
 </Note>
 
 ## Compare a revision
 
 `unswell compare` checks a revision of a page. The judge reads the opening of the
-page and of the revision, about 450 words each, as text A and text B. It is
-not told that one is a revision of the other, and it is asked in both orders which reads
-more like text written by a language model. The revision is accepted only if all
-of this holds:
+page and of the revision, about 450 words each, as text A and text B. Nobody
+tells it that one is a revision of the other, and it's asked in both orders which
+reads more like text written by a language model. The revision is accepted only
+if all of this holds:
 
 - The judge names the page in both orders. A judge that follows the order of the
   texts names a different text each time, and that counts as no difference.
@@ -146,36 +148,42 @@ both. With `--require kept` it is accepted when nothing is lost, whatever the
 judge hears; the judge's answer to the blind comparison can differ from one
 run to the next.
 
-The page index plays no part. Name a judge other than the model that made the
-revision.
+The page index plays no part in this, and the judge should be a model other than
+the one that made the revision.
 
 ## Reports and exit codes
 
+These commands write two report formats, JSON and text (no SARIF, no HTML).
 `--report json:PATH` writes the complete result, with schema `unswell-review-v1`,
 `unswell-trim-v1`, or `unswell-compare-v3`: byte spans, the accepted items, and
 the rejected ones with the reason. `--report text:PATH` writes the text shown
-above. SARIF and HTML are not produced.
+above.
 
-Review and trim exit with `0` when every selected document was processed, with or
-without findings, `2` when a document could not be processed or the options were
-invalid, and `130` when the run was interrupted. There is no exit code for
-findings: a model's answer differs between runs, so it cannot fail a build.
+Review and trim exit with:
+
+- `0` when every selected document was processed, with or without findings;
+- `2` when a document could not be processed or the options were invalid;
+- `130` when the run was interrupted.
+
+Findings have no exit code of their own: a model's answer differs between runs,
+which makes it a poor reason to fail a build.
 
 Compare exits with `0` for an accepted revision, `1` for a rejected one, and `2`
-when the comparison did not complete. A comparison without a verdict is never a
-pass.
+when the comparison did not complete, so a comparison without a verdict always
+fails.
 
 ## How they were measured
 
-`unswell review` was compared with the sentences that people edited. It flags
+`unswell review` was compared with the sentences that people edited: it flags
 them more often than the other sentences, by a small margin on documentation.
 
 `unswell trim` was compared with the words that editors removed. On answers
 of chat models that experts had edited, it removes words the expert also
 removed or replaced, more often than random words of the same sentences, and
 removing them brings the text nearer to the expert's version than removing
-random words does. That is a result on chat answers. On fiction and on documentation written by people it is not shown. A consensus of models also judged trimmed
-paragraphs. That is agreement between models, and no reader judged them.
+random words does. That's a result on chat answers; on fiction and on
+documentation written by people it hasn't been shown. A consensus of models also
+judged trimmed paragraphs, and that is all it is: agreement between models.
 
 The numbers are in the documentation of
 [review](https://github.com/stokaro/unswell/blob/main/docs/review.md#measured-behavior)
