@@ -16,9 +16,13 @@ import (
 
 const modulePath = "github.com/stokaro/unswell"
 
-// Check validates module coverage, library boundaries, the API ledger and CI pins.
+// Check validates module coverage, library boundaries, the API ledger, CI pins,
+// and the release that the documents name.
 func Check(tree fs.FS) error {
 	if _, err := fs.Stat(tree, ".github/workflows/ci.yml"); err != nil {
+		return err
+	}
+	if err := checkReleaseVersion(tree); err != nil {
 		return err
 	}
 	modules, records, err := inventory(tree)
