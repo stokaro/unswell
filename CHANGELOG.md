@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.0-alpha.23
+
+The checker is the same as in alpha.22. This release moves the pages of the
+site, which are built from a release.
+
+Every page of the site has an address without a version, such as
+`unswell.dev/research-report/`
+([#638](https://github.com/stokaro/unswell/issues/638)). It leads to that page
+of the latest release, and an address of a release that the site no longer
+builds leads there too. The research report opens with a painted
+illustration.
+
 ## 0.1.0-alpha.22
 
 An MDX page gets the AI-sounding index
