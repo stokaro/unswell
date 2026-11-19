@@ -9,11 +9,16 @@ import { docsSchema, i18nSchema } from '@astrojs/starlight/schema';
 // word of the title that is set in italic teal; the title renderer matches it
 // once, so a word that does not occur in the title is a visible mistake rather
 // than a silent one.
+//
+// `card` is the picture of a shared link for one page: a file of public/, 1200
+// by 630 pixels, and the words that describe it. A page without one gets the
+// card of the site.
 const pageMetadata = z.object({
 	eyebrow: z.string().min(1),
 	accent: z.string().min(1).optional(),
 	lead: z.string().min(1).optional(),
 	noindex: z.boolean().optional(),
+	card: z.object({ file: z.string().regex(/^[a-z0-9-]+\.(?:jpg|png)$/), alt: z.string().min(1) }).optional(),
 });
 
 export const collections = {
