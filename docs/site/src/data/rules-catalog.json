@@ -1,6 +1,35 @@
 {
-  "schema": "unswell-docs-rules-catalog-v1",
+  "schema": "unswell-docs-rules-catalog-v2",
   "rule_count": 62,
+  "profiles": {
+    "technical": {
+      "rules": 29,
+      "forbid": 3,
+      "paragraph_fail_at": 65,
+      "sentence_fail_at": 80
+    },
+    "strict": {
+      "rules": 36,
+      "forbid": 7,
+      "paragraph_fail_at": 50,
+      "sentence_fail_at": 65
+    },
+    "added": [
+      "filler.instruction-scaffolding",
+      "filler.wordy-phrase",
+      "format.decorative-emoji",
+      "format.em-dash-density",
+      "hype.vague-praise",
+      "repetition.adjacent-word",
+      "syntax.long-sentence"
+    ],
+    "stricter": [
+      "filler.announced-importance",
+      "filler.modern-world-opening",
+      "scaffold.dive-in",
+      "scaffold.follow-up-offer"
+    ]
+  },
   "families": [
     {
       "name": "density",

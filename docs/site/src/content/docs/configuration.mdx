@@ -7,6 +7,7 @@ description: How Unswell loads .unswell.yaml, merges profiles and inheritance, a
 ---
 
 import Note from '../../components/Note.astro';
+import ProfileDifference from '../../components/ProfileDifference.astro';
 
 ## Where the file comes from
 
@@ -64,6 +65,23 @@ A builtin profile layer replaces rule defaults and profile gate thresholds, and
 it preserves the rest: discovery, extraction, analysis, vocabulary and
 suppression settings. Put `builtin:strict-v1` before the local files whose rules
 should win over it.
+
+## What `strict` adds
+
+`technical` is the default profile. `strict` keeps all of it and goes further in
+three places: it runs more rules, it lets one match of more rules fail the gate,
+and its gate fails a paragraph or a sentence at a lower index. Everything else is
+the same in both profiles.
+
+<ProfileDifference />
+
+The [rules page](/rules/) says beside each rule that `technical` leaves off why
+it does so.
+
+Two reports of one page can still look alike. A page that fails the gate under
+`technical` fails it under `strict` too, and the AI-sounding index is the same,
+because it does not depend on the profile. Look at the number of findings: on a
+page with marked wording `strict` reports more of them.
 
 ## File overrides
 
