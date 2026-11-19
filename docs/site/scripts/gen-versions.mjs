@@ -141,21 +141,37 @@ export function pagePaths(dir, slug) {
 	return found.sort();
 }
 
+// SHARED_TAG_RE finds the tags that say what a page is to a program that shows
+// a link without opening it: the description, and the Open Graph and Twitter
+// tags. A chat client reads them from the address it was given and runs no
+// script, so a stub without them shows as a bare link.
+const SHARED_TAG_RE = /<meta\s+(?:property|name)="(?:description|og:[a-z:_]+|twitter:[a-z:_]+)"[^>]*>/g;
+
+// sharedHead takes the title and those tags out of a built page, as the page
+// wrote them.
+export function sharedHead(html) {
+	const head = html.split('</head>')[0];
+	const title = /<title>([^<]*)<\/title>/.exec(head);
+	return { title: title ? title[1] : null, tags: [...new Set(head.match(SHARED_TAG_RE) ?? [])] };
+}
+
 // renderPageRedirectHtml is the stub at the address of a page without a
 // version. The script keeps the query and the fragment of the link, which a
 // refresh header cannot do, so the header is there only for a reader without
-// JavaScript.
-export function renderPageRedirectHtml(defaultSlug, page) {
+// JavaScript. The stub carries the title and the shared tags of its page, so a
+// link to it shows as a link to the page.
+export function renderPageRedirectHtml(defaultSlug, page, shared = { title: null, tags: [] }) {
 	if (!PAGE_RE.test(page)) throw new Error(`page path ${JSON.stringify(page)} cannot be published as an address`);
 	const target = `${PAGES_PREFIX}/${defaultSlug}/${page}/`;
+	const tags = shared.tags.map((tag) => `    ${tag}\n`).join('');
 	return `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <link rel="canonical" href="${target}" />
     <meta name="robots" content="noindex" />
-    <title>Unswell documentation</title>
-    <script>location.replace(${JSON.stringify(target)} + location.search + location.hash);</script>
+    <title>${shared.title ?? 'Unswell documentation'}</title>
+${tags}    <script>location.replace(${JSON.stringify(target)} + location.search + location.hash);</script>
     <noscript><meta http-equiv="refresh" content="0; url=${target}" /></noscript>
   </head>
   <body>
@@ -219,8 +235,9 @@ export function generate(dir) {
 		if (isVersionFolder(page.split('/')[0])) {
 			throw new Error(`page ${page} of ${index.default} has the name of a version`);
 		}
+		const shared = sharedHead(readFileSync(join(dir, index.default, page, 'index.html'), 'utf8'));
 		mkdirSync(join(dir, page), { recursive: true });
-		writeFileSync(join(dir, page, 'index.html'), renderPageRedirectHtml(index.default, page));
+		writeFileSync(join(dir, page, 'index.html'), renderPageRedirectHtml(index.default, page, shared));
 	}
 	return { ...index, pages };
 }
@@ -279,9 +296,14 @@ function selftest() {
 		assert(html1 === readFileSync(join(tmp, 'index.html'), 'utf8'), 'index.html is idempotent');
 
 		// Every page of the default version gets an address without a version.
+		const builtPage =
+			'<html><head><title>A report | Unswell</title><meta name="description" content="What it says."/>' +
+			'<meta property="og:title" content="A report | Unswell"><meta property="og:image" content="https://unswell.dev/og-image.png">' +
+			'<meta name="twitter:card" content="summary_large_image"><meta name="generator" content="x"></head>' +
+			'<body><meta property="og:title" content="in the body"></body></html>';
 		for (const page of ['research-report', 'guides/install']) {
 			mkdirSync(join(tmp, 'v0.1.0-alpha.3', page), { recursive: true });
-			writeFileSync(join(tmp, 'v0.1.0-alpha.3', page, 'index.html'), 'page');
+			writeFileSync(join(tmp, 'v0.1.0-alpha.3', page, 'index.html'), page === 'research-report' ? builtPage : 'page');
 		}
 		mkdirSync(join(tmp, 'v0.1.0-alpha.3', '_astro', 'chunk'), { recursive: true });
 		writeFileSync(join(tmp, 'v0.1.0-alpha.3', '_astro', 'chunk', 'index.html'), 'asset');
@@ -295,6 +317,15 @@ function selftest() {
 		assert(stub.includes('href="/v0.1.0-alpha.3/research-report/"'), 'a stub names the page of the default version');
 		assert(stub.includes('+ location.search + location.hash'), 'a stub keeps the query and the fragment');
 		assert(stub.includes('noindex'), 'a stub stays out of a search index');
+		// A chat client reads the stub and runs no script: the stub says what its page is.
+		assert(stub.includes('<title>A report | Unswell</title>'), 'a stub has the title of its page');
+		assert(stub.includes('<meta name="description" content="What it says."/>'), 'a stub has the description of its page');
+		assert(stub.includes('<meta property="og:image" content="https://unswell.dev/og-image.png">'), 'a stub names the picture of its page');
+		assert(stub.includes('<meta name="twitter:card" content="summary_large_image">'), 'a stub has the Twitter tags of its page');
+		assert(!stub.includes('generator'), 'a tag that says nothing about the page is left out');
+		assert(!stub.includes('in the body'), 'a tag outside the head is left out');
+		const plain = readFileSync(join(tmp, 'guides', 'install', 'index.html'), 'utf8');
+		assert(plain.includes('<title>Unswell documentation</title>'), 'a page without a title gets the title of the site');
 		assert(existsSync(join(tmp, 'guides', 'install', 'index.html')), 'a nested page gets a stub');
 		assert(!existsSync(join(tmp, '_astro', 'chunk', 'index.html')), 'an asset folder gets no stub');
 		assert(!existsSync(join(tmp, 'pagefind', 'index.html')), 'the search index gets no stub');

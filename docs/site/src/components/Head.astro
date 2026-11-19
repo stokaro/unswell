@@ -6,7 +6,8 @@
 // same address so that a crawler, a chat client and a browser agree on what
 // this page is. The Open Graph image is a root asset rather than a per-page
 // render: one card for the site is honest, and a per-page card would be a build
-// step that can silently go stale.
+// step that can silently go stale. A page that has a picture of its own names
+// it in its front matter, and the file lies in the folder of its version.
 import Default from '@astrojs/starlight/components/Head.astro';
 import { Origin } from '../lib/docs-origin.mjs';
 
@@ -14,7 +15,11 @@ const { entry, siteTitle } = Astro.locals.starlightRoute;
 const canonical = new URL(Astro.url.pathname, Origin).href;
 const description = entry.data.description ?? entry.data.lead ?? '';
 const title = entry.data.title === siteTitle ? siteTitle : `${entry.data.title} | ${siteTitle}`;
-const image = new URL('og-image.png', `${Origin}/`).href;
+const card = entry.data.card;
+const image = card
+	? new URL(`${import.meta.env.BASE_URL}${card.file}`, `${Origin}/`).href
+	: new URL('og-image.png', `${Origin}/`).href;
+const imageAlt = card ? card.alt : 'Unswell: a linter for lean English, before it reaches the commit.';
 const noindex = entry.data.noindex === true;
 ---
 
@@ -31,7 +36,7 @@ const noindex = entry.data.noindex === true;
 <meta property="og:image" content={image} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Unswell: a linter for lean English, before it reaches the commit." />
+<meta property="og:image:alt" content={imageAlt} />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />

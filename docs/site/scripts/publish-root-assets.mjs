@@ -26,9 +26,14 @@ const defaultSiteRoot = join(scriptDir, '..');
 // workflow, whose path filter watches docs/site/**. Astro also copies public/
 // into every version's dist/, which is harmless: the addresses that matter are
 // the root ones this script writes.
+//
+// og-image.png is the picture of a shared link. Every page of every version
+// names it at the root of the site, so a version folder's own copy is not the
+// file a chat client asks for.
 export const COPIED_ASSETS = [
 	{ name: 'CNAME', source: 'public/CNAME' },
 	{ name: '.nojekyll', source: 'public/.nojekyll' },
+	{ name: 'og-image.png', source: 'public/og-image.png' },
 ];
 
 // GENERATED_ROOT_FILES names what gen-versions.mjs writes into the same
@@ -87,9 +92,18 @@ function selftest() {
 		writeFileSync(join(fakeSiteRoot, 'public', '.nojekyll'), '');
 		const assembly = join(tmp, '_site');
 		mkdirSync(assembly);
+		let withoutCard = false;
+		try {
+			publish(assembly, 'v0.1.0-alpha.3', fakeSiteRoot);
+		} catch {
+			withoutCard = true;
+		}
+		assert(withoutCard, 'a site without the picture of a shared link is refused');
+		writeFileSync(join(fakeSiteRoot, 'public', 'og-image.png'), 'png');
 		const written = publish(assembly, 'v0.1.0-alpha.3', fakeSiteRoot);
 		assert(written.includes('CNAME'), 'the CNAME is published');
 		assert(written.includes('.nojekyll'), 'the Jekyll marker is published');
+		assert(readFileSync(join(assembly, 'og-image.png'), 'utf8') === 'png', 'the picture of a shared link is at the root');
 		assert(statSync(join(assembly, 'robots.txt')).size > 0, 'robots.txt has content');
 
 		writeFileSync(join(fakeSiteRoot, 'public', 'CNAME'), 'example.com\n');
