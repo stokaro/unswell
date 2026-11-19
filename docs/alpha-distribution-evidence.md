@@ -1,7 +1,8 @@
 # Alpha distribution evidence
 
-The [alpha.24 evidence](release/v0.1.0-alpha.24.md) records the current release.
-The [alpha.23 evidence](release/v0.1.0-alpha.23.md), the
+The [alpha.25 evidence](release/v0.1.0-alpha.25.md) records the current release.
+The [alpha.24 evidence](release/v0.1.0-alpha.24.md), the
+[alpha.23 evidence](release/v0.1.0-alpha.23.md), the
 [alpha.22 evidence](release/v0.1.0-alpha.22.md), the
 [alpha.21 evidence](release/v0.1.0-alpha.21.md), the
 [alpha.20 evidence](release/v0.1.0-alpha.20.md), the

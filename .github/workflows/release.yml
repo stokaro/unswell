@@ -95,7 +95,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Check this repository through the public action and release archive
         id: unswell
-        uses: stokaro/unswell-action@664a3e95d9d6a65fc1cd84c69cd216649134b608
+        uses: stokaro/unswell-action@03845fae652abdbd9588031a374d1a54155aa24c
         with:
           version: ${{ github.ref_name }}
           config: .unswell.yaml
