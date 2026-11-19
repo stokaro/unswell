@@ -4,7 +4,7 @@ Unswell is distributed as a Go library, CLI archives, two container images, a
 Homebrew formula and a GitHub Action. The MCP image is also described in the
 official MCP Registry. These routes all use the same engine and policy model.
 
-The published release is `v0.1.0-alpha.24`. The archives of a release, its
+The published release is `v0.1.0-alpha.25`. The archives of a release, its
 container images in GHCR and on Docker Hub, its MCP Registry entry, and its Go
 module are verified after it is published, and the
 [alpha distribution evidence](alpha-distribution-evidence.md) links the record of
@@ -43,7 +43,7 @@ Pin an action commit and an independent CLI version:
 - uses: stokaro/unswell-action@664a3e95d9d6a65fc1cd84c69cd216649134b608
   id: unswell
   with:
-    version: 0.1.0-alpha.24
+    version: 0.1.0-alpha.25
     config: .unswell.yaml
     paths: |
       README.md
