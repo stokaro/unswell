@@ -184,9 +184,9 @@ func rejectedCodeSpanCases() []markdownCase {
 	}
 }
 
-// rejectedTagCases holds an HTML tag that never closes. With an attribute
-// value it is HTML source and stays out of the prose. Without one the bracket
-// is literal text, as CommonMark reads it.
+// rejectedTagCases holds an HTML tag that never closes. With a quoted
+// attribute value it is HTML source and stays out of the prose. Without one
+// the bracket is literal text, as CommonMark reads it.
 func rejectedTagCases() []markdownCase {
 	return []markdownCase{
 		{
@@ -208,10 +208,9 @@ func rejectedTagCases() []markdownCase {
 			},
 		},
 		{
-			name:     "unfinished tag with an unquoted value",
-			source:   "<ins data-ad-format=fluid\n",
-			blocks:   []string{},
-			excluded: []string{"inline-protected: <ins data-ad-format=fluid"},
+			name:   "unfinished tag with only an unquoted value",
+			source: "<ins data-ad-format=fluid\n",
+			blocks: []string{"paragraph: <ins data-ad-format=fluid"},
 		},
 		{
 			name:     "unfinished tag with spaces around an equals sign",
@@ -355,11 +354,6 @@ func TestMarkdownRepairsLeaveAcceptedInputAlone(t *testing.T) {
 			source:   "Use `x` and <b>bold</b> text.\n",
 			blocks:   []string{"paragraph: Use \x00 and \x00 bold \x00 text."},
 			excluded: []string{"inline-protected: `x`", "inline-protected: <b>", "inline-protected: </b>"},
-		},
-		{
-			name:   "unfinished tag that the grammar accepts",
-			source: "<ins\n  data=\"fluid\"\n",
-			blocks: []string{"paragraph: <ins data=\"fluid\""},
 		},
 		{
 			name:     "finished tag over two lines",

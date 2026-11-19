@@ -42,6 +42,13 @@ also put such a run at the wrong place after indented prose; the span is now
 right. An unclosed JSX element and a damaged tag or expression are still
 errors.
 
+An HTML tag that never closes has one reading. `<ins data="x"` alone in a
+paragraph was prose, because the inline grammar accepts it, while a longer
+tag that the grammar rejects became inline HTML. The extractor now excludes
+both when an attribute has a value in quotes, and it reads both as prose when
+none has. A tag with only an unquoted value, such as `<ins data=x`, is prose
+in both forms.
+
 ## 0.1.0-alpha.20
 
 `syntax.closing-denial-density` reads a fourth form of a denial

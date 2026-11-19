@@ -21,7 +21,8 @@ func inlineSyntax(ctx context.Context, source []byte) (syntaxTree, error) {
 		return original, err
 	}
 	if !original.tree.RootNode().HasErrorOrMissing() {
-		return inlineDirectiveSyntax(ctx, restoreCodeSpans(ctx, original, source), source)
+		original = protectUnfinishedTags(ctx, restoreCodeSpans(ctx, original, source), source)
+		return inlineDirectiveSyntax(ctx, original, source)
 	}
 	defer original.tree.Release()
 	// The inline grammar rejects double hyphens in HTML comments, including code

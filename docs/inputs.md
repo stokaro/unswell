@@ -272,10 +272,11 @@ file that the grammars accept is read from its own bytes as before.
   is not repaired, and the lines after it are excluded as `unparsed`.
 - A code span that holds angle brackets, such as `` `<path to file>` ``.
 - An HTML tag that never closes: a `<` with no `>` after it in the same block.
-  With an attribute value, as in `<ins data-ad-slot="1"`, the tag is excluded
-  like other inline HTML, up to its last attribute value. Without one, the
-  bracket is literal and the text is prose, as in CommonMark. An unfinished
-  tag with a later `>` in its block can still be excluded as `unparsed`.
+  With an attribute value in quotes, as in `<ins data-ad-slot="1"`, the tag is
+  excluded like other inline HTML, up to its last quoted value. Without one,
+  the bracket is literal and the text is prose, as in CommonMark. An
+  unfinished tag with a later `>` in its block can still be excluded as
+  `unparsed`.
 - A table row with an empty cell written as two adjacent pipes.
 - A list item that starts with a link whose label holds a character reference,
   such as `[Install &amp; use](#install)`.
@@ -292,6 +293,12 @@ again with the bracket masked for the grammar. It uses the new reading only
 when the grammar returns a code span at the bytes of each span that CommonMark
 pairs. Otherwise the first reading stays. The extractor does not parse a block
 again when the grammar reads its spans.
+
+An unfinished tag has the same reading in a block that the grammar accepts.
+There the grammar reads `<ins data="x"` as text, so the extractor applies the
+rule above to such a block too. It excludes the tag only when the grammar then
+returns an HTML tag at its bytes and reads the rest of the block as before. A
+comparison such as `n <m and k=2` has no quoted value and stays prose.
 
 A lone `|` after a Markdown table ends the table. Following prose retains its
 paragraph or list-item context, including inside quoted blocks. The scanner
