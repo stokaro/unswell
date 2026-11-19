@@ -3,6 +3,23 @@ import { z } from 'astro/zod';
 import { docsLoader, i18nLoader } from '@astrojs/starlight/loaders';
 import { docsSchema, i18nSchema } from '@astrojs/starlight/schema';
 
+import { Standing, StandingPages } from './lib/docs-origin.mjs';
+
+// The pages of no version are built by the standing build alone. Every other
+// build loads the collection without them, so such a page has one address and
+// is in no version's routes, sitemap, or search index.
+const loader = docsLoader();
+const versioned = (process.env.DOCS_VERSION || 'edge') !== Standing;
+const docs = {
+	...loader,
+	load: async (context: Parameters<typeof loader.load>[0]) => {
+		await loader.load(context);
+		if (versioned) {
+			for (const page of StandingPages) context.store.delete(page);
+		}
+	},
+};
+
 // Page metadata the layout and the head need beyond Starlight's own fields.
 //
 // `eyebrow` is the small uppercase label above the page title. `accent` names a
@@ -23,7 +40,7 @@ const pageMetadata = z.object({
 
 export const collections = {
 	docs: defineCollection({
-		loader: docsLoader(),
+		loader: docs,
 		schema: docsSchema({ extend: pageMetadata }),
 	}),
 	// Starlight's interface strings, where this design words them differently:

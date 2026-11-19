@@ -11,6 +11,8 @@ import { tmpdir } from 'node:os';
 import { dirname, join, posix, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { BasePath, isStandingPath, Standing } from '../src/lib/docs-origin.mjs';
+
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const defaultDist = join(scriptDir, '..', 'dist');
 
@@ -74,7 +76,10 @@ export function resolveTarget(target, fromRoute, base) {
 	return candidates.map((candidate) => candidate.replace(/^\/+/, ''));
 }
 
-export function check(distDir, base) {
+// check takes the base of the build and, for a build of one version, the test
+// for an address of a page of no version. Such a page is served at the root of
+// the site by another build, so a link to it leaves the base on purpose.
+export function check(distDir, base, servedAtRoot = () => false) {
 	const files = collectFiles(distDir);
 	const present = new Set(files);
 	const problems = [];
@@ -82,6 +87,7 @@ export function check(distDir, base) {
 		if (!file.endsWith('.html')) continue;
 		const html = readFileSync(join(distDir, file), 'utf8');
 		for (const target of extractLinks(html)) {
+			if (target.startsWith('/') && servedAtRoot(target)) continue;
 			const candidates = resolveTarget(target, file, base);
 			if (candidates === null) {
 				problems.push(`${file}: ${target} leaves this version's base ${base}`);
@@ -124,6 +130,18 @@ function selftest() {
 
 		writeFileSync(join(dist, 'rules', 'index.html'), '<a href="/other/page/">wrong base</a>');
 		assert(check(dist, '/edge/')[0].includes('leaves this version'), 'a link outside the base is refused');
+
+		const atRoot = (path) => path === '/report/' || path.startsWith('/report/');
+		writeFileSync(join(dist, 'rules', 'index.html'), '<a href="/report/">the report</a><a href="/report/#results">a part</a>');
+		assert(check(dist, '/edge/', atRoot).length === 0, 'a link to a page of no version is left to the build that holds it');
+		writeFileSync(join(dist, 'rules', 'index.html'), '<a href="/reports/">not that page</a>');
+		assert(check(dist, '/edge/', atRoot).length === 1, 'an address that only starts like such a page is still refused');
+		mkdirSync(join(dist, 'report'), { recursive: true });
+		writeFileSync(join(dist, 'report', 'index.html'), '<a href="/rules/">rules</a><a href="/gone/">gone</a>');
+		writeFileSync(join(dist, 'rules', 'index.html'), 'rules');
+		writeFileSync(join(dist, 'overview', 'index.html'), 'overview');
+		const atSiteRoot = check(dist, '/');
+		assert(atSiteRoot.length === 1 && atSiteRoot[0].includes('/gone/'), 'the build at the root resolves its links in itself');
 		console.log('check-links.mjs --selftest: OK');
 	} finally {
 		rmSync(tmp, { recursive: true, force: true });
@@ -136,7 +154,7 @@ function main() {
 		return;
 	}
 	const version = process.env.DOCS_VERSION || 'edge';
-	const base = `/${version}/`;
+	const base = BasePath(version);
 	const distIndex = process.argv.indexOf('--dist');
 	const distDir = distIndex === -1 ? defaultDist : resolve(process.argv[distIndex + 1]);
 	if (!existsSync(distDir)) {
@@ -144,7 +162,7 @@ function main() {
 		process.exitCode = 2;
 		return;
 	}
-	const problems = check(distDir, base);
+	const problems = check(distDir, base, version === Standing ? undefined : isStandingPath);
 	for (const problem of problems) console.error(`broken link: ${problem}`);
 	if (problems.length > 0) {
 		console.error(`${problems.length} internal links resolve to nothing`);
