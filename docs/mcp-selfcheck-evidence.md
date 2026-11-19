@@ -1,8 +1,8 @@
 # MCP self-check failure evidence
 
 This record addresses [#326](https://github.com/stokaro/unswell/issues/326).
-It separates the original batch error from a later verification timeout.
-Neither result measures editorial recall.
+It separates two results, neither of which measures editorial recall: the
+original batch error and a later verification timeout.
 
 ## Historical batch 25
 
@@ -15,7 +15,7 @@ hash is `2ec4c15eac740349664d74a48cc27e0c91d8b49863481c64b7232b8eb0dc9ad4`.
 
 A diagnostic replay used the batch planner and MCP server built from that exact
 commit, its committed `.unswell.yaml`, and the retained source bytes. Discovery
-verified the original policy and build identities. The planner produced 25
+verified the original policy and build identities, and the planner produced 25
 batches. The last batch contains only `workflow_sources_test.go`: 1,434 bytes,
 zero prose words, source SHA-256
 `bf8d57c6da4072f374234f9279665e247cac448f9ee371b2d8569d6a27fe7f41`.
@@ -32,9 +32,9 @@ that expectation: an empty batch's error is checked against the discovered
 policy, and its documents and measurements must still match. The public engine
 continues to reject unexpected empty scans.
 
-This was a source-build replay on macOS, not a claim that the historical Linux
-container run became successful. A whole-report comparison on this host first
-encountered last-bit floating-point differences in batch 4. To diagnose the
+This was a source-build replay on macOS; it does not claim that the historical
+Linux container run became successful. On this host, a whole-report comparison
+first encountered last-bit floating-point differences in batch 4. To diagnose the
 reported batch without weakening parity checks, a separate one-off probe used
 the original planner to submit batch 25 directly. The [retained response](evidence/mcp-326-batch25.json),
 including source identities and the actual error, has SHA-256
@@ -43,29 +43,29 @@ including source identities and the actual error, has SHA-256
 ## Total verification deadline
 
 A later [PR #352 run](https://github.com/stokaro/unswell/actions/runs/36328891930)
-failed with `context deadline exceeded` in repository batch 63. A local parser
+failed with `context deadline exceeded` in repository batch 63, and a local parser
 migration check reached batch 56 before the same deadline. The
 [main run after #353](https://github.com/stokaro/unswell/actions/runs/36330808581)
 finished the repository batches but exhausted the deadline at `mcp-negative.md`.
 
-The developer checker imposed one fixed two-minute context on subprocess
-startup, discovery, every batch, and the probes. CI now selects five minutes
-explicitly through `--timeout`; the command retains its two-minute default and
-rejects nonpositive values or values above 30 minutes. This changes the total
-verification budget only. Server request limits, document coverage, normalized
-result equality, and error exit codes remain enforced.
+At that time, the developer checker imposed one fixed two-minute context on the
+total verification: subprocess startup, discovery, every batch, and the probes.
+CI now selects five minutes explicitly through `--timeout`; the command retains
+its two-minute default and rejects nonpositive values or values above 30 minutes.
+This changes the total verification budget only: server request limits, document
+coverage, normalized result equality, and error exit codes remain enforced.
 
 ## Retained failure contract
 
 Evidence identifies its schema, build, policy, and completeness. A failed run
-retains matched batches, completed probes, the failed stage and request source
-identities, and any actual structured response. A disconnected or timed-out
-request has no invented response. Source bodies and snippets are removed.
-The failed batch is separate from the matched batches. The command still exits
-unsuccessfully, including when it cannot write the evidence file.
+retains its partial results: matched batches, completed probes, the failed stage
+and request source identities, and any actual structured response. A disconnected
+or timed-out request has no invented response. Source bodies and snippets are
+removed. The failed batch is separate from the matched batches. The command still
+exits unsuccessfully (including when it cannot write the evidence file).
 
 Blackbox tests start real checker and MCP subprocesses. They exercise a later
 structured analysis error, a later transport disconnect, invalid deadlines,
-and expiration before connection. They check nonzero exit codes, retained
+and expiration before connection; they check nonzero exit codes, retained
 partial results and hashes, and absence of source text. Native and container
 acceptance still require fresh complete CLI/MCP evidence from the final commit.

@@ -10,34 +10,35 @@ exact phrase matches have full activation. The engine multiplies activation by
 weight and retains integer thousandths until report serialization.
 
 For each sentence and paragraph, the engine sorts contributions by descending
-raw value with stable identifiers as tie breakers. Same-group identical or nested
+raw value (stable identifiers break ties). Same-group identical or nested
 evidence contributes only the strongest signal. Rule caps and correlated-group
 caps limit the remaining contributions. The total is capped at 100. The trace
 records raw and effective points and why a contribution was reduced.
 
 Sentence and paragraph assessments are independent; sentence totals are not
-added again to paragraph evidence. Document statistics report the raw paragraph
-maximum, nearest-rank median and P90, and eligible flagged fraction. Appending
-clean paragraphs cannot lower the index or gate decision for an existing one.
+added again to paragraph evidence, and appending clean paragraphs cannot lower
+the index or gate decision for an existing one. Document statistics report the
+raw paragraph maximum, nearest-rank median and P90, and eligible flagged fraction.
 
-Severity controls presentation. `gate: forbid` is a separate hard-policy setting.
-Local score gates trigger at **greater than or equal to** the configured threshold
-when the unit meets `min_words`. They create derived diagnostics that are never
-fed back into scoring. Display limits do not remove evidence from the gate.
+Severity controls presentation; `gate: forbid` is a separate hard-policy setting.
+Display limits do not remove evidence from the gate. Local score gates create
+derived diagnostics that are never fed back into scoring; they trigger at
+**greater than or equal to** the configured threshold when the unit meets
+`min_words`.
 
 Source [suppressions](suppressions.md) retain raw findings and `contributions`.
 The engine recomputes `effective_slop_score` using only active findings through
 the same correlation and cap rules. `effective_contributions` explains affected
-units, including permitted findings with zero points and `source-suppression`.
-Gates use effective values; document summary statistics remain raw. Derived gate
-diagnostics are generated after suppressions and cannot themselves be suppressed.
+units (including permitted findings with zero points and `source-suppression`).
+Derived gate diagnostics are generated after suppressions and cannot themselves be
+suppressed. Gates use effective values; document summary statistics remain raw.
 
-A source permission does not adjust a probability. Baseline debt acceptance
+A source permission does not adjust a probability, and baseline debt acceptance
 remains a separate roadmap item.
 
 ## Revision probability
 
-The index is not a probability. Without a model, `slop_probability` is `null`
+The index is not a probability: without a model, `slop_probability` is `null`
 with `probability_status: calibration_unavailable`, and nothing else changes.
 
 A run estimates revision probability only from an explicitly supplied pack:
@@ -59,7 +60,7 @@ under `model: pack` without a pack fails instead of quietly abstaining.
 experimental status is refused unless `accept_experimental` is true, which keeps
 an unqualified research model out of a default run.
 
-Each pack qualifies one unit kind, declares the columns it needs, and declares
+Every pack qualifies one unit kind, declares the columns it needs, and declares
 the minimum words below which it abstains. A unit therefore reports one status:
 
 | `probability_status` | Meaning |
@@ -72,10 +73,10 @@ the minimum words below which it abstains. A unit therefore reports one status:
 | `incompatible_model` | This source's extraction, quoting, or provider differs from the pack |
 | `calibration_unavailable` | No pack is configured |
 
-A missing measurement is never treated as zero, and an abstention never carries a
+A missing measurement is never treated as zero; an abstention never carries a
 value. `on_incompatible: fail` turns an incompatible source into an operational
-failure, which cannot pass a gate. Estimates do not change findings, the index,
-or the gate decision; probability gating is not implemented yet.
+failure, which cannot pass a gate. Estimates do not change findings or the index;
+they change the gate decision only under a probability gate, described below.
 
 `unswell-mcp --model` accepts the same pack, so the server and the CLI agree.
 The text, Markdown, and HTML reports name the configured pack and how many units
@@ -92,7 +93,7 @@ gate:
     require: false
 ```
 
-`fail_at` is a probability above 0 and at most 1. A unit whose estimate reaches
+`fail_at` is a probability above 0 and at most 1; a unit whose estimate reaches
 it fails the gate with a `gate.<kind>-probability` diagnostic. The gate requires
 `calibration.model: pack` and refuses `calibration.accept_experimental`, so an
 experimental research pack cannot decide a build.
@@ -103,7 +104,7 @@ whose measurement inputs differ from the pack. It does not fail on the pack's ow
 declared limits, so a unit below the declared minimum words, or of another kind,
 still passes. Those abstentions are the policy the pack states in advance.
 
-Exit codes keep their meanings. A gate failure exits 1, an operational failure
+Exit codes keep their meanings: a gate failure exits 1, an operational failure
 such as an incompatible pack under `on_incompatible: fail` exits 2, and
 `--no-gate` records the reasons without changing the decision.
 
@@ -126,7 +127,7 @@ unswell check --origin-model ./origin-pack.json docs
 The pack must declare the origin target; a revision pack is refused here, and an
 origin pack is refused by `calibration.model`. Units report `origin_status` and,
 when applicable, `origin_estimate`, using the same abstention reasons as the
-revision channel. Without the channel those fields are absent entirely.
+revision channel; without the channel those fields are absent entirely.
 
 An origin estimate is not a quality judgment, is not evidence that a unit needs
 revision, and is never a share of a text written by any tool. It applies to one
@@ -134,6 +135,6 @@ unit kind, so a document estimate never becomes a sentence estimate. See
 [ADR 0035](adr/0035-origin-channel.md).
 
 The manifest records the pack's own declarations, including whether its author
-declared it accepted and whether it names a qualified corpus. Unswell checks that
-these declarations are consistent and that the pack matches the run; it cannot
-verify that a corpus was qualified or that an evaluation exists.
+declared it accepted and whether it names a qualified corpus. Unswell cannot
+verify that a corpus was qualified or that an evaluation exists. It checks that
+these declarations are consistent and that the pack matches the run.

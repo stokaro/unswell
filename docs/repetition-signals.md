@@ -2,8 +2,8 @@
 
 Unswell uses these signals to find repeated wording and form that may need editing.
 They do not identify an author or establish that two passages have the same meaning.
-All five rules are disabled in builtin profiles until explicitly enabled. Their
-thresholds are experimental policy proposals; corpus precision has not been measured.
+Their thresholds are experimental policy proposals; corpus precision has not been
+measured. All five rules are disabled in builtin profiles until explicitly enabled.
 
 ```yaml
 version: 1
@@ -48,11 +48,11 @@ the team wants any active finding from a rule to fail its policy.
 | `repetition.summary-echo` | Paragraphs under configured summary headings and earlier nonsummary paragraphs; 8 prose blocks | Same overlap formula and count activation as paragraph overlap; summary locations appear first |
 
 Count activation is `clamp((count - allowed) / (saturation - allowed), 0, 1)`,
-stored in integer thousandths. The n-gram coverage denominator includes prose words
-from the first through the last participating sentence, including intervening prose.
-It excludes protected sentences and does not grow when unrelated clean paragraphs
-are appended. Coverage is an explanatory measurement; it is not a probability or
-the activation formula.
+stored in integer thousandths. Coverage is an explanatory measurement; it is not
+a probability or the activation formula. The n-gram coverage denominator excludes
+protected sentences and does not grow when unrelated clean paragraphs are appended:
+it includes prose words from the first through the last participating sentence,
+including intervening prose.
 
 Set Jaccard is the number of shared distinct words divided by the number of distinct
 words in either block. Approved terms do not supply overlap evidence. Candidate
@@ -62,14 +62,14 @@ Connected clusters may span more than one window and do not claim that every pos
 pair meets it. Metrics report the number of accepted pairs, their minimum Jaccard,
 and the sums of their distinct-word intersections and unions.
 
-N-grams never cross punctuation, sentence boundaries, or protected code. They require
+N-grams never cross punctuation, sentence boundaries, or protected code; they require
 two distinct content words and use a protected signature for their surrounding
 sentence. Longer phrases suppress a shorter cluster when all its occurrences are
 already covered. Partially overlapping phrases can remain separate findings; the
 existing repetition-group cap limits their combined contribution.
 
-POS templates collapse noun, verb, adjective, and adverb tag variants into families.
-They retain token order, punctuation, approved term wording, and protected signatures.
+POS templates collapse noun, verb, adjective, and adverb tag variants into families
+and retain token order, punctuation, approved term wording, and protected signatures.
 Exact repeated sentences alone do not activate the template rule. Imperative openings,
 questions, and list items are excluded. The POS model can assign different tags to
 similar constructions; this exact tag-shape method does not recognize every repeated
@@ -84,8 +84,8 @@ structural scope as of version `3`; exact copies remain the responsibility of `r
 Matching pairs form connected clusters with original source locations.
 
 Version `4` also keeps candidates in separate, matched Markdown `<details>`
-elements apart. The same boundary applies to exact-sentence and both opener rules.
-It prevents platform or shell alternatives from being compared as one repeated
+elements apart, and the same boundary applies to exact-sentence and both opener
+rules. It prevents platform or shell alternatives from being compared as one repeated
 instruction while preserving comparisons inside each alternative.
 
 Near-sentence matching retains these cues in token order:
@@ -96,18 +96,18 @@ Near-sentence matching retains these cues in token order:
   `allowed`, `denied`, `success`, `failure`.
 
 These checks stay active independently of the existing protection parameters.
-`protect_numbers` also protects the token immediately following a numeric token,
-so `30 seconds` and `30 minutes` differ. It does not parse complete unit expressions
+`protect_numbers` also protects the token immediately following a numeric token
+(so `30 seconds` and `30 minutes` differ). It does not parse complete unit expressions
 or associate every quantity or condition with a particular clause. Equal lexical
-signatures cannot establish equal meaning. A fixed cue list can miss other contrasts
-or exclude a useful repetition candidate; it is not a semantic parser.
+signatures cannot establish equal meaning. A fixed cue list (it is not a semantic
+parser) can miss other contrasts or exclude a useful repetition candidate.
 
 The version change updates the catalog hash and near-sentence finding identities.
 Existing baseline compatibility checks reject a baseline built with the previous
 catalog; review findings before replacing it. Previously saved version-1 reports
 retain their recorded identities and can still be rendered without reanalysis.
-The public report schema and configuration fields are unchanged. Near-sentence
-matching does not add term exemptions; its existing parameter set remains intact.
+Near-sentence matching does not add term exemptions; its existing parameter set
+remains intact. The public report schema and configuration fields are unchanged.
 
 For the five extended rules, negation, numbers, versions, identifier candidates, numeric units, modal and condition
 cues, and approved term wording form a protected signature. Different signatures
@@ -141,18 +141,19 @@ and the other rules' findings stay. There is no sampling or silent truncation;
 the result and every reporter list the abstention.
 
 The existing engine owns evidence validation, source spans, local scores, correlation
-caps, permissions, and report generation. MCP returns that same completed result.
-Saved reports retain measurements without the source text by default. The new typed
-parameters and structural requirement are documented in the [public API](public_api.md).
+caps, permissions, and report generation, and MCP returns that same completed result.
+Saved reports retain measurements without the source text by default. The
+[public API](public_api.md) documents the new typed parameters and structural
+requirement.
 
 Root `e2e/testdata/repetition_patterns` and `repetition_code` fixtures contain readable
-expected detections and exact CLI/JSON goldens, checked against SARIF and the original
-source. Library tests cover structural selection, technical differences, terminology,
+expected detections and exact CLI/JSON goldens (checked against SARIF and the original
+source). Library tests cover structural selection, technical differences, terminology,
 count thresholds, cancellation, limits, concurrent reuse, and nondilution. Catalog
 examples use their declared input format, including grammar-parsed Markdown.
 
 `e2e/testdata/near_contrasts` adds positive near-match clusters and protected
-modal, condition, state, and number-unit pairs. Go comments and escaped strings,
+modal, condition, state, and number-unit pairs; Go comments and escaped strings,
 Markdown emphasis, BOM/CRLF, JSON, and SARIF use the same source-coordinate checks.
 
 `BenchmarkRepetitionScaling` measures the full public-engine scan for 128, 512, and
@@ -164,7 +165,7 @@ go test . -run '^$' -bench BenchmarkRepetitionScaling -benchtime=3x -count=1
 
 Its declared candidate budget is 8,000,000. Reported allocation totals are not peak
 resident memory. This scaling check does not establish corpus accuracy or the
-roadmap's Linux 2-vCPU/512-MiB performance target. Qualification and full resource
+roadmap's Linux 2-vCPU/512-MiB performance target; qualification and full resource
 acceptance remain in #26 and #28. [ADR 0010](adr/0010-repetition-signals.md) records
 the design and compatibility boundaries.
 
@@ -181,7 +182,7 @@ The exact-sentence (v3), near-sentence (v3), sentence-openers (v2), and
 paragraph-openers (v3) rules compare within one grammar-derived heading/container section.
 The two opener rules are opt-in since [ADR 0047](adr/0047-qualified-defaults-and-assistant-review.md). Repeated headings start new sections even when their titles match. Each
 table cell is independent: equal capability values in distinct provider rows are
-not redundant by themselves. Repeated sentences inside a cell remain eligible.
+not redundant by themselves, but repeated sentences inside a cell remain eligible.
 This conservative scope can miss deliberate repetition across sections or cells.
 Source declarations without heading structure keep their existing document scope;
 two differently named string constants remain eligible for comparison.
@@ -191,25 +192,26 @@ Scope construction charges block visits and serialized context bytes against
 Exact-sentence version `3` retains protected operands as opaque source identities.
 An inline identifier or URL no longer excludes the entire sentence from exact
 comparison. Those bytes are compared literally, including case, numbers, and
-significant whitespace. Their contents are never interpreted or counted as prose
+significant whitespace; their contents are never interpreted or counted as prose
 words. Different operands cannot form one exact group. Code-only input remains
 ineligible; protected fences and other excluded blocks remain outside analysis.
 The identity work shares a bounded budget across the document and can abstain
 without emitting a partial group.
 
-These enabled rules now require structural extraction. A model pack declaring
+These enabled rules now require structural extraction; a model pack declaring
 preparation without structure is incompatible and must be rebuilt for that policy.
 
-An explicit leading `if`, `when`, or `unless` clause also separates task variants.
-The complete antecedent up to a comma, colon, or `then` must match, including case,
-numbers and punctuation. A protected or unresolved antecedent stays local to its
-block; the bound is 64 tokens. This distinguishes installation introductions for
-different package managers without a list of platform names. It is not a general
-model of tasks, coreference or conditions later in a paragraph.
+Task variants are also separated by an explicit leading `if`, `when`, or `unless`
+clause. The complete antecedent up to a comma, colon, or `then` must match, including
+case, numbers and punctuation. When an antecedent is protected or unresolved, it stays
+local to its block; the bound is 64 tokens. This is not a general model of tasks,
+coreference or conditions later in a paragraph. It distinguishes installation
+introductions for different package managers without a list of platform names.
 
 `repetition.duplicate-list-item` compares complete short items within the same
-unordered list and section. It requires four prose words by default and a single
-sentence in a simple item. The existing sentence rules keep their word minimums.
+unordered list and section. It requires two things: four prose words by default
+and a single sentence in a simple item. The existing sentence rules keep their
+word minimums.
 Case, punctuation, numbers, negation and issue references remain part of identity.
 A single identifier such as `Literal` may compare with its plain-text spelling;
 arbitrary inline code, commands, URLs, link targets, ordered/task lists and complex
@@ -218,7 +220,7 @@ All occurrences remain attached to one diagnostic. Candidate-budget exhaustion
 produces an abstention and discards partial rule findings.
 
 The new rule is an experimental warning, weight 15, cap 30, with no unconditional
-gate. It does not detect paraphrases or prove that repeated information is useless.
+gate; it does not detect paraphrases or prove that repeated information is useless.
 The [whole-page follow-up](../research/reviews/2026-09-17-repetition-scope/README.md)
 reports observed gains, removed warnings and remaining misses against the same
 assistant's frozen judgments. Default qualification remains separate from this
@@ -226,8 +228,8 @@ bounded development result.
 
 ## Short local repetitions
 
-Three additional experimental warnings cover local constructions. They do not
-lower the word minimums, opener counts or gates of the earlier rules.
+Three additional experimental warnings cover local constructions without lowering
+the word minimums, opener counts or gates of the earlier rules.
 
 - `repetition.adjacent-word` locates both copies of an adjacent prose word.
   Punctuation, quoted examples, protected code and term exemptions interrupt the
@@ -257,14 +259,14 @@ lower the word minimums, opener counts or gates of the earlier rules.
   negation, quantities, protected construction words and ambiguous noun
   antecedents. It carries weight 12 and cap 24.
 
-All three use existing tokenization, POS and original byte mappings. None is a
+All three use existing tokenization, POS and original byte mappings, and none is a
 dependency parser, general paraphrase detector or authorship classifier. Candidate
 work is bounded; exhaustion is an explicit abstention. Repeated technical
 assertions can be useful, so a warning requests review and does not prescribe
 deleting an occurrence. Default qualification remains #26.
 
 The [local repetition measurement](../research/reviews/2026-09-17-local-repetition/README.md)
-recovers one known short assertion and three accidental word duplicates. Its
+recovers one known short assertion and three accidental word duplicates, and its
 restart warning addresses only part of the circular explanation. No new
 confirmation defect is detected by these additions; the glossary and license
 paraphrases remain unsupported.
@@ -274,10 +276,10 @@ paraphrases remain unsupported.
 Version 3 of `repetition.repeated-claim` also compares a bounded construction:
 complete assertions that definitions in the same explicitly named source give
 terms the same meaning across pages. The alternative states that keeping those
-definitions in that source prevents different meanings. The code operand is
-opaque: its case, path, and delimiters must match. Conditions, changed modals,
+definitions in that source prevents different meanings. Conditions, changed modals,
 exceptions, added quantities, spelling consistency, and contributor instructions
-do not match this grammar.
+do not match this grammar. The code operand is opaque: its case, path, and
+delimiters must match.
 
 The rule may cross an `Add a term` or `Adding a term` heading. Other headings,
 containers, lists, and nonparagraph blocks interrupt the comparison. A narrowly
@@ -288,8 +290,8 @@ Unresolved references and other intervening prose discard the map binding.
 Only the two assertions are highlighted; the contribution instructions remain.
 More than two matched assertions form one finding with all their locations.
 
-This is a closed surface grammar, not general coreference or paraphrase detection.
-The sentence window and shared candidate budget still apply. The original
-shortened glossary example without its explicit map binding remains unsupported.
-The complete exposed example and synthetic controls are development evidence;
-they do not establish natural-corpus precision or default qualification.
+This is a closed surface grammar, not general coreference or paraphrase detection,
+and the sentence window and shared candidate budget still apply. Without its explicit
+map binding, the original shortened glossary example remains unsupported.
+The complete exposed example and synthetic controls do not establish natural-corpus
+precision or default qualification; they are development evidence.
