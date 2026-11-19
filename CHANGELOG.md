@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-alpha.22
 
 An MDX page gets the AI-sounding index
 ([#631](https://github.com/stokaro/unswell/issues/631),
@@ -13,6 +13,12 @@ a run of sentences. `unswell fix` changes the prose of an MDX page and leaves
 its code byte for byte. The weights are those of Markdown pages; no reference
 of MDX pages was measured. The summary line of the text report now says
 "pages" where it said "Markdown pages".
+
+The documents of a release name that release
+([#634](https://github.com/stokaro/unswell/issues/634)). The pages of alpha.21
+on the site named alpha.20 in their install instructions, because the tag was
+made before the documents changed. The version in the documents now moves with
+the version in the code, and a repository check fails when they differ.
 
 ## 0.1.0-alpha.21
 
