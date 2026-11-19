@@ -80,7 +80,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Check this repository through the public action and release archive
         id: unswell
-        uses: stokaro/unswell-action@654e037a3e1fc1aec979a264cb9a3961a2b3882e
+        uses: stokaro/unswell-action@fab8e09852070931e1ee4d10eb265b0a04d2df8f
         with:
           version: ${{ github.ref_name }}
           config: .unswell.yaml

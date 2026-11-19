@@ -4,9 +4,9 @@ Unswell is distributed as a Go library, CLI archives, two container images, a
 Homebrew formula and a GitHub Action. The MCP image is also described in the
 official MCP Registry. These routes all use the same engine and policy model.
 
-The published release is `v0.1.0-alpha.20`. Its archives, its container images in
+The published release is `v0.1.0-alpha.21`. Its archives, its container images in
 GHCR and on Docker Hub, its MCP Registry entry, and its Go module are verified
-in the [alpha.20 evidence](release/v0.1.0-alpha.20.md). The tap formula and the
+in the [alpha.21 evidence](release/v0.1.0-alpha.21.md). The tap formula and the
 Action default follow through pull requests in their repositories. The
 [alpha distribution evidence](alpha-distribution-evidence.md) records the earlier
 releases. Later changes on `main` need their own release verification.
@@ -39,10 +39,10 @@ The action lives in [stokaro/unswell-action](https://github.com/stokaro/unswell-
 Pin an action commit and an independent CLI version:
 
 ```yaml
-- uses: stokaro/unswell-action@c555025abf0367213fc9bc3ffdb1dad994fb274c
+- uses: stokaro/unswell-action@fab8e09852070931e1ee4d10eb265b0a04d2df8f
   id: unswell
   with:
-    version: 0.1.0-alpha.20
+    version: 0.1.0-alpha.21
     config: .unswell.yaml
     paths: |
       README.md
@@ -53,11 +53,13 @@ Pin an action commit and an independent CLI version:
 The CLI release must already exist. The action verifies the downloaded archive's
 SHA-256, passes each input as a process argument, and preserves pass/failure/error
 outcomes. It exposes JSON and SARIF file paths as outputs. Analysis remains offline
-after installation. The action README documents inputs, report retention and the
-policy trust boundary.
+after installation. The `timeout` and `jobs` inputs set the limit for the whole
+analysis and the number of workers; without them the CLI defaults apply, which
+are 30 seconds and the available processors up to eight. The action README
+documents inputs, report retention and the policy trust boundary.
 
-The release workflow checks Unswell itself through this public action on Linux,
-macOS and Windows after archive publication. Also run the action repository's
+The release workflow checks the whole repository of Unswell through this public
+action on Linux, macOS and Windows after archive publication. Also run the action repository's
 `Verify published release` workflow with the version. That consumer workflow proves
 that bad prose and malformed source fail their action steps, with the expected
 codes and report contents. Unit tests against local archives do not replace this
@@ -65,7 +67,7 @@ public download check.
 
 The Action updater verifies all six archives and automatically opens a PR for the
 default CLI version. A maintainer reviews and merges it; tag publication follows
-successful checks on the merged commit. The action's `v0.1.0-alpha.20`
+successful checks on the merged commit. The action's `v0.1.0-alpha.21`
 tag points to the commit in the example above. Existing release tags are not moved.
 
 ## Archives, containers and MCP Registry
