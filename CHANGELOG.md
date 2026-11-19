@@ -18,6 +18,37 @@ cell written as `||`. The last is a list item that starts with a link whose
 label holds a character reference such as `&amp;`. A page that parsed before
 gives the same blocks and exclusions.
 
+Every block now protects a code span that holds a `<`
+([#626](https://github.com/stokaro/unswell/issues/626)). In a paragraph such as
+``Use `<total target-rule diagnostics>` here.`` the inline grammar gave no
+error and dropped the span. The rules then read the words of the span as
+prose, and the grammar could take the text between two such spans for code.
+The extractor now parses such a block again with the bracket masked for the
+grammar. It keeps the new reading only when the grammar returns a code span at
+the same bytes. A block whose spans the grammar reads gives the same result as
+before.
+
+A block at which the inline parser stops no longer fails its file. A paragraph
+such as `<ins data-ad-format==` made the parser stop before the end of the
+block, and the whole file failed. The extractor now treats it as one damaged
+block: it repairs the block when a repair applies and excludes it as
+`unparsed` otherwise. A timeout and a canceled run are still errors.
+
+MDX recovers a block that the Markdown grammar rejects, as Markdown does. A
+list item that starts with `[Install &amp; use](#install)` failed the whole
+MDX file, because MDX parsed the blocks once without recovery. MDX reads the
+list now, and it excludes a run that stays rejected as `unparsed`. Its report
+also put such a run at the wrong place after indented prose; the span is now
+right. An unclosed JSX element and a damaged tag or expression are still
+errors.
+
+An HTML tag that never closes has one reading. `<ins data="x"` alone in a
+paragraph was prose, because the inline grammar accepts it, while a longer
+tag that the grammar rejects became inline HTML. The extractor now excludes
+both when an attribute has a value in quotes, and it reads both as prose when
+none has. A tag with only an unquoted value, such as `<ins data=x`, is prose
+in both forms.
+
 ## 0.1.0-alpha.20
 
 `syntax.closing-denial-density` reads a fourth form of a denial

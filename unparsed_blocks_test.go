@@ -48,6 +48,23 @@ func TestRepairedBlockStaysComplete(t *testing.T) {
 	c.Assert(result.Findings[0].RuleID, qt.Equals, "filler.announced-importance")
 }
 
+// A block at which the inline parser stops is one unparsed block. The file is
+// not lost: its other findings stand, and the run is incomplete.
+func TestBlockThatStopsTheParserDoesNotFailTheFile(t *testing.T) {
+	c := qt.New(t)
+	engine, err := unswell.New(unswell.Options{})
+	c.Assert(err, qt.IsNil)
+	source := "It is important to note that the client retries.\n\n" +
+		"<ins data-ad-format=>\n"
+	result, err := engine.AnalyzeAll(t.Context(), []document.Source{
+		{Name: "guide.md", Format: document.Markdown, Bytes: []byte(source)},
+	})
+	c.Assert(err, qt.ErrorMatches, `.*1 block\(s\) could not be parsed and were excluded; the first starts at line 3`)
+	c.Assert(result.Status, qt.Equals, "incomplete")
+	c.Assert(result.Findings, qt.HasLen, 1)
+	c.Assert(result.Findings[0].RuleID, qt.Equals, "filler.announced-importance")
+}
+
 // A document without a defect stays complete.
 func TestParsedDocumentStaysComplete(t *testing.T) {
 	c := qt.New(t)

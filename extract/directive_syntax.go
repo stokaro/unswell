@@ -14,10 +14,14 @@ import (
 
 func inlineSyntax(ctx context.Context, source []byte) (syntaxTree, error) {
 	original, err := parseSyntaxTree(ctx, source, "markdown_inline")
+	if inlineRejected(err) {
+		return repairInline(ctx, source, make(map[document.Span]string))
+	}
 	if err != nil {
 		return original, err
 	}
 	if !original.tree.RootNode().HasErrorOrMissing() {
+		original = protectUnfinishedTags(ctx, restoreCodeSpans(ctx, original, source), source)
 		return inlineDirectiveSyntax(ctx, original, source)
 	}
 	defer original.tree.Release()
@@ -29,17 +33,32 @@ func inlineSyntax(ctx context.Context, source []byte) (syntaxTree, error) {
 	}
 	if len(comments) != 0 {
 		parsed, err := parseInlineBoundaries(ctx, source, comments)
-		if !errors.Is(err, errInvalidSyntax) {
+		if !inlineRejected(err) {
 			return parsed, err
 		}
 	}
-	// The grammar still rejects the block. Two more defects have a repair.
-	if !maskInlineDefects(source, comments) {
+	return repairInline(ctx, source, comments)
+}
+
+// inlineRejected reports whether err says that the grammar cannot read the
+// block: it built an incomplete tree, or it stopped before the end of the
+// input. The second case has no tree to look at, but it is one damaged block
+// like the first, not a failure of the file. A timeout, a canceled context,
+// and a resource limit stop a parse too; they stay errors.
+func inlineRejected(err error) bool {
+	var stopped *ts.ParseStoppedEarlyError
+	return errors.Is(err, errInvalidSyntax) || errors.As(err, &stopped) && stopped.Reason == ts.ParseStopAcceptedPrefix
+}
+
+// repairInline gives a rejected block the repairs of maskInlineDefects and
+// parses it again. A repair that does not apply or that fails leaves the
+// block rejected, as it was.
+func repairInline(ctx context.Context, source []byte, expected map[document.Span]string) (syntaxTree, error) {
+	if !maskInlineDefects(source, expected) {
 		return syntaxTree{}, invalidSyntax("markdown_inline")
 	}
-	parsed, err := parseInlineBoundaries(ctx, source, comments)
+	parsed, err := parseInlineBoundaries(ctx, source, expected)
 	if err != nil && ctx.Err() == nil {
-		// A repair that fails leaves the block rejected, as it was.
 		return syntaxTree{}, invalidSyntax("markdown_inline")
 	}
 	return parsed, err

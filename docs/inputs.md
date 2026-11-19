@@ -252,7 +252,9 @@ This is not a substitute for a compiler or a language-specific linter.
 
 Markdown and MDX degrade by block. When the inline grammar rejects one block, or
 the block grammar rejects a run of lines, that part is excluded with the reason
-`unparsed` and the rest of the file is analyzed. At most eight such runs are
+`unparsed` and the rest of the file is analyzed. A block at which the inline
+parser stops before the end of its text, such as `<ins data-ad-format=>`, is
+rejected in the same way; a timeout is still an error of the file. At most eight such runs are
 excluded per file; a file that needs more fails as a whole. A run that holds half
 of a fenced block extends to the closing fence. The run is still incomplete, the
 gate cannot pass, and the error names the file, the number of excluded blocks,
@@ -270,14 +272,33 @@ file that the grammars accept is read from its own bytes as before.
   is not repaired, and the lines after it are excluded as `unparsed`.
 - A code span that holds angle brackets, such as `` `<path to file>` ``.
 - An HTML tag that never closes: a `<` with no `>` after it in the same block.
-  With an attribute value, as in `<ins data-ad-slot="1"`, the tag is excluded
-  like other inline HTML, up to its last attribute value. Without one, the
-  bracket is literal and the text is prose, as in CommonMark. An unfinished
-  tag with a later `>` in its block can still be excluded as `unparsed`.
+  With an attribute value in quotes, as in `<ins data-ad-slot="1"`, the tag is
+  excluded like other inline HTML, up to its last quoted value. Without one,
+  the bracket is literal and the text is prose, as in CommonMark. An
+  unfinished tag with a later `>` in its block can still be excluded as
+  `unparsed`.
 - A table row with an empty cell written as two adjacent pipes.
 - A list item that starts with a link whose label holds a character reference,
-  such as `[Install &amp; use](#install)`. In MDX such a list still fails the
-  file.
+  such as `[Install &amp; use](#install)`.
+
+In MDX the same repairs and exclusions apply to what the Markdown grammars
+reject. An unclosed JSX element and a damaged tag or expression are still
+errors of the file.
+
+The inline grammar can also accept a block and drop a code span that holds a
+`<`, as in ``Use `<total target-rule diagnostics>` here.`` It gives no error.
+The rules then read the words of the span as prose, and the grammar can take
+the text between two such spans for code. The extractor parses such a block
+again with the bracket masked for the grammar. It uses the new reading only
+when the grammar returns a code span at the bytes of each span that CommonMark
+pairs. Otherwise the first reading stays. The extractor does not parse a block
+again when the grammar reads its spans.
+
+An unfinished tag has the same reading in a block that the grammar accepts.
+There the grammar reads `<ins data="x"` as text, so the extractor applies the
+rule above to such a block too. It excludes the tag only when the grammar then
+returns an HTML tag at its bytes and reads the rest of the block as before. A
+comparison such as `n <m and k=2` has no quoted value and stays prose.
 
 A lone `|` after a Markdown table ends the table. Following prose retains its
 paragraph or list-item context, including inside quoted blocks. The scanner

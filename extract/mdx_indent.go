@@ -35,7 +35,10 @@ func prepareMDXMarkdown(ctx context.Context, source []byte) (markdownInput, erro
 }
 
 func mdxIndentation(ctx context.Context, input markdownInput) ([]document.Span, error) {
-	syntax, err := parseSyntax(ctx, input.source, "markdown")
+	// This pass only looks for indented code, so it takes the tree that
+	// recovery gives for a damaged run. The extraction that follows recovers
+	// again and records what it excludes. Offsets are the same in both.
+	syntax, input, _, err := parseMarkdownBlocks(ctx, input)
 	if err != nil {
 		return nil, err
 	}
