@@ -3,8 +3,8 @@
 // documentation directory.
 //
 // The root holds one directory per version plus a few files that address the
-// site as a whole. gen-versions.mjs writes two of them, versions.json and
-// index.html. This script writes the rest: the CNAME that claims the domain,
+// site as a whole. gen-versions.mjs writes versions.json, index.html, 404.html
+// and a stub for each page of the default version. This script writes the rest: the CNAME that claims the domain,
 // the .nojekyll marker, and robots.txt with the sitemap of the default version.
 //
 // The deploy assembles `_site/` from scratch on every run and uploads it whole,
@@ -34,7 +34,7 @@ export const COPIED_ASSETS = [
 // GENERATED_ROOT_FILES names what gen-versions.mjs writes into the same
 // directory. This script does not write them; naming them here lets the Pages
 // root gate compare the whole expected root against a real assembly.
-export const GENERATED_ROOT_FILES = ['versions.json', 'index.html'];
+export const GENERATED_ROOT_FILES = ['versions.json', 'index.html', '404.html'];
 
 // renderRobots points crawlers at the sitemap of the version the apex serves.
 // Every other version is reachable and indexable, but only one of them should
