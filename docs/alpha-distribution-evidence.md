@@ -19,17 +19,17 @@ The [alpha.24 evidence](release/v0.1.0-alpha.24.md), the
 [alpha.9 evidence](release/v0.1.0-alpha.9.md), the
 [alpha.8 evidence](release/v0.1.0-alpha.8.md), the
 [alpha.7 evidence](release/v0.1.0-alpha.7.md), and the
-[alpha.4 audit](release/v0.1.0-alpha.4.md) record the ones before it. The record
-below remains specific to alpha.3.
+[alpha.4 audit](release/v0.1.0-alpha.4.md) record the ones before it. Below, the
+record remains specific to alpha.3.
 
-Verified on September 12, 2026. This record concerns the published
-[v0.1.0-alpha.3](https://github.com/stokaro/unswell/releases/tag/v0.1.0-alpha.3),
-source `2a2a6d441534cbc4be15d298898345d1a529c8b5`. Its tag signature verifies.
-The alpha.2 tag exists at `208c7f50a555600670f6d542a3f31bd2ba0aa9ef`, and its
-release run stopped in the mirror job, so no alpha.2 asset was published. The
-alpha.1 record lives in the git history of this file and in the
-[alpha.1 audit](release/v0.1.0-alpha.1-audit.json). Changes made later on main
-are not part of these binaries.
+Verified on September 12, 2026, this record concerns the published
+[v0.1.0-alpha.3](https://github.com/stokaro/unswell/releases/tag/v0.1.0-alpha.3)
+(source `2a2a6d441534cbc4be15d298898345d1a529c8b5`). Its tag signature verifies,
+and changes made later on main are not part of these binaries. No alpha.2 asset
+was published: the alpha.2 tag exists at
+`208c7f50a555600670f6d542a3f31bd2ba0aa9ef`, and its release run stopped in the
+mirror job. The alpha.1 record lives in the git history of this file and in the
+[alpha.1 audit](release/v0.1.0-alpha.1-audit.json).
 
 ## Published installation paths
 
@@ -42,16 +42,16 @@ are not part of these binaries.
 | Homebrew | The release dispatched [tap PR #4](https://github.com/stokaro/homebrew-unswell/pull/4) with the versioned archive URLs and hashes. Its four install jobs, on Linux AMD64 and ARM64 and on macOS Intel and ARM64, passed at `3d688a3254d264f5e86607d17916cd98460649dd`. A maintainer merged it, and the tap's [main CI](https://github.com/stokaro/homebrew-unswell/actions/runs/34687164090) passed the same four jobs on `dc996273da72d2ddfcf11849d028eb4b5d8d397b`. |
 | Go module | [The module check](release/v0.1.0-alpha.3-module-check.json) built and tested the consumer against the published `v0.1.0-alpha.3` with no local replacement and listed no public package missing from it. |
 
-The Action's ordinary main CI uses a CLI built from a pinned source revision.
-Those tests do not prove release downloads. The published-archive consumers
-above provide that evidence. The release also dispatched
+Because the Action's ordinary main CI uses a CLI built from a pinned source
+revision, those tests do not prove release downloads. The published-archive
+consumers above provide that evidence. The release also dispatched
 [Action PR #6](https://github.com/stokaro/unswell-action/pull/6), which moves
 the default CLI version to `0.1.0-alpha.3`; its test and consumer jobs passed
-on the three platforms. A maintainer merged it, main CI passed on
+on the three platforms. After a maintainer merged it, main CI passed on
 `b7e5d5ce69d69ca458879c938726ec0870457b35`, and the publish workflow created
 the tag `v0.1.0-alpha.3` at that commit without moving `v0.1.0-alpha.1`. A
-second request for the same version on each repository reported that the
-target already selected 0.1.0-alpha.3 and opened nothing.
+second request for the same version on each repository opened nothing: it
+reported that the target already selected 0.1.0-alpha.3.
 
 Anonymous reads confirm byte-identical GHCR and Docker Hub indexes for both
 images, including Linux AMD64/ARM64 and their attestation manifests:
@@ -62,7 +62,7 @@ images, including Linux AMD64/ARM64 and their attestation manifests:
 | `ghcr.io/stokaro/unswell-mcp:0.1.0-alpha.3` and `cabyrc/unswell-mcp:0.1.0-alpha.3` | `sha256:3365cb0570c30a57f165140f69256f066e46770cadec022ac8c5362a5729305c` |
 
 The six SBOMs of this release declare MIT for the main component, so no
-erratum accompanies them. The alpha.1 correction stays described in
+erratum accompanies them; the alpha.1 correction stays described in
 [SBOM and notices](sbom.md).
 
 ## Remaining acceptance
@@ -73,8 +73,8 @@ Action tag followed. That is one full cycle of
 [#66](https://github.com/stokaro/unswell/issues/66); the next release shows it
 repeating.
 
-This record does not establish stable-rule precision, a qualified probability
-model, or final product acceptance. Those requirements remain in the
-[roadmap](roadmap.md). Race detection, active fuzzing, and coverage collection for
-ongoing alpha development remain deferred to final task
+Stable-rule precision, a qualified probability model, and final product
+acceptance are outside what this record establishes; those requirements remain
+in the [roadmap](roadmap.md). Race detection, active fuzzing, and coverage
+collection for ongoing alpha development remain deferred to final task
 [#123](https://github.com/stokaro/unswell/issues/123).

@@ -34,11 +34,11 @@ overrides:
       syntax.rhetorical-question-density: {enabled: false}
 ```
 
-`gate: none` remains the default for these rules. Their configured weights can
+`gate: none` remains the default for these rules, and their configured weights can
 contribute to local score gates. An explicit `gate: forbid` makes a rule a project
 policy prohibition; it does not establish universal editorial correctness.
-`hype.absolute-claim`, the contrast measurement, and the two enabled construction rules have zero weight and cap
-by default and only request review.
+By default, `hype.absolute-claim`, the contrast measurement, and the two enabled
+construction rules have zero weight and cap: they only request review.
 Existing [terminology exemptions](configuration.md) and reasoned
 [source suppressions](suppressions.md) apply before the corresponding counts or gate.
 
@@ -66,53 +66,54 @@ its evidence contains two source occurrences. Hedge activation uses the same ram
 with `onset` and `saturation`. Intensifier activation applies that ramp to its rate;
 the evidence also reports the raw count and actual prose-word denominator.
 Windows begin at candidate sentences, contain complete patterns, and emit each
-candidate in at most one cluster. A two-sentence pair needs a window of at least 2.
+candidate in at most one cluster; a two-sentence pair needs a window of at least 2.
 
 Matches are case-folded with the existing English tokenizer and typographic
-apostrophe normalization. Configured phrase lists replace the defaults. Fixed
+apostrophe normalization, and configured phrase lists replace the defaults. Fixed
 rhetorical templates and lexical/POS roles are documented in `rules show ID`;
 these rules have no dependency-parser requirement or hidden model lookup.
 
 `filler.evaluative-closure` version 11 also recognizes evidence commentary:
 an explicit discourse or anaphoric subject contrasting verification with
 assertion, such as "what it covers is measured rather than asserted." Its
-diagnostic asks for the check and result directly. It does not dispute the
+diagnostic asks for the check and result directly; it does not dispute the
 measurement or advise removing its method, conditions, links, or results.
-Concrete quantities, actors performing a check, explicit methods, conditional
-claims, quotations, and protected construction words remain excluded. This is
-a bounded wording rule, not a test of whether the cited evidence is adequate.
-A bare `it` needs an explicit information antecedent in the same sentence;
+This is a bounded wording rule, not a test of whether the cited evidence is
+adequate. A bare `it` needs an explicit information antecedent in the same sentence;
 a numeric quantity or concrete entity does not establish that relation.
+Concrete quantities, actors performing a check, explicit methods, conditional
+claims, quotations, and protected construction words remain excluded.
 
 Version 11 also distinguishes two abstract constructions: an information subject
 equated with a bare value ("Offline, the declaration is the evidence") and an
 anaphoric recasting judgment ("That is a boundary rather than a missing feature").
-Each has its own explanation. The offline/online prefix remains in the evidence;
+Neither construction establishes that a factual claim is wrong, and each has its
+own explanation. The offline/online prefix remains in the evidence;
 the suggestion preserves conditions and concrete behavior. A qualified relation
 such as "the declaration is evidence for the selected model" does not match.
 Conditions before or after an anaphoric contrast keep it outside that construction.
-Neither construction establishes that a factual claim is wrong.
 
 Version 12 keeps a bare anaphoric appraisal local when an operational explanation
 follows: "which is exactly the question, and ..." or "which is the case worth
 having, because ...". It also recognizes deictic conversion appraisals,
-demonstrative-plan completion metaphors and bare abstract value labels. Literal
-control loops, measurements, criteria, conditions, quotations and protected
-construction words remain controls. Guidance retains actions, numeric operands,
-absent operations and commitments, including in mixed findings, and requires
-verification before weakening a claim. The
+demonstrative-plan completion metaphors and bare abstract value labels. The
+following remain controls: literal control loops, measurements, criteria,
+conditions, quotations and protected construction words. Guidance retains actions,
+numeric operands, absent operations and commitments, including in mixed findings,
+and requires verification before weakening a claim. The
 [complete paired replay](research/discourse-stance-context.md) records the five
 new diagnoses and the unchanged uncertainty on prior deliveries.
 
 `syntax.repeated-reframing` version 2 also connects a do-supported negative action
 to a finite positive action with a repeated subject or an adjacent anaphoric
-pronoun. "PostgreSQL does not keep the declaration. It stores the parsed form"
+pronoun; this is not dependency parsing or a redundancy test.
+"PostgreSQL does not keep the declaration. It stores the parsed form"
 is one pair and remains below the default allowance. Two nearby pairs expose
 the repeated movement for review. Periods and semicolons can separate the clauses;
 a semicolon itself supplies no evidence. Action pairs exclude quotations and
 attribution. The pinned tagger can mislabel an s-ending predicate as a plural noun;
 a singular pronoun followed by that predicate and a determiner-led object supplies
-a bounded surface alternative. This is not dependency parsing or a redundancy test.
+a bounded surface alternative.
 
 `filler.document-metadiscourse` version 3 recognizes an embedded "this page is the
 map of what ..." introduction and keeps the complete topic clause. Literal maps
@@ -125,17 +126,18 @@ constructions, technical counterexamples, and source coordinates in JSON and SAR
 
 Windowed rules can connect adjacent prose paragraphs. Section announcements also
 cross grammar-recognized headings so repeated introductions in separate sections
-are counted. Other windowed rules stop at headings. Lists, table cells,
-and nonwhitespace source gaps end every run. Inline code does not discard its
+are counted. Other windowed rules stop at headings. Three things end every run:
+lists, table cells, and nonwhitespace source gaps. Inline code does not discard its
 surrounding sentence: eligible prose on either side remains in the window.
 Each candidate must stay within unprotected tokens; a phrase cannot join words
 across code or consume code as a keyword. Code operands may flank `, not`.
-All sentences retain their original distance, including sentences mentioning code.
-Independent comments and string literals form separate runs. A paired contrast or
-question/answer must fit within one block. These conservative boundaries prevent
-code removal or unrelated source fragments from creating a rhetorical pattern.
+All sentences (including sentences mentioning code) retain their original distance.
+Independent comments and string literals form separate runs. Two patterns must
+each fit within one block: a paired contrast and a question/answer. These
+conservative boundaries prevent code removal or unrelated source fragments from
+creating a rhetorical pattern.
 
-New rules analyze paragraph, comment, and string contexts. They do not judge a
+New rules analyze paragraph, comment, and string contexts; they do not judge a
 heading or three requirements in a list as an evaluative triad. A literal landscape,
 travel journey, robust estimator, single valid contrast, and a modal expressing
 real uncertainty are negative examples. Whole configured metaphor phrases can
@@ -143,17 +145,17 @@ still have legitimate uses; an appropriate local exemption remains necessary.
 
 The triad matcher requires three dictionary entries and at least two adjective POS
 tags. It tolerates one noun tag because the pinned tagger can assign one to an
-ambiguous modifier such as `seamless`. This remains a surface heuristic. Four-item
+ambiguous modifier such as `seamless`; this remains a surface heuristic. Four-item
 lists and lists made entirely of noun tags do not match. The triad and modifier
 rules share the inflation correlation group and the engine's evidence caps.
 
 Hedge clauses end at punctuation, conjunctions, protected tokens, or explicit
-conditional boundaries. Repeated copies of the same hedge count once. The rule
+conditional boundaries, and repeated copies of the same hedge count once. The rule
 does not prescribe removing `may`, `might`, or necessary conditions. Intensifiers
-before ordinal/identity words such as `first` or `same` are excluded.
+before ordinal/identity words (such as `first` or `same`) are excluded.
 
 The guarantee and praise screens skip questions, explicit negation, selected
-modals, and stated conditions conservatively. They do not determine truth or
+modals, and stated conditions conservatively, but they do not determine truth or
 understand every possible qualification. Question patterns come from the configured
 catalog; an arbitrary FAQ question is not classified as rhetorical. Answers with
 numbers or protected code are excluded. `max_answer_words` accepts 1 through 100.
@@ -167,16 +169,16 @@ The contrast measurement is version 3 after its default-policy change;
 its matcher is unchanged from version 2. The other windowed editorial rules
 and passive-candidate rule are version 2.
 Comma-not recognition excludes incomplete alternatives and selected additive or
-parenthetical idioms such as `not only`, `not surprisingly`, and `not to mention`.
+parenthetical idioms (such as `not only`, `not surprisingly`, and `not to mention`).
 When explicitly enabled, two necessary technical contrasts can still produce a
 note. Retain their meaning when reviewing that surface measurement.
 
 ## Evidence and qualification
 
 The new rules reuse the existing tokens, source maps, `rule.Metric`, evidence,
-scoring, and `RunResult`. Reporters and MCP do not recompute them. Dictionary and
-threshold changes participate in existing rule/config identities. Candidate checks
-are limited by `max_candidates`. A rule that exhausts them abstains on that
+scoring, and `RunResult`; reporters and MCP do not recompute them. Dictionary and
+threshold changes participate in existing rule/config identities.
+`max_candidates` limits candidate checks. A rule that exhausts them abstains on that
 document with the reason `budget_exhausted`: it reports no findings there, and
 the other rules' findings stay. Token volume and emitted findings retain the
 engine's independent limits. Those limits and cancellation produce an
@@ -184,43 +186,43 @@ incomplete/error result, never a silently successful required check.
 
 [CLI fixtures](../e2e/testdata/editorial_patterns) retain exact expected detections,
 related locations, and technical counterexamples. The [Go case](../e2e/testdata/editorial_code)
-checks an escaped string, source permissions, and independent comment/string runs.
-Both exercise CRLF and BOM. The [inline-context cases](../e2e/testdata/contextual_inline)
+checks an escaped string, source permissions, and independent comment/string runs;
+both exercise CRLF and BOM. The [inline-context cases](../e2e/testdata/contextual_inline)
 add annotated Markdown, MDX, and Go examples, clean rewrites, protected markers,
 and independent code blocks. Library tests cover exact Unicode/Markdown coordinates,
 window boundaries, terminology, rate denominators, correlation caps, cancellation,
 resource errors, and concurrent reuse. Every rule also has executable catalog examples.
 
-These are functional tests, not a human-labeled quality evaluation. The shared
-model-feature registry (#56), comparative harness (#57), and rule qualification
-(#26) remain open work. [ADR 0009](adr/0009-editorial-patterns.md) records the
-integration boundary. No revision probability or quality improvement percentage
-is claimed for these additions.
+These are functional tests, not a human-labeled quality evaluation, and no revision
+probability or quality improvement percentage is claimed for these additions. The
+shared model-feature registry (#56), comparative harness (#57), and rule
+qualification (#26) remain open work. [ADR 0009](adr/0009-editorial-patterns.md)
+records the integration boundary.
 
 ## Construction frames
 
 [The construction evaluation](research/rhetorical-frames.md) records the source-bound
 Ptah example and constructed probes. The shared internal frame representation
-holds original sentence/token ranges, so related locations include both clauses
-and every repetition. It does not add a second extractor or NLP provider.
+does not add a second extractor or NLP provider; it holds original sentence/token
+ranges, so related locations include both clauses and every repetition.
 
 `syntax.repeated-reframing` recognizes a nominal subject, copula and negated nominal
-or about-complement, followed immediately by an affirmative copular clause. The
-second subject must repeat the first or use `it`, `they`, `this`, `these`, `that`,
-or `those`. Copular number and tense must agree. Gerunds can serve as nominal
-subjects. Contractions and typographic apostrophes use the existing tokenizer.
-Semicolons, colons, dashes and sentence-ending punctuation separate clauses.
-Pairs stay in one block; groups can span adjacent paragraphs but stop at headings,
-fences, lists, excluded blocks, and nonwhitespace source gaps. Questions do not
-match. Subject matching is a shallow heuristic, not coreference resolution.
+or about-complement, followed immediately by an affirmative copular clause. Subject
+matching is a shallow heuristic, not coreference resolution: the second subject
+must repeat the first or use `it`, `they`, `this`, `these`, `that`, or `those`.
+Copular number and tense must agree. Questions do not match. Gerunds can serve
+as nominal subjects. Four things separate clauses: semicolons, colons, dashes and
+sentence-ending punctuation. Contractions and typographic apostrophes use the
+existing tokenizer. Pairs stay in one block; groups can span adjacent paragraphs
+but stop at headings, fences, lists, excluded blocks, and nonwhitespace source gaps.
 
 `filler.document-metadiscourse` recognizes a determiner, an optional spatial
 modifier, a document noun, and a communicative verb with a following complement.
-It also recognizes an `in`/`throughout` preface followed by `we` or `I`, optionally
-with `will` or `shall`. Its small noun and verb vocabularies define grammatical
+It also recognizes an `in`/`throughout` preface followed by `we` or `I` (optionally
+with `will` or `shall`). Its small noun and verb vocabularies define grammatical
 roles; it does not store complete announcement phrases. Inflected verbs use an
-explicit vocabulary. Negated announcements and direct `See ...` links do not
-match. A useful navigation sentence can match and remain worth keeping.
+explicit vocabulary. Two forms do not match: negated announcements and direct
+`See ...` links. A useful navigation sentence can match and remain worth keeping.
 
 Both recognizers bound clauses at 48 tokens and subjects at eight tokens.
 Inline code may occupy a nominal slot and appear in the source context, but its
@@ -228,21 +230,21 @@ contents cannot supply an operator, document noun, or communicative verb.
 Protected subjects cannot be linked by lexical equality. Terminology exemptions
 apply to whole clause ranges. Both rules report block activation through the
 existing feature contract, with an evaluated zero for examined prose containing
-no recognized frame. Unsupported or empty blocks remain unavailable. Candidate
-budget exhaustion reports abstention; it does not produce a fabricated zero.
+no recognized frame. Candidate budget exhaustion reports abstention; it does not
+produce a fabricated zero. Unsupported or empty blocks remain unavailable.
 
-Neither rule establishes semantic redundancy or the truth of a claim. An index
+Neither rule establishes semantic redundancy or the truth of a claim; an index
 and a gate are separate from construction recognition. Defaults deliberately
 expose the constructions without assigning editorial risk points or forbidding
-technical explanations. Projects can configure a stricter local policy.
+technical explanations, and projects can configure a stricter local policy.
 
 ## Qualitative degree and benefit rankings
 
 `filler.unscoped-assurance` version 12 recognizes bounded emphatic capability
 modifiers, optimization degree, ease-to-use descriptions of software artifacts,
 and deictic superlative benefits. For example, `blazingly fast` leaves the
-speed and comparison criterion unstated. The diagnostic asks for that basis;
-it does not conclude that the underlying performance claim is false.
+speed and comparison criterion unstated; without concluding that the underlying
+performance claim is false, the diagnostic asks for that basis.
 
 Short quality fragments can occur in lists or headings. Ordinary copular
 quality sentences retain their existing treatment in prose; they do not become
@@ -260,16 +262,16 @@ subjective qualities attached to a software capability, reasonable defaults
 without their values or criterion, and an important effect on quality without
 an identified magnitude or behavior. These constructions ask for a concrete
 capability or criterion; they do not establish that a technical claim is false.
-Named comparison sets, local mechanisms, quotations and protected text remain
-controls. The exposed development screen in
-`research/reviews/2026-11-07-quality-claim-screen/` does not measure accuracy
-on independent documents.
+The exposed development screen (in
+`research/reviews/2026-11-07-quality-claim-screen/`) does not measure accuracy
+on independent documents. Named comparison sets, local mechanisms, quotations and
+protected text remain controls.
 
-The advice requires verification before weakening or removing a claim. Keep
+The advice requires verification before weakening or removing a claim; keep
 its operands, conditions, uncertainty, and established commitments. A capability
 modifier does not supply its own measurement, and a possible future benefit is
-not a guaranteed result. A mixed group containing one of these degree or ranking
-claims retains the general diagnostic and the verification requirement in its
+not a guaranteed result. When a mixed group contains one of these degree or ranking
+claims, it retains the general diagnostic and the verification requirement in its
 advice. This bounded recognition does not establish general
 editorial completeness or authorship. The
 [complete paired replay](research/promotional-degree-context.md) records three
@@ -279,7 +281,7 @@ on separate controls.
 ## Verification assurances
 
 `filler.unscoped-assurance` distinguishes claims that tests or reviews guarantee
-quality from assertions that nothing relies on trust. The diagnostic and editing
+quality from assertions that nothing relies on trust. Its diagnostic and editing
 advice describe the recognized construction. A link to tests can support a claim
 without establishing an unrestricted guarantee; keep the link, tested behaviors,
 conditions and measured results when revising the wording. A concrete statement
@@ -287,17 +289,17 @@ such as "These tests verify that the parser rejects missing fields" does not
 match this construction.
 
 Several occurrences in one window receive specific advice only when they all
-support the same explanation. A group containing different assurances retains
-the general diagnostic. This changes the explanation, not the matching conditions,
-occurrence counts, source ranges, allowances or scoring weights. It does not
-establish broader editorial recall or attribute authorship.
+support the same explanation. This changes the explanation, not the matching
+conditions, occurrence counts, source ranges, allowances or scoring weights, and
+it does not establish broader editorial recall or attribute authorship. A group
+containing different assurances retains the general diagnostic.
 
 ## Layered instruction wording
 
 `filler.instruction-scaffolding` version 19 no longer reports a conditional
 reader goal, such as `If you want to change the port, you can set the option`,
 or a reminder that opens with `Be sure to`. On real pages two reviewers
-accepted 25 of 138 such findings.
+accepted 25 of 138 such findings;
 [ADR 0049](adr/0049-defaults-follow-reviewed-forms.md) records the decision.
 The forms below remain.
 
@@ -305,13 +307,13 @@ The forms below remain.
 an action and its operand: nominal ability, generic reader enablement, modal
 used-to clauses and nested intended-to-enable clauses. The diagnostic retains
 the actor, action, operands and conditions. Its advice preserves possibility;
-it does not change a capability into an obligation. Named actor permissions,
-negation, reported claims, hazards and a bare can-plus-action remain controls.
-These are surface relations over existing tokens and POS tags, not a dependency
-parse or a claim of semantic equivalence.
+it does not change a capability into an obligation. These are surface relations
+over existing tokens and POS tags, not a dependency parse or a claim of semantic
+equivalence. Named actor permissions, negation, reported claims, hazards and a
+bare can-plus-action remain controls.
 
-An immediate anaphoric method can be related across two adjacent prose paragraphs.
-The source ranges remain separate. Headings, lists, excluded code and unrelated
+An immediate anaphoric method can be related across two adjacent prose paragraphs
+(the source ranges remain separate). Headings, lists, excluded code and unrelated
 sentences break the relation; compound announcements are not linked across
 paragraphs. Independent comments and string literals remain separate. Other
 findings retain their block scope and existing occurrence policy. Bounds remain

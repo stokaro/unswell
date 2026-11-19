@@ -1,6 +1,6 @@
 # CLI and MCP containers
 
-Unswell provides two separate Linux images. Both contain the same engine, English
+Unswell provides two separate Linux images; both contain the same engine, English
 model and grammars and run without runtime downloads. Release images support
 `linux/amd64` and `linux/arm64`.
 
@@ -27,13 +27,13 @@ docker --context remote-dev-container run --rm --read-only --network none \
   check . --config .unswell.yaml --report json:-
 ```
 
-Bind paths belong to the Docker daemon's machine. A remote context cannot mount a
+Bind paths belong to the Docker daemon's machine: a remote context cannot mount a
 directory from the client's machine. For stdin checks, pipe the draft into `run -i`
 and use `check --stdin --filename draft.md`; no source mount is required unless a
 custom policy is also needed. Exit codes remain 0 for success, 1 for a policy
 violation and 2 for an operational error.
 
-The CLI image includes Git for tracked-file discovery. Its system Git configuration
+The CLI image includes Git for tracked-file discovery, and its system Git configuration
 trusts the explicit `/work` mount when host ownership differs from the container's
 UID. Git discovery disables filesystem-monitor commands. Reports can go to stdout;
 file reports need a separately mounted writable destination.
@@ -51,13 +51,13 @@ Use `docker` as the client's command with these arguments:
 ```
 
 Keep stdin open with `-i` and omit `-t`: stdout carries the MCP protocol. Diagnostics
-go to stderr. The image uses a `scratch` runtime and contains no shell or Git.
+go to stderr. The image uses a `scratch` runtime: it contains no shell or Git.
 To select a policy, mount that file read-only and append `--config /path/in/container`.
 Clients submit draft bytes to `unswell_check`; document names are labels, not paths
 that the server opens. See the [MCP tools and outcomes](mcp.md).
 
-Both images run as UID/GID 65532. Mounted source and policy files must be readable
-by that user. Neither interface requires a listening port.
+Neither interface requires a listening port, and both images run as UID/GID 65532;
+mounted source and policy files must be readable by that user.
 
 ## Build and verify
 
@@ -86,13 +86,13 @@ results and immutable image references remain attached to the workflow run.
 
 ## Docker Hub mirroring
 
-The release workflow copies the verified GHCR indexes to Docker Hub with pinned
-Skopeo, without rebuilding them. It reads `DOCKER_HUB_USER` and `DOCKER_HUB_TOKEN`
-from repository Actions secrets. The token reaches `skopeo login` through stdin;
-the authfile stays in a temporary container tmpfs. The script removes the container
-and any tool image it had to pull.
+Without rebuilding them, the release workflow copies the verified GHCR indexes to
+Docker Hub with pinned Skopeo. It reads `DOCKER_HUB_USER` and `DOCKER_HUB_TOKEN`
+from repository Actions secrets: the token reaches `skopeo login` through stdin,
+and the authfile stays in a temporary container tmpfs. The script removes the
+container and any tool image it had to pull.
 
-Skopeo is pinned by image digest. Its registry rebuilds the version tag and
+Skopeo is pinned by image digest; its registry rebuilds the version tag and
 later removes the old image, which has stopped two releases. The release
 workflow now resolves the pin in a `preflight` job before it publishes
 anything, and the `Release prerequisites` workflow resolves it every week. Run
@@ -102,18 +102,18 @@ confirm the reported Skopeo version, and update the script.
 
 The mirror gate fetches both registries anonymously, requires identical index
 bytes, and checks that both Linux architectures and attestations are present.
-Missing, differing, malformed or incomplete indexes fail. The fetched indexes are
+Missing, differing, malformed or incomplete indexes fail; the fetched indexes are
 retained as workflow artifacts.
 
 The mirror does not gate a release. When Docker Hub rejects the credential, the
 mirror job and the run fail, and the archives, the MCP registry entry, and the
 distribution updates are published without the mirror. The weekly
 `Release prerequisites` workflow logs in with the same credential, so an expired
-token shows before a release. The credential was renewed in November 2026, and
+token shows before a release. The credential was renewed in November 2026;
 the mirror workflow was then run for `v0.1.0-alpha.6` to `v0.1.0-alpha.9`.
 
 Retry the `Mirror containers to Docker Hub` workflow on `main` with an existing
-image version. Its input accepts the version with or without a leading `v`.
+image version (its input accepts the version with or without a leading `v`).
 To check the current public mirrors without credentials or a Docker daemon:
 
 ```sh

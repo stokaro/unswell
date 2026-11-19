@@ -18,16 +18,16 @@ extraction:
 The global default contains all six values shown above. Each format uses only
 its supported contexts: text has `paragraph`; Markdown and MDX have `paragraph`, `heading`,
 `list-item` and `table-cell`; source languages and YAML have `comment` and `string`.
-The keys under `languages` are format names from the [input table](inputs.md).
+Under `languages`, the keys are format names from the [input table](inputs.md).
 
-A language override replaces the global set. An omitted language inherits it.
-An explicit empty set (`contexts: []`) selects no prose; it does not restore defaults.
-The empty-scan gate still applies if the run has no applicable prose.
-Unknown values, duplicate entries and contexts unsupported by an overridden
-language are configuration errors. Set order does not affect the policy hash.
+A language override replaces the global set; an omitted language inherits it.
+Set order does not affect the policy hash. An explicit empty set (`contexts: []`)
+selects no prose; it does not restore defaults, and the empty-scan gate still
+applies if the run has no applicable prose. Unknown values, duplicate entries and
+contexts unsupported by an overridden language are configuration errors.
 
 Disabled regions retain their spans with `config:context-disabled:<context>`
-exclusion reasons. Syntax validation still runs. Existing protections for code,
+exclusion reasons (syntax validation still runs). Existing protections for code,
 URLs, quotations and technical metadata remain in effect within selected contexts.
 
 ## Reasoned exceptions
@@ -35,7 +35,7 @@ URLs, quotations and technical metadata remain in effect within selected context
 Unswell's purpose is to keep formulaic AI-style wording out of ordinary code and
 documentation. Tests and phrase dictionaries sometimes need that wording as data.
 An extraction exception records why a selected comment or string is not checked.
-It preserves the source and leaves the rule catalog and severity settings intact.
+It preserves the source; the rule catalog and severity settings stay intact.
 
 ```yaml
 version: 1
@@ -67,10 +67,11 @@ Every nonempty selector must match. Values within a selector are alternatives:
 - `reason` is required, nonblank, and at most 500 bytes.
 
 A matched exclusion retains its original byte span and records
-`config:<id>: <reason>` in saved results. The effective policy and its hash include
-the exception. Invalid selectors and unknown fields fail before analysis. At most
-100 exceptions are allowed, with at most 100 paths and 100 symbols per exception.
-Unmatched exceptions remain in the policy; this alpha does not reject unused entries.
+`config:<id>: <reason>` in saved results, and the effective policy and its hash
+include the exception. Unmatched exceptions remain in the policy; this alpha does
+not reject unused entries. Invalid selectors and unknown fields fail before
+analysis. At most 100 exceptions are allowed (with at most 100 paths and 100
+symbols per exception).
 
 For a test file containing many deliberately invalid input strings, omit `symbols`
 and select `kinds: [string]`. Its comments remain checked. For a runtime file,
@@ -80,9 +81,9 @@ The repository's [.unswell.yaml](../.unswell.yaml) demonstrates both cases.
 ## Literal data
 
 Selecting strings includes embedded SQL, JSON, scripts, identifiers, and protocol
-values. Unswell does not infer that a string is prose from its variable name.
-In the shell formats only, a literal whose lines are mostly code is excluded as
-an [embedded program](inputs.md#programs-in-shell-literals). GitHub Actions run
+values; Unswell does not infer that a string is prose from its variable name.
+In the shell formats only, Unswell excludes a literal whose lines are mostly code
+as an [embedded program](inputs.md#programs-in-shell-literals). GitHub Actions run
 values use the shell handling described below; other grammars
 keep such data until an exception selects it. Select known data with existing
 path, format, kind, and symbol exceptions. For example:
@@ -108,8 +109,9 @@ extraction:
 These examples retain other strings and comments in the same files. A symbol
 names an enclosing declaration or keyed field; selecting a function selects all
 its string literals. Review that scope before using a function-wide exception.
-Use global or per-language context sets when the intended policy applies to every
-string in that scope. Disabling strings is an explicit choice, not the default.
+Disabling strings is an explicit choice, not the default: use global or
+per-language context sets when the intended policy applies to every string in
+that scope.
 
 ## GitHub Actions scripts
 
@@ -118,24 +120,24 @@ applies to `jobs.*.steps[*].run` in direct `.yml` and `.yaml` children of
 `.github/workflows`. YAML folding, chomping, and escapes are decoded first;
 findings still point to original YAML bytes.
 Comments and quoted messages remain checked, while shell operators and command
-words stay outside prose metrics. Ordinary YAML values, including action inputs
-named `run`, retain their existing behavior.
+words stay outside prose metrics. Ordinary YAML values (including action inputs
+named `run`) retain their existing behavior.
 
 The shell comes from the step, job defaults, or workflow defaults. Without an
 explicit shell, a container selects sh; recognized literal hosted-runner labels
 select Bash on Linux/macOS and PowerShell on Windows. Supported shell names are
-`bash`, `sh`, `zsh`, `fish`, `pwsh`, and `powershell`. Simple templates such as
-`bash -e {0}` also work. Unknown shells or runner labels produce
+`bash`, `sh`, `zsh`, `fish`, `pwsh`, and `powershell` (simple templates such as
+`bash -e {0}` also work). Unknown shells or runner labels produce
 `actions-shell-unknown`; scripts containing unresolved `${{ ... }}` produce
-`actions-expression`. The whole script is excluded in those cases, with its
-reason recorded. This does not claim complete embedded analysis. Other prose in
-the file remains checked and can pass the normal gate.
+`actions-expression`. In those cases Unswell excludes the whole script and records
+its reason; this does not claim complete embedded analysis. Other prose in the
+file remains checked and can pass the normal gate.
 
 YAML string contexts and exceptions apply before shell parsing. The nested
 shell's context override then selects comments and strings inside the script.
-Returned blocks remain YAML `string` contexts. An exception targeting the YAML
-`run` field omits the entire script; an exception targeting the nested shell
-format selects its comments or strings using the same workflow path.
+An exception targeting the YAML `run` field omits the entire script; an exception
+targeting the nested shell format selects its comments or strings using the same
+workflow path. Returned blocks remain YAML `string` contexts.
 
 To select ordinary YAML scalar analysis explicitly:
 
@@ -145,8 +147,8 @@ extraction:
   github_actions: strings
 ```
 
-Set the mode to `shell` for the default. Unknown modes are config errors. A change
-to this mode changes the policy and model input hashes. Check older measurements
+Set the mode to `shell` for the default; unknown modes are config errors. A change
+to this mode changes the policy and model input hashes, so check older measurements
 before reusing them with the new contract. A known script with invalid syntax
 causes an error; it never falls back to scalar analysis. A reasoned YAML exception
 still skips nested parsing. See [ADR 0039](adr/0039-actions-shell-extraction.md) for
@@ -173,7 +175,7 @@ The following cases have distinct outcomes:
 | A selected literal has an unsupported escape | Operational error during decoding; an excluded literal is not decoded |
 
 A matching explicit exception takes precedence over the decoded-byte and
-embedded-program exclusions and retains the configured ID and reason. A
+embedded-program exclusions; it retains the configured ID and reason. A
 disabled string context does the same with `config:context-disabled:string`.
 Valid control escapes retain protected
 boundaries; they do not turn neighboring words into one phrase. UTF-8 validity
@@ -181,20 +183,20 @@ does not establish that text is English. A selected block with at least 20
 letters, more than half of them outside the Latin script, becomes a
 `non-latin-prose` exclusion, and the engine checks the rest of the document;
 see [input formats](inputs.md). When exclusions leave no applicable prose, the
-normal empty-scan gate applies, including CLI exit code 2 by default.
+normal empty-scan gate applies (including CLI exit code 2 by default).
 
 The [literal regression cases](../e2e/testdata/non_utf8_literals/) preserve checked
-neighbors and exclusion ranges in CLI goldens. The
+neighbors and exclusion ranges in CLI goldens; the
 [data-only case](../e2e/testdata/non_utf8_only/) requires an incomplete result.
 The [non-Latin block case](../e2e/testdata/non_latin_block/) keeps the English
 paragraphs checked and records the excluded block.
 
 ## Structured source prose
 
-Go comment prose uses Go doc-comment block grammar by default. Paragraphs,
-headings, and list-item paragraphs are separate analysis blocks. Indented code
-examples are excluded. This also applies to ordinary Go comments; it does not
-interpret them as Markdown. Go doc comments support flat lists. Use
+Go comment prose uses Go doc-comment block grammar by default: paragraphs,
+headings, and list-item paragraphs are separate analysis blocks (Go doc comments
+support flat lists). Indented code examples are excluded. This also applies to
+ordinary Go comments; it does not interpret them as Markdown. Use
 `extraction.go_comments: plain` to retain the previous comment behavior.
 
 Select static string literals that contain Markdown explicitly:
@@ -210,32 +212,32 @@ extraction:
 ```
 
 Each selector requires a unique ID and paths. Formats and enclosing symbols
-are optional and use the same matching rules as extraction exceptions. At most
+are optional; they use the same matching rules as extraction exceptions. At most
 100 selectors are allowed. Unselected strings keep their current behavior.
 The language decoder runs before the existing Markdown grammar. Paragraphs,
 nested lists, inline protection, and fenced or indented examples retain their
-original source coordinates, including escapes and CRLF input.
+original source coordinates (including escapes and CRLF input).
 
-The source `string` context and extraction exceptions apply first. The Markdown
-context set then selects inner blocks. Returned block kinds remain `string`;
-structure records the inner Markdown kind. GitHub Actions `run` routing takes
-precedence; select `github_actions: strings` to disable that routing explicitly.
-Protected interpolation and control characters make an explicitly selected
-Markdown string an operational error. The parser cannot establish the structure
-of a complete Markdown document from a dynamic fragment.
+The source `string` context and extraction exceptions apply first, and the
+Markdown context set then selects inner blocks. Returned block kinds remain
+`string`; structure records the inner Markdown kind. GitHub Actions `run` routing
+takes precedence; select `github_actions: strings` to disable that routing
+explicitly. Because the parser cannot establish the structure of a complete
+Markdown document from a dynamic fragment, protected interpolation and control
+characters make an explicitly selected Markdown string an operational error.
 
-These settings change policy and preparation identities. Paragraph and list
+These settings change policy and preparation identities; paragraph and list
 boundaries change the units sent to rules and features. Remeasure older corpus
 artifacts and model bindings explicitly; replacing a stored identity is not a
 measurement. See the [decision](adr/0040-source-prose-boundaries.md) and the
 [source prose regression](../e2e/testdata/source_prose/).
 
-These exceptions select source regions, not individual rule findings. They apply
+These exceptions select source regions, not individual rule findings; they apply
 to library calls and explicit CLI files as well as recursive scans. Source must
 still parse successfully. To omit a file from recursive discovery entirely, use
 `files.exclude`; explicit file arguments bypass discovery patterns.
 
 Markdown code, quotations and other protected syntax follow the normal extraction
 policy described in [input formats](inputs.md). Reasoned [source suppressions](suppressions.md)
-permit specific rule findings while retaining raw evidence. Baseline debt handling
+permit specific rule findings while retaining raw evidence; baseline debt handling
 remains a separate item in the [roadmap](roadmap.md).

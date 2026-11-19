@@ -1,16 +1,16 @@
 # Reproducible release binaries
 
-A release publishes six executables. This page records how their reproducibility
-is checked and what the check establishes.
+A release publishes six executables. This page records two things: how their
+reproducibility is checked, and what the check establishes.
 
-`make audit-release` audits the newest published release, including prereleases.
-Use `scripts/verify-release-artifacts.sh --tag TAG` to select a release explicitly.
+`make audit-release` audits the newest published release, including prereleases;
+to select a release explicitly, use `scripts/verify-release-artifacts.sh --tag TAG`.
 
 ## Protocol
 
 `scripts/verify-reproducible-build.sh` builds each release target twice from the
 same source, with the flags `scripts/release.sh` uses, and compares SHA-256
-digests. The toolchain comes from the environment, so the caller decides which
+digests. The toolchain comes from the environment: the caller decides which
 compiler the check reports.
 
 Released builds use the compiler pinned in `tools/go.mod`, which the release
@@ -21,21 +21,21 @@ jobs use. Match the release by naming that toolchain:
 GOTOOLCHAIN=go1.27.2 bash scripts/verify-reproducible-build.sh --output check.json
 ```
 
-`make check` and `make reproducible` run the script for all six targets. Each
-target is built twice. To check a subset, call the script with `--platforms`,
-for example `--platforms "linux/amd64"`.
+`make check` and `make reproducible` run the script for all six targets, and
+each target is built twice. To check a subset, call the script with
+`--platforms` (for example `--platforms "linux/amd64"`).
 
 ## The published alphas rebuilt from their tags
 
 `scripts/verify-release-artifacts.sh --rebuild` rebuilds each published binary
 from the source its tag names and compares the result with the archive. For
 `v0.1.0-alpha.1` at `247fe6f673cb8cad08850c05694a874b71e538e7`, all six binaries
-matched, rebuilt on a different machine from the one that released them. The
+matched (rebuilt on a different machine from the one that released them). The
 [recorded audit](release/v0.1.0-alpha.1-audit.json) holds that result together
 with the digests, bundled notices, build records and SBOM licenses it checked.
-The [alpha.3 audit](release/v0.1.0-alpha.3-audit.json) repeats the result for
-`v0.1.0-alpha.3` at `2a2a6d441534cbc4be15d298898345d1a529c8b5`: six binaries
-reproduced, twelve digests verified, and MIT declared in every SBOM.
+For `v0.1.0-alpha.3` at `2a2a6d441534cbc4be15d298898345d1a529c8b5`, the
+[alpha.3 audit](release/v0.1.0-alpha.3-audit.json) repeats the result: six
+binaries reproduced, twelve digests verified, and MIT declared in every SBOM.
 
 This is the strongest form of the claim: a published artifact, its stated
 source, and an independent machine produce the same bytes.
@@ -45,9 +45,9 @@ source, and an independent machine produce the same bytes.
 The six targets were also built from commit
 `fee5caaf396e009ca01154caad8dd5a0c41fc5ef` on two hosts: macOS on ARM64, and
 Debian 12 on AMD64 in a container. Both runs used Go 1.25.0, the lowest version
-this project supports. All six digests matched across the two hosts, and each
-host also repeated its own build byte for byte. These digests come from that
-lower compiler, so they differ from the released binaries.
+this project supports, so these digests come from that lower compiler and
+differ from the released binaries. All six digests matched across the two
+hosts, and each host also repeated its own build byte for byte.
 
 | Target | SHA-256 |
 | --- | --- |
@@ -70,7 +70,7 @@ timestamp. Two different machines produced identical bytes from identical
 source, so a third party with the same source and the same compiler can check a
 published binary against its own build.
 
-It does not show that a different compiler version reproduces those bytes. Go
+It does not show that a different compiler version reproduces those bytes: Go
 does not promise that, which is why released builds pin the compiler and disable
 automatic upgrades. The check also covers the executables alone; archives,
 checksum manifests and SBOMs are produced by `scripts/release.sh` and audited

@@ -2,18 +2,19 @@
 
 The official server name is `io.github.stokaro/unswell`. Its
 [registry metadata](../mcp/server.json) points to the separate
-`ghcr.io/stokaro/unswell-mcp` image with stdio transport. The image declares the same
-server name in its `io.modelcontextprotocol.server.name` label.
+`ghcr.io/stokaro/unswell-mcp` image with stdio transport, and the image declares the
+same server name in its `io.modelcontextprotocol.server.name` label.
 
 This entry lets clients discover the offline checker for AI-style wording. The
-server provides `unswell_check` for draft bytes and `unswell_describe` for the fixed
-policy. `unswell_review_request` and `unswell_review_submit` let the calling assistant
-review a draft in context and bind its findings to source coordinates. It does not host a public HTTP endpoint. See [MCP configuration](mcp.md)
-and [container commands](containers.md), including explicit Docker contexts.
+server hosts no public HTTP endpoint; it provides `unswell_check` for draft bytes and
+`unswell_describe` for the fixed policy. `unswell_review_request` and
+`unswell_review_submit` let the calling assistant review a draft in context and bind
+its findings to source coordinates. See [MCP configuration](mcp.md) and
+[container commands](containers.md) (with explicit Docker contexts).
 
 ## Release sequence
 
-The tag, Go version constant, registry version and OCI image tag must agree. Update
+The tag, Go version constant, registry version and OCI image tag must agree: update
 `result.go` and `mcp/server.json` together when preparing a new version.
 
 1. CI validates the metadata and proves that an invalid server name is rejected.
@@ -24,11 +25,11 @@ The tag, Go version constant, registry version and OCI image tag must agree. Upd
 5. A public API read checks the exact name, version, active status, repository and
    OCI package. The response is retained as workflow evidence.
 
-The publisher is pinned in [.mcp-publisher-version](../.mcp-publisher-version).
-Its setup script checks the release archive's recorded SHA-256 before extraction.
+The publisher is pinned in [.mcp-publisher-version](../.mcp-publisher-version);
+its setup script checks the release archive's recorded SHA-256 before extraction.
 Updating the publisher requires updating the version and matching platform hashes.
-The workflow uses `id-token: write` for short-lived OIDC authentication and removes
-the publisher's saved credentials afterward. No personal access token is required.
+For short-lived OIDC authentication the workflow uses `id-token: write` (it needs no
+personal access token) and removes the publisher's saved credentials afterward.
 
 ## Validate before publishing
 
@@ -37,8 +38,8 @@ bash scripts/setup-mcp-publisher.sh
 make check-registry
 ```
 
-These commands download the pinned publisher and use its registry validator. They
-require network access and do not publish an entry. The usual `make check` remains
+Without publishing an entry, these commands download the pinned publisher and use its
+registry validator; they require network access. The usual `make check` remains
 independent of this registry service; CI runs both checks.
 
 After publication, verify the public record again with:
@@ -52,5 +53,5 @@ and workflows alone do not establish publication: a release is discoverable only
 after this public check succeeds. The registry is currently a preview service, so
 preserve release metadata and verify the entry after any upstream data reset.
 
-The workflow follows the registry's [GitHub Actions publication guide](https://github.com/modelcontextprotocol/registry/blob/main/docs/modelcontextprotocol-io/github-actions.mdx)
-and [server metadata specification](https://github.com/modelcontextprotocol/registry/blob/main/docs/reference/server-json/generic-server-json.md).
+The workflow follows the registry's documentation: its [GitHub Actions publication guide](https://github.com/modelcontextprotocol/registry/blob/main/docs/modelcontextprotocol-io/github-actions.mdx)
+and its [server metadata specification](https://github.com/modelcontextprotocol/registry/blob/main/docs/reference/server-json/generic-server-json.md).

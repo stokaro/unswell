@@ -3,12 +3,13 @@
 A linter for lean English, built to reduce AI-sounding prose.
 
 Unswell's main motivation is to keep formulaic AI-style wording from leaking into
-source code and documentation. AI-assisted work often leaves behind conversational
-preambles, generic claims of importance, inflated modifiers and repeated setup.
+source code and documentation. AI-assisted work often leaves such wording behind:
+conversational preambles, generic claims of importance, inflated modifiers and
+repeated setup.
 Unswell finds these patterns in prose and explains what to revise before the text
 reaches a commit or a published document.
 
-The checks apply to text regardless of its author. They enforce a chosen editorial
+The checks apply to text regardless of its author: they enforce a chosen editorial
 policy through concrete findings and explainable scores. The checker runs locally as
 a Go library and CLI and sends source text nowhere. Three further commands,
 `unswell review`, `unswell trim`, and `unswell compare`, read a document with a
@@ -21,14 +22,14 @@ wording. No score is a probability that a tool wrote the text; see
 non-goals.
 
 **Development alpha.** The published release is `v0.1.0-alpha.25`. Stage 2 features
-include custom rules, baselines, and checks of changed code. Go tools can train,
+include custom rules, baselines, and checks of changed code; Go tools can train,
 calibrate, and load models.
 
-Rules and defaults remain experimental. No editorial model has met the criteria
-for use in the product. See the [acceptance audit](docs/acceptance.md) for features, release
-evidence, and work still open.
-Revision probability is unavailable until a labeled corpus and compatible
-calibration model meet the later acceptance criteria.
+Rules and defaults remain experimental; no editorial model has met the criteria
+for use in the product. Revision probability is unavailable until a labeled corpus
+and compatible calibration model meet the later acceptance criteria; see the
+[acceptance audit](docs/acceptance.md) for features, release evidence, and work
+still open.
 
 ## What it does
 
@@ -60,7 +61,7 @@ posts written before November 2022 it separates such posts with an AUC of
 revised 179 such pages by the report, blind model judges found the page more
 like a model's than its revision on 153 of 178 decisive pages.
 
-`unswell review` gives a document to a model you name. The model reads it in
+`unswell review` gives a document to a model you name, which reads it in
 context and flags sentences to tighten. Unswell binds each flag to the exact
 place in the source and drops a flag that does not quote its sentence.
 
@@ -98,7 +99,7 @@ brew install stokaro/unswell/unswell
 ```
 
 A separate [GitHub Action](https://github.com/stokaro/unswell-action) runs pinned
-release archives and writes JSON/SARIF reports. See [installation and release
+release archives and writes JSON/SARIF reports; see [installation and release
 verification](docs/installation.md) for availability and platform checks.
 
 For example, this introduction:
@@ -152,8 +153,8 @@ files.
 page and of the revision without a hint of which is which, in both orders. The
 revision is accepted only when the judge names the page both times, the
 statements and the sentences of the page are still in the revision, no
-number, code, or link is lost, and no em dash is added. The sentences are
-compared by the command itself, without a model:
+number, code, or link is lost, and no em dash is added. Without a model, the
+command itself compares the sentences:
 
 ```sh
 bin/unswell compare docs/guide.md docs/guide.revised.md \
@@ -161,13 +162,13 @@ bin/unswell compare docs/guide.md docs/guide.revised.md \
   --model example-model --api-key-env REVIEW_API_KEY
 ```
 
-It exits with 1 for a rejected revision. The page index plays no part in it.
+It exits with 1 for a rejected revision; the page index plays no part in it.
 With `--require kept` it accepts a revision that loses nothing, whatever the
 judge hears in the blind comparison.
 
 The three commands send the texts you select to the model you name and to
 nothing else. The output of review and trim is advisory and never fails a
-build. See [review in context](docs/review.md), [trim](docs/trim.md), and
+build; see [review in context](docs/review.md), [trim](docs/trim.md), and
 [compare](docs/compare.md).
 
 ## Reports and gate
@@ -184,7 +185,7 @@ bin/unswell check README.md docs/ \
 ```
 
 Add `--include-source` to retain snippets and highlighted paragraphs in saved
-reports. Source text is omitted by default. Reports can contain internal prose;
+reports (source text is omitted by default). Reports can contain internal prose;
 choose artifact access accordingly.
 
 ```sh
@@ -207,7 +208,7 @@ that exhausts its candidate budget abstains on that document with the reason
 stay.
 
 The index uses points from 0 to 100. Every local score includes its contributing
-rules, activations, deduplication decisions and caps. A clean paragraph cannot
+rules, activations, deduplication decisions and caps; a clean paragraph cannot
 reduce another paragraph's score. The tool makes no authorship or factuality claim.
 
 ## Input and configuration
@@ -217,29 +218,29 @@ JavaScript, TypeScript/TSX, Python, Rust, Java, C/C++, C#, YAML, Bash/POSIX sh, 
 shell syntax, Fish and PowerShell. Markdown uses block and inline grammars.
 See [formats and extraction limits](docs/inputs.md) for extensions and dialect details.
 For stdin, provide `--filename` or a supported `--format`. Coordinates use original
-UTF-8 byte ranges and one-based Unicode code point columns.
+UTF-8 byte ranges; columns are one-based Unicode code points.
 
-Recursive Git scans select tracked files. Explicit files may be untracked and
+Recursive Git scans select tracked files, while explicit files may be untracked and
 bypass recursive include/exclude patterns. Outside Git, directories use a bounded
-filesystem walk. Inputs must remain within the current project root. Symlinks are
+filesystem walk; inputs must remain within the current project root. Symlinks are
 not followed during discovery. Unsupported explicit formats fail.
 
 The CLI reads the nearest `.unswell.yaml` up to the project root, or the exact file
-named by `--config`. It reads no home configuration. Local inheritance, ordered file
+named by `--config`; it reads no home configuration. Local inheritance, ordered file
 overrides, and shared term dictionaries use one
 [configuration plan](docs/configuration.md) in the CLI, library, and MCP server.
-Add team policies with [custom rule packs](docs/custom-rules.md), load them through
+Add team policies with [custom rule packs](docs/custom-rules.md): load them through
 `--ruleset` or inline `rule_sets`, and execute their examples with `unswell rules test`.
-Select checked contexts globally or per language with the
+Select checked contexts (globally or per language) with the
 [extraction policy](docs/extraction-policy.md). Use reasoned exceptions for intentional
 examples, dictionaries and other text that should remain outside an editorial check.
 Exceptions can select paths, languages, comments or strings, and named string owners.
 
-AI assistants can call the same engine through the separate [MCP server](docs/mcp.md).
-Its tools check supplied drafts and expose the fixed policy. `make dogfood-mcp`
+AI assistants can call the same engine through the separate [MCP server](docs/mcp.md);
+its tools check supplied drafts and expose the fixed policy. `make dogfood-mcp`
 verifies repository checks through a real MCP client and subprocess.
-Separate [CLI and MCP containers](docs/containers.md) support Linux AMD64 and ARM64,
-including repository checks through both interfaces in CI. Both images are public
+Separate [CLI and MCP containers](docs/containers.md) support Linux AMD64 and ARM64
+(including repository checks through both interfaces in CI). Both images are public
 in GHCR, and Docker Hub mirrors the release with matching digests.
 
 ```yaml
@@ -285,49 +286,50 @@ return report.Write(writer, "json", result, report.Options{})
 ```
 
 The [external consumer](examples/consumer) implements a custom rule using only
-public packages. See the [API policy](docs/public_api.md) for supported imports and
+public packages; see the [API policy](docs/public_api.md) for supported imports and
 ownership contracts. Go rules are trusted code and must support concurrent calls.
 
 ## Development and limits
 
 Unswell checks its own README, documentation, Go code and Bash scripts with the committed
-[strict repository policy](.unswell.yaml). Run `make dogfood`, or `make check` for
-all checks. CI runs the same gate and uploads all five report formats. A negative
+[strict repository policy](.unswell.yaml). Run `make dogfood` (or `make check` for
+all checks). CI runs the same gate and uploads all five report formats. A negative
 CLI probe must fail with exit code 1, proving the policy is active. Third-party
 licenses and test-data documents are outside this editorial policy; inline code
 and fenced examples use the normal extractor's protected boundaries.
-The policy excludes deliberate fixture strings and catalog data with recorded reasons.
-Comments and runtime strings remain checked. Bash also passes syntax, ShellCheck
-and shfmt checks, including negative probes for each gate.
+The policy excludes deliberate fixture strings and catalog data with recorded reasons;
+comments and runtime strings remain checked. Bash also passes syntax, ShellCheck
+and shfmt checks (including negative probes for each gate).
 
 Reasoned [source suppressions](docs/suppressions.md) permit individual rule findings
 while retaining raw evidence, scores, and an audit record across CLI and MCP.
 Explicit [baselines](docs/baseline.md) accept existing debt without removing findings
-or changing scores. The `new` gate checks new findings and changed scored units.
-Committed [changed-unit checks](docs/changes.md) compare merge-base to HEAD with
-clean-source verification and retain whole-document repetition context.
+or changing scores; the `new` gate checks new findings and changed scored units.
+Committed [changed-unit checks](docs/changes.md) compare merge-base to HEAD (with
+clean-source verification) and retain whole-document repetition context.
 Use [trusted policy](docs/trusted-policy.md) to apply merge-base rules and baseline
 while auditing candidate policy changes and new source permissions.
-The public [Go analysis adapter](docs/go-analysis.md) and its prototype vet driver
-check comments and strings through the same engine.
+Through the same engine, the public [Go analysis adapter](docs/go-analysis.md) and
+its prototype vet driver check comments and strings.
 The [contextual editorial catalog](docs/editorial-patterns.md) adds opt-in filler,
 hype, and rhetorical-pattern checks with explicit evidence and technical counterexamples.
 The [repetition catalog](docs/repetition-signals.md) adds bounded phrase, POS-template,
-paragraph, heading, and summary comparisons with measured overlap evidence.
-The [surface catalog](docs/surface-signals.md) adds opt-in syntax, readability, and
-formatting measurements with explicit counting protocols and protected boundaries.
+paragraph, heading, and summary comparisons (with measured overlap evidence).
+With explicit counting protocols and protected boundaries, the
+[surface catalog](docs/surface-signals.md) adds opt-in syntax, readability, and
+formatting measurements.
 The research pipeline that fits and evaluates those models is a separate
 developer workflow; see [training and evaluation](docs/training.md).
 The active [roadmap](docs/roadmap.md) improves contextual diagnostics and checks
-them on real technical prose. Human qualification and calibrated revision
-probabilities remain deferred under ADR 0037, with their original requirements
-preserved. Neither capability is claimed by this alpha.
+them on real technical prose. This alpha claims neither human qualification nor
+calibrated revision probabilities; both remain deferred under ADR 0037, with their
+original requirements preserved.
 
-Code, URLs, front matter, directives and quoted Markdown blocks are excluded from
-ordinary prose checks. POS-based chunks are surface candidates, not grammatical
-dependencies. Lexical overlap is not a claim of semantic equivalence. Thresholds
-are initial editorial policy, not measured precision or confidence.
+Thresholds are initial editorial policy, not measured precision or confidence.
+POS-based chunks are surface candidates, not grammatical dependencies; lexical
+overlap is not a claim of semantic equivalence. Code, URLs, front matter,
+directives and quoted Markdown blocks are excluded from ordinary prose checks.
 
-Code is MIT licensed. Runtime dependencies and the embedded English model have
+Code is MIT licensed; runtime dependencies and the embedded English model have
 their own notices. No scan downloads rules, sends prose to a service or requires
 Python, Node.js, a server, an API key or cgo.

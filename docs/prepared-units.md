@@ -2,23 +2,24 @@
 
 Corpus preparation and public feature callers use `nlp.PrepareUnits` on an already
 extracted `document.Block`. Supply the existing NLP provider, requested target
-kinds and capabilities, and explicit limits. Preparation performs no extraction or
+kinds and capabilities, and explicit limits; preparation performs no extraction or
 resource discovery. It supports the token, sentence, POS, chunk, and dependency
 representations in the current neutral document model; unsupported requests fail.
 
 The `eligible-piece-v1` selection contract splits protected boundaries and trims
-surrounding whitespace. Whole paragraphs and comments can produce sentence and
-paragraph targets. Strings, headings and split pieces produce fragments. Each
-piece is analyzed once. Sentence targets reuse its analysis; token offsets in
-`PreparedUnit.Block()` refer to the target's own text. Independent comments never
-share prose context. An empty selection contains no fabricated zero-valued unit.
+surrounding whitespace. Whole paragraphs and comments can produce two kinds of
+target: sentence and paragraph. Strings, headings and split pieces produce
+fragments. Each piece is analyzed once, and sentence targets reuse its analysis;
+token offsets in `PreparedUnit.Block()` refer to the target's own text. Independent
+comments never share prose context. An empty selection contains no fabricated
+zero-valued unit.
 
-Preparation skips blocks with `document.Block.Excluded` set to true. The engine
-uses this flag for non-Latin prose. Preparation validates the options
+Preparation skips blocks with `document.Block.Excluded` set to true (the engine
+uses this flag for non-Latin prose). Preparation validates the options
 and source mapping, then returns no targets without calling the NLP provider.
-The engine applies this to prepared feature collection and both model channels.
-Remaining targets keep their original block IDs and source spans; separate
-comments are never joined to fill the gap.
+Preparation never joins separate comments to fill the gap; remaining targets keep
+their original block IDs and source spans. The engine applies this skip to prepared
+feature collection and both model channels.
 
 `PreparedUnit.Binding()` returns complete target/context source segments and
 separate hashes for target text, surrounding prose and grammar scope. Text hashes
@@ -27,27 +28,28 @@ Identical text at different positions remains distinguishable. Complete segments
 include eligible spaces and punctuation; counted token spans serve another purpose.
 `Context()` exposes surrounding prose only through an explicit library call.
 
-For a completed engine result, `PreparedFeatureSource.OriginalUnit` accepts the
-original `document.Source` and a unit index. It verifies the source name and
-SHA-256, the unit contract, and UTF-8 span boundaries, then returns owned
-`OriginalPreparedUnit.Target` and `Context` segments. Each segment contains its
-original byte span and exact source text. Keep segments separate: a gap can
-contain protected code or markup. The text is original source, not the normalized
-NLP input, and the method does not repeat extraction. A mismatched or modified
+For a completed engine result, `PreparedFeatureSource.OriginalUnit` accepts two
+inputs: the original `document.Source` and a unit index. It verifies the source
+name and SHA-256, the unit contract, and UTF-8 span boundaries; then it returns
+owned `OriginalPreparedUnit.Target` and `Context` segments. Each segment contains
+its original byte span and exact source text. Keep segments separate: a gap can
+contain protected code or markup. The text is original source (not the normalized
+NLP input), and the method does not repeat extraction. A mismatched or modified
 source fails instead of returning misleading snippets.
 
 `feature.MeasureUnit` uses the existing descriptive formulas with the target's
 explicit scope. Its input identity must match the provider and capabilities
-actually used. Supply source, policy, vocabulary and preprocessing identities too.
+actually used. Supply these identities too: source, policy, vocabulary and
+preprocessing.
 Missing POS remains absent. The measurement hash covers these identities and the
 complete target/context binding. `UnitCatalog` describes the selected scope;
 the existing block `Catalog` and `FeatureCollection` retain their meaning.
 
 The engine collects these measurements when both `Options.PreparedFeatures` and
 `Options.PreparedKinds` are supplied. Each is a set; unknown or duplicate entries
-fail construction. `Engine.PreparedFeatureIDs` and `PreparedUnitKinds` return the
-canonical selections. Supported kinds are `sentence`, `paragraph`, and `fragment`.
-Rule activations remain in the block collection and cannot be requested here.
+fail construction. Rule activations remain in the block collection and cannot be
+requested here. Supported kinds are `sentence`, `paragraph`, and `fragment`.
+`Engine.PreparedFeatureIDs` and `PreparedUnitKinds` return the canonical selections.
 
 For CLI checks, repeat the flags to choose measurements and kinds:
 
@@ -58,45 +60,46 @@ unswell check README.md \
   --report json:result.json
 ```
 
-The MCP server accepts the same flags at startup. `unswell_describe` exposes the
+The MCP server accepts the same flags at startup: `unswell_describe` exposes the
 fixed selections, and `unswell_check` returns `RunResult.PreparedFeatures` through
-the common engine. All five report formats consume the collection. Saved reports
-can be rendered without loading the source files, NLP provider, or a model.
+the common engine. All five report formats consume the collection, and saved
+reports can be rendered without loading the source files, NLP provider, or a model.
 
 The collection has its own version and is omitted by default. Source records
-separate the full policy hash, extraction policy hash, and preparation hash. The
-last hash also binds quote/structure switches and `eligible-piece-v1`. Feature
-input hashes use it as the preprocessing identity. Complete target and context
-segments remain distinct from counted token segments. Grammar scope hashes are
-not hashes of the prose shown to annotators. Target counts record the selected
-units; excluded contexts and punctuation-only pieces do not become targets.
+separate three hashes: the full policy hash, the extraction policy hash, and the
+preparation hash. The last hash also binds quote/structure switches and
+`eligible-piece-v1`; feature input hashes use it as the preprocessing identity.
+Complete target and context segments remain distinct from counted token segments.
+Grammar scope hashes are not hashes of the prose shown to annotators. Excluded
+contexts and punctuation-only pieces do not become targets; target counts record
+the selected units.
 
 Existing block NLP and scoring inputs stay unchanged. This optional collection
 performs a separate preparation pass over the already extracted blocks; sentence
 and paragraph targets share the analysis of their enclosing eligible piece.
 Per-source `analysis.max_candidates` charges measurements, mapped segments, and
 measured token visits. Preparation also caps each block at 10,000 targets, each
-context at 65,536 bytes, and target/context maps at 4,096 segments. Existing input
-limits still apply. A required collection error makes the run incomplete even
-with `--no-gate`; partial source evidence is not a complete training input.
+context at 65,536 bytes, and target/context maps at 4,096 segments (existing input
+limits still apply). Because partial source evidence is not a complete training
+input, a required collection error makes the run incomplete even with `--no-gate`.
 
 Reader validation checks the recorded contracts, identities, ranges, counts, and
-values. It cannot reconstruct feature input hashes without the original inputs.
+values, but it cannot reconstruct feature input hashes without the original inputs.
 An annotation join must verify those inputs and the extraction settings rather
 than trust matching field names or a parent block ID. This collection supplies
 descriptive values, not human labels, qualified models, or probabilities. See
 [ADR 0023](adr/0023-prepared-feature-collection.md).
 
-Limits bound bytes, context size, targets, tokens and source segments. Failed
+Limits bound bytes, context size, targets, tokens and source segments; failed
 preparation returns no partial set. Prepared units own their data; returned blocks,
 bindings, provider metadata and capability slices can be changed by their caller
 without changing the prepared unit. Concurrent accessor calls are supported.
 
 The [external consumer](../examples/consumer/units_test.go) extracts Markdown,
 prepares two sentence targets and their paragraph, then measures them through the
-public APIs. Corpus and CLI goldens continue to test the existing candidate ranges.
+public APIs; corpus and CLI goldens continue to test the existing candidate ranges.
 
-Joining accepted annotations and collecting model units through `RunResult`
-remain integration work. A block's raw rule activation cannot be assigned to its
-sentences by this API. Prepared units and numerical measurements do not qualify
-human labels, splits, training permissions, model applicability or probabilities.
+A block's raw rule activation cannot be assigned to its sentences by this API, and
+prepared units and numerical measurements do not qualify human labels, splits,
+training permissions, model applicability or probabilities. Joining accepted
+annotations and collecting model units through `RunResult` remain integration work.

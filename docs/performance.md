@@ -2,30 +2,31 @@
 
 The September 7, 2026 specification states one performance target for a complete
 scan: 100,000 prose words within 10 seconds and 512 MiB on a 2-vCPU Linux host.
-This page records how that is measured and what a measurement showed. It
-describes this build on the named host. It is not a capacity promise, and it
-says nothing about editorial quality.
+This page is not a capacity promise, and it says nothing about editorial
+quality. What it records is how that target is measured and what a measurement
+showed: it describes this build on the named host.
 
 ## Protocol
 
 `scripts/measure-performance.sh` builds a fixed corpus, scans it twice, and
 prints one JSON observation. The corpus spreads prose across every scanned
 format: Markdown paragraphs and headings, Go comments, YAML values, and Bash
-comments. Its sentences repeat by design. A fixed workload keeps two
+comments. Its sentences repeat by design, because a fixed workload keeps two
 measurements comparable. Repetition also keeps the repetition rules busy, so the
-numbers are an upper bound for that rule family, not an average document.
+numbers are not those of an average document: for that rule family, they are an
+upper bound.
 
 The script grows the corpus until the tool itself counts at least the requested
 number of prose words. A generator estimate would not do: only the tool decides
 what counts as prose. Both scans write all five report formats and evaluate the
-gate, because a real run pays for both. Both scans start a new process. The
-older observation format calls them cold and warm. These labels do not
-describe the state of cached files. Corpus copying and synthetic calibration
+gate, because a real run pays for both; each scan also starts a new process.
+The older observation format calls them cold and warm, but these labels do not
+describe the state of cached files: corpus copying and synthetic calibration
 can warm files before either measurement.
 
-Peak memory is the maximum resident set of the whole process, read from
-`/usr/bin/time`. It covers the runtime, extraction, NLP, rules, and report
-writing together. It is not the memory of any single stage.
+Peak memory is the maximum resident set of the whole process (not the memory
+of any single stage), read from `/usr/bin/time`. It covers the runtime,
+extraction, NLP, rules, and report writing together.
 
 ```sh
 make build
@@ -39,16 +40,16 @@ measurement is deliberately separate, because it is slow and host-specific.
 
 `--corpus DIR` measures a real project tree instead. The script copies the tree
 without its version-control metadata and writes a policy that keeps the default
-file selection, so the tree's own format mix is what gets measured. Each
+file selection, so the tree's own format mix is what gets measured. Every
 `--exclude` pattern is added to the policy and listed in the observation. A real
 tree is measured as it is; nothing sizes it to the target. `--timeout` bounds
 the analysis and defaults to ten minutes, so a slow tree is measured rather than
-cut off at the tool's default deadline. A scan the kernel kills leaves no
-report. The older observation records zero counts in that case. The version 2
-summary records absent analysis as `null` and preserves the exit code.
+cut off at the tool's default deadline. When the kernel kills a scan, it leaves
+no report: the older observation records zero counts in that case, while the
+version 2 summary records absent analysis as `null` and preserves the exit code.
 
 `--artifacts NEW_DIR` retains both sets of reports, stderr, resource readings,
-the policy, and the original observation. It rejects an existing directory.
+the policy, and the original observation; it rejects an existing directory.
 Run `python3 scripts/summarize-performance.py NEW_DIR` to create a version 2
 observation with separate first/repeat outcomes, exclusions, abstentions,
 report hashes, and tool identities. Summarization happens after measurement.
@@ -56,8 +57,8 @@ report hashes, and tool identities. Summarization happens after measurement.
 ## Published alpha.4 on diabolocom: September 13, 2026
 
 [The alpha.4 records](performance/alpha4/README.md) repeat the same pinned inputs
-and file-selection policies with the published release at `7e5b933`.
-Archive and executable hashes were verified, and all six release binaries
+and file-selection policies with the published release at `7e5b933`:
+archive and executable hashes were verified, and all six release binaries
 [rebuilt byte for byte](release/v0.1.0-alpha.4-audit.json) from that commit.
 The shared host, two-CPU quota, 512 MiB limit, lack of swap, and `GOMAXPROCS=2`
 match the alpha.3 experiment below. Filesystem caches were uncontrolled.
@@ -74,27 +75,27 @@ abstentions. Synthetic, pytest, and FastAPI each exceed 100,000 prose words;
 date-fns does not establish that word-count target. Each corpus produced
 identical hashes for all five report formats across its six samples.
 
-Alpha.4 scans all four files that failed before. Every other file keeps its
+Alpha.4 scans all four files that failed before; every other file keeps its
 source hash, format, and byte count. The input archives, file exclusions,
 and selected byte totals match the earlier run.
 
-The amount of prose changed. Actions shell syntax, expressions, and unknown
-shell bodies no longer count as prose. TypeScript module paths are protected
-too. Pytest has 128 fewer prose words across five workflow files. The
+The amount of prose changed: Actions shell syntax, expressions, and unknown
+shell bodies no longer count as prose, and TypeScript module paths are
+protected too. Pytest has 128 fewer prose words across five workflow files (the
 [coverage record](performance/alpha4/coverage-vs-alpha3.json) lists all added
-files and changed counts. These results measure scan cost and completeness.
-They do not measure how well a rule judges text.
+files and changed counts). These results do not measure how well a rule judges
+text. They measure scan cost and completeness.
 
 ## Published alpha.3 on diabolocom: September 13, 2026
 
 [The new records](performance/alpha3/README.md) measure the published Linux
 amd64 binary from `v0.1.0-alpha.3`, with its archive and executable hashes
-verified. The host is an AMD Ryzen 7 PRO 8840HS running Linux. A container
-limits CPU quota to two CPUs and memory to 512 MiB without swap;
-`GOMAXPROCS=2`. Existing host services remained running. This differs from
-the older Intel host below, so elapsed times are not a speedup comparison.
+verified. The host is an AMD Ryzen 7 PRO 8840HS running Linux (existing host
+services remained running). On it, a container limits CPU quota to two CPUs
+and memory to 512 MiB without swap; `GOMAXPROCS=2`. Because this host differs
+from the older Intel host below, elapsed times are not a speedup comparison.
 
-Each corpus ran three pairs of scans, for six samples per corpus. Every
+Each corpus ran three pairs of scans, for six samples per corpus; every
 sample wrote JSON, SARIF, HTML, Markdown, and text. The retained report hashes
 and document identities agree across all six samples of each corpus.
 
@@ -115,8 +116,8 @@ Failed files are absent from the reported document and prose totals.
 The inputs and explicit file exclusions match the earlier records. Analysis
 coverage still changed: alpha.3 protects documentation tags, examples, and
 other non-prose regions. The date-fns word count fell from 106,594 in the
-bounded source-build record to 74,085 here. This smaller workload cannot
-certify the 100,000-word target. Each new observation reports exclusion
+bounded source-build record to 74,085 here, and this smaller workload cannot
+certify the 100,000-word target. Every new observation reports exclusion
 counts and bytes by reason; no rule abstained in these runs.
 
 Remaining failures reproduce on source build
@@ -129,7 +130,8 @@ Remaining failures reproduce on source build
 
 The reports include one aggregate error per incomplete scan in addition to
 the file errors: FastAPI has two entries and date-fns four. These are four
-failing inputs in total, not six independent parser defects. The alpha.4 results above repeat the full scans with the repairs.
+failing inputs in total, not six independent parser defects; the alpha.4
+results above repeat the full scans with the repairs.
 
 ## Measured on a 2-vCPU Linux host
 
@@ -145,29 +147,29 @@ container limited to two CPUs of quota and a hard 512 MiB memory limit, with
 | Warm scan | 2.595 s | within 10 s |
 | Peak resident memory | 197,971,968 bytes | within 512 MiB |
 
-The kernel enforced that memory limit. The scan ran to completion inside a
-512 MiB cgroup with no swap, so the number is a bound the host held, not one the
-run happened to stay under.
+The kernel enforced that memory limit. Because the scan ran to completion
+inside a 512 MiB cgroup with no swap, the number is not one the run happened to
+stay under: it is a bound the host held.
 
 The host is shared and its CPU was not isolated, so these numbers carry ordinary
-scheduling noise. A container CPU quota is not the same thing as a two-processor
-machine: the container still reports eight logical CPUs, which is why
+scheduling noise. Because a container CPU quota is not the same thing as a
+two-processor machine (the container still reports eight logical CPUs),
 `GOMAXPROCS` is set explicitly rather than left to the runtime.
 
 ## Bounded failure
 
 Exceeding a configured analysis limit is an operational failure, not a quiet
-truncation. A scan whose input passes `analysis.max_file_bytes` exits 2, reports
+truncation: a scan whose input passes `analysis.max_file_bytes` exits 2, reports
 an incomplete analysis, and cannot pass a gate. The self-test asserts that
 outcome on every `make check`.
 
 ## Measured on real project trees
 
 The same 2-vCPU Linux host, under the same limits, scanned three trees from the
-research corpus with a build of the recorded commit. The
+research corpus with a build of the recorded commit. On that build, the
 [rerun of the synthetic corpus](performance/linux-amd64-2vcpu-512mib-rerun.json)
-on that build took 2.451 s cold with a 226 MB peak, close to the first record.
-Each tree kept the default file selection. The policy excludes directories
+took 2.451 s cold with a 226 MB peak, close to the first record.
+Each tree kept the default file selection; the policy excludes directories
 whose content is not English prose by design, and each record lists them. For
 FastAPI they are the Japanese and Chinese translation trees; for date-fns the
 locale data; for pytest one test file of non-Latin test strings. Each record
@@ -179,19 +181,19 @@ also names the snapshot commit of its tree.
 | [FastAPI](performance/linux-amd64-2vcpu-512mib-fastapi.json) | 121,028 | 700 | 7.5 MB | 13.213 s | 15.006 s | 401,010,688 bytes | incomplete; 3 operational errors (exit 2) |
 | [date-fns](performance/linux-amd64-2vcpu-512mib-date-fns.json) | not reported | not reported | 11.2 MB | killed after 10.618 s | killed after 10.789 s | 547,254,272 bytes at the kill | killed by the memory limit (exit 137) |
 
-The target holds for pytest. It does not hold for FastAPI, which needs 13 s for
-121 thousand words. It does not hold for date-fns: the scan crossed the 512 MiB
+The target holds for pytest. It does not hold for FastAPI (which needs 13 s for
+121 thousand words). Nor does it hold for date-fns: the scan crossed the 512 MiB
 limit after ten seconds and the kernel killed it, so it reported nothing. On the
 arm64 host below, which enforces no limit, the same date-fns scan completed in
 6.7 s with a 739 MB peak and counted 106,594 prose words in 1,151 documents.
 
 Both failing trees carry far more documents and bytes than the synthetic corpus:
 7.5 MB in 700 documents and 11.2 MB in 1,151 against 0.7 MB in 57. Peak memory
-follows the documents and bytes scanned, not the prose words. The synthetic
-corpus, with few large documents, is the cheap case. FastAPI's three operational
-errors and date-fns's five stay in the records. They come from a YAML file of
-non-Latin link titles, one Markdown and three TypeScript files the grammars
-could not parse, and one JavaScript file of locale names.
+follows the documents and bytes scanned, not the prose words, which makes the
+synthetic corpus, with few large documents, the cheap case. FastAPI's three
+operational errors and date-fns's five stay in the records. They come from a
+YAML file of non-Latin link titles, one Markdown and three TypeScript files the
+grammars could not parse, and one JavaScript file of locale names.
 [#181](https://github.com/stokaro/unswell/issues/181) bounded memory and time
 on such trees; the section after the arm64 host records the same scans again.
 
@@ -202,7 +204,7 @@ of the measured commit.
 ## Measured on an arm64 host
 
 The same script ran on an Apple M3 Pro under macOS 26.5 with `GOMAXPROCS=2` and
-no memory limit. The host enforces nothing, so its peak figures show what each
+no memory limit: the host enforces nothing, so its peak figures show what each
 scan took. Resident figures on macOS run higher than on Linux for the same
 scan, so the two hosts are not compared with each other.
 
@@ -217,13 +219,13 @@ scan, so the two hosts are not compared with each other.
 
 Profiles on the 2-vCPU host put the cost of the failing trees in four places,
 none of them in analysis. Every parse built a fresh parser, and a Markdown
-document parses every inline block on its own. Resolving the policy of a file
+document parses every inline block on its own; resolving the policy of a file
 copied it through JSON twice per file. Every per-source partial result carried
-its own copy of the rule catalog until the merge. Writing a file report
+its own copy of the rule catalog until the merge, and writing a file report
 serialized it into memory as a whole first.
 
-The extractor now keeps parsers per grammar. A plan resolves each override
-combination once. Only the batch result carries the manifest, and file reports
+The extractor now keeps parsers per grammar; a plan resolves each override
+combination once; only the batch result carries the manifest, and file reports
 stream to disk. The runtime also keeps its total memory under a soft limit of
 384 MiB unless `GOMEMLIMIT` is set, so the heap no longer grows to twice its
 live size. Results, hashes, and reports of an unchanged tree are the same bytes
@@ -262,7 +264,7 @@ Every record above used a build from the recorded commit. The
 `linux_amd64` and `darwin_arm64` archives were downloaded again, verified
 against the release's `SHA256SUMS`, and measured with
 `--binary`. Each record carries the digest of the binary it measured. Both
-binaries embed Go 1.27.1 and the release source `247fe6f6`. That build
+binaries embed Go 1.27.1 and the release source `247fe6f6`: that build
 predates the parser-timeout scaling of
 [#171](https://github.com/stokaro/unswell/issues/171) and the bounds of
 [#181](https://github.com/stokaro/unswell/issues/181), and it has no
@@ -280,12 +282,12 @@ On the 2-vCPU Linux host:
 | [date-fns](performance/linux-amd64-2vcpu-512mib-date-fns-release.json) | 98,620 | 1,150 | 6.389 s | 6.225 s | 527,056,896 bytes | incomplete; 6 errors |
 
 The published build behaves like the build of its time. It meets the target
-on the synthetic corpus and on pytest. FastAPI runs a few tenths of a second
-over the ten seconds, as the pre-#181 record of that tree did. date-fns
+on the synthetic corpus and on pytest, while FastAPI runs a few tenths of a
+second over the ten seconds, as the pre-#181 record of that tree did. date-fns
 completes, with a peak nine megabytes under the 512 MiB limit; the earlier
 kill of that tree came from a scan without the locale exclusion. A release
-that carries #171 and #181 will measure as the bounded records above do.
-Until one exists, the published binary is the one users run, and these are
+that carries #171 and #181 will measure as the bounded records above do;
+until one exists, the published binary is the one users run, and these are
 its figures.
 
 On the arm64 host, with the same binaries of that release:
@@ -299,16 +301,16 @@ On the arm64 host, with the same binaries of that release:
 
 ## Measured with a configured origin model
 
-No accepted pack exists. None can exist until the human-labeled corpus of
+No accepted pack exists, and none can exist until the human-labeled corpus of
 [#22](https://github.com/stokaro/unswell/issues/22) qualifies one. The cost
-of a configured model does not wait for that. An experimental pack of the
+of a configured model does not wait for that: an experimental pack of the
 same shape loads through the same path. `corpus pack --task origin_endpoint`
 built one from the fitted artifact of the
 [documentation run](../research/origin/runs/2026-09-11-documentation/README.md)
 with a twelve-word floor. The script passes it with `--origin-model` under
-a policy that enables the origin channel and accepts an experimental pack.
-Each record carries the pack's digest. The estimate is unqualified and
-never gates. Only its cost is measured here.
+a policy that enables the origin channel and accepts an experimental pack,
+and each record carries the pack's digest. Since the estimate is unqualified
+and never gates, only its cost is measured here.
 
 | Corpus | Host | Cold | Warm | Peak resident | Without the model |
 | --- | --- | --- | --- | --- | --- |
@@ -323,8 +325,8 @@ never gates. Only its cost is measured here.
 
 The model costs nothing the measurement can separate from noise. Every scan
 stays within a few tenths of a second and a few megabytes of the same scan
-without it. Every Linux scan stays within the target. The pack is fourteen
-logistic weights and an isotonic map. Its evaluation per paragraph is a few
+without it, and every Linux scan stays within the target. The pack is fourteen
+logistic weights and an isotonic map; its evaluation per paragraph is a few
 multiplications beside the extraction and the rules the scan pays for
 anyway.
 
@@ -333,8 +335,8 @@ anyway.
 Three real trees on two hosts do not qualify this tool's speed. Real trees
 differ in format mix, in sentence length, and in how many repetition candidates
 they carry, and the three measured ones already span the target on one side and
-the other. The exclusions are a policy choice a maintainer would make for an
-English scan; each record lists them. The published binaries are the first
-release, which predates the bounds the current build carries. The origin
+the other. Every record lists the exclusions, which are a policy choice a
+maintainer would make for an English scan. The published binaries are the first
+release, which predates the bounds the current build carries, and the origin
 model is an experimental pack, not an accepted one. A later release and an
 accepted pack can be measured the same way.
