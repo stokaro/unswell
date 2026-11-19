@@ -1,6 +1,12 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-alpha.21
+
+The GitHub Action declares its `timeout` and `jobs` inputs again
+([#535](https://github.com/stokaro/unswell/issues/535)). A repository that
+needs more than the 30 seconds of the CLI default can set the limit and the
+number of workers. A release of Unswell now checks its whole repository
+through the published action with both inputs.
 
 An MDX page with an attribute named `class` or `for` is read
 ([#620](https://github.com/stokaro/unswell/issues/620)). The tag
