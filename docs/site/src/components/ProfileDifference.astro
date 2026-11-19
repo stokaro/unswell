@@ -1,0 +1,70 @@
+---
+// What the strict profile changes beside the default one.
+//
+// The numbers and the rule lists come from the generated catalog. The data
+// file is written by `go run ./cmd/docscatalog`, which reads the policy of an
+// engine built with each profile, and CI fails on a stale file. Nothing here
+// is counted by hand.
+import catalog from '../data/rules-catalog.json';
+
+const expectedSchema = 'unswell-docs-rules-catalog-v2';
+if (catalog.schema !== expectedSchema) {
+	throw new Error(`rules catalog schema is ${catalog.schema}, expected ${expectedSchema}`);
+}
+
+const { technical, strict, added, stricter } = catalog.profiles;
+const rulesPage = `${import.meta.env.BASE_URL}rules/`;
+---
+
+<table>
+	<thead>
+		<tr>
+			<th scope="col">What the profile does</th>
+			<th scope="col"><code>technical</code></th>
+			<th scope="col"><code>strict</code></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th scope="row">Rules that run</th>
+			<td>{technical.rules}</td>
+			<td>{strict.rules}</td>
+		</tr>
+		<tr>
+			<th scope="row">Rules whose single match fails the gate</th>
+			<td>{technical.forbid}</td>
+			<td>{strict.forbid}</td>
+		</tr>
+		<tr>
+			<th scope="row">Index at which a paragraph fails the gate</th>
+			<td>{technical.paragraph_fail_at}</td>
+			<td>{strict.paragraph_fail_at}</td>
+		</tr>
+		<tr>
+			<th scope="row">Index at which a sentence fails the gate</th>
+			<td>{technical.sentence_fail_at}</td>
+			<td>{strict.sentence_fail_at}</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Only <code>strict</code> runs these {added.length} rules:</p>
+<ul>
+	{added.map((id) => (
+		<li>
+			<a href={`${rulesPage}#${id}`}><code>{id}</code></a>
+		</li>
+	))}
+</ul>
+
+<p>
+	Both profiles run these {stricter.length} rules. In <code>technical</code> a match is a warning, and in
+	<code>strict</code> one match fails the gate:
+</p>
+<ul>
+	{stricter.map((id) => (
+		<li>
+			<a href={`${rulesPage}#${id}`}><code>{id}</code></a>
+		</li>
+	))}
+</ul>

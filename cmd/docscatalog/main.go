@@ -2,9 +2,11 @@
 // that the documentation site's rules page reads.
 //
 // The page has to name the rules that ship, not a table kept by hand. So the
-// rows come from a real engine built with default options. With --output the
-// command writes the file. With --check it holds the committed file against
-// fresh bytes. CI runs that check, so a stale page fails the build.
+// rows come from a real engine built with default options. The file also says
+// what the strict profile changes beside the default one, read from the policy
+// of an engine built with that profile. With --output the command writes the
+// file. With --check it holds the committed file against fresh bytes. CI runs
+// that check, so a stale page fails the build.
 //
 // This is a developer command. It is not part of the public API, and the
 // documentation site is the only consumer of its output.
@@ -23,19 +25,53 @@ import (
 	"strings"
 
 	"github.com/stokaro/unswell"
+	"github.com/stokaro/unswell/config"
 	"github.com/stokaro/unswell/rule"
 )
 
 // schemaID names the shape of the generated file. The site reads it before
 // rendering, so a future change of shape is a visible mismatch rather than a
 // page that silently drops half its columns.
-const schemaID = "unswell-docs-rules-catalog-v1"
+const schemaID = "unswell-docs-rules-catalog-v2"
+
+// strictLayer is the configuration that selects the strict profile.
+const strictLayer = "version: 1\nextends:\n  - builtin:strict-v1\n"
+
+// policySource is the name the policies are resolved for. No override matches
+// it, so the answer is the profile itself.
+const policySource = "page.md"
 
 // catalog is the whole generated document.
 type catalog struct {
 	Schema    string   `json:"schema"`
 	RuleCount int      `json:"rule_count"`
+	Profiles  profiles `json:"profiles"`
 	Families  []family `json:"families"`
+}
+
+// profiles says how the strict profile differs from the default one. The
+// configuration page shows it, because the two profiles can return reports
+// that look alike.
+type profiles struct {
+	Technical profileTotals `json:"technical"`
+	Strict    profileTotals `json:"strict"`
+	// Added lists the rules that strict runs and the default profile leaves off.
+	Added []string `json:"added"`
+	// Stricter lists the rules that both profiles run and whose match fails
+	// the gate in strict alone.
+	Stricter []string `json:"stricter"`
+}
+
+// profileTotals counts what one profile does.
+type profileTotals struct {
+	// Rules is the number of rules the profile runs.
+	Rules int `json:"rules"`
+	// Forbid is the number of them whose single match fails the gate.
+	Forbid int `json:"forbid"`
+	// ParagraphFailAt and SentenceFailAt are the index values at which the
+	// gate fails a paragraph and a sentence.
+	ParagraphFailAt int `json:"paragraph_fail_at"`
+	SentenceFailAt  int `json:"sentence_fail_at"`
 }
 
 // family collects the rules sharing one identifier prefix, such as filler or
@@ -95,13 +131,26 @@ func run(arguments []string, out *os.File) error {
 	return write(*output, rendered, out)
 }
 
-// render builds the engine and serializes its catalog.
+// render builds the engines and serializes the catalog.
 func render() ([]byte, error) {
 	engine, err := unswell.New(unswell.Options{})
 	if err != nil {
 		return nil, fmt.Errorf("construct the engine: %w", err)
 	}
+	technical, err := engine.PolicyForFile(policySource)
+	if err != nil {
+		return nil, fmt.Errorf("read the default policy: %w", err)
+	}
+	strictEngine, err := unswell.New(unswell.Options{Config: []byte(strictLayer)})
+	if err != nil {
+		return nil, fmt.Errorf("construct the strict engine: %w", err)
+	}
+	strict, err := strictEngine.PolicyForFile(policySource)
+	if err != nil {
+		return nil, fmt.Errorf("read the strict policy: %w", err)
+	}
 	document := build(engine.Catalog())
+	document.Profiles = compareProfiles(&technical, &strict)
 	encoded, err := json.MarshalIndent(document, "", "  ")
 	if err != nil {
 		return nil, fmt.Errorf("encode the catalog: %w", err)
@@ -129,6 +178,53 @@ func build(descriptors []rule.Descriptor) catalog {
 		families = append(families, family{Name: name, Rules: rules})
 	}
 	return catalog{Schema: schemaID, RuleCount: len(descriptors), Families: families}
+}
+
+// compareProfiles counts what each profile does and lists the rules where the
+// strict one goes further. A rule that only strict runs is listed once, as an
+// added rule, also when its match fails the gate there.
+func compareProfiles(technical, strict *config.Policy) profiles {
+	result := profiles{
+		Technical: totals(technical),
+		Strict:    totals(strict),
+		Added:     []string{},
+		Stricter:  []string{},
+	}
+	for id, settings := range strict.Rules {
+		if !settings.Enabled {
+			continue
+		}
+		base := technical.Rules[id]
+		switch {
+		case !base.Enabled:
+			result.Added = append(result.Added, id)
+		case settings.Gate == gateForbid && base.Gate != gateForbid:
+			result.Stricter = append(result.Stricter, id)
+		}
+	}
+	sort.Strings(result.Added)
+	sort.Strings(result.Stricter)
+	return result
+}
+
+// gateForbid is the gate setting of a rule whose single match fails the gate.
+const gateForbid = "forbid"
+
+func totals(policy *config.Policy) profileTotals {
+	result := profileTotals{
+		ParagraphFailAt: policy.Gate.Paragraph.FailAt,
+		SentenceFailAt:  policy.Gate.Sentence.FailAt,
+	}
+	for _, settings := range policy.Rules {
+		if !settings.Enabled {
+			continue
+		}
+		result.Rules++
+		if settings.Gate == gateForbid {
+			result.Forbid++
+		}
+	}
+	return result
 }
 
 // familyOf takes the identifier prefix. An identifier without a dot is its own
