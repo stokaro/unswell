@@ -904,49 +904,18 @@ starlight-toc a[aria-current='true']:hover {
 	color: var(--u-muted);
 }
 
-/* The opening picture of a report. It stands on the page itself, with no box. */
+/* The opening picture of a report: a painted sheet with its own paper ground. */
 .u-hero {
 	margin: 1.5rem 0 2.5rem;
-	overflow-x: auto;
 }
 
-.u-hero svg {
+.u-hero img {
 	display: block;
 	width: 100%;
-	min-width: 30rem;
 	max-width: 45rem;
 	height: auto;
 	margin-inline: auto;
-}
-
-.u-hero-line {
-	fill: none;
-	stroke-width: 1.5;
-	stroke-linecap: round;
-	stroke-linejoin: round;
-}
-
-.u-hero-ink {
-	stroke: var(--u-ink);
-}
-
-.u-hero-muted {
-	stroke: var(--u-muted);
-}
-
-.u-hero-hair {
-	stroke: var(--u-hairline);
-	stroke-width: 1;
-}
-
-.u-hero-accent {
-	stroke: var(--u-teal-dark);
-}
-
-.u-hero-quiet {
-	fill: var(--u-panel);
-	stroke: var(--u-border-light);
-	stroke-width: 1;
+	border-radius: var(--u-radius-lg);
 }
 
 /* A figure of the research report. The drawing keeps its width on a phone and
