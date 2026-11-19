@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.0-alpha.24
+
+The checker is the same as in alpha.23. This release moves the pages of the
+site, which are built from a release.
+
+A shared link to a page of the site shows what the page is. The address of a
+page without a version carries the title, the description, and the picture of
+its page, and the picture that every page names is now at the root of the
+site. The research report has a picture of its own for a shared link, its
+painted opening.
+
 ## 0.1.0-alpha.23
 
 The checker is the same as in alpha.22. This release moves the pages of the
