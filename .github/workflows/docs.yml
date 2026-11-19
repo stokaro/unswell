@@ -1,14 +1,15 @@
 name: Docs
 
+# The site is deployed from main and from nowhere else: the Pages environment
+# takes no deployment from a tag, so a run for a tag could only fail there. A
+# release asks for a run on main instead, through workflow_dispatch from the
+# release workflow, and that run builds the folder of the new release from its
+# tag.
 on:
   push:
     branches: [main]
-    tags:
-      - 'v*'
   pull_request:
   workflow_dispatch:
-  release:
-    types: [published]
 
 permissions:
   contents: read
@@ -64,7 +65,7 @@ jobs:
   deploy:
     name: Deploy to GitHub Pages
     needs: check
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
