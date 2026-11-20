@@ -49,8 +49,12 @@ func readLocalArtifact(path string, maximum int, description string) ([]byte, er
 	return data, closeErr
 }
 
+// readLocalRootFile reads one file under an open root. Stat follows a
+// symbolic link and the root confines where it may point, so a repository
+// that publishes its LICENSE as a link into its own tree still reads. A link
+// out of the root fails here, as it should.
 func readLocalRootFile(root *os.Root, name string, maximum int, description string) ([]byte, error) {
-	info, err := root.Lstat(name)
+	info, err := root.Stat(name)
 	if err != nil {
 		return nil, err
 	}
