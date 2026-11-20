@@ -14,18 +14,18 @@ records the goal, the audit behind it, and the next stage.
 
 It is not an authorship detector, not a generic generation detector, and
 not a judge of literary quality. A clean scan of a generated text is a
-correct result. A finding on a human-written text is not a false positive
+correct result; a finding on a human-written text is not a false positive
 by that fact. An error is a diagnostic the stated rule does not justify.
 No index, score, or estimate stands for a probability that a tool wrote
 the text.
 
 The historical corpus is the comparison base and a source of candidate
-constructions, not a norm. Rarity in old text is not a defect, and a new
-term earns no finding for being new. Contemporary generations show which
-constructions today's models use more often, more uniformly, or in less
-fitting places than the historical texts of the same kind. "Unusual
-against the historical corpus" and "frequent in generations" are two
-observations; neither proves the other.
+constructions, not a norm. Rarity in old text is not a defect; a new
+term earns no finding for being new. "Unusual against the historical
+corpus" and "frequent in generations" are two observations; neither proves
+the other. Contemporary generations show which constructions today's models
+use more often, more uniformly, or in less fitting places than the
+historical texts of the same kind.
 
 ## What the recorded experiments show
 
@@ -33,7 +33,7 @@ The [research report](https://unswell.dev/edge/research-report/) on the site
 tells the whole course of this work, from the first commit to
 `v0.1.0-alpha.20`: what each phase asked, what was measured, and which results
 were negative. Its figures are built from the records by
-`research/report-v3/build.py`, and `make check-research-report` checks every
+`research/report-v3/build.py`; `make check-research-report` checks every
 number of its prose against its source.
 
 The [review of published methods and open-source projects](research/method-re-review.md)
@@ -53,7 +53,7 @@ source-only and auxiliary-output diagnostic streams fail the recall screen;
 selected-unit decision precision is not editorial usefulness.
 The [expanded annotations, encoder adaptation, and edit-span comparison](research/encoder-adaptation.md)
 also completed without an admissible diagnostic configuration. Its failure-stage
-audit keeps all 123 events and distinguishes structural bounds from semantic acceptance.
+audit keeps all 123 events; it distinguishes structural bounds from semantic acceptance.
 The [reviewed source-edit and span-learning comparison](research/reviewed-source-spans.md)
 adds exact before/after annotations and 26 matched head fits. Neither delivery
 configuration passes the recall screen; seven calibration groups lack enough
@@ -64,12 +64,12 @@ primary work on revision necessity and discourse-connective edits.
 The [partial-label contract and acquisition study](research/partial-source-labels.md)
 finds default-generated negative intent labels in that historical helper. Its
 replacement Python contract and 100 completed source reviews preserve unknown
-dimensions. Feature diversity does not enrich required-edit cases on the
-observed packet, and five calibration partitions still fail a count-only bound.
+dimensions. On the observed packet, feature diversity does not enrich
+required-edit cases; five calibration partitions still fail a count-only bound.
 
 The [matched partial-label training study](research/partial-label-learning.md)
 completes 26 heads on the same 256 source cases. Masking unknown purposes improves
-target-byte union coverage from 1/123 to 11/123 events, with semantic quality still
+target-byte union coverage from 1/123 to 11/123 events; semantic quality is still
 unmeasured. Its 1,262 proposals and sparse explicit retention labels do not
 qualify a detector. The report adds a reusable supervision-support audit and
 primary work on LLM annotation acquisition and partially labeled token training.
@@ -79,22 +79,23 @@ The E3 runs of [#176](https://github.com/stokaro/unswell/issues/176),
 [#178](https://github.com/stokaro/unswell/issues/178) fit classifiers of
 cohort membership, and the origin runs of
 [#179](https://github.com/stokaro/unswell/issues/179) fit a classifier of
-generation endpoints. Those recorded comparisons did not establish the required
-benefit from a feature family, compression reference, or probability table on
-their declared tasks.
+generation endpoints. On their declared tasks, those recorded comparisons did
+not establish the required benefit from a feature family, compression reference,
+or probability table.
 Those are answers to classification questions. They say nothing about
-whether a rule names a construction worth rewriting, and they retire no
-rule. The records stay in [research/baselines](../research/baselines/README.md)
-and [research/origin](../research/origin/README.md) as negative results.
+whether a rule names a construction worth rewriting; they retire no
+rule. As negative results, the records stay in
+[research/baselines](../research/baselines/README.md) and
+[research/origin](../research/origin/README.md).
 
-The corpus counts rule matches by cohort and period. It includes placebo checks
+The corpus counts rule matches by cohort and period; it includes placebo checks
 and paired changes. Later runs add [counts by role](../research/acquisition/runs/2026-09-11-roles/README.md),
 [phrase counts](../research/acquisition/runs/2026-09-11-frequencies/README.md),
 and [historical RFCs](../research/acquisition/runs/2026-09-11-documents/README.md)
 to address gaps from ADR 0037.
 
 The dated diagnostic reviews need replay
-after engine fixes under [#217](https://github.com/stokaro/unswell/issues/217).
+after engine fixes under [#217](https://github.com/stokaro/unswell/issues/217);
 [#218](https://github.com/stokaro/unswell/issues/218) extends evaluation to longer
 technical prose. None of these records supplies human qualification or a
 production accuracy claim.
@@ -104,30 +105,30 @@ production accuracy claim.
 A–G comparison, split/tuning procedure, and selection criteria before fitting.
 
 The [method registry](../research/methods/README.md) records pinned source review,
-component terms, measured source-file hashes, and scoped decisions. Later
+component terms, measured source-file hashes, and scoped decisions; later
 [LLMDet experiments](../research/llmdet/README.md) and the
 [baseline runs](../research/baselines/README.md) record their implemented and
 executed subsets. A component port, numerical parity, or cohort comparison does
 not establish an accepted editorial model or reproduce an entire published study.
 
 The [annotation rubric](editorial-annotation.md) now defines independent quality
-and origin records, reviewer instructions, adjudication, and data partitions.
-Its [Go tools](../research/annotation/README.md) validate rounds, prepare blinded
+and origin records, reviewer instructions, adjudication, and data partitions;
+its [Go tools](../research/annotation/README.md) validate rounds, prepare blinded
 packets, and measure agreement. The included tutorial has scripted responses and
 does not count as the human-labeled corpus or a completed pilot.
 
 The [corpus preparation tool](../research/annotation/corpus/README.md) freezes
-source groups before extraction and verifies candidates against exact originals.
+source groups before extraction; it verifies candidates against exact originals.
 Its eight pinned Ptah files produce 378 unlabeled development candidates; they
 provide workflow tests, with no human judgments or independent final-test evidence.
 
 ## Two research branches
 
 The active work studies named rules and counts how often they match in each
-cohort. Work that needs human judgments stays on hold, along with probability
-models, origin studies, and detector comparisons.
-[ADR 0036](adr/0036-llm-pattern-evidence.md) separates these claims about the data.
-Under ADR 0037, a release need not wait for the deferred work. A later product
+cohort. Work that needs human judgments stays on hold (along with probability
+models, origin studies, and detector comparisons).
+[ADR 0036](adr/0036-llm-pattern-evidence.md) separates these claims about the data;
+under ADR 0037, a release need not wait for the deferred work. A later product
 decision can bring it back if a specific diagnostic needs it.
 
 ### Completed construction study: LLM-associated patterns
@@ -150,7 +151,7 @@ six reviewed studies with their data terms and decisions.
 | D. Confirmatory study | Executed comparisons, holdouts, intervals, ablations, and negative results |
 | E. Evidence release | Versioned data set, data card, report, table reproduction, and evidence cards |
 
-Stages A through E have published evidence. The original
+Stages A through E have published evidence; the original
 [data card](../research/methods/data-card-v1.md) and
 [report](../research/report-v1.md) retain the historical corpus, temporal controls,
 and earlier null results. `python3 scripts/reproduce-tables.py` rebuilds their
@@ -159,11 +160,11 @@ tables; the larger corpus measurements use `bash scripts/measure-corpus.sh`.
 The [generation index](../research/generation/README.md) preserves twenty earlier
 runs from five models across Claude, OpenAI, and Qwen. The
 [version 2 confirmation](../research/methods/llm-patterns-v2.md) remains
-inconclusive with 16 global components against its minimum of 20.
+inconclusive: 16 global components against its minimum of 20.
 
 The separate [version 3 study](../research/generation/studies/long-prose-v3/README.md)
 uses 38 complete documents from 20 fresh repositories. Its 456 fixed requests
-produce 455 complete responses and one retained truncation. All 12 measured arms
+produce 455 complete responses and one retained truncation; all 12 measured arms
 retain 20 groups. The [results](../research/generation/studies/long-prose-v3/results.md)
 report the frozen tests, intervals, applicability, length sensitivity, context,
 ablations, and 40 evidence cards. Only ARI meets the cross-family association
@@ -172,13 +173,13 @@ under the frozen budget. Other primary constructions lack confirmed association.
 No result qualifies a blocking rule or supplies a human quality label.
 
 Permitted source bytes, raw outputs, frozen inputs, measurements, and replay tools
-are archived with checksums. The record discloses the dispatch-reservation
+are archived with checksums; the record discloses the dispatch-reservation
 amendment for the final four requests and distinguishes it from actual token use.
 The [acceptance page](acceptance.md) separates completed construction research
 from the deferred human assessment in #22/#26.
 
 This branch produces prevalence, absolute differences, prevalence ratios,
-paired changes, and warning load per cohort. It produces no editorial label,
+paired changes, and warning load per cohort; it produces no editorial label,
 no origin estimate, and no probability, and its artifacts keep
 `human_corpus: not_qualified`. No paid generation is authorized until a
 maintainer records a budget in the protocol.
@@ -188,7 +189,7 @@ maintainer records a budget in the protocol.
 [#22](https://github.com/stokaro/unswell/issues/22) is on hold with its text
 and acceptance criteria unchanged. The table below preserves the original work
 breakdown; it is not a list of open issues. Engineering tasks such as #23 and #24
-are complete, while human acceptance remains with #22, #25, #26, and umbrella
+are complete; human acceptance remains with #22, #25, #26, and umbrella
 [#59](https://github.com/stokaro/unswell/issues/59). The
 [acceptance audit](acceptance.md) distinguishes implemented tools from the missing
 data and qualified models.
@@ -212,12 +213,12 @@ The corpus includes documentation, doc comments, ordinary comments, release note
 and selected strings, with results reported separately by role and length. Include
 good technical English from non-native writers, mixed editing workflows, unseen
 generators, and later data. Keep related documents, authors, prompts, templates, and
-rewrites in the same partition. Human annotation requirements remain those in the
-[roadmap](roadmap.md); generated labels cannot fulfill them, and neither can the
-cohort measurements of the active branch.
+rewrites in the same partition. Generated labels cannot fulfill the human annotation
+requirements; neither can the cohort measurements of the active branch. Those
+requirements remain the ones in the [roadmap](roadmap.md).
 
 The deferred editorial work would test whether simple features improve on the
-phrase list, then test LLMDet tables. The existing cohort runs answer a different
+phrase list, then test LLMDet tables; the existing cohort runs answer a different
 question. LLMDet's published scan path uses stored tables without running a
 generative model. Its value for editing still needs the deferred data and tests.
 See the [LLMDet paper](https://aclanthology.org/2023.findings-emnlp.139/) and
@@ -241,13 +242,13 @@ applicable editorial rules still run.
 
 Fast-DetectGPT and Binoculars require model-produced probabilities and belong in
 the optional research harness. DivEye's published code has a separate license
-constraint, and Ghostbuster's published workflow sends text to an API. Their issue
+constraint; Ghostbuster's published workflow sends text to an API. Their issue
 records these limits before any execution or source reuse. Watermark verification
-requires participation during generation and is outside this linter's scope.
+requires participation during generation; it is outside this linter's scope.
 
 ## Vale and Prose
 
-Unswell already uses Prose 3.2.1 for English NLP. Vale 3.20.0 uses the same version.
+Unswell already uses Prose 3.2.1 for English NLP; Vale 3.20.0 uses the same version.
 [Issue #10](https://github.com/stokaro/unswell/issues/10) evaluates targeted reuse of
 Vale's MIT-licensed sequence matcher for bounded token/POS rules. Keep the original
 copyright after `package`, the complete notice in distributed licenses, and the
@@ -255,9 +256,9 @@ upstream commit and file provenance. Adaptation must preserve Unswell's source
 mapping, RE2 limits, and public-library boundaries.
 
 General readability, formality, or repeated API names alone do not establish an
-AI-style defect. New features must earn their place through contextual evidence and
+AI-style defect; new features must earn their place through contextual evidence and
 measured false positives. An optional Vale style package can distribute compatible
-rules later, with one policy catalog as the source.
+rules later (with one policy catalog as the source).
 
 The [complete-purpose acquisition and learning comparison](research/complete-source-acquisition.md)
 records 49 reviews with explicit decisions for every purpose. Uncertainty sampling
