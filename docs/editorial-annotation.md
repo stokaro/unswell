@@ -9,11 +9,11 @@ editorial diagnostic acceptance, [ADR 0041](adr/0041-assistant-review-acceptance
 permits maintainer-accepted assistant review without an independent human rater.
 Reuse the rubric below while recording the actual reviewer in diagnostic review
 artifacts. The human-rater requirements and artifact checks later in this document
-apply to the model-research corpus, not to that diagnostic acceptance path.
+apply to the model-research corpus; that diagnostic acceptance path is outside them.
 
 Unswell aims to keep formulaic AI-style wording out of code and documents. The
-annotation target is the need for editorial revision under a stated policy.
-Origin is a separate research variable. A useful AI-assisted explanation may need
+annotation target is the need for editorial revision under a stated policy;
+origin is a separate research variable. A useful AI-assisted explanation may need
 no changes; a human draft may contain empty framing or repetition.
 
 ## Decision and scope
@@ -28,19 +28,19 @@ one of the defects below, while retaining its substantive meaning?
 | `uncertain` | Context is insufficient, the rubric does not resolve the case, or the distinction remains unclear. Record why. |
 
 These labels concern editorial wording. Spelling, punctuation, factual correctness,
-and compliance with an external contract are separate questions. A typo alone is
+and compliance with an external contract are separate questions: a typo alone is
 not a positive label. If a project bans a phrase, Unswell may report it even when
 another profile considers the text acceptable.
 
 Distinguish a necessary change from an optional alternative or personal preference.
-Length, passive voice, formality, caution, repeated API names, and technical terms
-do not establish a defect by themselves. Do not infer a writer's English fluency
-or origin from their prose. Record language-background groups only when suitable
-metadata is available and its use is permitted.
+None of these establishes a defect by itself: length, passive voice, formality,
+caution, repeated API names, and technical terms. Do not infer a writer's English
+fluency or origin from their prose. Record language-background groups only when
+suitable metadata is available and its use is permitted.
 
 ## Categories and boundaries
 
-The examples below teach the decision boundary. They are not independent human
+The examples below teach the decision boundary; they are not independent human
 annotations or measured rule precision. The executable tutorial includes each
 category and a corresponding acceptable example.
 
@@ -57,7 +57,7 @@ category and a corresponding acceptable example.
 Choose all supported categories, without assigning the same defect several times
 to imply greater severity. `needs_revision` requires at least one category;
 `acceptable` carries none. An uncertain answer may record plausible categories,
-but those are not confirmed defects for category-agreement statistics.
+but category-agreement statistics treat those as unconfirmed defects.
 
 Technical counterexamples require attention:
 
@@ -84,12 +84,12 @@ Input roles are `documentation`, `specification`, `readme`, `api_reference`, `do
 `string`, and `unknown`. Use the specific string role when known; `string`
 records an unknown subtype, and `unknown` records a source whose role nobody
 could determine. Keep those roles separate in sampling and error analysis, as
-required by #22. Record prose language separately from source syntax.
-Version 1 handles English prose only. Source syntax uses the existing
-`document.Format` values, including Markdown, code languages, shells, and YAML.
+required by #22. Record prose language separately from source syntax;
+version 1 handles English prose only. Source syntax uses the existing
+`document.Format` values (including Markdown, code languages, shells, and YAML).
 
 Acquire and group source documents before extracting units. Use Unswell's existing
-source-preserving extractor and NLP sentence boundaries. Store its identity,
+source-preserving extractor and NLP sentence boundaries; store its identity,
 policy hash, and context selection policy. Keep the source hash and every original
 half-open UTF-8 segment; an enclosing span alone cannot represent separated prose.
 Excluded code, directives, and other protected content remain excluded.
@@ -98,9 +98,10 @@ Do not concatenate unrelated comments to reach a length threshold. If a protecte
 boundary prevents one coherent target, create separate units. Show any necessary
 neighboring material as context with its role clear. Curators must check context
 selection without consulting detector results. The same target and context must
-reach all independent raters in the round and later match the training protocol.
+reach all independent raters in the round; later they must match the training
+protocol.
 
-If context is inadequate, choose `uncertain` and `context: insufficient`. Do not
+If context is inadequate, choose `uncertain` and `context: insufficient`; do not
 invent the missing condition. Requests for more context create a new recorded
 round with a new context snapshot; retain the original answers.
 
@@ -129,24 +130,24 @@ new packet and fresh responses; do not attach old answers by matching short IDs.
 
 Use opaque actor IDs with the identity key stored separately. In version 1, every
 primary rater in a round is assigned every unit in that round. An adjudicator who
-did not independently label the packet has role `adjudicator`, not `rater`.
+did not independently label the packet has role `adjudicator` (not `rater`).
 For different assignment groups, create separate rounds and preserve their IDs.
 An original rater can participate in adjudication after independent submission;
-the protocol does not require a third person when two raters can resolve the case.
+when two raters can resolve the case, the protocol requires no third person.
 
 The [response instructions](../research/annotation/templates/response.md) describe
 the exact submission shape. Preserve submitted files before importing records into
 the administrative round; never distribute that round as an answer form.
 
-Blinding removes administrative clues, not clues inherent in the target. Do not
+Blinding removes administrative clues; clues inherent in the target remain. Do not
 rewrite a quotation or remove an AI self-reference to hide its likely origin.
-The curator checks that profile instructions and context contain only information
-needed for the editorial task. Record unavoidable blinding limitations in the
-study report. Opaque IDs are not a promise of anonymity against outside knowledge.
+Opaque IDs are not a promise of anonymity against outside knowledge. The curator
+checks that profile instructions and context contain only information needed for
+the editorial task. Record unavoidable blinding limitations in the study report.
 
 An actor's `human` declaration is administrative metadata, not proof of a person's
-participation. Keep consent, assignment, and submission records for audit. The
-validator cannot establish identity, independence, permission, or good faith.
+participation; the validator cannot establish identity, independence, permission,
+or good faith. Keep consent, assignment, and submission records for audit.
 
 ## Before and after review
 
@@ -156,13 +157,13 @@ possible; use a separate paired review to check preservation of meaning.
 
 Use the [meaning-review worksheet](../research/annotation/templates/meaning-review.md).
 Check negation, modal obligations, conditions and exceptions, quantities and units,
-versions, identifiers, attribution, and technical requirements. Record each retained,
-changed, lost, or unresolved item and the responsible reviewer. Shortening a warning
-by deleting its failure condition is not an improvement.
+versions, identifiers, attribution, and technical requirements. Shortening a warning
+by deleting its failure condition is not an improvement. Record each retained,
+changed, lost, or unresolved item and the responsible reviewer.
 
-The annotation command neither rewrites prose nor decides semantic equivalence.
-The corpus task stores both source versions, transformation history, and the
-completed worksheet. A lower Unswell index alone cannot certify an improvement.
+The annotation command neither rewrites prose nor decides semantic equivalence;
+a lower Unswell index alone cannot certify an improvement. The corpus task stores
+both source versions, transformation history, and the completed worksheet.
 
 ## Provenance and permissions
 
@@ -177,7 +178,7 @@ Store provenance separately from quality:
 | `mixed` | Documented mixed contributions that cannot be reduced to one of the preceding cases. |
 | `unknown` | No adequate unit-level record. This remains usable for editorial annotation. |
 
-The administrative record keeps the scope of evidence. A repository-level claim
+The administrative record keeps the scope of evidence: a repository-level claim
 cannot establish a unit-level origin label. In particular, the maintainer's report
 that `stokaro/ptah` is almost entirely generated supports a repository-level note;
 it does not label every fragment or establish its quality. Use `unknown` for
@@ -186,7 +187,7 @@ its own origin ground truth.
 
 A generation record should include the available model identifier and version,
 date, parameters, prompt/source relationships, and later transformations. Mark
-unavailable fields as unknown in that record. Do not invent a model revision or
+unavailable fields as unknown in that record; do not invent a model revision or
 publish prompts and private source material automatically.
 
 For each unit retain a source or permitted reference, source hash, document and
@@ -194,31 +195,31 @@ repository IDs, template/author grouping when known, and a related-version group
 An empty template or author-group field means unknown, not an independent source.
 Record the license, permission evidence, and reviewed allowed uses separately:
 annotation, training, evaluation, source redistribution, and annotation
-redistribution. No permission is implied by an omitted use. Packet creation
+redistribution. No permission is implied by an omitted use; packet creation
 requires recorded annotation permission.
 
 The command records permission decisions; it does not interpret licenses. Curators
 verify terms and privacy requirements before each use. A source-code license does
 not establish permissions for every linked model, document, or dataset. Publish
 only the permitted subset plus manifests, acquisition instructions, and honest
-limitations. Private materials stay private even when the format validates.
+limitations; private materials stay private even when the format validates.
 
 ## Sampling, pilot, and frozen partitions
 
 The [corpus task](https://github.com/stokaro/unswell/issues/22) must obtain at least
 5,000 labeled units, at least two independent human annotators per unit,
 and at least 1,000 final held-out units. Also publish independent document,
-repository, template-family, and class counts. Adjacent sentences are not
-independent observations for sampling uncertainty.
+repository, template-family, and class counts; adjacent sentences are dependent
+observations for sampling uncertainty.
 
-Build a sampling matrix across quality and provenance. It must contain acceptable
+Build a sampling matrix across quality and provenance: it must contain acceptable
 AI-assisted material and human-authored material needing revision, in addition to
 the other combinations. Unknown origin is an explicit group, not the human class.
 Include technical English from non-native writers where supported by permitted
 metadata, short comments, dense terminology, API templates, instructions, warnings,
 and prose mixed with code. Keep difficult examples and report missing strata.
 
-Run a pilot before large-scale annotation. Cover each category, its exceptions,
+Run a pilot before large-scale annotation: cover each category, its exceptions,
 the unit kinds, and the intended roles. Obtain real independent human responses,
 publish agreement and disagreements, revise unclear boundaries, and record the
 rubric decision. Pilot examples used to improve the rubric become development
@@ -238,34 +239,33 @@ development data; fit calibration on its own partition. Opening final-test resul
 and then changing the model consumes that test for development and requires new
 independent confirmation.
 
-Plan separate checks for new generators, new repositories/domains, and later data.
-These are distinct from randomly withheld fragments of known documents. Source
-acquisition, leakage validation, pilot execution, and split assignment remain in
-#22 and the comparison harness; the current command does not claim to perform them.
+Plan separate checks for new generators, new repositories/domains, and later data;
+these are distinct from randomly withheld fragments of known documents. Source
+acquisition, leakage validation, pilot execution, and split assignment are outside
+the current command: they remain in #22 and the comparison harness.
 
 ## Agreement and uncertainty
 
 The [agreement implementation](../research/annotation/README.md#agreement-statistics)
 computes raw pair agreement and nominal Krippendorff alpha on original primary
-judgments. Treat `uncertain` as a third quality category. Skip missing answers
+judgments. Treat `uncertain` as a third quality category; skip missing answers
 when computing agreement. Units need at least two primary answers to contribute
-to alpha.
-Singleton responses still appear in coverage and uncertainty counts.
+to alpha; singleton responses still appear in coverage and uncertainty counts.
 
-Report the number of raters, units, rated and paired units, missing answers, label
-counts, and uncertain share. Report unit kinds and input roles separately. For
-reason categories, compare selected/absent membership among non-uncertain answers;
-show how many uncertain answers were excluded. Do not turn an uncertain answer
-into a confident negative for every defect.
+Report the following: the number of raters, units, rated and paired units, missing
+answers, label counts, and uncertain share. Report unit kinds and input roles
+separately. For reason categories, compare selected/absent membership among
+non-uncertain answers; show how many uncertain answers were excluded. Do not turn
+an uncertain answer into a confident negative for every defect.
 
-Alpha is unavailable when there are no paired ratings or no expected disagreement.
-Return `null` with a reason. Retain negative alpha values. All-agreeing constant
-labels do not establish a useful classifier or justify a fabricated alpha of one.
-Agreement statistics do not measure label correctness or model precision.
+Alpha is unavailable when there are no paired ratings or no expected disagreement:
+return `null` with a reason. All-agreeing constant labels do not establish a useful
+classifier or justify a fabricated alpha of one. Agreement statistics do not measure
+label correctness or model precision. Retain negative alpha values.
 
 The command currently returns point estimates and `sampling_intervals: not_estimated`.
 For corpus publication, report sampling intervals using document/repository-group
-resampling under a frozen protocol. Preserve all ratings from a sampled group,
+resampling under a frozen protocol. Preserve all ratings from a sampled group;
 declare the group level, seed, replicate count, interval method, and undefined
 replicates. Insufficient independent groups means insufficient interval evidence.
 The comparison harness owns that computation; do not substitute a confidence

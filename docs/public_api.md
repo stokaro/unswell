@@ -1,8 +1,8 @@
 # Public API policy
 
-All public packages are experimental during `v0.1.0-alpha.*`. Pin the exact release.
-An alpha suffix does not excuse unannounced incompatible changes: compare API
-changes against the preceding release and document intentional differences.
+All public packages are experimental during `v0.1.0-alpha.*`. An alpha suffix does
+not excuse unannounced incompatible changes: compare API changes against the
+preceding release and document intentional differences. Pin the exact release.
 
 | Import path | Purpose | Stability |
 | --- | --- | --- |
@@ -25,31 +25,31 @@ changes against the preceding release and document intentional differences.
 
 Research records live in `github.com/stokaro/unswell/research`, a module without
 Go packages. It keeps them out of the root module: the Go module proxy refuses a
-source tree above 500 MB, and the records alone exceed that.
-`make check-module-size` holds the root module under 64 MB. `v0.1.0-alpha.5`
-predates the boundary and cannot be downloaded as a module.
+source tree above 500 MB, and the records alone exceed that. `v0.1.0-alpha.5`
+predates the boundary; it cannot be downloaded as a module.
+`make check-module-size` holds the root module under 64 MB.
 
-`make check-published-module` selects the newest published release, including
-prereleases. Use `scripts/verify-published-module.sh --version TAG` to select one
+`make check-published-module` selects the newest published release (prereleases
+included). Use `scripts/verify-published-module.sh --version TAG` to select one
 explicitly. The script builds and tests the consumer module against the published
-core module, using consumer sources from the same tag. The separate Go analysis
+core module (using consumer sources from the same tag). The separate Go analysis
 adapter is resolved from the local checkout. The script also names public
 packages the working tree's consumer imports that the published module does not
 contain, so a passing check
 never implies that the current API shipped. The
 [first recorded check](release/v0.1.0-alpha.1-module-check.json) resolved
 `v0.1.0-alpha.1` with module sum `h1:ZA6hvY4AxndacjiwGGnN5hiFSjn5iKi6QultXJjuY50=`
-and passed, while listing seven packages added since that release. The
+and passed; it listed seven packages added since that release. The
 [alpha.3 check](release/v0.1.0-alpha.3-module-check.json) resolved
 `v0.1.0-alpha.3` with module sum `h1:6W13JkcUs6pieX/At4Bz+FXXh830u/ao8Z0QL1rC158=`
 and passed with no package missing from the published module.
 
-Packages under `internal/` are implementation details. `cmd/unswell` is an
+Packages under `internal/` are implementation details; `cmd/unswell` is an
 executable, not an importable library. The tools module isolates build dependencies
 from the runtime module and its minimum compiler. The consumer module is an
 executable public-API contract test, not another supported library.
 The `model` package supplies the shared numerical logistic objective, training
-normalization, optimizer, and immutable inference. It takes ordered complete
+normalization, optimizer, and immutable inference; it takes ordered complete
 numeric vectors. A sigmoid response is uncalibrated; the parameter snapshot does
 not establish feature compatibility, corpus qualification, or a usable probability
 gate. Existing engine results and `calibration.model: none` retain their contracts.
@@ -60,7 +60,7 @@ class fractions. `ForestOptions` records randomization and resource limits.
 Forest responses are uncalibrated and are distinct from logistic linear scores.
 See [ADR 0031](adr/0031-forest-numerical-core.md) and the [forest contract](../model/forest.md).
 `FitOptions.Validate` exposes the same numerical option checks used by fitting,
-so callers can reject invalid limits before preparing rows. It does not inspect data.
+so callers can reject invalid limits before preparing rows; it does not inspect data.
 `Isotonic` and `FitIsotonic` add a separate monotonic calibration candidate over
 frozen scores and binary labels. Snapshots contain ordered knots; inference
 interpolates only inside their range. `ErrCalibrationRange` is a numerical
@@ -76,13 +76,13 @@ supported engine, CLI, MCP, or saved-report APIs. See
 [ADR 0013](adr/0013-annotation-protocol.md) and [ADR 0014](adr/0014-corpus-acquisition.md).
 `annotation.Round.Decisions` adds a separate research export with resolved labels,
 unresolved reasons, original input identities, and detached target references.
-It shares primary-response selection with agreement calculations. The existing
+It shares primary-response selection with agreement calculations; the existing
 round schema and product reports retain their contracts. See
 [ADR 0019](adr/0019-editorial-decision-export.md).
 `annotation.Round.MatchTargets` and `corpus.Join` bind decisions to reproduced
 corpus targets and measurements from the public engine. The separate
 `unswell-corpus-feature-bindings-v1` artifact retains unqualified decisions,
-source-group partitions, and complete prepared mappings. It does not change
+source-group partitions, and complete prepared mappings; it does not change
 product results or qualify training data. See
 [ADR 0024](adr/0024-corpus-feature-bindings.md).
 `corpus.MeasureFindings` and the `corpus measure` command run one pinned
@@ -104,9 +104,9 @@ tasks with deterministic fact sheets and builds request texts. Saved
 responses become `unswell-generation-v1` records and controlled-cohort
 shards through `corpus tasks`, `requests`, and `generations`; no command
 calls a model. `corpus.OriginDecisions` labels the origin task from declared
-cohorts and origins, and `corpus.CohortDecisions` labels the cohort task. The
+cohorts and origins; `corpus.CohortDecisions` labels the cohort task. The
 join, training, evaluation, and comparison paths have `Decisions` variants
-that take such a set in place of a round. `annotation.Labels` names each
+that take such a set in place of a round; `annotation.Labels` names each
 task's classes. `corpus dataset union` joins selected pinned shards into one
 manifest whose paths name their checkouts. Manifest snapshots may name the dated
 historical periods `historical-2012`, `historical-2016`, and
@@ -120,7 +120,7 @@ targets to Go fitting with separate training and calibration partitions. Their
 it does not extend the engine's model loading or probability contract. See
 [ADR 0025](adr/0025-corpus-training.md).
 Training v3 requires an explicit `Options.Estimator` and one options/model pair:
-`Fit`/`Logistic` or `Forest`/`Forest`. These fields are pointers, and the unused pair
+`Fit`/`Logistic` or `Forest`/`Forest`. These fields are pointers; the unused pair
 must be nil. Prediction v2 distinguishes forest responses from logistic scores.
 Older training and prediction versions are rejected. Both estimators share corpus
 selection, frozen predictions, and evaluation; see [ADR 0031](adr/0031-forest-numerical-core.md).
@@ -132,7 +132,7 @@ feature collection or the product gate. Reference-pack selection, training, and
 qualification remain separate work; see [ADR 0032](adr/0032-compression-measurements.md).
 `annotation.Round.Origins` exports separately curated, source-bound origin claims.
 `corpus.BuildCompressionBank` assembles explicit ordered training references over
-the same prepared targets and records the common connected-group exclusion union.
+the same prepared targets; it records the common connected-group exclusion union.
 The bank contains source prose and remains unqualified. Consumers must apply its
 reservations before fitting; see [ADR 0033](adr/0033-compression-reference-bank.md).
 `corpus.JoinRules`, `training.RunRules`, and `--rule-config` add the existing
@@ -144,32 +144,32 @@ context; unmatched targets and disabled rules remain unavailable. See
 Research adds label-free `corpus.Measure` and `MeasureRules`, bounded numerical
 `training.Load`, frozen `training.Predict`/`LoadPredictions`, and the separate
 `evaluation` package. The developer commands `corpus predict` and `corpus evaluate`
-separate model execution from evaluation labels. They preserve explicit context,
+separate model execution from evaluation labels; they preserve explicit context,
 missing responses, and unqualified status. Predictions embed the current training
 artifact; product model loading and reports are unchanged.
 See [ADR 0027](adr/0027-frozen-research-predictions.md).
 The research `evaluation.Compare` and `RunComparison` APIs add paired numerical
 metrics and source-group intervals over saved predictions. `corpus compare`
-validates a frozen comparison plan and reports common coverage alongside the
+validates a frozen comparison plan; it reports common coverage alongside the
 full eligible flow. Its distinct artifact version leaves existing evaluation
 and product results unchanged. See [ADR 0028](adr/0028-paired-research-evaluation.md).
 The research `llmdet` package validates explicit token/probability rows and finite
 numeric ensembles for component compatibility experiments. `cmd/llmdetprobe`
 loads an explicit local pack at the application boundary. These research APIs
-do not tokenize prose or extend product inference. Their separate formats retain
+do not tokenize prose or extend product inference; their separate formats retain
 coverage, absent features, reference margins, and uncalibrated responses. See
 [ADR 0029](adr/0029-llmdet-numerical-parity.md) and the
 [component experiment](../research/llmdet/README.md).
-The root `e2e` directory contains only test code and fixtures. It exports no library API.
+The root `e2e` directory contains only test code and fixtures; it exports no library API.
 
 `research/annotation/cmd/reviewclaims` is a developer command over the existing
-source-preserving extractor. Its private `internal/claimreview` package binds
+source-preserving extractor; its private `internal/claimreview` package binds
 declared editorial claims and replays complete stage dispositions with separate
 resolution and same-defect approvals. It supplies no model, new editorial labels,
 core API, or probability gate. See [ADR 0042](adr/0042-editorial-claim-accounting.md).
 
 `research/annotation/cmd/importtetra` is a developer command over explicit TETRA
-source bytes. Its private `internal/tetra` package verifies source hashes,
+source bytes; its private `internal/tetra` package verifies source hashes,
 reconstructs complete original/revised sections, and records paper-group
 quarantine. The separate `unswell-tetra-import-v1` artifact assigns no task labels
 or product qualification. It extends neither the core API nor product reports;
@@ -180,10 +180,10 @@ consumer tests describe the current contract; CI does not compare API snapshots
 against earlier releases. See [the development policy](../CONTRIBUTING.md).
 
 The separate `goanalysis/` module exports `New` and `Options`, builds a singlechecker
-driver, and tests against the public engine. The adapter uses `analysis.Pass.ReadFile` for source
+driver, and tests against the public engine; the adapter uses `analysis.Pass.ReadFile` for source
 access and never imports Unswell internals. Default diagnostics reflect engine
-gate failures; `ReportAll` explicitly includes advisory and accepted findings.
-All raw results remain available to dependent analyzers as `unswell.RunResult`.
+gate failures; `ReportAll` explicitly includes advisory and accepted findings,
+and all raw results remain available to dependent analyzers as `unswell.RunResult`.
 
 The page index of AI-sounding documentation adds `DocumentResult.AISounding`
 with the types `AISounding`, `AISignal`, `AIMark`, and `AIMarkFix` to the root
@@ -196,14 +196,14 @@ higher of two readings: `AISounding.Readings` holds them as `AIReadings`,
 second reading counts runs of sentences: `AISignal.Sentences` and
 `AIMark.Sentences` hold their lengths. `AISounding.Listed` returns the marks
 that a report lists, which are the marks of each reading above the level
-`low`. See [the index and the fix command](ai-sounding-index.md).
+`low`; see [the index and the fix command](ai-sounding-index.md).
 
 Shared block measurements add the public `feature` package, optional
-`rule.Descriptor.SharedFeatures`, and `rule.View.Features`. Enabled consumers
+`rule.Descriptor.SharedFeatures`, and `rule.View.Features`; enabled consumers
 receive one immutable set per enriched document. Public callers can also use
 `feature.Measure` and `feature.NewSet` with explicit NLP, policy, source, vocabulary,
 preprocessing, and resource identities. Returned values distinguish observed zero
-from absence. See [shared features](shared-features.md) and
+from absence; see [shared features](shared-features.md) and
 [ADR 0016](adr/0016-shared-features.md).
 
 The descriptor flag is additive in the existing saved-result schema. Old reports
@@ -212,14 +212,14 @@ Existing evidence metric names, values, and order retain their definitions. The
 block contract has its own identity, `unswell-block-features-v1`; it does not
 reinterpret the aggregate `unswell-features-v1` scoring/baseline identity. Descriptor
 hashes change for rules requesting the shared set. Statistical model collection,
-raw activation vectors, and the remaining #56 feature families are not yet complete.
+raw activation vectors, and the remaining feature families (#56) are not yet complete.
 
 Lexical preprocessing adds `feature.WordSet`, `WordLimits`, `NewWordSet`,
 `Overlap`, `CompareWords`, `InformativeWord`, and `LexicalCatalog`. These share the
 existing repetition set-overlap formula and candidate filter. Available empty
 sets differ from unavailable zero values; an empty union has no Jaccard number.
 The contract is separately identified by `feature.LexicalContract`. No saved-result
-fields change, and the block `Catalog` retains its existing measurement order.
+fields change; the block `Catalog` retains its existing measurement order.
 Callers must retain source and preprocessing identities for model use and must
 not export the explicit word/key accessors in reports by default.
 
@@ -235,7 +235,7 @@ evidence. See [shared features](shared-features.md) for caller policy obligation
 `Options.Features` and `Engine.FeatureIDs` select and expose a canonical set of
 implemented block measurements. `feature.SupportsBlock` declares their supported
 unit kinds. Requested capabilities are validated before analysis. Collection reads
-the existing shared set and adds optional `RunResult.Features` containing
+the existing shared set; it adds optional `RunResult.Features` containing
 `FeatureCollection`, `FeatureSource`, and `FeatureUnit` records under
 `FeatureCollectionVersion`. Source/policy/NLP identities and original segments
 travel with the numeric values; incomplete runs remain incomplete model inputs.
@@ -247,19 +247,19 @@ older readers need an update when collection is explicitly requested. See
 NLP and rules while retaining its identity, text, and mapping. `feature.Measure`
 returns unavailable values for a marked prose block; `nlp.PrepareUnits` returns
 no targets. `FeatureUnit.Excluded` carries that state into optional saved block
-collection. Excluded scalar values use `excluded_unit`, and rule activations use
+collection. Excluded scalar values use `excluded_unit`; rule activations use
 `inapplicable/excluded_unit`. Reports validate the corresponding document
-exclusion and reject counted tokens or numeric values for these units. See
+exclusion and reject counted tokens or numeric values for these units; see
 [shared features](shared-features.md) and [prepared units](prepared-units.md).
 
 Optional `FeatureUnit.Binding` adds `FeatureBlockBinding` and
 `FeatureBlockBindingContract`. The `mapped-block-v1` binding contains full mapped
-text and outer-whitespace-trimmed hashes, with separate complete source maps.
+text and outer-whitespace-trimmed hashes (with separate complete source maps).
 It includes punctuation and protected separators that counted token spans omit.
-Readers accept legacy reports without it and validate present bindings, including
+Readers accept legacy reports without it; they validate present bindings, including
 preservation of interior segments after trimming. Strict older readers need an
 update for this additive field. Full and trimmed maps count against the existing
-collection budget. No rule values or prepared-target semantics change.
+collection budget; no rule values or prepared-target semantics change.
 See [ADR 0026](adr/0026-rule-baseline-binding.md).
 
 `nlp.PrepareUnits`, `PreparedUnit`, `UnitBinding`, `UnitOptions`, and `UnitLimits`
@@ -277,7 +277,7 @@ collection, rule activations, and saved reports keep their contracts. See
 `PreparedFeatureSource`, and `PreparedFeatureUnit` under
 `PreparedFeatureCollectionVersion`. Target/context bindings, counted segments,
 actual capabilities, and separate policy/extraction identities accompany the
-numeric values. This optional additive field leaves default saved output and
+numeric values; this optional additive field leaves default saved output and
 block collection semantics unchanged. See [ADR 0023](adr/0023-prepared-feature-collection.md).
 `PreparedFeatureSource.OriginalUnit` maps one target back to owned, exact source
 segments after verifying the original `document.Source`. `OriginalPreparedUnit`
@@ -292,25 +292,25 @@ Older readers with a strict schema may reject new reports containing this field;
 use a reader that supports the producing tool's schema additions.
 
 Repetition signals add optional `rule.Parameters.MinNgramWords`, `MaxNgramWords`,
-and `WindowBlocks` fields. Their supported ranges are 3 through 8 words with an
-ordered minimum/maximum, and 1 through 128 prose blocks. Zero values are omitted
+and `WindowBlocks` fields. Their supported ranges are 3 through 8 words (with an
+ordered minimum/maximum) and 1 through 128 prose blocks. Zero values are omitted
 from saved JSON. `rule.Descriptor.RequiresStructure` requests the existing
 grammar-derived block context for an enabled rule, including per-file overrides;
 it does not restore excluded prose. The saved-report schema includes these
-additions. Strict older readers need an update to accept reports using them.
-Existing rule IDs and behavior versions retain their meaning. See
+additions; strict older readers need an update to accept reports using them.
+Existing rule IDs and behavior versions retain their meaning; see
 [repetition signals](repetition-signals.md) for formulas and limits.
 
-Callers own returned result slices. Source bytes must not change during analysis.
-One engine supports concurrent calls. Custom rules and providers are trusted Go
+Callers own returned result slices; source bytes must not change during analysis.
+One engine supports concurrent calls; custom rules and providers are trusted Go
 code and must honor the concurrency and read-only view contracts.
 
 The engine reads no configuration paths, environment variables, current directory,
-standard streams or network endpoints. The CLI supplies source bytes and policy.
+standard streams or network endpoints; the CLI supplies source bytes and policy.
 Reporters consume an existing result and return write errors to the caller.
 
 The custom-rule DSL adds `ruleset.Load`, immutable `Set` accessors,
-`Options.RuleSets`, and `config.Compile`. The latter returns both the effective
+`Options.RuleSets`, and `config.Compile`; the latter returns both the effective
 policy and the additional implementations from inline `rule_sets`. `config.Load`
 still returns only the policy; the engine registers inline rules from the compiled plan.
 Declarative packs extend the selected Go registry. Duplicate IDs are errors.
@@ -325,7 +325,7 @@ the same. See [custom rules](custom-rules.md) for the versioned YAML contract.
 
 Configuration inheritance adds `config.Bundle`, `Reference`, `SourceIdentity`,
 `OverrideIdentity`, `Vocabulary`, and immutable `Plan`, plus `CompileBundle`,
-`References`, and `ResolveReference`. Plans return owned base and per-file policies
+`References`, and `ResolveReference`; plans return owned base and per-file policies
 and a conservative list of possibly enabled rule IDs. `Plan.Resolution` and
 `Engine.ResolvedPolicy` return the shared, read-only resolution of a file's
 override combination for callers that only read it. `Options.ConfigBundle`,
@@ -334,33 +334,33 @@ engine. The caller grants any outside-root permission explicitly; the library st
 performs no filesystem access.
 
 Rules gain opt-in `Descriptor.TermExemptions`, `View.TermExemptions`, `View.Exempts`,
-`TokenRange`, and immutable `TermMatches` constructed with `NewTermMatches`.
-Supporting rules must exclude candidates before computing aggregate metrics.
+`TokenRange`, and immutable `TermMatches` constructed with `NewTermMatches`;
+supporting rules must exclude candidates before computing aggregate metrics.
 
 Policies add identity, vocabulary, sources, overrides, and applied override metadata.
 `unswell-config-bundle-v1` intentionally changes config hashes to include resource
-provenance. Equivalent inline/external configurations may now have different config
+provenance: equivalent inline/external configurations may now have different config
 hashes while retaining the same ruleset hash and findings. Context-set ordering is
-still irrelevant. Existing config hashes cannot be compared across these algorithms.
+still irrelevant; existing config hashes cannot be compared across these algorithms.
 See [configuration](configuration.md) for merge, root, origin, and pinning semantics.
 
 The saved-result schema gains optional manifest config identity/source/override
 fields and per-document config hashes and applied overrides. These additions retain
 the existing schema version and old-report readability. Strict older readers need
 an update to accept the added fields. MCP description gains an optional logical
-filename and returns the same selected policy used by analysis.
+filename; it returns the same selected policy used by analysis.
 
 Source suppressions add `document.Directive`, `Document.Directives`,
 `config.Suppressions`, and `Policy.Suppressions`. The engine validates and resolves
 them after extraction and NLP. Results add `Suppression`, `SuppressionTarget`,
 `RunResult.Suppressions`, `Finding.SuppressionIDs`, and
 `Assessment.EffectiveContributions`. Existing findings, source locations, raw
-contributions, and raw document statistics retain their meaning. Effective unit
+contributions, and raw document statistics retain their meaning; effective unit
 scores and gate decisions now account for valid source permissions.
 
 These are additive fields in the existing result schema. Old saved reports remain
 readable; strict older readers need an update. The new suppression policy defaults
-intentionally change effective policy hashes. No probability field is reinterpreted.
+intentionally change effective policy hashes, and no probability field is reinterpreted.
 Malformed or unused permissions return an operational error and an incomplete result;
 unused-permission errors preserve the raw findings and audit records already computed.
 
@@ -373,8 +373,8 @@ finding and assessment baseline identities, selected gate modes, and
 version; strict older readers need an update for these additive fields.
 
 `Finding.ID` now distinguishes separate source occurrences of the same legacy
-fingerprint. It is a run-local reference used by scoring and suppression traces,
-and can change with line movement. The existing `Finding.Fingerprint` field retains
+fingerprint. It is a run-local reference used by scoring and suppression traces;
+it can change with line movement. The existing `Finding.Fingerprint` field retains
 its algorithm. Durable debt uses the separately versioned `BaselineFingerprint`;
 do not persist finding IDs as baseline identities. See [baseline behavior](baseline.md).
 
@@ -383,23 +383,23 @@ Committed comparison adds `Engine.AnalyzeChanged`, `ChangeSelection`,
 optional change identities/states on findings and assessments, `RunResult.Changes`,
 `Manifest.Git`, and `GateDecision.Unchanged`. These additive fields retain the
 existing schema version and old-report readability; strict older readers need an
-update. Raw scores, baseline acceptance, and ordinary analysis keep their semantics.
-See [changed-unit analysis](changes.md) for selection and clean-source requirements.
+update. Raw scores, baseline acceptance, and ordinary analysis keep their semantics;
+see [changed-unit analysis](changes.md) for selection and clean-source requirements.
 
 Trusted comparison adds `Engine.AnalyzeChangedWithOptions`, `ChangeOptions`,
 `PolicyChange`, and `PolicyComparison`. Results gain optional `PolicyComparison`,
 and suppressions gain optional `TrustState` and `TrustFingerprint`. These additive
 fields retain the existing schema version; strict older readers need an update.
-The caller asserts which engine policy, baseline, and before-sources are trusted.
-The engine filters current permissions and performs full selection for reported
+The caller asserts which engine policy, baseline, and before-sources are trusted;
+the engine filters current permissions and performs full selection for reported
 resource changes without loading policy resources. Ordinary analysis, baseline
-identities, and directive syntax retain their contracts. See
+identities, and directive syntax retain their contracts; see
 [trusted policy](trusted-policy.md) for scope, hashes, and CI trust boundaries.
 
 Dependency evaluation adds `document.DependencyTree`, `DependencyArc`, optional
 `Sentence.Dependencies`, `nlp.Identity.DependencyScheme`, and
 `rule.Descriptor.DependencyScheme`. `nlp.ValidateDependencies` checks block
-coverage, and `ValidateDependencyTree` validates basic sentence-local trees
+coverage; `ValidateDependencyTree` validates basic sentence-local trees
 against extracted byte ranges. Scheme IDs are compared
 exactly; an empty rule scheme permits structural analysis without interpreting
 labels. These additions do not advertise dependency support in the builtin NLP
@@ -407,31 +407,31 @@ provider. See [ADR 0012](adr/0012-dependency-contract.md).
 
 Providers must supply the base token/sentence capabilities and every requested
 representation. A requested dependency tree that is absent, malformed, or mapped
-across protected content now fails before rule execution, including with
-`NoGate`. Previously the engine checked the advertised dependency name without
+across protected content now fails before rule execution (including with
+`NoGate`). Previously the engine checked the advertised dependency name without
 having a tree contract. Custom providers relying on that incomplete behavior
-must implement the representation. Existing rules-only providers are unchanged.
+must implement the representation; existing rules-only providers are unchanged.
 
 The optional scheme fields extend saved provider/rule identities under the
 existing schema version. Old reports remain readable; strict older readers need
 an update for reports containing the new fields. Trees remain in the in-memory
 document model and are not added to normal saved reports or MCP results. The
-separate dependency research command explicitly emits source-bearing traces for
-reference experiments and is not part of the supported product API.
+separate dependency research command is outside the supported product API: it
+explicitly emits source-bearing traces for reference experiments.
 
 Rule activation collection adds `feature.ActivationContract`, `ActivationDescriptor`,
 `ActivationBuilder`, `NewActivations`, `BlockObservation`, `ValidateActivation`,
 and `ValidApplicabilityReason`. The mutable builder is local to one evaluation;
 its returned values are owned. `rule.Observer`, `View.Observer`, `View.Observe`,
 and `Descriptor.BlockObservations` expose optional applicability reporting without
-changing the Rule or Emitter interfaces. Missing observations never imply zero.
+changing the Rule or Emitter interfaces; missing observations never imply zero.
 
 `Options.Features` also accepts registered `activation/<rule-id>` requests.
 `FeatureCollection.ActivationContract` and `FeatureSource.RulesetHash` bind the
 new values to their formula and rules. These fields are additive and omitted for
 ordinary block collection. Existing reports remain readable; strict older readers
-need the new fields. Rule identities now include their observation declaration.
-See [ADR 0018](adr/0018-rule-activation-features.md) for failure states and the
+need the new fields. Rule identities now include their observation declaration;
+see [ADR 0018](adr/0018-rule-activation-features.md) for failure states and the
 remaining applicability coverage required before training.
 
 Research lexical training adds `corpus.Prepare`, `training.RunLexical`, and an
@@ -439,7 +439,7 @@ explicit source-derived vocabulary under `unswell-editorial-lexical-training-v1`
 `feature.CountLexical` and `ValidLexicalKey` share bounded word/character formulas
 on existing `nlp.PreparedUnit` data; `nlp.PreparationHash` shares the existing source
 preparation identity between the engine and research consumers. Existing v1 model
-bytes remain unchanged. Learned lexical dictionaries have their own identity,
+bytes remain unchanged; learned lexical dictionaries have their own identity,
 separate from the engine's policy/vocabulary identity. Predictions, evaluation,
 and comparison use the existing commands and retain unqualified status. See
 [ADR 0030](adr/0030-lexical-research-baseline.md).
@@ -449,31 +449,31 @@ pack and decides applicability per unit. `Load` validates the contract, columns,
 capabilities, digest, and author declarations; `Compatible` compares only the run
 inputs that change measured values; `Estimate` returns a calibrated value for an
 applicable unit and an explicit abstention status otherwise. A missing measurement
-is never imputed, and a mismatched vector is a caller error. `StatusUnavailable`
+is never imputed; a mismatched vector is a caller error. `StatusUnavailable`
 keeps the existing model-free status of results. Loading a pack establishes
 neither corpus qualification nor a usable probability gate; engine integration,
 calibrated gating, and acceptance remain separate work. See
 [ADR 0034](adr/0034-probability-pack.md).
 
 `Options.Model`, `check --model`, and `calibration.model: pack` connect that pack
-to the engine. `Assessment.ProbabilityStatus` now carries the decided status,
+to the engine: `Assessment.ProbabilityStatus` now carries the decided status,
 `ProbabilityDetail` names an unavailable column, and `Manifest.Probability`
 records the pack's declarations. `config.Policy.Calibration` is absent unless a
 policy requests a model, so model-free identities, accepted debt, and existing
-reports are unchanged. Estimates do not affect findings, the index, or the gate.
-Every writer and `unswell-mcp --model` report the same decisions.
-`config.Gate.Probability` adds the calibrated gate. It is absent unless a policy
+reports are unchanged. Estimates do not affect findings, the index, or the gate;
+every writer and `unswell-mcp --model` report the same decisions.
+`config.Gate.Probability` adds the calibrated gate; it is absent unless a policy
 configures it, requires an accepted pack, and produces the derived
 `gate.<kind>-probability` and `gate.<kind>-probability-unavailable` diagnostics.
 Estimates still do not change findings or the index.
 `report.ValidateSARIF` and `report.SARIFSchemaVersion` check one SARIF report
-against the published 2.1.0 schema, embedded so validation reads no external
-resource. A valid document is well formed; it is not evidence that a particular
+against the published 2.1.0 schema (embedded so validation reads no external
+resource). A valid document is well formed; it is not evidence that a particular
 consumer accepts it. See [SARIF output and consumers](sarif.md).
-`probability.TaskOrigin` and `Pack.Task` add the separate origin target, and
+`probability.TaskOrigin` and `Pack.Task` add the separate origin target;
 `Options.OriginModel`, `config.Origin`, `Assessment.OriginEstimate`,
 `OriginStatus`, `OriginDetail` and `Manifest.Origin` carry it through the engine
-and the reports. The channel is absent unless a policy configures it, and no
+and the reports. The channel is absent unless a policy configures it; no
 gate consults it. See [ADR 0035](adr/0035-origin-channel.md).
 The research `training.BuildPack` and `corpus pack` convert one fitted artifact
 into a pack the engine loads. They copy its numerical parameters and measurement
@@ -487,7 +487,7 @@ result must fit for `report.Read` and `unswell report`; it rose from 128 to 256
 MiB when the full-feature scan of this repository reached the old bound.
 
 The research `evaluation.RiskPoint` adds a risk-coverage curve to the full-flow
-summary. It sorts covered decisions by confidence. At each reachable threshold it
+summary. It sorts covered decisions by confidence; at each reachable threshold it
 gives the error rate among the accepted prefix. A reader can then see where a
 selective model stops being right. Saved records now carry
 `unswell-research-evaluation-v5`, which also carries recall at fixed
@@ -513,11 +513,11 @@ Budget abstentions add `rule.Abstention`, `rule.Abstain`,
 A rule returns an abstention from `Evaluate` when it declines one document for
 a valid reason. The engine records it. It drops that rule's partial findings
 and its values for the document, which become `inapplicable/<reason>`. The
-other rules' findings stay, and the run stays complete. Builtin rules and
+other rules' findings stay; the run stays complete. Builtin rules and
 declarative packs abstain with `budget_exhausted` when their own
 `analysis.max_candidates` budget runs out. The engine budgets for shared
 features, feature and prepared collection, term matching, and suppression
-planning remain operational errors. A permission for an abstaining rule is not
+planning remain operational errors; a permission for an abstaining rule is not
 an unused permission error. The new fields are omitted when empty, so earlier
-saved results remain readable. `report.Read` requires the manifest to name
+saved results remain readable; `report.Read` requires the manifest to name
 every abstaining rule.

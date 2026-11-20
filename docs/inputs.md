@@ -26,31 +26,31 @@ and English NLP backend analyze that text locally.
 GitHub Actions workflow `run` values use the selected shell grammar by default.
 Comments and messages retain original YAML coordinates; script syntax stays
 outside prose metrics. Unknown shells and unresolved expressions have explicit
-exclusion reasons. The [extraction policy](extraction-policy.md#github-actions-scripts)
+exclusion reasons; the [extraction policy](extraction-policy.md#github-actions-scripts)
 describes shell selection, context overrides, and ordinary scalar mode.
 
 Use `--format` to select a grammar explicitly. For example, a C++ header named
-`client.h` needs `--format cpp`; `.h` defaults to C. Extensionless inputs can use
-a recognized shebang. Pass them explicitly or add their paths to `files.include`.
-Shebangs are inspected as text. No source, interpreter, substitution or generator
-is executed. Recursive discovery uses the extension and shell startup-file patterns
-in the effective configuration.
+`client.h` needs `--format cpp`; `.h` defaults to C. Recursive discovery uses the
+extension and shell startup-file patterns in the effective configuration.
+Extensionless inputs can use a recognized shebang; pass them explicitly or add
+their paths to `files.include`. Shebangs are inspected as text: no source,
+interpreter, substitution or generator is executed.
 
 Plain text excludes bounded C examples following a colon-ended introduction when
 the example is more deeply indented. A C declaration, preprocessor directive, or
-complete call list must also pass the C syntax parser. A single call needs a
+complete call list must also pass the C syntax parser. One call alone needs a
 semicolon; a bare signature list needs at least two calls. The `plain-code`
 exclusion preserves the original byte range and separates surrounding prose.
-Recognized examples are limited to 128 lines and 16 KiB, with at most 100 parser
+Recognized examples have limits: 128 lines and 16 KiB, with at most 100 parser
 candidates per document. Exceeding the candidate count is an operational error.
 Unknown, malformed, mixed prose/code, and oversized regions remain eligible prose.
-Indentation alone and annotated API lists do not cause exclusion. Other embedded
-languages remain outside this recognition. Conventional omitted C statements
-(`...` alone or `{ ... }`) are normalized only in a private parsing buffer.
+Indentation alone does not cause exclusion; neither does an annotated API list.
+Other embedded languages remain outside this recognition. Conventional omitted C
+statements (`...` alone or `{ ... }`) are normalized only in a private parsing buffer.
 
 Markdown uses gotreesitter's block and inline grammars, including GFM tables and
 task lists. Inline code, fenced and indented code, HTML, image syntax, link
-destinations and front matter are protected. Link labels remain prose. Quoted
+destinations and front matter are protected; link labels remain prose. Quoted
 blocks are excluded unless `analysis.include_quotes` is enabled.
 
 MDX uses the same Markdown grammars after excluding JavaScript/JSX syntax.
@@ -65,18 +65,18 @@ or expression is evaluated. These regions carry `mdx-expression`, `mdx-tag`,
 and `mdx-esm` exclusion reasons. Expressions insert protected boundaries.
 
 MDX supports fragments, nested components, and indented headings, lists and
-paragraphs. An attribute may carry a name that JavaScript reserves, such as
-`class` or `for`. Fenced and inline code remain protected. As in
+paragraphs. An attribute may carry a name that JavaScript reserves (such as
+`class` or `for`). Fenced and inline code remain protected. As in
 [MDX syntax](https://mdxjs.com/docs/what-is-mdx/), literal opening braces and
-angle brackets must be escaped, and comments use `{/* ... */}`. MDX comments
+angle brackets must be escaped; comments use `{/* ... */}`. MDX comments
 are excluded expression content; they do not activate Unswell suppressions.
 Use configured suppressions when needed. This adapter extracts prose; it does
 not compile MDX or resolve its components, exports, or rendering behavior.
 For Docusaurus compatibility, an ATX heading may end with a classic `{#id}`
 anchor using a simple ASCII ID (letters, digits, hyphens, underscores, or dots).
 Unswell excludes that anchor as `mdx-heading-id` while retaining the
-heading text and its original source coordinates. This narrow exception does
-not make `{#id}` valid in ordinary MDX expressions or elsewhere in a page.
+heading text and its original source coordinates. The exception is narrow:
+`{#id}` stays invalid in ordinary MDX expressions and elsewhere in a page.
 
 Malformed expressions, unmatched tags and exhausted parsing limits fail
 extraction. The boundary pass permits 128 candidate delimiters per construct,
@@ -92,34 +92,34 @@ and reported ranges always come from the original source.
 
 Markdown inputs may end without a final newline. The block parser receives
 mapped framing to retain the first block's grammar wrapper and finish the last
-block. It never becomes source text or part of a reported range. Headings retain
-their structure at EOF, and leading protected blocks retain their exclusions.
+block. The framing never becomes source text or part of a reported range. Headings
+retain their structure at EOF, and leading protected blocks retain their exclusions.
 
-Nested lists preserve their prose and source ranges beyond four levels, including
-when several levels end at the same byte. A leading BOM does not change list
+Nested lists preserve their prose and source ranges beyond four levels (including
+when several levels end at the same byte). A leading BOM does not change list
 indentation. Extraction still rejects syntax nesting beyond 128 grammar nodes.
 
 Original UTF-8 byte coordinates survive CRLF, escaped Unicode, Markdown entities,
-emphasis and removed delimiters. A decoded character points to its full original
+emphasis and removed delimiters; a decoded character points to its full original
 escape. Interpolation expressions and command substitutions insert protected
 boundaries so words on either side cannot form a false phrase. Strings nested
 inside an interpolation are checked as separate literals.
 
 C and C++ accept a function-like macro used as a statement with a block and
-no semicolon, such as `list_for_each(pos, head) { ... }`. The call is blanked
+no semicolon (such as `list_for_each(pos, head) { ... }`). The call is blanked
 in a copy, so the block keeps its offsets. That holds only when the call
 contains no comment or string; any other incomplete tree stays an error.
 
 TypeScript and TSX accept type-only wildcard re-exports, including
 `export type * as names from "./types"`. The pinned grammar rejects the `type`
-modifier. Unswell recognizes the token sequence and blanks that token in a copy.
+modifier; Unswell recognizes the token sequence and blanks that token in a copy.
 The complete source must parse again without errors, with every changed sequence
 confirmed as a re-export. Comments and strings keep their original bytes and
-positions. Other malformed syntax remains an error.
+positions; other malformed syntax remains an error.
 
-Go retains its standard parser's comment grouping and generated-file, directive
-and cgo metadata. The syntax tree validates source structure and supplies strings.
-Go doc-comment grammar separates comment paragraphs and list items, and protects
+Go retains its standard parser's comment grouping and metadata (generated-file,
+directive and cgo). The syntax tree validates source structure and supplies strings.
+Go doc-comment grammar separates comment paragraphs and list items; it protects
 indented examples. Explicit `markdown_strings` selectors apply Markdown grammar
 to decoded static literals. See [structured source prose](extraction-policy.md#structured-source-prose)
 for selection, context precedence, and the `go_comments: plain` override.
@@ -127,8 +127,8 @@ Import paths, JavaScript/TypeScript re-export module paths, and Go struct tags a
 excluded as technical metadata. Strings in exported declarations remain checked.
 
 Every region that extraction leaves out is recorded on the document with its
-byte span and a reason. Saved reports carry that list. The reasons include the
-following.
+byte span and a reason, and saved reports carry that list. The reasons include
+the following.
 
 | Reason | Region |
 | --- | --- |
@@ -143,31 +143,31 @@ following.
 
 For a `non-utf8-literal` the full literal range is omitted from prose;
 neighboring comments and text strings remain checked. Byte escapes that together
-form UTF-8, such as Go `"\xc3\xa9"`, remain text. Invalid source encoding still
+form UTF-8 (such as Go `"\xc3\xa9"`) remain text. Invalid source encoding still
 fails before extraction, and an input containing only excluded data still reaches
 the empty-scan gate.
 
-Every format applies one language check per prose block. A block with at least
+Every format applies one language check per prose block: a block with at least
 20 letters, more than half of them outside the Latin script, is not English
 prose. The engine records it as a `non-latin-prose` exclusion with its source
-range and checks the other blocks of the document. The block keeps its position,
-so block numbering and finding fingerprints in the same document do not move.
-A document in which this check excludes every block has no prose words and
-reaches the empty-scan gate. The gate judges the checked blocks only: a file
-that is mostly non-Latin prose passes or fails on its English remainder.
+range and checks the other blocks of the document. The block keeps its position:
+block numbering and finding fingerprints in the same document do not move.
+When this check excludes every block of a document, the document has no prose
+words and reaches the empty-scan gate. The gate judges the checked blocks only:
+a file that is mostly non-Latin prose passes or fails on its English remainder.
 
 YAML keys, aliases and resolved non-string values are recorded as exclusions.
 Anchored strings are checked where they are defined; aliases are not expanded.
-The grammar supplies source spans. The existing YAML decoder supplies scalar
-values, including folding, chomping and explicit tags, without constructing
+The grammar supplies source spans, and the existing YAML decoder supplies scalar
+values (including folding, chomping and explicit tags) without constructing
 application objects. A disagreement between the two parsers fails analysis.
 YAML embedded scripts remain string values; they are not executed or recursively parsed.
 SQL, JSON, identifiers, and fixed protocol strings also remain selected text unless
 the project supplies a [reasoned exception](extraction-policy.md#literal-data).
 
 Choose checked contexts globally or per format with the
-[extraction policy](extraction-policy.md). Omitted settings check every supported
-prose context; language overrides replace that set.
+[extraction policy](extraction-policy.md): omitted settings check every supported
+prose context, and language overrides replace that set.
 
 ## Documentation comments
 
@@ -177,14 +177,14 @@ line that starts with `@name` opens a tag section that runs to the next tag or
 the end of the comment. Tag sections are excluded line by line: the lines of an
 `@example` carry the reason `doc-example`, the lines of every other tag carry
 `doc-tag`. A `@` that does not start a line, a `/*` comment and a line comment
-do not open a tag section. Prose written after a tag, such as under
-`@description` or `@remarks`, is not checked.
+do not open a tag section. Prose written after a tag (such as under
+`@description` or `@remarks`) is not checked.
 
 ## Directive comments
 
 A comment that starts with a prefix from the following list is an instruction
 for a tool. It is excluded with the reason `directive` and ends the comment
-block around it. The match is exact and case-sensitive; a prefix that ends in a
+block around it. Matching is exact and case-sensitive; a prefix that ends in a
 letter or digit must be followed by a character that is not one, so `nolint`
 does not match `nolinting`. A sentence that mentions a tool is prose. The list
 is fixed; there is no pattern matching on other words.
@@ -201,15 +201,15 @@ is fixed; there is no pattern matching on other words.
 | `yaml` | `checkov:`, `prettier-ignore`, `renovate:`, `yaml-language-server:`, `yamllint ` |
 | `bash`, `sh`, `zsh`, `fish`, `powershell` | `shellcheck `, `shfmt:` |
 
-Unswell's own `unswell-` comments are [source suppressions](suppressions.md).
-They are recorded with the reason `suppression-directive`.
+Unswell's own `unswell-` comments are [source suppressions](suppressions.md),
+recorded with the reason `suppression-directive`.
 
 ## Programs in shell literals
 
 In Bash, POSIX shell, Zsh, Fish and PowerShell, a quoted string, heredoc or
 here-string often holds a program for another interpreter, such as a jq filter
-or a Python heredoc. Such a literal is excluded as a whole with the reason
-`embedded-program`. Content that starts with a shebang is a program. Other
+or a Python heredoc. Such a literal is excluded as a whole (reason
+`embedded-program`). Content that starts with a shebang is a program. Other
 content is a program when it has at least three nonblank lines and at least
 three in five of them look like code.
 
@@ -223,32 +223,32 @@ A line looks like code in these cases:
 A line that ends with a period, question mark or exclamation mark never counts
 as code.
 
-The test reads lines; it does not parse the program. It can keep a short or
+The test reads lines; it does not parse the program. So it can keep a short or
 sentence-shaped program, and it can drop a message whose lines look like code.
 A configured exception or a disabled string context decides before the test
 and keeps its own reason. Other grammars do not run the test; select their
 embedded data with an [exception](extraction-policy.md#literal-data). An
-excluded literal is not decoded, so an unsupported escape inside it is not an
-error.
+excluded literal is left undecoded, so an unsupported escape inside it causes
+no error.
 
 ## Alpha limits
 
-Each grammar parse has a time bound of five seconds plus half a second per
-KiB of source. A large file under load therefore does not fail as a parse
+Each grammar parse has a time bound: five seconds plus half a second per
+KiB of source. Under load, a large file therefore does not fail as a parse
 timeout, and a runaway parse still stops. The C# grammar is the slowest:
 about two seconds for a 19 KB file on an idle machine.
 
 The parser uses a [pinned fork of gotreesitter 0.52.0](../research/parsers/markdown-nested-lists.md)
-with a fix for repeated Markdown block closes. An owned Bash grammar instance preserves
-the grammar's empty-value token before whitespace, allowing commands such as
-`! A=x B= command` to parse. This also applies to the shared Bash subset used for
-POSIX shell and Zsh. The adapter retains substitutions, source ranges, and parser
+with a fix for repeated Markdown block closes. For Bash, an owned grammar instance
+preserves the grammar's empty-value token before whitespace, allowing commands such
+as `! A=x B= command` to parse. This also applies to the shared Bash subset (used for
+POSIX shell and Zsh). The adapter retains substitutions, source ranges, and parser
 error checks; it does not execute shell code or modify gotreesitter's global
 grammar. See the [parser comparison](../research/parsers/bash-empty-values.md).
 
 Grammar errors, partial parses and
-unsupported string escapes produce incomplete analysis and CLI exit code 2.
-This is not a substitute for a compiler or a language-specific linter.
+unsupported string escapes produce incomplete analysis and CLI exit code 2;
+this is not a substitute for a compiler or a language-specific linter.
 
 Markdown and MDX degrade by block. When the inline grammar rejects one block, or
 the block grammar rejects a run of lines, that part is excluded with the reason
@@ -287,38 +287,38 @@ errors of the file.
 
 The inline grammar can also accept a block and drop a code span that holds a
 `<`, as in ``Use `<total target-rule diagnostics>` here.`` It gives no error.
-The rules then read the words of the span as prose, and the grammar can take
+Then the rules read the words of the span as prose, and the grammar can take
 the text between two such spans for code. The extractor parses such a block
-again with the bracket masked for the grammar. It uses the new reading only
-when the grammar returns a code span at the bytes of each span that CommonMark
-pairs. Otherwise the first reading stays. The extractor does not parse a block
-again when the grammar reads its spans.
+again with the bracket masked for the grammar; it does not parse a block again
+when the grammar reads its spans. It uses the new reading only when the grammar
+returns a code span at the bytes of each span that CommonMark pairs; otherwise
+the first reading stays.
 
-An unfinished tag has the same reading in a block that the grammar accepts.
-There the grammar reads `<ins data="x"` as text, so the extractor applies the
-rule above to such a block too. It excludes the tag only when the grammar then
-returns an HTML tag at its bytes and reads the rest of the block as before. A
-comparison such as `n <m and k=2` has no quoted value and stays prose.
+In a block that the grammar accepts, an unfinished tag has the same reading.
+There the grammar reads `<ins data="x"` as text; the extractor therefore applies
+the rule above to such a block too. It excludes the tag only when the grammar then
+returns an HTML tag at its bytes and reads the rest of the block as before. With
+no quoted value, a comparison such as `n <m and k=2` stays prose.
 
-A lone `|` after a Markdown table ends the table. Following prose retains its
-paragraph or list-item context, including inside quoted blocks. The scanner
+After a Markdown table, a lone `|` ends the table, and following prose retains
+its paragraph or list-item context (including inside quoted blocks). The scanner
 adapter handles this boundary without changing source bytes. Rows with two or
 more pipes still support empty cells. A table that the grammar still builds
 with an orphaned delimiter is excluded as an `unparsed` run; see the [boundary investigation](../research/parsers/markdown-lone-pipe.md).
 
 There is no dedicated Zsh grammar in this backend. Zsh uses the Bash grammar;
-extended Zsh syntax can fail explicitly. Bash also has upstream parsing limits,
-including some inline regular expressions and mixed quoted patterns. Our shell
+extended Zsh syntax can fail explicitly. Bash also has upstream parsing limits
+(including some inline regular expressions and mixed quoted patterns). Our shell
 scripts use named regex variables and explicit version comparisons to avoid those
 forms. Fish receives a synthetic final newline when one is absent; this contributes
-no prose and does not change reported coordinates.
+no prose and leaves reported coordinates unchanged.
 
 C# raw strings support delimiter widths and closing-delimiter indentation.
 The pinned grammar rejects some valid escaped-brace forms in ordinary interpolated
-strings, such as `$"Read {{literal}}."`. Such input fails explicitly. Regular
+strings (such as `$"Read {{literal}}."`), and such input fails explicitly. Regular
 interpolations and raw interpolations use protected expression boundaries.
 
-Extraction reads individual literal syntax. It does not evaluate concatenation,
+Extraction reads individual literal syntax: it does not evaluate concatenation,
 formatting calls, runtime values or unquoted shell arguments. JSX text nodes are
 not yet a prose context; quoted JSX attributes are supported. Standard escapes,
 Unicode scalar escapes and supported surrogate pairs are decoded. Python named
